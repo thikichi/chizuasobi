@@ -56,11 +56,9 @@
       </div>
     </div>
   </header> 
-  <div id="MainVisual" class="mainvisual mb-xs-50" style="background-color: gray">
+  <div id="MainVisual" class="mainvisual mb-xs-100" style="background-color: gray">
     <div class="mainvisual-inner">
       <ul class="slider-for">
-        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1.jpg"></li>
-        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2.jpg"></li>
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3.jpg"></li>
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4.jpg"></li>
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5.jpg"></li>
@@ -69,19 +67,76 @@
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3.jpg"></li>
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4.jpg"></li>
         <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1.jpg"></li>
+        <li><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2.jpg"></li>
       </ul>
       <div class="slider-nav-wrapper">
         <ul class="slider-nav">
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4-mini.jpg"></li>
-          <li class="slider-nav-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5-mini.jpg"></li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3-mini.jpg">
+            </a>
+            <span class="slider-nav-text">東京駅</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4-mini.jpg">
+            </a>
+            <span class="slider-nav-text">日光東照宮</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5-mini.jpg">
+            </a>
+            <span class="slider-nav-text">レインボー<br>ブリッジ</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1-mini.jpg">
+            </a>
+            <span class="slider-nav-text">東京タワー</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2-mini.jpg">
+            </a>
+            <span class="slider-nav-text">姫路城</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-3-mini.jpg">
+            </a>
+            <span class="slider-nav-text">東京駅</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-4-mini.jpg">
+            </a>
+            <span class="slider-nav-text">日光東照宮</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-5-mini.jpg">
+            </a>
+            <span class="slider-nav-text">レインボー<br>ブリッジ</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-1-mini.jpg">
+            </a>
+            <span class="slider-nav-text">東京タワー</span>
+          </li>
+          <li class="slider-nav-img">
+            <a href="#">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/mv-2-mini.jpg">
+            </a>
+            <span class="slider-nav-text">姫路城</span>
+          </li>
         </ul>
       </div>
     </div>
