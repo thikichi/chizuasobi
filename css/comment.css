@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+/* ----- COMMENT ---- */
+
+.avatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.comment-form {
+  margin: 15px 0;
+}
+
+.comment-notes-after {
+  margin-top: 10px;
+}
+

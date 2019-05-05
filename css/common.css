@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+/* Fonts */
+/*--------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+
+.font-noto-serif-jp {
+  font-family: 'Noto Serif JP', serif;
+}
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSize5 { font-size: 24px; }
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSet5 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+}
+@media (max-width: 991px) {
+  .fontSet5 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 650px) {
+  .fontSet5 {
+    font-size: 16px;
+  }
+}
+@media (max-width: 575px) {
+  .fontSet5 {
+    font-size: 12px;
+  }
+}
+
+
+.slider-nav-img {
+  width: 140px;
+}
+
+
+/* モバイルファースト */
+/*@media (min-width: 576px) {*/
+/*@media (min-width: 768px) {*/
+/*@media (min-width: 992px) {*/
+@media (min-width: 1200px) {
+}
+/*デスクトップファースト */
+@media (max-width: 1199px) {
+/*@media (max-width: 991px) {*/
+/*@media (max-width: 767px) {*/
+/*@media (max-width: 575px) {*/
+}
+

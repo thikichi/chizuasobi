@@ -1,0 +1,145 @@
+/* overwrite */
+body {
+  padding-bottom: 50vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: 1140px !important;
+}
+
+.header {
+  width: 1150px !important;
+  margin-left: -570px !important;
+}
+
+.switch {
+  bottom: 16px !important;
+}
+.switch input {
+  -webkit-transform: translateY(-1px);
+      -ms-transform: translateY(-1px);
+          transform: translateY(-1px);
+}
+
+.row {
+  margin: 0 -5px !important;
+}
+
+.span3 {
+  box-sizing: border-box !important;
+  width: 25% !important;
+  margin-left: 0 !important;
+  padding: 0 5px !important;
+}
+
+.i-name,
+.i-code {
+  font-family: arial !important;
+  display: inline-block;
+  float: right;
+  overflow: hidden !important;
+  width: 91%;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap !important;
+  text-overflow: ellipsis !important;
+  color: #ccc !important;
+}
+.i-name::-moz-selection,
+.i-code::-moz-selection {
+  color: tomato !important;
+  background-color: #9beb22 !important;
+}
+.i-name::selection,
+.i-code::selection {
+  color: tomato !important;
+  background-color: #9beb22 !important;
+}
+
+/* append */
+.size {
+  position: absolute;
+  right: 115px;
+  bottom: 20px;
+  height: 20px;
+  margin: auto 0;
+}
+.size input {
+  margin-left: 5px;
+}
+
+.size-label {
+  cursor: pointer;
+}
+
+.size-number {
+  line-height: 1;
+  width: 3.5em;
+  padding: 5px;
+  text-align: right;
+  border: 1px solid #ccc;
+}
+
+.description {
+  margin-right: -10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fafafa;
+}
+.description + .description {
+  margin-top: 10px;
+}
+
+.description-caution {
+  color: orangered;
+}
+
+.description-headline {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 2;
+}
+
+.descripton-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.descripton-list > li + li {
+  margin-top: 10px;
+}
+
+.description-list-sub {
+  margin-top: 10px;
+  padding-left: 25px;
+  list-style-position: inside;
+}
+
+.description-pre {
+  display: inline-block;
+  margin: 5px 0;
+  padding: 10px 15px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: aliceblue;
+}
+
+.category {
+  font-size: 14px;
+  line-height: 1;
+  display: inline-block;
+  width: 100%;
+  margin: 30px 5px 10px;
+  padding-bottom: 10px;
+  color: #ccc;
+  border-bottom: 1px solid #ddd;
+}
+.category::before, .category::after {
+  display: table;
+  clear: both;
+  content: '';
+}

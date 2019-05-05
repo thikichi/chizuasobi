@@ -1,0 +1,273 @@
+/* form113 */
+/*--------------------------------------------------*/
+.form113-text {
+  max-width: 700px;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+.mw_wp_form_input .form113-text-confirm {
+  display:none;
+}
+.mw_wp_form_confirm .form113-text-input {
+  display:none;
+}
+.form113-table {
+  width: 100%;
+  margin: 0 auto;
+  table-layout: fixed;
+  border: 1px solid #aaa;
+  background-color: white;
+}
+.form113-table th,
+.form113-table td {
+  font-size: 14px;
+  line-height: 1.3;
+  padding: 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #aaa;
+}
+.form113-table th {
+  font-weight: bold;
+  width: 20em;
+  background-color: #f2f2f2;
+}
+.form-required {
+  position: relative;
+}
+.form-required::before {
+  position: absolute;
+  content: '必須';
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block;
+  padding: 5px;
+  color: white;
+  background-color: tomato;
+  right: 0;
+}
+
+/* 入力系 */
+.form113-table input[type='text'],
+.form113-table input[type='email'],
+.form113-table input[type='tel'],
+.form113-table input[type='url'],
+.form113-table input[type='number'],
+.form113-table textarea,
+.form113-table select {
+  max-width: 100%;
+  padding: 5px;
+  -webkit-transition: outline-color 100ms;
+  transition: outline-color 100ms;
+  border: none;
+  border-radius: 0;
+  outline: 2px solid transparent;
+  background-color: #f2f2f2;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.form113-table input[type='text']:active,
+.form113-table input[type='email']:active,
+.form113-table input[type='tel']:active,
+.form113-table input[type='url']:active,
+.form113-table input[type='number']:active,
+.form113-table textarea:active,
+.form113-table select:active,
+.form113-table input[type='tel']:focus,
+.form113-table input[type='text']:focus,
+.form113-table input[type='email']:focus,
+.form113-table input[type='url']:focus,
+.form113-table input[type='number']:focus,
+.form113-table textarea:focus,
+.form113-table select:focus {
+  outline-color: #add6ff;
+}
+.form113-table textarea {
+  width: 100%;
+}
+/* ラジオ・チェックボックス */
+.form113-table .mwform-radio-field-text,
+.form113-table .mwform-checkbox-field-text {
+  vertical-align: middle;
+}
+/* セレクト */
+.form113-select {
+  position: relative;
+  display: inline-block;
+  background-color: #f2f2f2;
+}
+.mw_wp_form_confirm .form113-select {
+  background-color: transparent;
+}
+.form113-select::before {
+  line-height: 1;
+  position: absolute;
+  top: 0;
+  right: .5em;
+  bottom: 0;
+  height: 1em;
+  margin: auto 0;
+  content: '▼';
+  -webkit-transform: scaleY(.6);
+  -ms-transform: scaleY(.6);
+  transform: scaleY(.6);
+  opacity: .5;
+  color: black;
+}
+.mw_wp_form_confirm .form113-select::before {
+  display: none;
+}
+.form113-select select {
+  position: relative;
+  height: 2.2em;
+  padding-right: 2em;
+  background-color: transparent;
+}
+.form113-select select::-ms-expand {
+  display: none;
+}
+/* ファイル */
+.form113-file + .form113-file {
+  position: relative;
+  margin-top: 10px;
+}
+.form113-file .mwform-file-delete {
+  font-size: 18px;
+  vertical-align: middle;
+}
+/* ボタン */
+.form113-button {
+  font-size: 14px;
+  line-height: 1;
+  letter-spacing: .1em;
+  border: none;
+}
+.form113-submit {
+  font-weight: bold;
+  padding: 15px 30px;
+  -webkit-transition: opacity 100ms;
+  transition: opacity 100ms;
+  color: white;
+  background-color: royalblue;
+}
+.form113-submit:hover {
+  opacity: .8;
+}
+.form113-back {
+/*  margin: 15px 30px;
+  text-decoration: underline;*/
+  font-weight: bold;
+  padding: 15px 30px;
+  -webkit-transition: opacity 100ms;
+  transition: opacity 100ms;
+  color: white;
+  background-color: gray;
+}
+.form113-back:hover {
+  opacity: .8;
+}
+/* 個人情報保護方針 */
+.form113-policy {
+  font-size: 13px;
+  line-height: 1.6;
+  overflow-y: auto;
+  height: 16em;
+  padding: 15px;
+  border: 1px solid #aaa;
+}
+.form113-policy h1,
+.form113-policy h2 {
+  font-weight: bold;
+}
+.form113-policy h1 {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #aaa;
+}
+.form113-policy h2 {
+  margin-top: 15px;
+  margin-left: -.5em;
+}
+/* エラー */
+.form113-table .error {
+  font-weight: bold;
+  margin-top: 5px;
+  color: red!important;
+}
+/* media query */
+@media (max-width: 991px) {
+  .form113-table,
+  .form113-table tbody,
+  .form113-table tr,
+  .form113-table th,
+  .form113-table td {
+    display: block;
+    width: 100%;
+  }
+  .form113-table input[type='range'] {
+    width: 100%;
+  }
+}
+@media (max-width: 575px) {
+  .form113-policy {
+    padding: 10px;
+  }
+  .form113-table input[type='tel'] {
+    width: 29%;
+  }
+}
+/* datepicker --------------------------------------*/
+.ui-widget {
+  font-size: 14px !important;
+}
+.ui-datepicker .ui-datepicker-header {
+  font-weight: normal !important;
+  background: #f2f2f2 !important;
+}
+.ui-datepicker .ui-datepicker-title {
+  margin: 0 2em !important;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+  width: 40% !important;
+  margin: 0 5px !important;
+  background: white !important;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+  top: 3px !important;
+}
+.ui-datepicker .ui-datepicker-prev {
+  left: 3px !important;
+}
+.ui-datepicker .ui-datepicker-next {
+  right: 3px !important;
+}
+.ui-datepicker .ui-datepicker-prev-hover {
+  left: 3px !important;
+}
+.ui-datepicker .ui-datepicker-next-hover {
+  right: 3px !important;
+}
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  border-color: #aaa !important;
+  background: #f2f2f2 !important;
+}
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+  border-color: transparent !important;
+}
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {
+  top: 3px !important;
+  border-color: #aaa !important;
+  background: #eee !important;
+}

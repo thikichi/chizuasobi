@@ -1,0 +1,235 @@
+@charset "utf-8";
+/*
+/////////////////////////////////////
+blog.css
+ブログ
+/////////////////////////////////////
+*/
+
+/* ----- COMMENT ---- */
+
+
+/* 小見出し/コメント */
+
+/* テキストの基本スタイル */
+.post-content p, .post-content  li, .post-content  h1, .post-content  h2, .post-content  h3, .post-content  h4, .post-content  h5,.post-content h6 {
+/*	font-size: 117%;
+	line-height: 24px;*/
+}
+.post-content h1 {
+	font-size: 2.0rem;
+	margin: 0px;
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+.post-content h2 {
+	font-size: 1.8rem;
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+.post-content h3 {
+	font-size: 1.6rem;
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+.post-content h4 {
+	border-bottom: 1px solid #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+.post-content h5 {
+	border-bottom: 1px dashed #CCC;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+.post-content h6 {
+	border-left: 3px solid #CCC;
+	padding-left: 5px;
+	margin-bottom: 10px;
+	padding-bottom: 5px;
+}
+
+/* 太字 */
+.post-content strong { font-weight: bold; }
+
+/* イタリック */
+.post-content em { font-style: italic; }
+ 
+/* イメージ画像 */
+.post-content .aligncenter {
+    display: block;
+    margin: 0 auto;
+}
+.post-content .alignright {
+	float: right;
+	margin: 0.5em 0 0.5em 1em;
+}
+.post-content .alignleft {
+	float: left;
+	margin: 0.5em 1em 0.5em 0;
+}
+ 
+.post-content img[class*="wp-image-"],
+.post-content img[class*="attachment-"] {
+    height: auto;
+    max-width: 100%;
+}
+ 
+/* clearfix */
+.post-content .clearfix {
+    overflow: hidden;
+    zoom: 1;
+}
+.post-content .clearfix:after {
+    content: ""
+    display: block;
+    clear: both;
+}
+/* 画像キャプション */
+.post-content .wp-caption-text {
+	text-align: center;
+}
+
+/* 引用 */
+.post-content blockquote{
+	background-color:#ddd;
+	padding:3em 1em;
+	position:relative;
+}
+.post-content blockquote:before{
+	content:"“";
+	font-size:600%;
+	line-height:1em;
+	font-family:"ＭＳ Ｐゴシック",sans-serif;
+	color:#999;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.post-content blockquote:after{
+	content:"”";
+	font-size:600%;
+	line-height:0em;
+	font-family:"ＭＳ Ｐゴシック",sans-serif;
+	color:#999;
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+
+/* リストタグ標準 */
+.post-content li {
+	list-style-type: inherit;
+}
+.post-content ul {
+	list-style-type: disc;
+}
+.post-content ol {
+	list-style-type: decimal;
+}
+.post-content ul li, .post-content ol li {
+	list-style-position: inside;
+	margin-bottom: 3px;
+}
+
+/* テーブルのスタイル */
+.post-content table {
+	border-top: 1px solid #CCC;
+	border-left: 1px solid #CCC;
+	width: 100%;
+}
+.post-content table th {
+	background-color: #EEE;
+}
+.post-content table th, .post-content table td {
+	border-bottom: 1px solid #CCC;
+	border-right: 1px solid #CCC;
+	padding: 7px;
+}
+
+/* カテゴリーのリンク */
+.single-terms {
+  font-size: 12px;
+  padding: 3px 15px;
+  text-align: center;
+  color: white;
+  border-radius: 4px;
+  margin-right: 3px;
+  background-color: #777;
+}
+
+
+
+
+/*--------------------------------------------------*/
+/* コメントのスタイル */
+/*--------------------------------------------------*/
+
+.comments ol li {
+  /*list-style-position: outside;*/
+  list-style-type: none;
+}
+.comments-title {
+  text-align: center;
+  font-size: 20px;
+}
+.comments-list li {
+  border: 1px solid #CCC;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.comments-list li li {
+  margin: 15px;
+  border: 1px dashed #CCC;
+}
+.comments-list li li li {
+  border: 1px dashed #CCC;
+  margin-bottom: 15px;
+  margin: 5px;
+  padding: 5px;
+}
+.comments-list .vcard {
+  background-color: #EFEFEF;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+.comments #reply-title {
+  text-align: center;
+  font-size: 20px;
+  margin: 50px 0 30px 0;
+}
+.comments #reply-title::before {
+  content: ' -';
+}
+.comments #reply-title::after {
+  content: '- ';
+}
+.comments #comment {
+  width: 100%;
+}
+.comments input[name="submit"] {
+  margin: 15px 0 30px 0;
+  padding: 5px 30px;
+  font-size: 16px;
+  background-color: #333;
+  color: #FFF;
+}
+.comments .form-submit {
+  text-align: center;
+}
+.comments label[for="comment"] {
+  font-size: 18px;
+}
+.comment-form-author,
+.comment-form-email,
+.comment-form-url {
+  margin-top: 10px;
+}
+.comment-form-author input,
+.comment-form-email  input,
+.comment-form-url    input {
+  width: 100%;
+}

@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.notfound {
+  border: 1px solid #aaa;
+  padding: 50px;
+  text-align: center;
+}
