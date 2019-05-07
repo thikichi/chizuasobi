@@ -160,6 +160,13 @@
           {
             breakpoint: 767,
             settings: {
+              slidesToShow: 3,
+              centerMode: true,
+            }
+          },
+          {
+            breakpoint: 575,
+            settings: {
               slidesToShow: 1,
               centerMode: true,
             }
@@ -183,7 +190,7 @@
           {
             breakpoint: 767,
             settings: {
-              slidesToShow: 2,
+              slidesToShow: 3,
               centerMode: true,
             }
           },

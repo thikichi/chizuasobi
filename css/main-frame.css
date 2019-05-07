@@ -654,29 +654,14 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   bottom: -60px;
   margin: auto;
 }
-@media (max-width: 991px) {
-  .slider-nav-wrapper {
-    width: 600px;
-  }
-}
-@media (max-width: 767px) {
-  .slider-nav-wrapper {
-    width: 450px;
-  }
-}
-@media (max-width: 575px) {
-  .slider-nav-wrapper {
-    width: 310px;
-  }
-}
+
 .slider-nav {
 }
 .slider-nav-img {
-  height: 100px;
+/*  height: 100px;*/
   overflow: hidden;
 }
-.slider-nav-img > img {
-  width: 140px;
+.slider-nav-img img {
   margin: 0 7px;
 }
 
@@ -699,7 +684,6 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 .slider-nav .slick-slide.slick-current {}
 .slider-nav .slider-nav-text {
   display: none;
-  /*display: block;*/
   width: 100%;
   position: absolute;
   top: 40.0%;
@@ -715,7 +699,27 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 .slider-nav .slick-slide:hover .slider-nav-text {
   display: block;
 }
-
+@media (max-width: 991px) {
+  .slider-nav-wrapper {
+    width: 600px;
+  }
+}
+@media (max-width: 767px) {
+  .slider-nav-wrapper {
+    width: 450px;
+  }
+  .slider-nav-img img {
+    width: 100px;
+  }
+  .slider-nav .slider-nav-text {
+    font-size: 16px;
+  }
+}
+@media (max-width: 575px) {
+  .slider-nav-wrapper {
+    width: 310px;
+  }
+}
 
 /* モバイルファースト */
 /*@media (min-width: 576px) {*/
