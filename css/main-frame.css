@@ -654,6 +654,21 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   bottom: -60px;
   margin: auto;
 }
+@media (max-width: 991px) {
+  .slider-nav-wrapper {
+    width: 600px;
+  }
+}
+@media (max-width: 767px) {
+  .slider-nav-wrapper {
+    width: 450px;
+  }
+}
+@media (max-width: 575px) {
+  .slider-nav-wrapper {
+    width: 310px;
+  }
+}
 .slider-nav {
 }
 .slider-nav-img {
@@ -714,3 +729,4 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 /*@media (max-width: 767px) {*/
 /*@media (max-width: 575px) {*/
 }
+

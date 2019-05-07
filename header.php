@@ -149,6 +149,22 @@
         slidesToScroll: 1,
         centerMode: true,
         focusOnSelect: true,
+        responsive: [
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 3,
+              centerMode: false,
+            }
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 1,
+              centerMode: true,
+            }
+          }
+        ],
         asNavFor: '.slider-nav'
       });
       $('.slider-nav').slick({
@@ -156,6 +172,29 @@
         slidesToScroll: 1,
         centerMode: true,
         focusOnSelect: true,
+        responsive: [
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 3,
+              centerMode: true,
+            }
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              centerMode: true,
+            }
+          },
+          {
+            breakpoint: 575,
+            settings: {
+              slidesToShow: 1,
+              centerMode: true,
+            }
+          }
+        ],
         asNavFor: '.slider-for'
       });
     });
