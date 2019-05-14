@@ -39,10 +39,10 @@ function wp_enqueue_scripts_js(){
   /*
    * Google Map を使う場合は下記のコメントアウトを外す
   */
-  // wp_enqueue_script(
-  //   'google-map',
-  //   'https://maps.googleapis.com/maps/api/js?key=AIzaSyDb-v5UHEHc4LED8Hm8VEylEowICcip5ag'
-  // );
+  wp_enqueue_script(
+    'google-map',
+    'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjYTWYNKXOkeVC6fofHCDHEJVhiTIVTIE'
+  );
 
   /*
    * main-frame.js
