@@ -717,7 +717,15 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 }
 @media (max-width: 575px) {
   .slider-nav-wrapper {
-    width: 310px;
+    width: 90%;
+  }
+  .slider-nav .slider-nav-text {
+    font-size: 12px;
+  }
+}
+@media (max-width: 400px) {
+  .slider-nav-wrapper {
+    width: 100%;
   }
 }
 

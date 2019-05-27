@@ -1,13 +1,10 @@
 <?php get_header(); ?>
 
-
-<div id="MapMain">
+<div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
-    <div class="container">
-      <h2 class="ttl-1"><span class="ttl-1-inner">Google Mapで検索</span></h2>
-      <div id="mapArea" class="gmap-main bg-test mt-xs-5">
-        
-      </div>
+    <div class="container"> 
+      <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">Google Mapで検索</span></h2>
+      <div id="mapArea" class="gmap-main bg-test mt-xs-5"></div>
       <script type="text/javascript" >
       // ロードしたタイミングで実行
       window.onload = function () {
@@ -85,9 +82,573 @@
       }
       </script>
     </div>
-
   </div>
 </div>
+
+<section class="mt-xs-50">
+  <div class="container">
+    <h2 class="ttl-2">
+      <i class="fas fa-map-marker-alt"></i> 
+      ランドマーク一覧
+      <span class="ttl-2-small">検索条件 : 城 / 日本の城 / 史跡</span>
+    </h2>
+    <ul class="row mt-xs-15">
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <img src="https://placehold.jp/750x750.png" alt="">
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  大阪城 
+                  <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+                </h3>
+                <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+                <ul class="taglist-1 cf mt-xs-10">
+                  <li><a href="#">城・城址</a></li>
+                  <li><a href="#">三大名城</a></li>
+                  <li><a href="#">日本100名城</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="box-1-bottom">
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <img src="https://placehold.jp/750x750.png" alt="">
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  大阪城 
+                  <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+                </h3>
+                <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+                <ul class="taglist-1 cf mt-xs-10">
+                  <li><a href="#">城・城址</a></li>
+                  <li><a href="#">三大名城</a></li>
+                  <li><a href="#">日本100名城</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="box-1-bottom">
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <img src="https://placehold.jp/750x750.png" alt="">
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  大阪城 
+                  <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+                </h3>
+                <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+                <ul class="taglist-1 cf mt-xs-10">
+                  <li><a href="#">城・城址</a></li>
+                  <li><a href="#">三大名城</a></li>
+                  <li><a href="#">日本100名城</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="box-1-bottom">
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <img src="https://placehold.jp/750x750.png" alt="">
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  大阪城 
+                  <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+                </h3>
+                <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+                <ul class="taglist-1 cf mt-xs-10">
+                  <li><a href="#">城・城址</a></li>
+                  <li><a href="#">三大名城</a></li>
+                  <li><a href="#">日本100名城</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="box-1-bottom">
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="mt-xs-50 bg-img-1 pb-xs-50 bt-s pt-xs-50">
+  <div class="container">
+    <h2 class="ttl-3">
+      <span class="ttl-3-sub">今月の特集テーマ</span>
+      <span class="ttl-3-main mml-char">『2018年NHK大河ドラマ「西郷どん」ゆかりの地を行く』</span>
+    </h2>
+    <div id="mapArea2" class="gmap-main mt-xs-15" style="height:500px;"></div>
+    <p class="text-normal mt-xs-30">
+      薩摩の貧しい下級藩士の家の長男として生まれた西郷隆盛。家のため、お金のために役人の元で働き始めます。しかし、情深い西郷は困った人のために身を削り自分の金や食べ物も与えてしまいます。そんな彼に家族たちも困り果てますが、本人はお構いなし。<br>
+      そんな他人に優しい西郷に、藩主の島津斉彬が目を留めます。西郷自身も「民の幸せこそが国を富ませ強くする」という信念を持つ島津に惹かれます。島津から預けられた密命を受けて、東から西まで駆け回ります。だんだんと知名度を上げることとなり、重要人物と認識されるまでになります。 [...記事の詳細へ]
+    </p>
+    <ul class="row mt-xs-30">
+      <li class="col-md-4 matchHeight">
+        <div class="box-2">
+          <h3 class="box-2-subttl">
+            <span class="box-2-subttl-num">1</span>
+            <span class="box-2-subttl-main">西郷隆盛誕生地碑</span>
+          </h3>
+          <div class="box-2-main">
+            <div class="box-2-main-inner">
+              <div class="box-2-main-thumb">
+                <img src="https://placehold.jp/100x100.png" alt="">
+              </div>
+              <div class="box-2-main-text">
+                <p>
+                西郷吉之助は、鹿児島城(鶴丸城)<br>
+                下の下級武士が住む加治屋町にて生まれました。
+                西郷隆盛の妹・西郷琴などの兄弟もここで生まれました。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="col-md-4 matchHeight">
+        <div class="box-2">
+          <h3 class="box-2-subttl">
+            <span class="box-2-subttl-num">2</span>
+            <span class="box-2-subttl-main">西郷隆盛誕生地碑</span>
+          </h3>
+          <div class="box-2-main">
+            <div class="box-2-main-inner">
+              <div class="box-2-main-thumb">
+                <img src="https://placehold.jp/100x100.png" alt="">
+              </div>
+              <div class="box-2-main-text">
+                <p>
+                西郷吉之助は、鹿児島城(鶴丸城)<br>
+                下の下級武士が住む加治屋町にて生まれました。
+                西郷隆盛の妹・西郷琴などの兄弟もここで生まれました。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li class="col-md-4 matchHeight">
+        <div class="box-2">
+          <h3 class="box-2-subttl">
+            <span class="box-2-subttl-num">3</span>
+            <span class="box-2-subttl-main">西郷隆盛誕生地碑</span>
+          </h3>
+          <div class="box-2-main">
+            <div class="box-2-main-inner">
+              <div class="box-2-main-thumb">
+                <img src="https://placehold.jp/100x100.png" alt="">
+              </div>
+              <div class="box-2-main-text">
+                <p>
+                西郷吉之助は、鹿児島城(鶴丸城)<br>
+                下の下級武士が住む加治屋町にて生まれました。
+                西郷隆盛の妹・西郷琴などの兄弟もここで生まれました。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+
+<section class="mt-xs-50">
+  <nav>
+    <div class="container">
+      <ul class="tab-1 cf">
+        <li class="_active">
+          <a href="#">
+            <span>
+              注目の記事
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span>
+              ジャンル一覧
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span>
+              新着情報
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="tabcontent-1">
+    <div class="tabcontent-1-inner">
+      <div class="container">
+        <div class="tabcontent-1-main">
+
+<ul class="row">
+  <li class="col-xs-12">
+
+    <div class="box-1 box-1-3col cf">
+      <div class="box-1-inner cf">
+        <div class="box-1-thumb matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-map matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-main matchHeight">
+          <div class="box-1-text">
+            <h3 class="subttl-1">
+              大阪城 
+              <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+            </h3>
+            <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="box-1-btn matchHeight">
+          <div class="box-1-btnTop">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+              </span>
+            </a>
+          </div>
+          <div class="box-1-btnBottom">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="box-1-bottom">
+        <ul class="taglist-1 cf mt-xs-10">
+          <li><a href="#">城・城址</a></li>
+          <li><a href="#">三大名城</a></li>
+          <li><a href="#">日本100名城</a></li>
+        </ul>
+      </div>
+    </div><!-- .box-1 -->
+
+    <div class="box-1 box-1-3col cf mt-xs-15">
+      <div class="box-1-inner cf">
+        <div class="box-1-thumb matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-map matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-main matchHeight">
+          <div class="box-1-text">
+            <h3 class="subttl-1">
+              大阪城 
+              <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+            </h3>
+            <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="box-1-btn matchHeight">
+          <div class="box-1-btnTop">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+              </span>
+            </a>
+          </div>
+          <div class="box-1-btnBottom">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="box-1-bottom">
+        <ul class="taglist-1 cf mt-xs-10">
+          <li><a href="#">城・城址</a></li>
+          <li><a href="#">三大名城</a></li>
+          <li><a href="#">日本100名城</a></li>
+        </ul>
+      </div>
+    </div><!-- .box-1 -->
+
+    <div class="box-1 box-1-3col cf mt-xs-15">
+      <div class="box-1-inner cf">
+        <div class="box-1-thumb matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-map matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-main matchHeight">
+          <div class="box-1-text">
+            <h3 class="subttl-1">
+              大阪城 
+              <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+            </h3>
+            <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="box-1-btn matchHeight">
+          <div class="box-1-btnTop">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+              </span>
+            </a>
+          </div>
+          <div class="box-1-btnBottom">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="box-1-bottom">
+        <ul class="taglist-1 cf mt-xs-10">
+          <li><a href="#">城・城址</a></li>
+          <li><a href="#">三大名城</a></li>
+          <li><a href="#">日本100名城</a></li>
+        </ul>
+      </div>
+    </div><!-- .box-1 -->
+
+    <div class="box-1 box-1-3col cf mt-xs-15">
+      <div class="box-1-inner cf">
+        <div class="box-1-thumb matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-map matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-main matchHeight">
+          <div class="box-1-text">
+            <h3 class="subttl-1">
+              大阪城 
+              <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+            </h3>
+            <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="box-1-btn matchHeight">
+          <div class="box-1-btnTop">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+              </span>
+            </a>
+          </div>
+          <div class="box-1-btnBottom">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="box-1-bottom">
+        <ul class="taglist-1 cf mt-xs-10">
+          <li><a href="#">城・城址</a></li>
+          <li><a href="#">三大名城</a></li>
+          <li><a href="#">日本100名城</a></li>
+        </ul>
+      </div>
+    </div><!-- .box-1 -->
+
+    <div class="box-1 box-1-3col cf mt-xs-15">
+      <div class="box-1-inner cf">
+        <div class="box-1-thumb matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-map matchHeight">
+          <img src="https://placehold.jp/750x750.png" alt="">
+        </div>
+        <div class="box-1-main matchHeight">
+          <div class="box-1-text">
+            <h3 class="subttl-1">
+              大阪城 
+              <span class="subttl-1-mini">投稿日時 2018.10.14</span>
+            </h3>
+            <p class="mt-xs-5">大阪府大阪市中央区大阪城1-1</p>
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="box-1-btn matchHeight">
+          <div class="box-1-btnTop">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+              </span>
+            </a>
+          </div>
+          <div class="box-1-btnBottom">
+            <a href="#">
+              <span class="link-color-1">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="box-1-bottom">
+        <ul class="taglist-1 cf mt-xs-10">
+          <li><a href="#">城・城址</a></li>
+          <li><a href="#">三大名城</a></li>
+          <li><a href="#">日本100名城</a></li>
+        </ul>
+      </div>
+    </div><!-- .box-1 -->
+
+  </li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <!-- post001 -->

@@ -47,10 +47,10 @@ function wp_enqueue_scripts_css() {
    * font-awesome
   */
   // ver 5.0.13
-  // wp_enqueue_style(
-  //   'font-awesome',
-  //   get_stylesheet_directory_uri() . '/fonts/font-awesome-5.0.13/css/fontawesome-all.min.css'
-  // );
+  wp_enqueue_style(
+    'font-awesome',
+    get_stylesheet_directory_uri() . '/fonts/font-awesome-5.0.13/css/fontawesome-all.min.css'
+  );
 
   /*
    * slick-theme
