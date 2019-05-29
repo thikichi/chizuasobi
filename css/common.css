@@ -520,6 +520,7 @@
   }
 }
 
+/* btn-1 */
 
 .btn-1 {
   text-align: center;
@@ -538,7 +539,14 @@
   max-width: 350px;
 }
 
+/* bg-green */
+.bg-green {
+  background-color: #6ea364;
+}
 
+.color-white {
+  color: #FFF;
+}
 
 
 /* モバイルファースト */

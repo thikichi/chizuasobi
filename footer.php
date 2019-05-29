@@ -7,6 +7,11 @@
 
   <?php /* この下にフッターを記述 */ ?>
 
+<footer id="Footer" class="bg-green shadow-top" style="box-shadow:0 3px 4px 0 rgba(0,0,0,0.2) inset;">
+  <div class="container">
+    <p class="text-24 mt-xs-20 mb-xs-20 color-white font-noto-serif-jp align-center">© 2018 T.Hikichi</p>
+  </div>
+</footer>
 
 
   <?php /* この下にページトップを記述 */ ?>
@@ -53,16 +58,6 @@
   <?php else: ?>
 
   <?php endif; ?>
-
-
-
-  <p class="copyright align-center">
-  <?php
-  $fromYear = 2018;
-  $thisYear = (int)date('Y');
-  echo $fromYear . (($fromYear != $thisYear) ? '-' . $thisYear : '');?> ウェブサイト名
-  ?>
-  </p>
 
   <?php
   /* テンプレート名を最下部に出力 */
