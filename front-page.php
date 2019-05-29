@@ -368,7 +368,7 @@
 <section class="mt-xs-50">
   <nav>
     <div class="container">
-      <ul class="tab-1 cf">
+      <ul class="tab-1 cf tab-switch">
         <li class="_active">
           <a href="#">
             <span>
