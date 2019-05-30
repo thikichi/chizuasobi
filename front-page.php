@@ -369,21 +369,21 @@
   <nav>
     <div class="container">
       <ul class="tab-1 cf tab-switch">
-        <li class="_active">
+        <li class="tab-switch-nav _active">
           <a href="#">
             <span>
               注目の記事
             </span>
           </a>
         </li>
-        <li>
+        <li class="tab-switch-nav">
           <a href="#">
             <span>
               ジャンル一覧
             </span>
           </a>
         </li>
-        <li>
+        <li class="tab-switch-nav">
           <a href="#">
             <span>
               新着情報
@@ -394,11 +394,11 @@
     </div>
   </nav>
   <div class="tabcontent-1">
-    <div class="tabcontent-1-inner">
+    <div class="tabcontent-1-inner pb-xs-70">
       <div class="container">
-        <div class="tabcontent-1-main">
+        <div class="tabcontent-1-main pt-xs-30 pb-xs-50">
           <ul class="row">
-            <li class="col-xs-12">
+            <li class="col-xs-12 tab-switch-content">
               <div class="box-1 box-1-3col cf">
                 <div class="box-1-inner cf">
                   <div class="box-1-thumb matchHeight">
@@ -639,6 +639,8 @@
                 </div>
               </div><!-- .box-1 -->
             </li>
+            <li><div class="tab-switch-content">Content2</div></li>
+            <li><div class="tab-switch-content">Content3</div></li>
           </ul>
           <div class="btn-1">
             <a href="#">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
