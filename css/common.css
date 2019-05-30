@@ -548,6 +548,20 @@
   color: #FFF;
 }
 
+/* tab switch */
+.tab-switch-content {
+  opacity: 0;
+  height: 0;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      transition: all 0.5s;
+}
+.tab-switch-content._active {
+  height:100%;
+  opacity: 1;
+}
 
 /* モバイルファースト */
 /*@media (min-width: 576px) {*/
