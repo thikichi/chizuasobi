@@ -1,0 +1,29 @@
+@charset "UTF-8";
+// ===================================================================
+// サイトの基本設定
+// ===================================================================
+
+// 幅関係の設定 -------------------------------------------------------
+
+$width-base: 1200px; // 全体
+$width-main: 800px;  // メインエリアの幅
+$width-side: 360px;  // サイドバーの幅
+
+// フォンtの係の設定------------------------------------------------------
+
+$font-base: "Yu Gothic", Sans-Serif;
+
+// フォンtの係の設定------------------------------------------------------
+
+$breakpoints: (
+  xs: "only screen and (max-width: 320px)",
+  sm: "only screen and (max-width: 575px)",
+  md: "only screen and (max-width: 767px)",
+  lg: "only screen and (max-width: 991px)",
+  xl: "only screen and (max-width: 1199px)",
+);
+@mixin media($breakpoint) {
+  @media #{map-get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
