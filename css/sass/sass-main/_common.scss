@@ -275,45 +275,29 @@
   padding: 0 10px 10px 10px;
 }
 
-
-.box-1-btnTop {
+.box-1-btnTop, .box-1-btnBottom {
   border-left: 1px dotted #CCC;
   border-bottom: 1px dotted #CCC;
   height: 50%;
   > a {
-    .box-1-btnBottom {
-      > a {
-        display: table;
-        width: 100%; height: 100%;
-        > span {
-          display: table-cell;
-          height: 100%;
-          text-align: center;
-          vertical-align: middle;
-        }
-      }
+    display: table;
+    width: 100%; height: 100%;
+    > span {
+      display: table-cell;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
     }
   }
 }
-// .box-1-btnTop > a, .box-1-btnBottom > a {
-//   display: table;
-//   width: 100%; height: 100%;
-// }
-// .box-1-btnTop > a > span, .box-1-btnBottom > a > span {
-//   display: table-cell;
-//   height: 100%;
-//   text-align: center;
-//   vertical-align: middle;
-// }
+.box-1-btnTop:last-child, .box-1-btnBottom:last-child {
+  border-bottom:: none;
+}
 
 .box-1-btnBottom {
   border-left: 1px dotted #CCC;
   height: 50%;
 }
-
-
-
-
 
 .box-1-2col {
   @include media(xl) {
