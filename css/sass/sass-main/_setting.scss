@@ -13,17 +13,30 @@ $width-side: 360px;  // サイドバーの幅
 
 $font-base: "Yu Gothic", Sans-Serif;
 
-// フォンtの係の設定------------------------------------------------------
+$color-lightGray: #e1e1e1;
+$color-gray: #CCC;
+$color-black: #000;
+$color-red: #c04c41;
+$color-green: #6ea364;
+$color-overlay-normal: rgba(0, 0, 0, 0.0);
+$color-overlay-hovered: rgba(0, 0, 0, 0.7);
 
-$breakpoints: (
-  xs: "only screen and (max-width: 320px)",
+
+
+// フォントの係の設定------------------------------------------------------
+
+$maxBreakpoints: (
+  xs: "only screen and (max-width: 319px)",
   sm: "only screen and (max-width: 575px)",
   md: "only screen and (max-width: 767px)",
   lg: "only screen and (max-width: 991px)",
   xl: "only screen and (max-width: 1199px)",
 );
-@mixin media($breakpoint) {
-  @media #{map-get($breakpoints, $breakpoint)} {
-    @content;
-  }
-}
+
+$minBreakpoints: (
+  xs: "only screen and (min-width: 320px)",
+  sm: "only screen and (min-width: 576px)",
+  md: "only screen and (min-width: 768px)",
+  lg: "only screen and (min-width: 992px)",
+  xl: "only screen and (min-width: 1200px)",
+);

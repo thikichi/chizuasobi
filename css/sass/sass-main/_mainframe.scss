@@ -1,0 +1,318 @@
+@charset "utf-8";
+
+/* Fonts */
+/*--------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+.font-noto-serif-jp {
+  font-family: 'Noto Serif JP', serif;
+}
+.font-noto-sans-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  transform: rotate(10deg);
+}
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSize5 { font-size: 24px; }
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSet5 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+}
+@media (max-width: 991px) {
+  .fontSet5 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 650px) {
+  .fontSet5 {
+    font-size: 16px;
+  }
+}
+@media (max-width: 575px) {
+  .fontSet5 {
+    font-size: 12px;
+  }
+}
+
+
+.slider-nav-img {
+  width: 140px;
+}
+
+
+
+
+
+
+/* Taglist */
+/*--------------------------------------------------*/
+
+.taglist-1 > li {
+  float: left;
+  margin-right: 2px;
+  margin-bottom: 2px;
+}
+.taglist-1 > li > a {
+  display: block;
+  background-color: #6ea364;
+  color: #FFF;
+  padding: 2px 10px 1px 10px;
+  font-size: 13px;
+}
+
+
+.taglist-2 {
+  @include cf;
+}
+.taglist-2 > li {
+  @include taglist( 2px, 2px );
+}
+.taglist-2 > li > a {
+  @include taglist-item( $color-red, #FFF, 2px 10px 1px 10px, 13px );
+}
+
+
+/* BGColor */
+/*--------------------------------------------------*/
+
+.bg-green {
+  background-color: #6ea364;
+}
+.bg-test {
+  background-color: red;
+}
+
+/* BG Image */
+/*--------------------------------------------------*/
+
+.bg-img-1 {
+  position: relative;
+}
+.bg-img-1::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0; top: 0;
+  background-image: url(../images/common/bg-1.png);
+  z-index: -2;
+}
+.bg-img-1::after {
+  content: '';
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  left: 0; top: 0;
+  background-color: #FFF;
+  z-index: -1;
+}
+
+/* link-color-1 */
+/*--------------------------------------------------*/
+
+.link-color-1 {
+  color: #5a89f3;
+}
+
+/* text-normal */
+/*--------------------------------------------------*/
+
+.text-normal {
+  font-size: 14px;
+  color: #333;
+  line-height: 2.0;
+}
+
+/* Else */
+/*--------------------------------------------------*/
+
+.gmap-main {
+  background-color: #CCC;
+}
+/* マイナスマージンで文字の先頭を調整 */
+.mml-char {
+  margin-left: -0.5em;
+}
+.gmap-main {
+  height: 500px;
+}
+.gmap-main-wrapper {
+  height: 600px;
+}
+@media (max-width: 575px) {
+  .gmap-main {
+    height: 300px;
+  }
+  .gmap-main-wrapper {
+    height: 400px;
+  }
+}
+
+
+
+
+/* Border */
+/*--------------------------------------------------*/
+
+/* tab-1 */
+
+.tab-1 {
+  margin: 0 50px;
+}
+.tab-1 > li {
+  float: left;
+  margin-right: 5px;
+}
+.tab-1 > li._active {
+  border-top: 4px solid #e1e1e1;
+  border-left: 4px solid #e1e1e1;
+  border-right: 4px solid #e1e1e1;
+  margin-bottom: -4px;
+}
+.tab-1 > li._active > a {
+  display: block;
+  border-top: 8px solid #f4f4f4;
+  border-left: 8px solid #f4f4f4;
+  border-right: 8px solid #f4f4f4;
+  margin-bottom: -8px;
+}
+.tab-1 > li._active > a > span {
+  display: block;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-top: 1px solid #e4e4e4;
+  border-left: 1px solid #e4e4e4;
+  border-right: 1px solid #e4e4e4;
+  margin-bottom: -5px;
+  background-color: #FFF;
+  position: relative;
+}
+.tab-1 > li._active > a > span::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -1px;
+  height: 1px; width: 100%;
+  background-color: #FFF;
+}
+
+.tab-1 > li:not(._active) {
+  margin-top: 7px;
+}
+.tab-1 > li:not(._active) > a {
+  display: block;
+}
+.tab-1 > li:not(._active) > a > span {
+  display: block;
+  padding: 5px 15px;
+  font-size: 16px;
+  background-color: #c04c41;
+  color: #FFF;
+}
+@media (max-width: 575px) {
+  .tab-1 > li._active > a > span {
+    font-size: 12px;
+    padding: 5px;
+    padding-bottom: 15px;
+  }
+  .tab-1 > li:not(._active) > a > span {
+    font-size: 12px;
+    padding: 5px
+  }
+  .tab-1 {
+    margin-left: 0px;
+  }
+  .tab-1 > li._active > a {
+      border-top: 4px solid #f4f4f4;
+      border-left: 4px solid #f4f4f4;
+      border-right: 4px solid #f4f4f4;
+      margin-bottom: -10px;
+  }
+  .tab-1 > li {
+    margin-right: 1px;
+  }
+}
+
+/* tabcontent-1 */
+
+.tabcontent-1 {
+  margin-top: 0px;
+  border-top: 4px solid #e1e1e1;
+}
+.tabcontent-1-inner {
+  border-top: 8px solid #f4f4f4;
+  background-color: #f4f4f4;
+}
+.tabcontent-1-main {
+  background-color: #FFF;
+  border: 1px solid #e1e1e1;
+  margin-bottom: 10px;
+  padding: 30px;
+}
+@media (max-width: 575px) {
+  .tabcontent-1-main {
+    padding: 10px;
+  }
+}
+
+/* bg-green */
+.bg-green {
+  background-color: #6ea364;
+}
+
+.color-white {
+  color: #FFF;
+}
+
+/* tab switch */
+.tab-switch-content {
+  opacity: 0;
+  height: 0;
+      -webkit-transition: all 0.5s;
+      -moz-transition: all 0.5s;
+      -ms-transition: all 0.5s;
+      -o-transition: all 0.5s;
+      transition: all 0.5s;
+}
+.tab-switch-content._active {
+  height:100%;
+  opacity: 1;
+}
+
+/* モバイルファースト */
+/*@media (min-width: 576px) {*/
+/*@media (min-width: 768px) {*/
+/*@media (min-width: 992px) {*/
+@media (min-width: 1200px) {
+}
+/*デスクトップファースト */
+@media (max-width: 1199px) {
+/*@media (max-width: 991px) {*/
+/*@media (max-width: 767px) {*/
+/*@media (max-width: 575px) {*/
+}
+
+.switch-content {}
+
+/* SubVisual */
+/*--------------------------------------------------*/
+
+.subvisual {
+  height: 200px;
+  background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png);
+  background-position: center;
+  background-size: auto 100%;
+  margin-top: 85px;
+}
+
+
+
+
+

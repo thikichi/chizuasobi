@@ -4,8 +4,14 @@
 // メディアクエリ
 // ===================================================================
 
-@mixin media($breakpoint) {
-  @media #{map-get($breakpoints, $breakpoint)} {
+@mixin media-max($breakpoint) {
+  @media #{map-get( $maxBreakpoints , $breakpoint)} {
+    @content;
+  }
+}
+
+@mixin media-min($breakpoint) {
+  @media #{map-get( $minBreakpoints , $breakpoint)} {
     @content;
   }
 }
@@ -69,3 +75,160 @@
 @mixin fontSizeRem($size: 24, $base: 16) {
   font-size: ($size / $base) * 1rem;
 }
+
+// ===================================================================
+// クリアフィクス
+// ===================================================================
+
+@mixin cf {
+  &::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+}
+
+// ===================================================================
+// コンテナ定義
+// ===================================================================
+
+@mixin container( $width-xl: 1200px, $width-lg: 970px, $width-md: 750px ) {
+  margin-left: auto;  margin-right: auto;
+  padding-left: 15px; padding-right: 15px;
+  &::before, &::after { display: table; clear: both; content: ''; }
+  @include media-min(md) { width: $width-md; }
+  @include media-min(lg) { width: $width-lg; }
+  @include media-min(xl) { width: $width-xl; }
+}
+
+@mixin container-simple( $width: 1200px, $padding: 15px ) {
+  max-width: #{ $width + ( $padding * 2 ) };
+  padding-left: $padding; padding-right: $padding;
+  margin: auto;
+}
+
+@mixin container-fit( $width: 1200px ) {
+  max-width: $width;
+  margin: auto;
+}
+
+
+
+
+
+@mixin taglist( $mRight: 2px, $mBottom: 2px ) {
+  float: left;
+  margin-right: $mRight;
+  margin-bottom: $mBottom;
+}
+@mixin taglist-item( $bgColor: #CCC, $color: #FFF, $padding: 2px 10px 1px 10px, $fSize: 13px ) {
+  display: block;
+  background-color: $bgColor;
+  color: $color;
+  padding: $padding;
+  font-size: $fSize;
+}
+
+/*
+* タイトル等で両端にボーダーを指定する
+* タイトル部分を中央寄せにする場合はCenter寄せを指定したdivでラッピングする
+*/
+@mixin title-both-line( $padding: 30px, $borderWeight: 2px, $borderColor: #000, $top: 50%  ) {
+    display: inline-block;
+    position: relative;
+    &::before {
+      content: '';
+      height: $borderWeight;
+      width: 1000px;
+      background-color: $borderColor;
+      position: absolute;
+      top: $top;
+      right: calc(100% + #{$padding} );
+    }
+    &::after {
+      content: '';
+      height: $borderWeight;
+      width: 1000px;
+      background-color: $borderColor;
+      position: absolute;
+      top: $top;
+      left: calc(100% + #{$padding} );
+    }
+}
+
+/*
+* 適用するCSSのプロパティ
+* アニメーションの時間
+* 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値)
+* 変化がはじまるまでの時間を設定
+*/
+@mixin transition( $roperty: all, $duration: 0.25s, $timingFunction: linear, $delay: 0s ) {
+  -webkit-transition: $roperty $duration $delay $timingFunction;
+     -moz-transition: $roperty $duration $delay $timingFunction;
+      -ms-transition: $roperty $duration $delay $timingFunction;
+       -o-transition: $roperty $duration $delay $timingFunction;
+          transition: $roperty $duration $delay $timingFunction;
+}
+
+
+@mixin ellipsis-lines($line-number: 2, $content: '...',$line-height: 1, $right-space: 1em) {
+  position: relative;
+  overflow: hidden;
+  height: calc(#{$line-number + em } * #{$line-height});
+  padding-right: $right-space;
+  line-height: $line-height;
+  &:before {
+    content: $content;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: inline-block;
+    width: $right-space;
+  }
+  &:after {
+    content: "";
+    position: relative;
+    right: calc(#{$right-space} * -1);
+    float: right;
+    width: $right-space;
+    height: 100%;
+    margin-left:calc(#{$right-space} * -1);
+  }
+}
+
+
+@mixin button( $bgColor: #000, $textColor: #FFF, $fontSize: 14px, $fontWeight: bold, $padding: 10px 50px, $maxWidth: null, $display: inline-block, $isHover: false ) {
+  color: $textColor;
+  background-color: $bgColor;
+  padding: $padding;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  position: relative;
+  max-width: $maxWidth;
+  border: 1px solid $bgColor;
+  box-sizing:border-box;
+  display: $display;
+  @if($isHover){
+    &:hover {
+      border-color: $bgColor;
+      background-color: $textColor;
+      color: $bgColor;
+    }
+  }
+}
+@mixin button-line( $color: #000, $maxWidth: 270px ,$lineWeight: 1px, $padding: 10px 100px, $fontWeight: bold, $colorHover: #FFF, $isHover: true ) {
+  color: $color;
+  border: $lineWeight solid $color;
+  padding: $padding;
+  font-weight: $fontWeight;
+  max-width: $maxWidth;
+  position: relative;
+  @if($isHover){
+    &:hover {
+      background-color: $color;
+      color: $colorHover;
+    }
+  }
+}
+
+

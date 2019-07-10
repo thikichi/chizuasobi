@@ -9,6 +9,11 @@
 // 各Sassファイルのインポート
 // ===================================================================
 
+@import "../bourbon/_bourbon.scss";
+@import "../neat/_neat.scss";
 @import "_setting.scss";
 @import "_mixin.scss";
-@import "_common.scss";
+@import "_module.scss";
+@import "_mainframe.scss";
+@import "_frame.scss";
+@import "_parts.scss";

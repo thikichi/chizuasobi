@@ -18,6 +18,22 @@ jQuery(function($) {
     });
   });
 
+  // pc sp 要素移動
+  $(window).on('load resize', function() {
+    var winWidth = $(window).width();
+    if (winWidth < 768) {
+      $('.spmoveto').each(function(index, el) {
+        var moveToObj = $(this).data('spmoveto');
+        $('#' + moveToObj).append( $(this).children() );
+      });
+    } else {
+      $('.pcmoveto').each(function(index, el) {
+        var moveToObj = $(this).data('pcmoveto');
+        $('#' + moveToObj).append( $(this).children() );
+      });
+    }
+  });
+
 
 });
 

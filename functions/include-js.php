@@ -55,6 +55,16 @@ function wp_enqueue_scripts_js(){
     true
   );
 
+  /*
+   * jquery.offcanvas.js
+  */
+  wp_enqueue_script(
+    'jquery.offcanvas.js', 
+    get_stylesheet_directory_uri() . '/vendor/offcanvas/jquery.offcanvas.js', 
+    array('jquery'), 
+    false, 
+    true
+  );
 
   /*
    * slick.min.js
