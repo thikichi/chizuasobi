@@ -312,7 +312,32 @@
   margin-top: 85px;
 }
 
+/* Pagebody */
+/*--------------------------------------------------*/
 
+.pagebody {}
+.pagebody-inner {
+  max-width: 1200px;
+  margin: auto;
+  @include cf;
+}
+.pagebody-main {
+  float: left;
+  width: calc(100% - 385px);
+  padding-right: 30px;
+}
+.pagebody-sub {
+  float: left;
+  width: 385px;
+}
 
+// <div class="pagebody">
+//   <div class="pagebody-main">
+//     <div class="pagebody-main-inner">
+//       pagebody-main
+//     </div>
+//   </div>
+//   <div class="pagebody-sub">
+//     <div class="pagebody-main-inner">
 
 

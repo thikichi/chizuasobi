@@ -254,7 +254,7 @@
 }
 .layout2-inner {}
 
-
+/* layout3 */
 
 $layout3-slider-padding: 10px;
 .layout3-slider {
@@ -291,7 +291,20 @@ $layout3-slider-padding: 10px;
   }
 }
 
+/* layout5 */
 
+.layout5-inner {
+}
+.layout5-container {
+  position: relative;
+}
+.layout5-ttl {
+  position: absolute;
+  width: 100%;
+  top: -30px;
+  left: 0;
+  z-index: 50;
+}
 
 /* Gallery */
 /*--------------------------------------------------*/
@@ -370,3 +383,44 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
     padding-left: 20px;
   }
 }
+
+
+.sidebox {
+  border: 1px solid $color-gray;
+  box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px 10px 5px 10px;
+}
+.sidebox-ttl {
+  background-color: $color-lightGray;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.sidebox-main {
+  margin-top: 3px;
+  > li:not(:last-child) {
+    border-bottom: 1px dashed $color-gray;
+  }
+  > li {
+    @include icon-arrow-before( #777, 7px, -3px, 2px, 2px );
+    padding: 5px 0;
+    > a {
+      display: block;
+      padding: 7px 15px;
+    }
+    &:hover a {
+      background-color: $color-lightGray;
+    }
+  }
+}
+// <div class="sidebox">
+// <h3 class="sidebox-ttl">カテゴリー一覧</h3>
+// <ul class="sidebox-main">
+// <li><a href="#">日本の城</a></li>
+// <li><a href="#">神社・仏閣</a></li>
+// <li><a href="#">高層タワー</a></li>
+// <li><a href="#">ビルディング</a></li>
+// <li><a href="#">自然公園</a></li>
+// </ul>
+// </div>
+

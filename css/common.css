@@ -14,7 +14,7 @@
 
 @media only screen and (min-width: 1200px) { .container-1170 { width: 1170px; } }
 
-.bg-lightGray { background-color: #e1e1e1 !important; }
+.bg-lightGray { background-color: #F4F4F4 !important; }
 
 /* Fonts */
 /*--------------------------------------------------*/
@@ -145,6 +145,16 @@
 /*--------------------------------------------------*/
 .subvisual { height: 200px; background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png); background-position: center; background-size: auto 100%; margin-top: 85px; }
 
+/* Pagebody */
+/*--------------------------------------------------*/
+.pagebody-inner { max-width: 1200px; margin: auto; }
+
+.pagebody-inner::after { content: ""; display: block; clear: both; }
+
+.pagebody-main { float: left; width: calc(100% - 385px); padding-right: 30px; }
+
+.pagebody-sub { float: left; width: 385px; }
+
 /* BOX */
 /*--------------------------------------------------*/
 .box-1 { width: 100%; border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); }
@@ -266,6 +276,7 @@
 /* layout2 */
 .layout2 { padding: 50px 0; }
 
+/* layout3 */
 .layout3-slider { margin: 0 -10px; }
 
 .layout3-slider .slick-slide { padding: 0 10px; }
@@ -283,6 +294,11 @@
 .layout3-slider-box .layout3-hoverBox p:after { content: ""; position: relative; right: calc(1em * -1); float: right; width: 1em; height: 100%; margin-left: calc(1em * -1); }
 
 .layout3-slider-box:hover .layout3-hoverBox { top: 0%; }
+
+/* layout5 */
+.layout5-container { position: relative; }
+
+.layout5-ttl { position: absolute; width: 100%; top: -30px; left: 0; z-index: 50; }
 
 /* Gallery */
 /*--------------------------------------------------*/
@@ -322,6 +338,24 @@
 
 .dlList1 > dd { float: left; width: calc( 100% - 85px); padding-left: 20px; }
 
+.sidebox { border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 10px 5px 10px; }
+
+.sidebox-ttl { background-color: #F4F4F4; text-align: center; padding: 10px; font-weight: bold; }
+
+.sidebox-main { margin-top: 3px; }
+
+.sidebox-main > li:not(:last-child) { border-bottom: 1px dashed #CCC; }
+
+.sidebox-main > li { position: relative; padding: 5px 0; }
+
+.sidebox-main > li::before { content: ''; position: absolute; top: 50%; left: 2px; width: 7px; height: 7px; margin-top: -3px; border-top: 2px solid #777; border-right: 2px solid #777; transform: rotate(45deg); }
+
+.sidebox-main > li:hover::before { border-top: 2px solid; border-right: 2px solid; }
+
+.sidebox-main > li > a { display: block; padding: 7px 15px; }
+
+.sidebox-main > li:hover a { background-color: #F4F4F4; }
+
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }
 
@@ -356,6 +390,10 @@
 .ttl-2 { font-family: 'Noto Sans JP', sans-serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; font-weight: bold; }
 
 .ttl-2-small { font-size: 14px; color: #333; font-weight: normal; }
+
+.ttl-2a { font-family: 'Noto Sans JP', sans-serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; font-weight: bold; background-color: #FFF; }
+
+.ttl-2a-small { font-size: 14px; color: #333; font-weight: normal; }
 
 .ttl-3 { font-size: 26px; font-family: 'Noto Sans JP', sans-serif; font-weight: bold; }
 

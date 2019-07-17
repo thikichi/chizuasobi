@@ -231,4 +231,44 @@
   }
 }
 
+@mixin icon-arrow-after( $color: #333, $size: 5px, $position-y: -5px, $position-x: 2px, $weight: 2px, $hoverColor: null ) {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: $position-x;
+    width: $size;
+    height: $size;
+    margin-top: $position-y;
+    border-top: $weight solid $color;
+    border-right: $weight solid $color;
+    transform: rotate(45deg);
+  }
+  &:hover::after {
+    border-top: $weight solid $hoverColor;
+    border-right: $weight solid $hoverColor;
+  }
+}
+
+@mixin icon-arrow-before( $color: #333, $size: 5px, $position-y: -5px, $position-x: 2px, $weight: 2px, $hoverColor: null ) {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: $position-x;
+    width: $size;
+    height: $size;
+    margin-top: $position-y;
+    border-top: $weight solid $color;
+    border-right: $weight solid $color;
+    transform: rotate(45deg);
+  }
+  &:hover::before {
+    border-top: $weight solid $hoverColor;
+    border-right: $weight solid $hoverColor;
+  }
+}
+
 
