@@ -16,6 +16,10 @@
 
 .bg-lightGray { background-color: #F4F4F4 !important; }
 
+.borderTop { border-top: 1px solid #CCC; }
+
+.borderBtn { border-bottom: 1px solid #CCC; }
+
 /* Fonts */
 /*--------------------------------------------------*/
 .font-noto-serif-jp { font-family: 'Noto Serif JP', serif; }
@@ -147,13 +151,53 @@
 
 /* Pagebody */
 /*--------------------------------------------------*/
-.pagebody-inner { max-width: 1200px; margin: auto; }
+@media only screen and (min-width: 768px) { .pagebody-inner { max-width: 1200px; margin: auto; }
+  .pagebody-inner::after { content: ""; display: block; clear: both; }
+  .pagebody-main { float: left; width: calc(100% - 385px); padding-right: 30px; }
+  .pagebody-sub { float: left; width: 385px; } }
 
-.pagebody-inner::after { content: ""; display: block; clear: both; }
+/* Navigation Header */
+/*--------------------------------------------------*/
+.header-naviFolding { position: fixed; right: -100%; top: 0; width: 100%; height: 100%; background-color: #FFF; border: 10px solid #6ea364; padding: 15px; z-index: 150; -webkit-transition: right 0.25s 0s linear; -moz-transition: right 0.25s 0s linear; -ms-transition: right 0.25s 0s linear; -o-transition: right 0.25s 0s linear; transition: right 0.25s 0s linear; }
 
-.pagebody-main { float: left; width: calc(100% - 385px); padding-right: 30px; }
+.header-naviFolding-close { content: ''; position: absolute; top: 10px; left: -100px; width: 100px; height: 50px; background-color: #6ea364; padding-top: 12px; padding-left: 10px; }
 
-.pagebody-sub { float: left; width: 385px; }
+.header-naviFolding.__avtive { right: -50%; }
+
+/* Hamburger navi */
+/*--------------------------------------------------*/
+@media (max-width: 991px) { .spnavi-hamburger { -webkit-transition: 440ms; transition: 440ms; text-align: center; } }
+
+.spnavi-hamburger-text { font-size: 10px; line-height: 1; letter-spacing: -0.05em; margin-top: -2px; -webkit-transition: color 440ms; transition: color 440ms; color: #f5de55; }
+
+.hamburger { font: inherit; display: inline-block; overflow: visible; margin: 0; padding: 0; cursor: pointer; -webkit-transition-timing-function: linear; transition-timing-function: linear; -webkit-transition-duration: .15s; transition-duration: .15s; -webkit-transition-property: opacity, -webkit-filter; -webkit-transition-property: opacity, filter, -webkit-filter; transition-property: opacity, -webkit-filter; transition-property: opacity, filter; transition-property: opacity, filter, -webkit-filter; text-transform: none; color: inherit; border: 0; background-color: transparent; }
+
+.ua-nontouch .hamburger:hover { opacity: .7; }
+
+.hamburger-box { position: relative; display: inline-block; width: 25px; height: 15px; }
+
+.hamburger-inner { top: 50%; display: block; margin-top: -2px; }
+
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after { position: absolute; width: 25px; height: 3px; -webkit-transition-timing-function: ease; transition-timing-function: ease; -webkit-transition-duration: .15s; transition-duration: .15s; border-radius: 4px; background-color: #f5de55; }
+
+.hamburger-inner::before, .hamburger-inner::after { display: block; content: ''; }
+
+.hamburger-inner::before { top: -7px; }
+
+.hamburger-inner::after { bottom: -7px; }
+
+/* Spin */
+.hamburger-spin .hamburger-inner { -webkit-transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19); -webkit-transition-duration: .3s; transition-duration: .3s; }
+
+.hamburger-spin .hamburger-inner::before { -webkit-transition: top .1s .34s ease-in, opacity .1s ease-in; transition: top .1s .34s ease-in, opacity .1s ease-in; }
+
+.hamburger-spin .hamburger-inner::after { -webkit-transition: bottom 0.1s 0.34s ease-in, -webkit-transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); -webkit-transition: bottom 0.1s 0.34s ease-in, -webkit-transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19), -webkit-transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); transition: bottom 0.1s 0.34s ease-in, -webkit-transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); transition: bottom 0.1s 0.34s ease-in, transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); transition: bottom 0.1s 0.34s ease-in, transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19), -webkit-transform 0.3s cubic-bezier(0.55, 0.055, 0.675, 0.19); }
+
+html.spnavi-opened .hamburger-spin .hamburger-inner { -webkit-transition-delay: .14s; transition-delay: .14s; -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); -webkit-transform: rotate(225deg); -ms-transform: rotate(225deg); transform: rotate(225deg); }
+
+html.spnavi-opened .hamburger-spin .hamburger-inner::before { top: 0; -webkit-transition: top .1s ease-out, opacity .1s .14s ease-out; transition: top .1s ease-out, opacity .1s .14s ease-out; opacity: 0; }
+
+html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-transition: bottom 0.1s ease-out, -webkit-transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1); -webkit-transition: bottom 0.1s ease-out, -webkit-transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1); transition: bottom 0.1s ease-out, -webkit-transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1); transition: bottom 0.1s ease-out, transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1); transition: bottom 0.1s ease-out, transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.3s 0.14s cubic-bezier(0.215, 0.61, 0.355, 1); -webkit-transform: rotate(-90deg); -ms-transform: rotate(-90deg); transform: rotate(-90deg); }
 
 /* BOX */
 /*--------------------------------------------------*/
@@ -296,6 +340,8 @@
 .layout3-slider-box:hover .layout3-hoverBox { top: 0%; }
 
 /* layout5 */
+.layout5-inner { padding: 70px 0 50px 0; }
+
 .layout5-container { position: relative; }
 
 .layout5-ttl { position: absolute; width: 100%; top: -30px; left: 0; z-index: 50; }
@@ -346,7 +392,7 @@
 
 .sidebox-main > li:not(:last-child) { border-bottom: 1px dashed #CCC; }
 
-.sidebox-main > li { position: relative; padding: 5px 0; }
+.sidebox-main > li { position: relative; padding: 7px 0; }
 
 .sidebox-main > li::before { content: ''; position: absolute; top: 50%; left: 2px; width: 7px; height: 7px; margin-top: -3px; border-top: 2px solid #777; border-right: 2px solid #777; transform: rotate(45deg); }
 

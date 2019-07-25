@@ -7,7 +7,9 @@ jQuery(function($) {
   /* ハンバーガー */
   $('.spnavi-hamburger, .spnavi-overlay').on('click', function() {
     $('html').toggleClass('spnavi-opened');
+    $('.header-naviFolding').toggleClass('__avtive');
   });
+
 
 
 

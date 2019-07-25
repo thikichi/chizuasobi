@@ -294,6 +294,7 @@ $layout3-slider-padding: 10px;
 /* layout5 */
 
 .layout5-inner {
+  padding: 70px 0 50px 0;
 }
 .layout5-container {
   position: relative;
@@ -403,7 +404,7 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
   }
   > li {
     @include icon-arrow-before( #777, 7px, -3px, 2px, 2px );
-    padding: 5px 0;
+    padding: 7px 0;
     > a {
       display: block;
       padding: 7px 15px;

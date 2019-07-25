@@ -316,28 +316,180 @@
 /*--------------------------------------------------*/
 
 .pagebody {}
-.pagebody-inner {
-  max-width: 1200px;
-  margin: auto;
-  @include cf;
-}
-.pagebody-main {
-  float: left;
-  width: calc(100% - 385px);
-  padding-right: 30px;
-}
-.pagebody-sub {
-  float: left;
-  width: 385px;
+
+@include media-min(md) {
+  .pagebody-inner {
+    max-width: 1200px;
+    margin: auto;
+    @include cf;
+  }
+  .pagebody-main {
+    float: left;
+    width: calc(100% - 385px);
+    padding-right: 30px;
+  }
+  .pagebody-sub {
+    float: left;
+    width: 385px;
+  }
 }
 
-// <div class="pagebody">
-//   <div class="pagebody-main">
-//     <div class="pagebody-main-inner">
-//       pagebody-main
-//     </div>
-//   </div>
-//   <div class="pagebody-sub">
-//     <div class="pagebody-main-inner">
+/* Navigation Header */
+/*--------------------------------------------------*/
+
+.header-naviFolding {
+  position: fixed;
+  right: -100%;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFF;
+  border: 10px solid $color-green;
+  padding: 15px;
+  z-index: 150;
+  @include transition( right, 0.25s );
+}
+.header-naviFolding-close {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: -100px;
+  width: 100px;
+  height: 50px;
+  background-color: $color-green;
+  padding-top: 12px;
+  padding-left: 10px;
+}
+.header-naviFolding.__avtive {
+  right: -50%;
+}
+
+// <div class="header-naviFolding">
+//   <div class="header-naviFolding-inner">
+//     <ul class="header-naviFolding-main">
 
 
+/* Hamburger navi */
+/*--------------------------------------------------*/
+
+@media (max-width: 991px) {
+  .spnavi-hamburger {
+    -webkit-transition: 440ms;
+    transition: 440ms;
+    text-align: center;
+  }
+  .spnavi-scrolled .spnavi-hamburger {
+  }
+}
+.spnavi-hamburger-text {
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin-top: -2px;
+  -webkit-transition: color 440ms;
+  transition: color 440ms;
+  color: $color-yellow;
+}
+.hamburger {
+  font: inherit;
+  display: inline-block;
+  overflow: visible;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  -webkit-transition-timing-function: linear;
+  transition-timing-function: linear;
+  -webkit-transition-duration: .15s;
+  transition-duration: .15s;
+  -webkit-transition-property: opacity, -webkit-filter;
+  -webkit-transition-property: opacity, filter, -webkit-filter;
+  transition-property: opacity, -webkit-filter;
+  transition-property: opacity, filter;
+  transition-property: opacity, filter, -webkit-filter;
+  text-transform: none;
+  color: inherit;
+  border: 0;
+  background-color: transparent;
+}
+.ua-nontouch .hamburger:hover {
+  opacity: .7;
+}
+.hamburger-box {
+  position: relative;
+  display: inline-block;
+  width: 25px;
+  height: 15px;
+}
+.hamburger-inner {
+  top: 50%;
+  display: block;
+  margin-top: -2px;
+}
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  position: absolute;
+  width: 25px;
+  height: 3px;
+  -webkit-transition-timing-function: ease;
+  transition-timing-function: ease;
+  -webkit-transition-duration: .15s;
+  transition-duration: .15s;
+  border-radius: 4px;
+  background-color: $color-yellow;
+}
+.hamburger-inner::before,
+.hamburger-inner::after {
+  display: block;
+  content: '';
+}
+.hamburger-inner::before {
+  top: -7px;
+}
+.hamburger-inner::after {
+  bottom: -7px;
+}
+/* Spin */
+.hamburger-spin .hamburger-inner {
+  -webkit-transition-timing-function: cubic-bezier(.55, .055, .675, .19);
+  transition-timing-function: cubic-bezier(.55, .055, .675, .19);
+  -webkit-transition-duration: .3s;
+  transition-duration: .3s;
+}
+.hamburger-spin .hamburger-inner::before {
+  -webkit-transition: top .1s .34s ease-in, opacity .1s ease-in;
+  transition: top .1s .34s ease-in, opacity .1s ease-in;
+}
+.hamburger-spin .hamburger-inner::after {
+  -webkit-transition: bottom .1s .34s ease-in, -webkit-transform .3s cubic-bezier(.55, .055, .675, .19);
+  -webkit-transition: bottom .1s .34s ease-in, -webkit-transform .3s cubic-bezier(.55, .055, .675, .19), -webkit-transform .3s cubic-bezier(.55, .055, .675, .19);
+  transition: bottom .1s .34s ease-in, -webkit-transform .3s cubic-bezier(.55, .055, .675, .19);
+  transition: bottom .1s .34s ease-in, transform .3s cubic-bezier(.55, .055, .675, .19);
+  transition: bottom .1s .34s ease-in, transform .3s cubic-bezier(.55, .055, .675, .19), -webkit-transform .3s cubic-bezier(.55, .055, .675, .19);
+}
+html.spnavi-opened .hamburger-spin .hamburger-inner {
+  -webkit-transition-delay: .14s;
+  transition-delay: .14s;
+  -webkit-transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+  transition-timing-function: cubic-bezier(.215, .61, .355, 1);
+  -webkit-transform: rotate(225deg);
+  -ms-transform: rotate(225deg);
+  transform: rotate(225deg);
+}
+html.spnavi-opened .hamburger-spin .hamburger-inner::before {
+  top: 0;
+  -webkit-transition: top .1s ease-out, opacity .1s .14s ease-out;
+  transition: top .1s ease-out, opacity .1s .14s ease-out;
+  opacity: 0;
+}
+html.spnavi-opened .hamburger-spin .hamburger-inner::after {
+  bottom: 0;
+  -webkit-transition: bottom .1s ease-out, -webkit-transform .3s .14s cubic-bezier(.215, .61, .355, 1);
+  -webkit-transition: bottom .1s ease-out, -webkit-transform .3s .14s cubic-bezier(.215, .61, .355, 1), -webkit-transform .3s .14s cubic-bezier(.215, .61, .355, 1);
+  transition: bottom .1s ease-out, -webkit-transform .3s .14s cubic-bezier(.215, .61, .355, 1);
+  transition: bottom .1s ease-out, transform .3s .14s cubic-bezier(.215, .61, .355, 1);
+  transition: bottom .1s ease-out, transform .3s .14s cubic-bezier(.215, .61, .355, 1), -webkit-transform .3s .14s cubic-bezier(.215, .61, .355, 1);
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}

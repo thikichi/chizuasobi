@@ -18,6 +18,57 @@
 
 <body <?php body_class(); ?>>
 
+<div class="header-naviFolding">
+  <div class="header-naviFolding-close">
+    <?php get_template_part( 'parts/hamburger' ) ?>
+  </div>
+  <div class="header-naviFolding-inner">
+    <ul class="header-naviFolding-main">
+      <li>
+        <a href="#">メニュー</a>
+        <ul>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">メニュー</a>
+        <ul>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">メニュー</a>
+        <ul>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">メニュー</a>
+        <ul>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">メニュー</a>
+        <ul>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">サブメニュー</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
   <?php /* この下にヘッダーセットを記述 */ ?>
 
   <header id="Header" class="header header-h">
@@ -39,16 +90,7 @@
           <div class="header-h">
             <div class="d-t h-100p">
               <div class="d-tc h-100p va-m">
-                <div class="spnavi-hamburger">
-                  <div class="hamburger hamburger-spin">
-                    <div class="hamburger-box">
-                      <div class="hamburger-inner"></div>
-                    </div>
-                  </div>
-                  <div class="spnavi-hamburger-text font-noto-serif-jp">
-                    menu
-                  </div>
-                </div>
+                <?php // get_template_part( 'parts/hamburger' ) ?>
               </div>
             </div>
           </div>

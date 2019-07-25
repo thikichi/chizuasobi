@@ -120,8 +120,57 @@ add_action( 'wp_enqueue_scripts', 'wp_enqueue_scripts_functions' );
 
 
 
+$navigation = array(
+  'company' => array(
+    'label' => '会社概要',
+    'link' => home_url('company'),
+    'target' => '_blank',
+    'class'  => 'item-company',
+  ),
+  'contact' => array(
+    'label' => 'お問い合わせ',
+    'link' => home_url('contact'),
+    'target' => '_blank',
+    'class'  => 'item-contact',
+    'subnav' => array(
+      'contactus1' => array(
+        'label'   => '私たちへのお問い合わせ',
+        'link'    => home_url('contact_us'),
+        'target'  => '_blank',
+        'class'   => 'item-contact',
+      ),
+      'contactus2' => array(
+        'label'   => '私たちへのお問い合わせ２',
+        'link'    => home_url('contact_us'),
+        'target'  => '_blank',
+        'class'   => 'item-contact',
+      ),
+    ),
+  ),
+);
 
 
+function get_header_nav_li( $navlist ) {
+  $tag = '';
+  foreach ($navlist as $key => $nav) {
+    $tag .= '<li>';
+    $tag .= '<a';
+    $tag .= ' href="' . $nav['link'] . '"';
+    if( isset($nav['target']) && $nav['target'] ) $tag .= ' target="' . $nav['target'] . '"';
+    if( isset($nav['class'])  && $nav['class'] )  $tag .= ' class="' . $nav['class'] . '"';
+    if( isset($nav['id'])     && $nav['id'] )     $tag .= ' id="' . $nav['id'] . '"';
+    $tag .= '>';
+    $tag .= $nav['label'];
+    $tag .= '</a>';
+    if( isset($nav['subnav'])) {
+      $tag .= '<ul class="_sub">';
+      $tag .= get_header_nav_li( $nav['subnav'] );
+      $tag .= '</ul>';
+    }
+    $tag .= '</li>';
+  }
+  return $tag;
+}
 
 
 

@@ -458,7 +458,7 @@
     display: none;
   }
 }*/
-@media (max-width: 991px) {
+/*@media (max-width: 991px) {
   .spnavi-hamburger {
     -webkit-transition: 440ms;
     transition: 440ms;
@@ -476,13 +476,6 @@
   transition: color 440ms;
   color: #000;
 }
-/*
-** Hamburgers
-** @description Tasty CSS-animated hamburgers
-** @author Jonathan Suh @jonsuh
-** @site https://jonsuh.com/hamburgers
-** @link https://github.com/jonsuh/hamburgers
-*/
 .hamburger {
   font: inherit;
   display: inline-block;
@@ -585,7 +578,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   -webkit-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
-}
+}*/
 
 
 
