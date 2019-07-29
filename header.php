@@ -71,29 +71,18 @@
 
   <?php /* この下にヘッダーセットを記述 */ ?>
 
-  <header id="Header" class="header header-h">
+  <header id="Header" class="header">
     <div class="container">
-      <div class="header-inner cf">
+      <div class="header-inner">
         <div class="header-logo">
           <img class="" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/header-logo.svg" alt="地図遊び">
         </div>
         <div class="header-main">
-          <div class="header-h pl-xs-10 pl-sm-15 pl-md-30">
-            <div class="d-t h-100p">
-              <div class="d-tc h-100p va-m">
-                <h1 class="fontSet5">GoogleMapで遊ぶランドマーク紹介サイト</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="header-navi">
-          <div class="header-h">
-            <div class="d-t h-100p">
-              <div class="d-tc h-100p va-m">
-                <?php // get_template_part( 'parts/hamburger' ) ?>
-              </div>
-            </div>
-          </div>
+          <span class="table">
+            <span class="table-cell __left">
+              <h1 class="fontSet5">GoogleMapで遊ぶランドマーク紹介サイト</h1>
+            </span>
+          </span>
         </div>
       </div>
     </div>
