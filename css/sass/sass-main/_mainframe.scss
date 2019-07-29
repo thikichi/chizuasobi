@@ -22,10 +22,7 @@
 /* Font set */
 /*--------------------------------------------------*/
 
-.fontSet5 {
-  font-family: 'Noto Serif JP', serif;
-  font-size: 24px;
-}
+
 @media (max-width: 991px) {
   .fontSet5 {
     font-size: 20px;
@@ -339,15 +336,17 @@
 
 .header-naviFolding {
   position: fixed;
-  right: -100%;
   top: 0px;
-  width: 100%;
   height: 100%;
   background-color: #FFF;
   border: 10px solid $color-green;
   padding: 15px;
   z-index: 150;
   @include transition( right, 0.25s );
+  right: -30%; width: 30%;
+  @include media-max(md) { right: -40%; width: 40%; }
+  @include media-max(sm) { right: -60%; width: 60%; }
+  @include media-max(xs) { right: -70%; width: 70%; }
 }
 .header-naviFolding-close {
   content: '';
@@ -359,9 +358,19 @@
   background-color: $color-green;
   padding-top: 25px;
   padding-left: 0;
+  @include media-max(md) {
+    height: 50px;
+    padding-top: 13px;
+  }
+  @include media-max(sm) {
+    height: 35px;
+    padding-top: 5px;
+    left: -60px;
+    width: 50px;
+  }
 }
 .header-naviFolding.__avtive {
-  right: -50%;
+  right: 0;
 }
 
 // <div class="header-naviFolding">
@@ -372,14 +381,12 @@
 /* Hamburger navi */
 /*--------------------------------------------------*/
 
-@media (max-width: 991px) {
-  .spnavi-hamburger {
-    -webkit-transition: 440ms;
-    transition: 440ms;
-    text-align: center;
-  }
-  .spnavi-scrolled .spnavi-hamburger {
-  }
+.spnavi-hamburger {
+  -webkit-transition: 440ms;
+  transition: 440ms;
+  text-align: center;
+}
+.spnavi-scrolled .spnavi-hamburger {
 }
 .spnavi-hamburger-text {
   font-size: 10px;
@@ -389,6 +396,7 @@
   -webkit-transition: color 440ms;
   transition: color 440ms;
   color: $color-yellow;
+  @include media-max(sm) { margin-top: -5px; }
 }
 .hamburger {
   font: inherit;
@@ -504,6 +512,8 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   z-index: 100;
   background-color: white;
   height: 70px;
+  @include media-max(md) { height: 50px; }
+  @include media-max(sm) { height: 35px; }
 }
 .header .container {
   height: 100%;
@@ -515,44 +525,41 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 .header-logo {
   width: 140px;
   position: absolute;
+  @include media-max(md) { width: 100px; }
+  @include media-max(sm) { width: 70px; }
 }
 .header-main {
   padding-left: 155px;
   height: 100%;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+  @include media-max(md) {
+    padding-left: 115px;
+    font-size: 18px;
+  }
+  @include media-max(sm) {
+    padding-left: 80px;
+    font-size: 16px;
+    line-height: 1.3;
+  }
 }
-
-// @media (max-width: 991px) {
-//   .header-logo { width: 140px; }
-//   .header-main { width: calc(100% - 140px - 50px); }
-//   .header-h { height: 70px; }
-// }
-// @media (max-width: 650px) {
-//   .header-logo { width: 100px; }
-//   .header-main { width: calc(100% - 100px - 50px); }
-//   .header-h { height: 50px; }
-// }
-// @media (max-width: 575px) {
-//   .header-logo { width: 85px; }
-//   .header-main { width: calc(100% - 85px - 50px); }
-//   .header-h { height: 43px; }
-// }
 
 /* MainVisual */
 /*--------------------------------------------------*/
 
 /*.mainvisual { height: 390px; margin-top: -85px; }*/
-.mainvisual {
-  margin-top: 85px;
-}
-@media (max-width: 991px) {
-  .mainvisual { margin-top: 70px; }
-}
-@media (max-width: 650px) {
-  .mainvisual { margin-top: 50px; }
-}
-@media (max-width: 575px) {
-  .mainvisual { margin-top: 43px; }
-}
+// .mainvisual {
+//   margin-top: 85px;
+// }
+// @media (max-width: 991px) {
+//   .mainvisual { margin-top: 70px; }
+// }
+// @media (max-width: 650px) {
+//   .mainvisual { margin-top: 50px; }
+// }
+// @media (max-width: 575px) {
+//   .mainvisual { margin-top: 43px; }
+// }
 
 /* Slider */
 /*--------------------------------------------------*/

@@ -80,7 +80,7 @@
         <div class="header-main">
           <span class="table">
             <span class="table-cell __left">
-              <h1 class="fontSet5">GoogleMapで遊ぶランドマーク紹介サイト</h1>
+              <h1 class="fontSet5">GoogleMapで遊ぶ<br class="visible-xs">ランドマーク紹介サイト</h1>
             </span>
           </span>
         </div>
