@@ -661,7 +661,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
     border-bottom: 1px solid $color-gray;
     > a {
       padding: 10px 15px;
-      @include icon-arrow-after( $color-red, 5px, -1px, 15px, 2px );
+      // @include icon-arrow-after( $color-red, 5px, -1px, 15px, 2px );
     }
     > ul {
       // sub naviation
@@ -674,7 +674,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
         border-bottom: 1px solid $color-gray;
       }
       > li > a {
-        @include icon-arrow-before( $color-red, 5px, -3px, 10px, 2px);
+        @include icon-arrow-before( #333, 5px, -3px, 10px, 2px);
         padding-left: 1.5em;
       }
     }
@@ -687,6 +687,9 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 
 
 .has-icon-plus-after {
-
+  @include icon-plus(#333, 10px, 2px, 20px, 15px, 5px, 0px );
+}
+.has-icon-plus-after.__avtive {
+  @include icon-minus( #333, 10px, 2px, 20px, 15px, 2px );
 }
 

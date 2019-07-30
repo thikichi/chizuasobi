@@ -275,11 +275,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .header-naviFolding-main > li { border-bottom: 1px solid #CCC; }
 
-.header-naviFolding-main > li > a { padding: 10px 15px; position: relative; }
-
-.header-naviFolding-main > li > a::after { content: ''; position: absolute; top: 50%; right: 15px; width: 5px; height: 5px; margin-top: -1px; border-top: 2px solid #c04c41; border-right: 2px solid #c04c41; transform: rotate(45deg); }
-
-.header-naviFolding-main > li > a:hover::after { border-top: 2px solid; border-right: 2px solid; }
+.header-naviFolding-main > li > a { padding: 10px 15px; }
 
 .header-naviFolding-main > li > ul { background-color: #EFEFEF; display: none; border-top: 1px solid #CCC; border-left: 1px solid #CCC; margin-left: 15px; }
 
@@ -287,11 +283,23 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .header-naviFolding-main > li > ul > li > a { position: relative; padding-left: 1.5em; }
 
-.header-naviFolding-main > li > ul > li > a::before { content: ''; position: absolute; top: 50%; left: 10px; width: 5px; height: 5px; margin-top: -3px; border-top: 2px solid #c04c41; border-right: 2px solid #c04c41; transform: rotate(45deg); }
+.header-naviFolding-main > li > ul > li > a::before { content: ''; position: absolute; top: 50%; left: 10px; width: 5px; height: 5px; margin-top: -3px; border-top: 2px solid #333; border-right: 2px solid #333; transform: rotate(45deg); }
 
 .header-naviFolding-main > li > ul > li > a:hover::before { border-top: 2px solid; border-right: 2px solid; }
 
 .header-naviFolding-main a { display: block; padding: 10px 0; }
+
+.has-icon-plus-after { color: #333; position: relative; }
+
+.has-icon-plus-after::before { content: ''; position: absolute; width: 10px; height: 2px; background-color: currentColor; top: calc(20px + 0px); right: 15px; }
+
+.has-icon-plus-after::after { content: ''; position: absolute; width: 10px; height: 2px; top: 20px; right: 15px; background-color: currentColor; -webkit-transform: rotate(90deg); transform: rotate(90deg); }
+
+.has-icon-plus-after.__avtive { color: #333; position: relative; }
+
+.has-icon-plus-after.__avtive::before { content: ''; position: absolute; width: 10px; height: 2px; background-color: currentColor; top: 20px; right: 15px; }
+
+.has-icon-plus-after.__avtive::after { display: none; }
 
 /* BOX */
 /*--------------------------------------------------*/

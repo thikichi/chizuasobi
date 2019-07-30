@@ -271,4 +271,44 @@
   }
 }
 
+@mixin icon-plus($color: #333, $size-w: 15px, $size-h: 2px, $top: 15px, $right: 10px, $weight: 2px, $ajust: 0px ) {
+  color: $color;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: $size-w;
+    height: $size-h;
+    background-color: currentColor;
+    top: calc(#{$top} + #{$ajust});
+    right: $right;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: $size-w;
+    height: $size-h;
+    top: $top;
+    right: $right;
+    background-color: currentColor;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+  }
+}
 
+@mixin icon-minus( $color: #333, $size-w: 15px, $size-h: 2px, $top: 15px, $right: 10px, $weight: 2px ) {
+  color: $color;
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: $size-w;
+    height: $size-h;
+    background-color: currentColor;
+    top: $top;
+    right: $right;
+  }
+  &::after {
+    display: none;
+  }
+}
