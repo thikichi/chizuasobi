@@ -340,7 +340,7 @@
   height: 100%;
   background-color: #FFF;
   border: 10px solid $color-green;
-  padding: 15px;
+  // padding: 15px;
   z-index: 150;
   @include transition( right, 0.25s );
   right: -30%; width: 30%;
@@ -371,6 +371,10 @@
 }
 .header-naviFolding.__avtive {
   right: 0;
+}
+.header-naviFolding-inner {
+  height: calc(100vh - 20px);
+  overflow: auto;
 }
 
 // <div class="header-naviFolding">
@@ -649,3 +653,40 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
     width: 100%;
   }
 }
+
+
+
+.header-naviFolding-main {
+  > li {
+    border-bottom: 1px solid $color-gray;
+    > a {
+      padding: 10px 15px;
+      @include icon-arrow-after( $color-red, 5px, -1px, 15px, 2px );
+    }
+    > ul {
+      // sub naviation
+      background-color: #EFEFEF;
+      display: none;
+      border-top: 1px solid $color-gray;
+      border-left: 1px solid $color-gray;
+      margin-left: 15px;
+      > li:not(:last-child) {
+        border-bottom: 1px solid $color-gray;
+      }
+      > li > a {
+        @include icon-arrow-before( $color-red, 5px, -3px, 10px, 2px);
+        padding-left: 1.5em;
+      }
+    }
+  }
+  a {
+    display: block;
+    padding: 10px 0;
+  }
+}
+
+
+.has-icon-plus-after {
+
+}
+

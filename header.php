@@ -25,7 +25,7 @@
   <div class="header-naviFolding-inner">
     <ul class="header-naviFolding-main">
       <li>
-        <a href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>
@@ -33,7 +33,7 @@
         </ul>
       </li>
       <li>
-        <a href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>
@@ -41,7 +41,7 @@
         </ul>
       </li>
       <li>
-        <a href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>
@@ -49,7 +49,7 @@
         </ul>
       </li>
       <li>
-        <a href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>
@@ -57,7 +57,7 @@
         </ul>
       </li>
       <li>
-        <a href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>

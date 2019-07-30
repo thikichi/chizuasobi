@@ -3,6 +3,12 @@ jQuery(function($) {
   /* コンポーネント以外の自作スクリプトはこの中へ記述します */
   /*============================================================*/
 
+  $('.toggleSlide-nextElem').on('click', function(event) {
+    event.preventDefault();
+    $(this).siblings('ul').slideToggle('fast');
+  });
+
+
   // TAB切り替わりの部分
   $('.tab-switch').each(function(index, el) {
     var thisTab = $(this);
