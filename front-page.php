@@ -1,86 +1,151 @@
 <?php get_header(); ?>
 
+<?php
+$landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
+
+
+
+      
+  
+// array(1) {
+//   [0]=>
+//   object(WP_Post)#5699 (24) {
+//     ["ID"]=>
+//     int(32)
+//     ["post_author"]=>
+//     string(1) "0"
+//     ["post_date"]=>
+//     string(19) "2019-08-03 07:13:31"
+//     ["post_date_gmt"]=>
+//     string(19) "2019-08-02 22:13:31"
+//     ["post_content"]=>
+//     string(0) ""
+//     ["post_title"]=>
+//     string(15) "東京タワー"
+//     ["post_excerpt"]=>
+//     string(0) ""
+//     ["post_status"]=>
+//     string(7) "publish"
+//     ["comment_status"]=>
+//     string(6) "closed"
+//     ["ping_status"]=>
+//     string(6) "closed"
+//     ["post_password"]=>
+//     string(0) ""
+//     ["post_name"]=>
+//     string(45) "%e6%9d%b1%e4%ba%ac%e3%82%bf%e3%83%af%e3%83%bc"
+//     ["to_ping"]=>
+//     string(0) ""
+//     ["pinged"]=>
+//     string(0) ""
+//     ["post_modified"]=>
+//     string(19) "2019-08-03 07:44:14"
+//     ["post_modified_gmt"]=>
+//     string(19) "2019-08-02 22:44:14"
+//     ["post_content_filtered"]=>
+//     string(0) ""
+//     ["post_parent"]=>
+//     int(0)
+//     ["guid"]=>
+//     string(87) "http://localhost/public_html/chachamarunet.com/chizuasobi/?post_type=landmark&p=32"
+//     ["menu_order"]=>
+//     int(0)
+//     ["post_type"]=>
+//     string(8) "landmark"
+//     ["post_mime_type"]=>
+//     string(0) ""
+//     ["comment_count"]=>
+//     string(1) "0"
+//     ["filter"]=>
+//     string(3) "raw"
+//   }
+// }
+
+
+?>
+
+
 <div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
     <div class="container"> 
       <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">Google Mapで検索</span></h2>
       <div id="mapArea" class="gmap-main bg-test mt-xs-5"></div>
-      <script type="text/javascript" >
-      // ロードしたタイミングで実行
-      window.onload = function () {
-        initMap();
-      };
-      var map;
-      var marker = [];
-      var infoWindow = [];
-      var markerData = [
-        {
-          name: 'TAM 東京',
-          lat: 35.6954806,
-          lng: 139.76325010000005,
-          icon: 'tam.png'
-        },
-        {
-          name: '小川町駅',
-          lat: 35.6951212,
-          lng: 139.76610649999998
-        },
-        {
-          name: '淡路町駅',
-          lat: 35.69496,
-          lng: 139.76746000000003
-        },
-        {
-          name: '御茶ノ水駅',
-          lat: 35.6993529,
-          lng: 139.76526949999993
-        },
-        {
-          name: '神保町駅',
-          lat: 35.695932,
-          lng: 139.75762699999996
-        },
-        {
-          name: '新御茶ノ水駅',
-          lat: 35.696932,
-          lng: 139.76543200000003
-        }
-      ];
-      function initMap() {
-        // 地図の作成
-        var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
-        map = new google.maps.Map(document.getElementById('mapArea'), { // #mapAreaに地図を埋め込む
-          center: mapLatLng, // 地図の中心を指定
-          zoom: 15 // 地図のズームを指定
-        });
-        // マーカー毎の処理
-        for (var i = 0; i < markerData.length; i++) {
-          markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']}); // 緯度経度のデータ作成
-          console.log(markerLatLng); 
-          marker[i] = new google.maps.Marker({ // マーカーの追加
-            position: markerLatLng, // マーカーを立てる位置を指定
-            map: map // マーカーを立てる地図を指定
-          });
-       
-          infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-            content: '<div class="mapArea">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
-          });
-          markerEvent(i); // マーカーにクリックイベントを追加
-        }
-       
-        marker[0].setOptions({// TAM 東京のマーカーのオプション設定
-          icon: {
-            url: markerData[0]['icon']// マーカーの画像を変更
-          }
-        });
-      }
-      // マーカーにクリックイベントを追加
-      function markerEvent(i) {
-        marker[i].addListener('click', function() { // マーカーをクリックしたとき
-          infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-        });
-      }
-      </script>
+<script>
+(function(){
+  "use strict";
+  var mapData    = { pos: { lat: 35.681236, lng: 139.767125 }, zoom: 8 };
+  var markerData = [
+<?php foreach ($landmarks as $landmark): ?>
+  <?php
+  $map['Coordinate'] = get_post_meta( $landmark->ID, 'acf_landmark_gmap', true );
+  $map['address']    = get_post_meta( $landmark->ID, 'acf_landmark_address', true );
+
+  $img_id  = get_post_thumbnail_id( $landmark->ID );
+  if( $img_id ) {
+    $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    $img_url = esc_url($img[0]);
+  } else {
+    $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
+  }
+  ?>
+{
+  pos: { lat: <?php echo esc_js( $map['Coordinate']['lat'] ); ?>, lng: <?php echo esc_js( $map['Coordinate']['lng'] ); ?> }, 
+  title: "<?php echo esc_js( $landmark->post_title ); ?>", 
+  icon: "", 
+  infoWindowOpen: true , 
+  infoWindowContent: 
+    "<div class='infwin cf'>" + 
+    "<div class='infwin-thumb'><img class='img-responsive' src='<?php echo esc_url( $img_url ); ?>'></div>" + 
+    "<div class='infwin-main'>" + 
+    "<h3><?php echo esc_js( $landmark->post_title ); ?></h3>" + 
+    "<p><?php echo esc_js( $map['address'] ); ?></p>" + 
+    "</div>" + 
+    "</div>"
+},
+<?php endforeach; ?>
+<?php
+unset($map);
+?>
+    // { 
+    //   pos: { lat: 30.4010111, 
+    //   lng: 130.9775733 }, 
+    //   title: "popup-title2", 
+    //   icon: "", 
+    //   infoWindowOpen: false, 
+    //   infoWindowContent: "<h3>test2</h3><p>piyopiyo</p>"
+    // },
+  ];
+  var map = new google.maps.Map(document.getElementById('mapArea'), {
+        center: mapData.pos,
+        zoom:   mapData.zoom
+    });
+    var infoWindow = new google.maps.InfoWindow();
+    for( var i=0; i < markerData.length; i++ )
+    {
+        (function(){
+            var marker = new google.maps.Marker({
+                position: markerData[i].pos,
+                title:    markerData[i].title,
+                icon:     markerData[i].icon,
+                map: map
+            });
+            if( markerData[i].infoWindowContent )
+            {
+                var infoWindowContent = markerData[i].infoWindowContent;
+                marker.addListener('click', function(){
+                    infoWindow.setContent(infoWindowContent);
+                    infoWindow.open(map, marker);
+                });
+                if( markerData[i].infoWindowOpen )
+                {
+                    infoWindow.setContent(infoWindowContent);
+                    infoWindow.open(map, marker);
+                }
+            }
+        }());
+    }
+}());
+</script>
     </div>
   </div>
 </div>
@@ -92,6 +157,83 @@
       ランドマーク一覧
       <span class="ttl-2-small">検索条件 : 城 / 日本の城 / 史跡</span>
     </h2>
+
+
+
+
+
+<?php
+$args = array(
+  'post_type' => 'landmark',
+  'posts_per_page' => -1
+);
+$the_query = new WP_Query( $args );
+?>
+
+<?php if ($the_query->have_posts()): ?>
+  <ul class="row mt-xs-15">
+    <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+
+<?php
+$field = array();
+$field['Coordinate'] = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+$field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
+?>
+
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <img src="https://placehold.jp/750x750.png" alt="">
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  <?php the_title(); ?> 
+                  <span class="subttl-1-mini">投稿日時 <?php the_time('Y.m.d'); ?></span>
+                </h3>
+                <p class="mt-xs-5"><?php echo esc_html($field['address']); ?></p>
+                <ul class="taglist-1 cf mt-xs-10">
+                  <li><a href="#">城・城址</a></li>
+                  <li><a href="#">三大名城</a></li>
+                  <li><a href="#">日本100名城</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a href="#">
+                  <span class="link-color-1">
+                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="box-1-bottom">
+            <ul class="taglist-1 cf mt-xs-10">
+              <li><a href="#">城・城址</a></li>
+              <li><a href="#">三大名城</a></li>
+              <li><a href="#">日本100名城</a></li>
+            </ul>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+
+    <?php endwhile; ?>
+  </ul>
+<?php else: ?>
+  <p>記事の投稿がありません。</p>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+
     <ul class="row mt-xs-15">
       <li class="col-md-6 mt-xs-15">
         <div class="box-1 box-1-2col cf"> 

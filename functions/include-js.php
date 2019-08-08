@@ -41,7 +41,7 @@ function wp_enqueue_scripts_js(){
   */
   wp_enqueue_script(
     'google-map',
-    'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjYTWYNKXOkeVC6fofHCDHEJVhiTIVTIE'
+   'https://maps.googleapis.com/maps/api/js?key=AIzaSyBjYTWYNKXOkeVC6fofHCDHEJVhiTIVTIE'
   );
 
   /*

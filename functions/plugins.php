@@ -104,3 +104,19 @@ if ( function_exists('bcn_display') ) {
     }
   });
 }
+
+/*
+ * Advanced Custom Fieldプラグイン
+/*----------------------------------------------------------------------------------------------------*/
+
+/**
+ * Advanced Custom Fieldプラグインを利用する場合
+ * acfでgoogle mapでエラーがでるのでそれを修正
+ */
+add_filter('acf/fields/google_map/api', function () {
+    return array(
+        'libraries' => 'places',
+        'key'        => 'AIzaSyBjYTWYNKXOkeVC6fofHCDHEJVhiTIVTIE', // Googleで発行したキーを用意する
+        'client'     => ''
+    );
+});

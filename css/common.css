@@ -504,6 +504,16 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .sidebox-main > li:hover a { background-color: #F4F4F4; }
 
+/* google map infowindow */
+/*--------------------------------------------------*/
+.infwin { width: 300px; }
+
+.infwin .infwin-thumb { float: left; width: 80px; }
+
+.infwin .infwin-thumb img { width: 100%; }
+
+.infwin .infwin-main { float: left; width: calc(100% - 80px); padding-left: 10px; }
+
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }
 
