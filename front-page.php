@@ -93,6 +93,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
   title: "<?php echo esc_js( $landmark->post_title ); ?>", 
   icon: "", 
   infoWindowOpen: true , 
+  post_id: <?php echo $landmark->ID; ?>,
   infoWindowContent: 
     "<div class='infwin cf'>" + 
     "<div class='infwin-thumb'><img class='img-responsive' src='<?php echo esc_url( $img_url ); ?>'></div>" + 
@@ -120,10 +121,13 @@ unset($map);
         zoom:   mapData.zoom
     });
     var infoWindow = new google.maps.InfoWindow();
+    var marker  = [];
     for( var i=0; i < markerData.length; i++ )
     {
+        var post_id = markerData[i].post_id;
+        console.log(post_id);
         (function(){
-            var marker = new google.maps.Marker({
+            marker[post_id] = new google.maps.Marker({
                 position: markerData[i].pos,
                 title:    markerData[i].title,
                 icon:     markerData[i].icon,
@@ -132,14 +136,14 @@ unset($map);
             if( markerData[i].infoWindowContent )
             {
                 var infoWindowContent = markerData[i].infoWindowContent;
-                marker.addListener('click', function(){
+                marker[post_id].addListener('click', function(){
                     infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker);
+                    infoWindow.open(map, marker[post_id]);
                 });
                 if( markerData[i].infoWindowOpen )
                 {
                     infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker);
+                    infoWindow.open(map, marker[post_id]);
                 }
             }
         }());
