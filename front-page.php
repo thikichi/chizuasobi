@@ -63,7 +63,8 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 
 
 ?>
-
+<a href="#" id="button-1">ここを押すと情報ウィンドウ開く1</a>
+<a href="#" id="button-2">ここを押すと情報ウィンドウ開く2</a>
 
 <div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
@@ -71,9 +72,23 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
       <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">Google Mapで検索</span></h2>
       <div id="mapArea" class="gmap-main bg-test mt-xs-5"></div>
 <script>
+
+
+var map, infoWindow;
+var markers = [];
+jQuery(function($) {
+    $("#button-1").bind("click",function(){
+        infoWindow.open(map,markers[0]);
+    });
+    $("#button-2").bind("click",function(){
+        infoWindow.open(map,markers[1]);
+    });
+});
+
+
 (function(){
   "use strict";
-  var mapData    = { pos: { lat: 35.681236, lng: 139.767125 }, zoom: 8 };
+  var mapData    = { pos: { lat: 35.681236, lng: 139.767125 }, zoom: 13 };
   var markerData = [
 <?php foreach ($landmarks as $landmark): ?>
   <?php
@@ -116,38 +131,41 @@ unset($map);
     //   infoWindowContent: "<h3>test2</h3><p>piyopiyo</p>"
     // },
   ];
-  var map = new google.maps.Map(document.getElementById('mapArea'), {
+  map = new google.maps.Map(document.getElementById('mapArea'), {
         center: mapData.pos,
         zoom:   mapData.zoom
     });
-    var infoWindow = new google.maps.InfoWindow();
-    var marker  = [];
+    infoWindow = new google.maps.InfoWindow();
     for( var i=0; i < markerData.length; i++ )
     {
         var post_id = markerData[i].post_id;
-        console.log(post_id);
         (function(){
-            marker[post_id] = new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 position: markerData[i].pos,
                 title:    markerData[i].title,
                 icon:     markerData[i].icon,
                 map: map
             });
-            if( markerData[i].infoWindowContent )
-            {
+            markers[i] = marker;
+            if( markerData[i].infoWindowContent ) {
                 var infoWindowContent = markerData[i].infoWindowContent;
-                marker[post_id].addListener('click', function(){
+                marker.addListener('click', function(){
                     infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker[post_id]);
+                    infoWindow.open(map, marker);
                 });
                 if( markerData[i].infoWindowOpen )
                 {
                     infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker[post_id]);
+                    infoWindow.open(map, marker);
                 }
             }
         }());
     }
+    // console.log(markers);
+    // document.getElementById("button-1").onclick = function() {
+    //   // ここに#buttonをクリックしたら発生させる処理を記述する
+    //   markers[0].trigger('click');
+    // };
 }());
 </script>
     </div>
