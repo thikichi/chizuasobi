@@ -63,8 +63,8 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 
 
 ?>
+<a href="#" id="button-0">ここを押すと情報ウィンドウ開く0</a>
 <a href="#" id="button-1">ここを押すと情報ウィンドウ開く1</a>
-<a href="#" id="button-2">ここを押すと情報ウィンドウ開く2</a>
 
 <div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
@@ -74,98 +74,85 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 <script>
 
 
-var map, infoWindow;
-var markers = [];
-jQuery(function($) {
-    $("#button-1").bind("click",function(){
-        infoWindow.open(map,markers[0]);
-    });
-    $("#button-2").bind("click",function(){
-        infoWindow.open(map,markers[1]);
-    });
-});
 
 
 (function(){
   "use strict";
   var mapData    = { pos: { lat: 35.681236, lng: 139.767125 }, zoom: 13 };
   var markerData = [
-<?php foreach ($landmarks as $landmark): ?>
   <?php
-  $map['Coordinate'] = get_post_meta( $landmark->ID, 'acf_landmark_gmap', true );
-  $map['address']    = get_post_meta( $landmark->ID, 'acf_landmark_address', true );
-
-  $img_id  = get_post_thumbnail_id( $landmark->ID );
-  if( $img_id ) {
-    $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
-    $img_url = esc_url($img[0]);
-  } else {
-    $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
-  }
-  ?>
-{
-  pos: { lat: <?php echo esc_js( $map['Coordinate']['lat'] ); ?>, lng: <?php echo esc_js( $map['Coordinate']['lng'] ); ?> }, 
-  title: "<?php echo esc_js( $landmark->post_title ); ?>", 
-  icon: "", 
-  infoWindowOpen: true , 
-  post_id: <?php echo $landmark->ID; ?>,
-  infoWindowContent: 
-    "<div class='infwin cf'>" + 
-    "<div class='infwin-thumb'><img class='img-responsive' src='<?php echo esc_url( $img_url ); ?>'></div>" + 
-    "<div class='infwin-main'>" + 
-    "<h3><?php echo esc_js( $landmark->post_title ); ?></h3>" + 
-    "<p><?php echo esc_js( $map['address'] ); ?></p>" + 
-    "</div>" + 
-    "</div>"
-},
-<?php endforeach; ?>
-<?php
-unset($map);
-?>
-    // { 
-    //   pos: { lat: 30.4010111, 
-    //   lng: 130.9775733 }, 
-    //   title: "popup-title2", 
-    //   icon: "", 
-    //   infoWindowOpen: false, 
-    //   infoWindowContent: "<h3>test2</h3><p>piyopiyo</p>"
-    // },
-  ];
-  map = new google.maps.Map(document.getElementById('mapArea'), {
-        center: mapData.pos,
-        zoom:   mapData.zoom
-    });
-    infoWindow = new google.maps.InfoWindow();
-    for( var i=0; i < markerData.length; i++ )
-    {
-        var post_id = markerData[i].post_id;
-        (function(){
-            var marker = new google.maps.Marker({
-                position: markerData[i].pos,
-                title:    markerData[i].title,
-                icon:     markerData[i].icon,
-                map: map
-            });
-            markers[i] = marker;
-            if( markerData[i].infoWindowContent ) {
-                var infoWindowContent = markerData[i].infoWindowContent;
-                marker.addListener('click', function(){
-                    infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker);
-                });
-                if( markerData[i].infoWindowOpen )
-                {
-                    infoWindow.setContent(infoWindowContent);
-                    infoWindow.open(map, marker);
-                }
-            }
-        }());
+  // 投稿ごとのマーカーと情報ウィンドウ作成
+  $post_ids =array();
+  foreach ($landmarks as $landmark): ?>
+    <?php
+    $post_ids[] = $landmark->ID;
+    $map['Coordinate'] = get_post_meta( $landmark->ID, 'acf_landmark_gmap', true );
+    $map['address']    = get_post_meta( $landmark->ID, 'acf_landmark_address', true );
+    $img_id  = get_post_thumbnail_id( $landmark->ID );
+    if( $img_id ) {
+      $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+      $img_url = esc_url($img[0]);
+    } else {
+      $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
     }
-    // console.log(markers);
-    // document.getElementById("button-1").onclick = function() {
-    //   // ここに#buttonをクリックしたら発生させる処理を記述する
-    //   markers[0].trigger('click');
-    // };
+    ?>
+    {
+      pos: { lat: <?php echo esc_js( $map['Coordinate']['lat'] ); ?>, lng: <?php echo esc_js( $map['Coordinate']['lng'] ); ?> }, 
+      title: "<?php echo esc_js( $landmark->post_title ); ?>", 
+      icon: "", 
+      post_id: <?php echo $landmark->ID; ?>,
+      infoWindowContent: 
+        "<div class='infwin cf' style='position:relative'>" + 
+        "<a id='Gmap-<?php echo $landmark->ID; ?>' style='position:absolute;top:-150px'></a>" + 
+        "<div class='infwin-thumb'><img class='img-responsive' src='<?php echo esc_url( $img_url ); ?>'></div>" + 
+        "<div class='infwin-main'>" + 
+        "<h3><?php echo esc_js( $landmark->post_title ); ?></h3>" + 
+        "<p><?php echo esc_js( $map['address'] ); ?></p>" + 
+        "</div>" + 
+        "</div>"
+    },
+  <?php endforeach; ?>
+  ];
+  // 投稿からMapの情報ウィンドウ呼び出し
+  var map, infoWindow;
+  var markers = [];
+  var infoWinCnts = [];
+  var suffixies  = [<?php echo implode(',', $post_ids); ?>];
+  jQuery(function($) {
+    $.each(suffixies, function(index, post_id) {
+      $("#HandleMap-" + post_id).bind("click",function(){
+        infoWindow.setContent(infoWinCnts[post_id]);
+        infoWindow.open(map, markers[post_id]);
+        infoWindow.open(map,markers[post_id]);
+      });
+    });
+  });
+  // Google Map 本体
+  map = new google.maps.Map(document.getElementById('mapArea'), {
+      center: mapData.pos,
+      zoom:   mapData.zoom
+  });
+  infoWindow = new google.maps.InfoWindow();
+  for( var i=0; i < markerData.length; i++ ) {
+    var post_id = markerData[i].post_id;
+    (function(){
+        var marker = new google.maps.Marker({
+            position: markerData[i].pos,
+            title:    markerData[i].title,
+            icon:     markerData[i].icon,
+            map: map
+        });
+        if( markerData[i].infoWindowContent ) {
+            var infoWindowContent = markerData[i].infoWindowContent;
+            marker.addListener('click', function(){
+                infoWindow.setContent(infoWindowContent);
+                infoWindow.open(map, marker);
+            });
+        }
+        infoWinCnts[post_id] = markerData[i].infoWindowContent;
+        markers[post_id] = marker;
+    }());
+  }
 }());
 </script>
     </div>
@@ -224,7 +211,7 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a href="#">
+                <a id="HandleMap-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
                   <span class="link-color-1">
                     <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
                   </span>
