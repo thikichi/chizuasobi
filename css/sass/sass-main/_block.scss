@@ -1,0 +1,455 @@
+@charset "UTF-8";
+
+/* BOX */
+/*--------------------------------------------------*/
+
+.box-1 {
+  width: 100%;
+  border: 1px solid #CCC;
+  box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+}
+.box-1-thumb {
+  float: left;
+  width: 120px;
+  padding: 10px;
+}
+.box-1-thumb img {
+}
+.box-1-main {
+  float: left;
+  width: calc(100% - 120px - 135px);
+  padding: 10px;
+}
+.box-1-text {}
+.box-1-btn {
+  float: left;
+  width: 135px;
+  height: 100%;
+}
+.box-1-bottom {
+  display: none;
+  border-top: 1px dotted #CCC;
+  padding: 0 10px 10px 10px;
+}
+
+
+.box-1-btnTop {
+  border-left: 1px dotted #CCC;
+  border-bottom: 1px dotted #CCC;
+  height: 50%;
+  > a {
+    display: table;
+    width: 100%;
+    height: 100%;
+    > span {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+}
+.box-1-btnBottom {
+  border-left: 1px dotted #CCC;
+  height: 50%;
+  > a {
+    display: table;
+    width: 100%; height: 100%;
+    > span {
+      display: table-cell;
+      height: 100%;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
+
+
+.box-1-2col {
+  @include media-max(xl) {
+    .box-1-btnText { display: none; }
+    .box-1-main { width: calc(100% - 120px - 50px); }
+    .box-1-btn { width: 50px; }
+    .box-1-main .taglist-1 { display: none; }
+    .box-1-bottom { display: block; }
+  }
+  @include media-max(md) {
+    .box-1-btnText { display: inline; }
+    .box-1-main { width: calc(100% - 120px - 135px); }
+    .box-1-btn { width: 135px; }
+    .box-1-main .taglist-1 { display: block; }
+    .box-1-bottom { display: none; }
+  }
+  @include media-max(sm) {
+    .box-1-btnText { display: none; }
+    .box-1-main { width: calc(100% - 120px - 50px); }
+    .box-1-btn { width: 50px; }
+    .box-1-main .taglist-1 { display: none; }
+    .box-1-bottom { display: block; }
+  }
+}
+.box-1-3col {
+  .box-1-thumb { width: 150px; padding-right: 5px; }
+  .box-1-map { width: 150px; float: left; padding: 10px; padding-left: 5px; }
+  .box-1-main { width: calc(100% - 300px - 135px); }
+  .box-1-btn { width: 135px; }
+  @include media-max(md) {
+    .box-1-btnText { display: none; }
+    .box-1-thumb { width: 100px }
+    .box-1-map { width: 100px; }
+    .box-1-main { width: calc(100% - 200px - 50px); }
+    .box-1-btn { width: 50px; }
+  }
+  @include media-max(sm) {
+    .box-1-main .taglist-1 { display: none; }
+    .box-1-bottom { display: block; }
+    .box-1-thumb { width: 50%; border-bottom: 1px dotted #CCC; }
+    .box-1-map { width: 50%; border-bottom: 1px dotted #CCC; }
+    .box-1-main { width: calc(100% - 50px); }
+  }
+}
+
+/* box-2 */
+
+.box-2 {
+  border: 1px solid #CCC;
+}
+.box-2-main {
+  padding: 15px;
+  background-color: #FFF;
+}
+.box-2-main-inner {
+  display: table;
+  width: 100%;
+}
+.box-2-subttl {
+  display: table;
+  width: 100%;
+  border-bottom: 1px solid #CCC;
+  background-color: #eeeeee;
+}
+.box-2-subttl-num {
+  display: table-cell;
+  width: 50px;
+  background-color: #c04c41;
+  color: #FFF;
+  font-size: 30px;
+  text-align: center;
+  vertical-align: middle;
+  font-family: 'Noto Serif JP', serif;
+}
+.box-2-subttl-main {
+  display: table-cell;
+  width: calc(100% - 65px);
+  font-size: 22px;
+  vertical-align: middle;
+  padding-left: 15px;
+}
+.box-2-main-thumb {
+  display: table-cell;
+  width: 100px;
+  text-align: center;
+  vertical-align: top;
+}
+.box-2-main-thumb > img {}
+.box-2-main-text {
+  display: table-cell;
+  width: calc(100% - 100px);
+}
+.box-2-main-text > p {
+  margin-left: 15px;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .box-2-main-thumb {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .box-2-main-thumb,.box-2-main-text {
+    display: block;
+    width: 100%;
+  }
+  .box-2-main-text > p {
+    margin-left: inherit;
+  }
+  .box-2-subttl-main {
+    font-size: 18px;
+  }
+}
+@media (max-width: 767px) {
+  .box-2 {
+    margin-bottom: 15px;
+  }
+}
+@media (max-width: 575px) {
+  .box-2-subttl-main {
+    font-size: 18px;
+  }
+}
+
+/* box-3 */
+
+.box3 {
+  @include media-min(md) {
+    @include cf;
+    .box3-sub {
+      float: left;
+      width: 170px;
+    }
+    .box3-main {
+      float: left;
+      width: calc(100% - 170px);
+      padding-left: 30px;
+    }
+  }
+  @include media-max(md) {
+    .box3-main {
+      margin-top: 30px;
+    }
+  }
+}
+.box3-ttl {
+  @include media-min(md) {
+    margin-top: 10px;
+  }
+  @include media-max(md) {
+    &::before {
+      content: '● ';
+    }
+    margin-bottom: 10px;
+  }
+}
+
+/* layout */
+/*--------------------------------------------------*/
+
+/* layout1 */
+
+.layout1 {
+  @include media-min(sm) {
+    @include cf;
+    .layout1-thumb {
+      float: left;
+      width: 270px;
+      @include media-max(md) { width: 200px; }
+    }
+    .layout1-main {
+      float: left;
+      width: calc(100% - 270px);
+      @include media-max(md) { width: calc(100% - 200px); }
+    }
+    .layout1-main-inner {
+      padding-left: 30px;
+    }
+  }
+  @include media-max(sm) {
+    .layout1-main {
+      margin-top: 15px;
+    }
+  }
+}
+
+/* layout2 */
+
+.layout2 {
+  padding: 50px 0;
+}
+.layout2-inner {}
+
+/* layout3 */
+
+$layout3-slider-padding: 10px;
+.layout3-slider {
+  margin: 0 -#{$layout3-slider-padding};
+  .slick-slide {
+    padding: 0 $layout3-slider-padding;
+  }
+}
+
+.layout3-slider-box {
+  display: block;
+  position: relative;
+  .layout3-hoverBox {
+    position: absolute;
+    left: 0; top: 55%;
+    width: 100%; height: 100%;
+    background-color: $color-overlay-hovered;
+    color: #FFF;
+    padding: 15px;
+    @include transition( top, 0.25s, linear, 0s );
+    h3 {
+      margin-top: 15px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 12px;
+      @include ellipsis-lines(3, '...', $line-height: 1.4, $right-space: 1em);
+      margin-bottom: 10px;
+    }
+  }
+  &:hover .layout3-hoverBox {
+    top: 0%;
+  }
+}
+
+/* layout5 */
+
+.layout5-inner {
+  padding: 70px 0 50px 0;
+}
+.layout5-container {
+  position: relative;
+}
+.layout5-ttl {
+  position: absolute;
+  width: 100%;
+  top: -30px;
+  left: 0;
+  z-index: 50;
+}
+
+/* Gallery */
+/*--------------------------------------------------*/
+
+$grid-gallery1: ( columns: 5, gutter: 15px );
+$grid-gallery1-lg: ( columns: 4, gutter: 15px );
+$grid-gallery1-md: ( columns: 3, gutter: 10px );
+$grid-gallery1-sm: ( columns: 2, gutter: 10px );
+.gallery1 {
+  > li > a {
+    display: block;
+    position: relative;
+    ._icon {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, .75);
+      bottom: 10px;
+      right: 10px;
+      text-align: center;
+      color: #FFF;
+      font-size: 20px;
+      padding-top: 3px;
+      @include media-max(sm) {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+      }
+    }
+  }
+  @include grid-container;
+  @include grid-collapse($grid-gallery1);
+  @include media-max(lg) { @include grid-collapse($grid-gallery1-lg); }
+  @include media-max(md) { @include grid-collapse($grid-gallery1-md); }
+  @include media-max(sm) { @include grid-collapse($grid-gallery1-sm); }
+  > li {
+    @include grid-column(1, $grid-gallery1);
+    @include media-max(lg) { @include grid-column(1, $grid-gallery1-lg); }
+    @include media-max(md) { @include grid-column(1, $grid-gallery1-md); }
+    @include media-max(sm) { @include grid-column(1, $grid-gallery1-sm); }
+    margin-bottom: 15px;
+  }
+}
+
+/* list */
+/*--------------------------------------------------*/
+
+// list1
+
+.list1 {
+  > li {
+    border-bottom: 1px dashed #CCC;
+    padding: 10px 0;
+  }
+}
+.dlList1 {
+  @include cf;
+  > dt {
+    float: left;
+    width: 85px;
+    text-align: center;
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 10%;
+      height: 80%;
+      width: 2px;
+      background-color: $color-black;
+    }
+  }
+  > dd {
+    float: left;
+    width: calc( 100% - 85px );
+    padding-left: 20px;
+  }
+}
+
+
+.sidebox {
+  border: 1px solid $color-gray;
+  box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px 10px 5px 10px;
+}
+.sidebox-ttl {
+  background-color: $color-lightGray;
+  text-align: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.sidebox-main {
+  margin-top: 3px;
+  > li:not(:last-child) {
+    border-bottom: 1px dashed $color-gray;
+  }
+  > li {
+    @include icon-arrow-before( #777, 7px, -3px, 2px, 2px );
+    padding: 7px 0;
+    > a {
+      display: block;
+      padding: 7px 15px;
+    }
+    &:hover a {
+      background-color: $color-lightGray;
+    }
+  }
+}
+// <div class="sidebox">
+// <h3 class="sidebox-ttl">カテゴリー一覧</h3>
+// <ul class="sidebox-main">
+// <li><a href="#">日本の城</a></li>
+// <li><a href="#">神社・仏閣</a></li>
+// <li><a href="#">高層タワー</a></li>
+// <li><a href="#">ビルディング</a></li>
+// <li><a href="#">自然公園</a></li>
+// </ul>
+// </div>
+
+
+/* google map infowindow */
+/*--------------------------------------------------*/
+
+.infwin {
+  width: 300px;
+  .infwin-thumb {
+    float: left;
+    width: 80px;
+    img {
+      width: 100%;
+    }
+  }
+  .infwin-main {
+    float: left;
+    width: calc(100% - 80px);
+    padding-left: 10px;
+  }
+}
+.infwin-link {
+  margin-top: 5px;
+  > a {
+    padding-left: 15px;
+    border-bottom: 1px dashed $color-gray;
+    &:hover { border: none; }
+    @include icon-arrow-before( $color-black, 5px, -5px, 2px, 2px );
+  }
+}

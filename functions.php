@@ -175,8 +175,168 @@ function get_header_nav_li( $navlist ) {
 
 
 
+/* テーマカスタマイザー
+---------------------------------------------------------- */
+
+function theme_customizer_extension($wp_customize) {
+  //今月の特集
+  $wp_customize->add_section( 'top_special', array (
+    'title' => '今月の特集',
+    'priority' => 100,
+  ));
+
+  //特集タイトル
+  $wp_customize->add_setting( 'top_special_text_1', array (
+    'default' => null,
+  ));
+  $wp_customize->add_control( 'top_special_text_1', array(
+    'section' => 'top_special',
+    'settings' => 'top_special_text_1',
+    'label' =>'特集タイトル ※ 赤字部分',
+    'description' => 'トップに表示される『特集』についての編集',
+    'type' => 'text',
+    'priority' => 70,
+  ));
+
+  $choices = array();
+  $specials = get_terms( array( 'taxonomy'=>'special', 'get'=>'all' ) );
+  foreach ($specials as $term) {
+    $choices[$term->term_id] = $term->name;
+  }
+
+  // セレクト
+  $wp_customize->add_setting('top_special_select_1', array(
+    'default' => null,
+  ));
+  $wp_customize->add_control( 'top_special_select_1', array(
+    'section'  => 'top_special',
+    'settings' => 'top_special_select_1',
+    'label'    => '選択対象の特集',
+    'description' => '選択対象となるカテゴリーを選択',
+    'type'    => 'select',
+    'choices' => $choices,
+    'priority' => 80,
+  ));
+}
+add_action('customize_register', 'theme_customizer_extension');
 
 
+
+
+
+
+
+
+function the_google_map_disp($map_id, $landmarks, $map_center=array(35.681236,139.767125,13), $field_params) {
+
+  $map_center_lat  = $map_center[0];
+  $map_center_lng  = $map_center[1];
+  $map_center_zoom = $map_center[2];
+
+  echo '<div id="' . $map_id . '" class="gmap-main bg-test mt-xs-5"></div>';
+  echo '<script>';
+$heredocs = <<< EOM
+(function(){
+  "use strict";
+  var mapData    = { pos: { lat: {$map_center_lat}, lng: {$map_center_lng} }, zoom: {$map_center_zoom} };
+  var markerData = [
+EOM;
+// echo $heredocs;
+
+
+
+  // 投稿ごとのマーカーと情報ウィンドウ作成
+  $post_ids =array();
+  foreach ($landmarks as $landmark): ?>
+    <?php
+    $post_ids[] = $landmark->ID;
+    // $map['Coordinate'] = get_post_meta( $landmark->ID, 'acf_landmark_gmap', true );
+    // $map['address']    = get_post_meta( $landmark->ID, 'acf_landmark_address', true );
+    // カスタムフィールド
+    foreach ($field_params as $key => $field) {
+      ${$key} = get_post_meta( $landmark->ID, $field, true );
+    }
+
+
+    $img_id  = get_post_thumbnail_id( $landmark->ID );
+    if( $img_id ) {
+      $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+      $img_url = esc_url($img[0]);
+    } else {
+      $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
+    }
+
+
+$heredocs .= <<< EOM
+{
+  pos: { lat: {$gmap['lat']}, lng: {$gmap['lng']} }, 
+  title: "{$landmark->post_title}", 
+  icon: "", 
+  post_id: {$landmark->ID},
+  infoWindowContent: 
+    "<div class='infwin cf' style='position:relative'>" + 
+    "<a id='Gmap-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
+    "<div class='infwin-thumb'>" + 
+    "<img class='img-responsive' src='{$img_url}'></div>" + 
+    "<div class='infwin-main'>" + 
+    "<h3>{$landmark->post_title}</h3>" + 
+    "<p>{$address}</p>" + 
+    "<p class='infwin-link'><a href='#'>この記事を見る</a></p>" + 
+    "</div>" + 
+    "</div>"
+},
+EOM;
+
+endforeach;
+
+$implode_post_ids = implode(',', $post_ids);
+$heredocs .= <<< EOM
+  ];
+  // 投稿からMapの情報ウィンドウ呼び出し
+  var map, infoWindow;
+  var markers = [];
+  var infoWinCnts = [];
+  var suffixies  = [{$implode_post_ids}];
+  jQuery(function($) {
+    $.each(suffixies, function(index, post_id) {
+      $("#HandleMap-" + post_id).bind("click",function(){
+        infoWindow.setContent(infoWinCnts[post_id]);
+        infoWindow.open(map, markers[post_id]);
+        infoWindow.open(map,markers[post_id]);
+      });
+    });
+  });
+  // Google Map 本体
+  map = new google.maps.Map(document.getElementById('{$map_id}'), {
+      center: mapData.pos,
+      zoom:   mapData.zoom
+  });
+  infoWindow = new google.maps.InfoWindow();
+  for( var i=0; i < markerData.length; i++ ) {
+    var post_id = markerData[i].post_id;
+    (function(){
+        var marker = new google.maps.Marker({
+            position: markerData[i].pos,
+            title:    markerData[i].title,
+            icon:     markerData[i].icon,
+            map: map
+        });
+        if( markerData[i].infoWindowContent ) {
+            var infoWindowContent = markerData[i].infoWindowContent;
+            marker.addListener('click', function(){
+                infoWindow.setContent(infoWindowContent);
+                infoWindow.open(map, marker);
+            });
+        }
+        infoWinCnts[post_id] = markerData[i].infoWindowContent;
+        markers[post_id] = marker;
+    }());
+  }
+}());
+EOM;
+  echo $heredocs;
+  echo '</script>';
+}
 
 
 

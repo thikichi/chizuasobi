@@ -514,6 +514,16 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .infwin .infwin-main { float: left; width: calc(100% - 80px); padding-left: 10px; }
 
+.infwin-link { margin-top: 5px; }
+
+.infwin-link > a { padding-left: 15px; border-bottom: 1px dashed #CCC; position: relative; }
+
+.infwin-link > a:hover { border: none; }
+
+.infwin-link > a::before { content: ''; position: absolute; top: 50%; left: 2px; width: 5px; height: 5px; margin-top: -5px; border-top: 2px solid #000; border-right: 2px solid #000; transform: rotate(45deg); }
+
+.infwin-link > a:hover::before { border-top: 2px solid; border-right: 2px solid; }
+
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }
 
@@ -591,3 +601,15 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .quote1-ttl { margin-top: 15px; font-size: 12px; }
 
 .quote1-main { margin-top: 15px; border-left: 5px solid #CCC; padding-left: 10px; }
+
+/* link-color-1 */
+/*--------------------------------------------------*/
+.link-color-1 { color: #5a89f3; }
+
+/* link-1 */
+/*--------------------------------------------------*/
+.link-1 ._icon { -webkit-transition: all 0.25s 0s linear; -moz-transition: all 0.25s 0s linear; -ms-transition: all 0.25s 0s linear; -o-transition: all 0.25s 0s linear; transition: all 0.25s 0s linear; }
+
+.link-1:hover ._icon { transform: rotateY(360deg); }
+
+.link-1:hover ._linkText { border-bottom: 1px dashed #5a89f3; }

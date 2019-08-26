@@ -23,6 +23,14 @@
   text-align: left;
 }
 
+.color-lightBrue; {
+  $color-lightBrue
+}
+
+.underline-dotted {
+  border-bottom: 1px dotted $color-gray;
+}
+
 // <span class="table">
 // <span class="table-cell __left">
 

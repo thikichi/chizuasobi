@@ -209,3 +209,21 @@
   padding-left: 10px;
 }
 
+/* link-color-1 */
+/*--------------------------------------------------*/
+
+.link-color-1 {
+  color: $color-lightBrue;
+}
+
+/* link-1 */
+/*--------------------------------------------------*/
+
+.link-1 {
+  ._icon { @include transition( all, 0.25s, linear, 0s ); }
+  &:hover {
+    ._icon { transform: rotateY( 360deg ); }
+    ._linkText { border-bottom: 1px dashed $color-lightBrue; }
+  }
+}
+

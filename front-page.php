@@ -63,98 +63,22 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 
 
 ?>
-<a href="#" id="button-0">ここを押すと情報ウィンドウ開く0</a>
-<a href="#" id="button-1">ここを押すと情報ウィンドウ開く1</a>
+
 
 <div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
     <div class="container"> 
       <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">Google Mapで検索</span></h2>
-      <div id="mapArea" class="gmap-main bg-test mt-xs-5"></div>
-<script>
 
+<?php
+// 経度・緯度・ズーム率
+$map_center = array(35.681236,139.767125,13);
+// GoogleMapのフィールド、所在地のフィールド
+$field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
+// mapID、投稿オブジェクト、MAP中心
+the_google_map_disp('mapArea', $landmarks, $map_center, $field_params);
+?>
 
-
-
-(function(){
-  "use strict";
-  var mapData    = { pos: { lat: 35.681236, lng: 139.767125 }, zoom: 13 };
-  var markerData = [
-  <?php
-  // 投稿ごとのマーカーと情報ウィンドウ作成
-  $post_ids =array();
-  foreach ($landmarks as $landmark): ?>
-    <?php
-    $post_ids[] = $landmark->ID;
-    $map['Coordinate'] = get_post_meta( $landmark->ID, 'acf_landmark_gmap', true );
-    $map['address']    = get_post_meta( $landmark->ID, 'acf_landmark_address', true );
-    $img_id  = get_post_thumbnail_id( $landmark->ID );
-    if( $img_id ) {
-      $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
-      $img_url = esc_url($img[0]);
-    } else {
-      $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
-    }
-    ?>
-    {
-      pos: { lat: <?php echo esc_js( $map['Coordinate']['lat'] ); ?>, lng: <?php echo esc_js( $map['Coordinate']['lng'] ); ?> }, 
-      title: "<?php echo esc_js( $landmark->post_title ); ?>", 
-      icon: "", 
-      post_id: <?php echo $landmark->ID; ?>,
-      infoWindowContent: 
-        "<div class='infwin cf' style='position:relative'>" + 
-        "<a id='Gmap-<?php echo $landmark->ID; ?>' style='position:absolute;top:-150px'></a>" + 
-        "<div class='infwin-thumb'><img class='img-responsive' src='<?php echo esc_url( $img_url ); ?>'></div>" + 
-        "<div class='infwin-main'>" + 
-        "<h3><?php echo esc_js( $landmark->post_title ); ?></h3>" + 
-        "<p><?php echo esc_js( $map['address'] ); ?></p>" + 
-        "</div>" + 
-        "</div>"
-    },
-  <?php endforeach; ?>
-  ];
-  // 投稿からMapの情報ウィンドウ呼び出し
-  var map, infoWindow;
-  var markers = [];
-  var infoWinCnts = [];
-  var suffixies  = [<?php echo implode(',', $post_ids); ?>];
-  jQuery(function($) {
-    $.each(suffixies, function(index, post_id) {
-      $("#HandleMap-" + post_id).bind("click",function(){
-        infoWindow.setContent(infoWinCnts[post_id]);
-        infoWindow.open(map, markers[post_id]);
-        infoWindow.open(map,markers[post_id]);
-      });
-    });
-  });
-  // Google Map 本体
-  map = new google.maps.Map(document.getElementById('mapArea'), {
-      center: mapData.pos,
-      zoom:   mapData.zoom
-  });
-  infoWindow = new google.maps.InfoWindow();
-  for( var i=0; i < markerData.length; i++ ) {
-    var post_id = markerData[i].post_id;
-    (function(){
-        var marker = new google.maps.Marker({
-            position: markerData[i].pos,
-            title:    markerData[i].title,
-            icon:     markerData[i].icon,
-            map: map
-        });
-        if( markerData[i].infoWindowContent ) {
-            var infoWindowContent = markerData[i].infoWindowContent;
-            marker.addListener('click', function(){
-                infoWindow.setContent(infoWindowContent);
-                infoWindow.open(map, marker);
-            });
-        }
-        infoWinCnts[post_id] = markerData[i].infoWindowContent;
-        markers[post_id] = marker;
-    }());
-  }
-}());
-</script>
     </div>
   </div>
 </div>
@@ -193,7 +117,14 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
         <div class="box-1 box-1-2col cf"> 
           <div class="box-1-inner cf">
             <div class="box-1-thumb matchHeight">
-              <img src="https://placehold.jp/750x750.png" alt="">
+              <?php
+              $img = $osfw->get_thumbnail_by_post( $post->ID, 'thumbnail' );
+              if( $img!='' ) {
+                echo $osfw->the_image_tag( $img );
+              } else {
+                echo '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+              }
+              ?>
             </div>
             <div class="box-1-main matchHeight">
               <div class="box-1-text">
@@ -202,25 +133,35 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
                   <span class="subttl-1-mini">投稿日時 <?php the_time('Y.m.d'); ?></span>
                 </h3>
                 <p class="mt-xs-5"><?php echo esc_html($field['address']); ?></p>
-                <ul class="taglist-1 cf mt-xs-10">
-                  <li><a href="#">城・城址</a></li>
-                  <li><a href="#">三大名城</a></li>
-                  <li><a href="#">日本100名城</a></li>
-                </ul>
+                <?php
+                $tax = 'landmark_cateogry'; // タクソノミー名
+                $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+                if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+                  echo '<ul class="taglist-1 cf mt-xs-10">';
+                  foreach ( $terms as $term ) {
+                    $term_link = get_term_link( $term->term_id, $tax );
+                    echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+                  }
+                  echo '</ul>';
+                } else {
+                }
+                ?>
               </div>
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a id="HandleMap-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
+                <a class="link-1" id="HandleMap-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
                   <span class="link-color-1">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">地図を見る</span>
+                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
+                    <span class="_linkText box-1-btnText">地図を見る</span>
                   </span>
                 </a>
               </div>
               <div class="box-1-btnBottom">
-                <a href="#">
+                <a class="link-1" href="<?php the_permalink(); ?>">
                   <span class="link-color-1">
-                    <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> <span class="box-1-btnText">記事を読む</span>
+                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> 
+                    <span class="_linkText box-1-btnText">記事を読む</span>
                   </span>
                 </a>
               </div>
@@ -439,35 +380,109 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
       <span class="ttl-3-sub">今月の特集テーマ</span>
       <span class="ttl-3-main mml-char">『2018年NHK大河ドラマ「西郷どん」ゆかりの地を行く』</span>
     </h2>
-    <div id="mapArea2" class="gmap-main mt-xs-15" style="height:500px;"></div>
+    <?php
+    $tax = 'special';
+    $tag_id = 7;
+    $map_center    = $osfw->get_term_cfield( $tax, $tag_id, 'acf_special_map_center');
+    $map_zoom      = $osfw->get_term_cfield( $tax, $tag_id, 'acf_special_map_zoom');
+    $map_textarea  = $osfw->get_term_cfield( $tax, $tag_id, 'acf_special_textarea');
+    $term_link = get_term_link( $tag_id, $tax );
+    ?>
+<!--     <div id="mapArea2" class="gmap-main mt-xs-15" style="height:500px;"></div> -->
+
     <p class="text-normal mt-xs-30">
-      薩摩の貧しい下級藩士の家の長男として生まれた西郷隆盛。家のため、お金のために役人の元で働き始めます。しかし、情深い西郷は困った人のために身を削り自分の金や食べ物も与えてしまいます。そんな彼に家族たちも困り果てますが、本人はお構いなし。<br>
-      そんな他人に優しい西郷に、藩主の島津斉彬が目を留めます。西郷自身も「民の幸せこそが国を富ませ強くする」という信念を持つ島津に惹かれます。島津から預けられた密命を受けて、東から西まで駆け回ります。だんだんと知名度を上げることとなり、重要人物と認識されるまでになります。 [...記事の詳細へ]
+      <?php
+      $text = wp_strip_all_tags( $map_textarea, true );
+      echo $osfw->get_excerpt_filter( $text, 300, '[...記事の詳細へ]', $term_link);
+      ?> 
     </p>
-    <ul class="row mt-xs-30">
+
+
+
+
+
+<?php
+// get values from theme-customizer.
+$get_term_id = get_theme_mod( 'top_special_select_1', false );
+$args = array(
+  'post_type' => 'landmark',
+  'posts_per_page' => 3,
+  'tax_query' => array(
+    array(
+      'taxonomy' => 'special', //タクソノミーを指定
+      'field' => 'id', //ターム名をスラッグで指定する
+      'terms' => array( 'aomori','iwate','miyagi' ) //表示したいタームをスラッグで指定
+    ),
+  ),
+);
+// if values exists form theme-customizer.
+if( $get_term_id ) {
+  $args = array_merge( $args, array(
+    'tax_query' => array(
+      array(
+        'taxonomy' => 'special',
+        'field' => 'id',
+        'terms' => $get_term_id,
+      ),
+    ),
+  ));
+}
+$special_article = get_posts( $args );
+$the_query = new WP_Query( $args );
+?>
+
+<?php
+// 経度・緯度・ズーム率
+$map_center2 = array($map_center['lat'], $map_center['lng'], $map_zoom);
+// GoogleMapのフィールド、所在地のフィールド
+$field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
+// mapID、投稿オブジェクト、MAP中心
+the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
+?>
+
+<?php if ($the_query->have_posts()): ?>
+  <ul class="row mt-xs-30">
+    <?php $i=1; while($the_query->have_posts()) : $the_query->the_post(); ?>
       <li class="col-md-4 matchHeight">
         <div class="box-2">
           <h3 class="box-2-subttl">
-            <span class="box-2-subttl-num">1</span>
-            <span class="box-2-subttl-main">西郷隆盛誕生地碑</span>
+            <span class="box-2-subttl-num"><?php echo $i; ?></span>
+            <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#" class="link-color-1 text-12">[地図を見る]</a></span>
           </h3>
           <div class="box-2-main">
             <div class="box-2-main-inner">
               <div class="box-2-main-thumb">
-                <img src="https://placehold.jp/100x100.png" alt="">
+                <?php
+                $img = $osfw->get_thumbnail_by_post( $post->ID, 'thumbnail' );
+                if( $img!='' ) {
+                  echo $osfw->the_image_tag( $img );
+                } else {
+                  echo '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+                }
+                ?>
               </div>
               <div class="box-2-main-text">
                 <p>
-                西郷吉之助は、鹿児島城(鶴丸城)<br>
-                下の下級武士が住む加治屋町にて生まれました。
-                西郷隆盛の妹・西郷琴などの兄弟もここで生まれました。
+                  <?php echo $osfw->get_excerpt_filter( get_the_excerpt(), 30, ' ...[続きを読む]', get_the_permalink() ); ?>
                 </p>
               </div>
             </div>
           </div>
         </div>
       </li>
-      <li class="col-md-4 matchHeight">
+    <?php $i++; endwhile; ?>
+  </ul>
+<?php else: ?>
+  <p>記事の投稿がありません。</p>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+
+
+
+
+    
+
+<!--       <li class="col-md-4 matchHeight">
         <div class="box-2">
           <h3 class="box-2-subttl">
             <span class="box-2-subttl-num">2</span>
@@ -510,7 +525,7 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
             </div>
           </div>
         </div>
-      </li>
+      </li> -->
     </ul>
   </div>
 </section>
