@@ -227,13 +227,13 @@ add_action('customize_register', 'theme_customizer_extension');
 
 
 
-function the_google_map_disp($map_id, $landmarks, $map_center=array(35.681236,139.767125,13), $field_params) {
+function the_google_map_disp($map_id, $landmarks, $map_center=array(35.681236,139.767125,13), $field_params, $style='') {
 
   $map_center_lat  = $map_center[0];
   $map_center_lng  = $map_center[1];
   $map_center_zoom = $map_center[2];
 
-  echo '<div id="' . $map_id . '" class="gmap-main bg-test mt-xs-5"></div>';
+  echo '<div id="' . $map_id . '" class="gmap-main" style="' . $style . '"></div>';
   echo '<script>';
 $heredocs = <<< EOM
 (function(){

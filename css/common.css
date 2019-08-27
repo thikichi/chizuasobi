@@ -26,6 +26,10 @@
 
 .table-cell.__left { text-align: left; }
 
+.color-lightBrue { color: #5a89f3; }
+
+.underline-dotted { border-bottom: 1px dotted #CCC; }
+
 /* Fonts */
 /*--------------------------------------------------*/
 .font-noto-serif-jp { font-family: 'Noto Serif JP', serif; }
