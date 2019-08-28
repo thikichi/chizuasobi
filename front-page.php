@@ -301,4 +301,7 @@ the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
 
 <?php get_template_part('parts/tab-content'); ?>
 
+
+
+
 <?php get_footer(); ?>

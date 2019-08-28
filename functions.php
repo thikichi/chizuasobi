@@ -236,7 +236,7 @@ function the_google_map_disp($map_id, $landmarks, $map_center=array(35.681236,13
   echo '<div id="' . $map_id . '" class="gmap-main" style="' . $style . '"></div>';
   echo '<script>';
 $heredocs = <<< EOM
-(function(){
+function mygooglemap_{$map_id}(){
   "use strict";
   var mapData    = { pos: { lat: {$map_center_lat}, lng: {$map_center_lng} }, zoom: {$map_center_zoom} };
   var markerData = [
@@ -332,7 +332,21 @@ $heredocs .= <<< EOM
         markers[post_id] = marker;
     }());
   }
-}());
+};
+// 遅延読み込み
+jQuery(function($) {
+  var thisOffset_{$map_id};
+  var counter_{$map_id}=0;
+  $(window).on('load',function(){
+    thisOffset_{$map_id} = $('#{$map_id}').offset().top;
+  });
+  $(window).scroll(function(){
+    if( $(window).scrollTop() + $(window).height() > thisOffset_{$map_id} && counter_{$map_id} < 1 ){
+      mygooglemap_{$map_id}();
+      counter_{$map_id}++;
+    }
+  });
+});
 EOM;
   echo $heredocs;
   echo '</script>';
