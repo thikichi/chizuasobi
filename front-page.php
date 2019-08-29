@@ -2,68 +2,7 @@
 
 <?php
 $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
-
-
-
-      
-  
-// array(1) {
-//   [0]=>
-//   object(WP_Post)#5699 (24) {
-//     ["ID"]=>
-//     int(32)
-//     ["post_author"]=>
-//     string(1) "0"
-//     ["post_date"]=>
-//     string(19) "2019-08-03 07:13:31"
-//     ["post_date_gmt"]=>
-//     string(19) "2019-08-02 22:13:31"
-//     ["post_content"]=>
-//     string(0) ""
-//     ["post_title"]=>
-//     string(15) "東京タワー"
-//     ["post_excerpt"]=>
-//     string(0) ""
-//     ["post_status"]=>
-//     string(7) "publish"
-//     ["comment_status"]=>
-//     string(6) "closed"
-//     ["ping_status"]=>
-//     string(6) "closed"
-//     ["post_password"]=>
-//     string(0) ""
-//     ["post_name"]=>
-//     string(45) "%e6%9d%b1%e4%ba%ac%e3%82%bf%e3%83%af%e3%83%bc"
-//     ["to_ping"]=>
-//     string(0) ""
-//     ["pinged"]=>
-//     string(0) ""
-//     ["post_modified"]=>
-//     string(19) "2019-08-03 07:44:14"
-//     ["post_modified_gmt"]=>
-//     string(19) "2019-08-02 22:44:14"
-//     ["post_content_filtered"]=>
-//     string(0) ""
-//     ["post_parent"]=>
-//     int(0)
-//     ["guid"]=>
-//     string(87) "http://localhost/public_html/chachamarunet.com/chizuasobi/?post_type=landmark&p=32"
-//     ["menu_order"]=>
-//     int(0)
-//     ["post_type"]=>
-//     string(8) "landmark"
-//     ["post_mime_type"]=>
-//     string(0) ""
-//     ["comment_count"]=>
-//     string(1) "0"
-//     ["filter"]=>
-//     string(3) "raw"
-//   }
-// }
-
-
 ?>
-
 
 <div id="MapMain" class="gmap-main-wrapper">
   <div class="bg-green" style="height:300px">
@@ -90,10 +29,6 @@ the_google_map_disp('mapArea', $landmarks, $map_center, $field_params);
       ランドマーク一覧
       <!-- <span class="ttl-2-small">検索条件 : 城 / 日本の城 / 史跡</span> -->
     </h2>
-
-
-
-
 
 <?php
 $args = array(
@@ -150,7 +85,7 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a class="link-1" id="HandleMap-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
+                <a class="link-1" id="HandleMap-mapArea-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
                   <span class="link-color-1">
                     <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
                     <span class="_linkText box-1-btnText">地図を見る</span>
@@ -184,13 +119,15 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
           </div>
         </div><!-- .box-1 -->
       </li>
-
     <?php endwhile; ?>
   </ul>
 <?php else: ?>
   <p>記事の投稿がありません。</p>
 <?php endif; ?>
 <?php wp_reset_query(); ?>
+  </div>
+  <div class="btn-1">
+    <a href="<?php echo $osfw->get_archive_link('landmark'); ?>">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
   </div>
 </section>
 
@@ -249,6 +186,7 @@ $special_article = get_posts( $args );
 $the_query = new WP_Query( $args );
 ?>
 
+<div class="mt-xs-15">
 <?php
 // 経度・緯度・ズーム率
 $map_center2 = array($map_center['lat'], $map_center['lng'], $map_zoom);
@@ -257,6 +195,7 @@ $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark
 // mapID、投稿オブジェクト、MAP中心
 the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
 ?>
+</div>
 
 <?php if ($the_query->have_posts()): ?>
   <ul class="row mt-xs-30">
@@ -265,7 +204,7 @@ the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
         <div class="box-2">
           <h3 class="box-2-subttl">
             <span class="box-2-subttl-num"><?php echo $i; ?></span>
-            <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#" class="link-color-1 text-12">[地図を見る]</a></span>
+            <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#Gmap-<?php the_ID(); ?>" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
           </h3>
           <div class="box-2-main">
             <div class="box-2-main-inner">
@@ -296,6 +235,9 @@ the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
 <?php wp_reset_query(); ?>
 
     </ul>
+  </div>
+  <div class="btn-1">
+    <a href="<?php echo $osfw->get_archive_link('landmark'); ?>">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
   </div>
 </section>
 

@@ -299,7 +299,7 @@ $heredocs .= <<< EOM
   var suffixies  = [{$implode_post_ids}];
   jQuery(function($) {
     $.each(suffixies, function(index, post_id) {
-      $("#HandleMap-" + post_id).bind("click",function(){
+      $("#HandleMap-{$map_id}-" + post_id).bind("click",function(){
         infoWindow.setContent(infoWinCnts[post_id]);
         infoWindow.open(map, markers[post_id]);
         infoWindow.open(map,markers[post_id]);
