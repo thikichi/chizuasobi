@@ -70,7 +70,8 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
                 <p class="mt-xs-5"><?php echo esc_html($field['address']); ?></p>
                 <?php
                 $tax = 'landmark_cateogry'; // タクソノミー名
-                $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+                // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+                $terms = get_the_terms($post->ID, $tax);
                 if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
                   echo '<ul class="taglist-1 cf mt-xs-10">';
                   foreach ( $terms as $term ) {
@@ -105,7 +106,8 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
           <div class="box-1-bottom">
             <?php
             $tax = 'landmark_cateogry'; // タクソノミー名
-            $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+            // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+            $terms = get_the_terms($post->ID, $tax);
             if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
               echo '<ul class="taglist-1 cf mt-xs-10">';
               foreach ( $terms as $term ) {

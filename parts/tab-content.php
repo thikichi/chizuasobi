@@ -97,7 +97,8 @@ $the_query = new WP_Query( $args );
             <p class="mt-xs-5"><?php echo $osfw->get_excerpt_filter( get_the_excerpt(), 50, ' [...記事の詳細へ]', get_the_permalink()); ?></p>
             <?php
             $tax = 'landmark_cateogry'; // タクソノミー名
-            $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+            // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+            $terms = get_the_terms($post->ID, $tax);
             if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
               echo '<ul class="taglist-1 cf mt-xs-10">';
               foreach ( $terms as $term ) {
@@ -130,7 +131,8 @@ $the_query = new WP_Query( $args );
       <div class="box-1-bottom">
         <?php
         $tax = 'landmark_cateogry'; // タクソノミー名
-        $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+        // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+        $terms = get_the_terms($post->ID, $tax);
         if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
           echo '<ul class="taglist-1 cf mt-xs-10">';
           foreach ( $terms as $term ) {

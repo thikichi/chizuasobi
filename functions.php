@@ -355,6 +355,136 @@ EOM;
 
 
 
+function the_google_map_disp_m($map_id, $hotels, $map_center=array(35.681236,139.767125,13), $style) {
+
+  $map_center_lat  = $map_center[0];
+  $map_center_lng  = $map_center[1];
+  $map_center_zoom = $map_center[2];
+
+  echo '<div id="' . $map_id . '" class="gmap-main" style="' . $style . '"></div>';
+  echo '<script>';
+$heredocs = <<< EOM
+function mygooglemap_{$map_id}(){
+  "use strict";
+  var mapData    = { pos: { lat: {$map_center_lat}, lng: {$map_center_lng} }, zoom: {$map_center_zoom} };
+  var markerData = [
+EOM;
+// echo $heredocs;
+
+
+
+  // 投稿ごとのマーカーと情報ウィンドウ作成
+  $post_ids =array();
+  foreach ($hotels as $hotel): ?>
+    <?php
+    $post_ids[] = $hotel->HotelID;
+    // 表示したい項目のキー名とラベル名のセット
+    // foreach ($field_params as $key => $label) {
+    //   ${$key} = $value;
+    // }
+
+    // $img_id  = get_post_thumbnail_id( $hotel->ID );
+    // if( $img_id ) {
+    //   $img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    //   $img_url = esc_url($img[0]);
+    // } else {
+    //   $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
+    // }
+
+
+$jy = $hotel->X / 3600000;
+$jx = $hotel->Y / 3600000;
+$lng = $jy - $jy * 0.00010695 + $jx * 0.000017464 + 0.0046017;
+$lat = $jx - $jy * 0.000046038 - $jx * 0.000083043 + 0.010040;
+
+
+$heredocs .= <<< EOM
+{
+  pos: { lat: {$lat}, lng: {$lng} }, 
+  title: "{$hotel->HotelName}", 
+  icon: "", 
+  post_id: {$hotel->HotelID},
+  infoWindowContent: 
+    "<div class='infwin cf' style='position:relative'>" + 
+    "<a id='Gmap-{$hotel->HotelID}' style='position:absolute;top:-150px'></a>" + 
+    "<div class='infwin-thumb'>" + 
+    "<img class='img-responsive' src='{$hotel->PictureURL}'></div>" + 
+    "<div class='infwin-main'>" + 
+    "<h3>{$hotel->HotelName}</h3>" + 
+    "<p>{$hotel->HotelAddress}</p>" + 
+    "<p class='infwin-link'><a href='{$hotel->HotelDetailURL}'>この記事を見る</a></p>" + 
+    "</div>" + 
+    "</div>"
+},
+EOM;
+
+endforeach;
+
+$implode_post_ids = implode(',', $post_ids);
+$heredocs .= <<< EOM
+  ];
+  // 投稿からMapの情報ウィンドウ呼び出し
+  var map, infoWindow;
+  var markers = [];
+  var infoWinCnts = [];
+  var suffixies  = [{$implode_post_ids}];
+  jQuery(function($) {
+    $.each(suffixies, function(index, post_id) {
+      $("#HandleMap-{$map_id}-" + post_id).bind("click",function(){
+        infoWindow.setContent(infoWinCnts[post_id]);
+        infoWindow.open(map, markers[post_id]);
+        infoWindow.open(map,markers[post_id]);
+      });
+    });
+  });
+  // Google Map 本体
+  map = new google.maps.Map(document.getElementById('{$map_id}'), {
+      center: mapData.pos,
+      zoom:   mapData.zoom
+  });
+  infoWindow = new google.maps.InfoWindow();
+  for( var i=0; i < markerData.length; i++ ) {
+    var post_id = markerData[i].post_id;
+    (function(){
+        var marker = new google.maps.Marker({
+            position: markerData[i].pos,
+            title:    markerData[i].title,
+            icon:     markerData[i].icon,
+            map: map
+        });
+        if( markerData[i].infoWindowContent ) {
+            var infoWindowContent = markerData[i].infoWindowContent;
+            marker.addListener('click', function(){
+                infoWindow.setContent(infoWindowContent);
+                infoWindow.open(map, marker);
+            });
+        }
+        infoWinCnts[post_id] = markerData[i].infoWindowContent;
+        markers[post_id] = marker;
+    }());
+  }
+};
+// 遅延読み込み
+jQuery(function($) {
+  var thisOffset_{$map_id};
+  var counter_{$map_id}=0;
+  $(window).on('load',function(){
+    thisOffset_{$map_id} = $('#{$map_id}').offset().top;
+  });
+  $(window).scroll(function(){
+    if( $(window).scrollTop() + $(window).height() > thisOffset_{$map_id} && counter_{$map_id} < 1 ){
+      mygooglemap_{$map_id}();
+      counter_{$map_id}++;
+    }
+  });
+});
+EOM;
+  echo $heredocs;
+  echo '</script>';
+}
+
+
+
 // ↑↑ ここまで追加記述してください ↑↑ //
 
 // CSSスクリプトの読み込み

@@ -26,9 +26,29 @@
 
 .table-cell.__left { text-align: left; }
 
+.color-white { color: #FFF; }
+
 .color-lightBrue { color: #5a89f3; }
 
+.color-lightGray { color: #F4F4F4; }
+
+.bgColor-white { background-color: #FFF; }
+
+.bgColor-lightBrue { background-color: #5a89f3; }
+
+.bgColor-lightGray { background-color: #F4F4F4; }
+
 .underline-dotted { border-bottom: 1px dotted #CCC; }
+
+.underline-solid { border-bottom: 1px solid #CCC; }
+
+.underline-dashed { border-bottom: 1px dashed #CCC; }
+
+.inner-wide { padding: 50px; }
+
+.inner-normal { padding: 30px; }
+
+.inner-narrow { padding: 15px; }
 
 /* Fonts */
 /*--------------------------------------------------*/
@@ -95,42 +115,6 @@
 
 @media (max-width: 575px) { .gmap-main { height: 300px; }
   .gmap-main-wrapper { height: 400px; } }
-
-/* Border */
-/*--------------------------------------------------*/
-/* tab-1 */
-.tab-1 { margin: 0 50px; }
-
-.tab-1 > li { float: left; margin-right: 5px; }
-
-.tab-1 > li._active { border-top: 4px solid #e1e1e1; border-left: 4px solid #e1e1e1; border-right: 4px solid #e1e1e1; margin-bottom: -4px; }
-
-.tab-1 > li._active > a { display: block; border-top: 8px solid #f4f4f4; border-left: 8px solid #f4f4f4; border-right: 8px solid #f4f4f4; margin-bottom: -8px; }
-
-.tab-1 > li._active > a > span { display: block; padding: 10px 15px; font-size: 16px; border-top: 1px solid #e4e4e4; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; margin-bottom: -5px; background-color: #FFF; position: relative; }
-
-.tab-1 > li._active > a > span::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background-color: #FFF; }
-
-.tab-1 > li:not(._active) { margin-top: 7px; }
-
-.tab-1 > li:not(._active) > a { display: block; }
-
-.tab-1 > li:not(._active) > a > span { display: block; padding: 5px 15px; font-size: 16px; background-color: #c04c41; color: #FFF; }
-
-@media (max-width: 575px) { .tab-1 > li._active > a > span { font-size: 12px; padding: 5px; padding-bottom: 15px; }
-  .tab-1 > li:not(._active) > a > span { font-size: 12px; padding: 5px; }
-  .tab-1 { margin-left: 0px; }
-  .tab-1 > li._active > a { border-top: 4px solid #f4f4f4; border-left: 4px solid #f4f4f4; border-right: 4px solid #f4f4f4; margin-bottom: -10px; }
-  .tab-1 > li { margin-right: 1px; } }
-
-/* tabcontent-1 */
-.tabcontent-1 { margin-top: 0px; border-top: 4px solid #e1e1e1; }
-
-.tabcontent-1-inner { border-top: 8px solid #f4f4f4; background-color: #f4f4f4; }
-
-.tabcontent-1-main { background-color: #FFF; border: 1px solid #e1e1e1; margin-bottom: 10px; padding: 30px; }
-
-@media (max-width: 575px) { .tabcontent-1-main { padding: 10px; } }
 
 /* bg-green */
 .bg-green { background-color: #6ea364; }
@@ -405,21 +389,26 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 @media only screen and (max-width: 767px) { .box3-ttl { margin-bottom: 10px; }
   .box3-ttl::before { content: '● '; } }
 
-/* layout */
-/*--------------------------------------------------*/
-/* layout1 */
-@media only screen and (min-width: 576px) { .layout1::after { content: ""; display: block; clear: both; }
-  .layout1 .layout1-thumb { float: left; width: 270px; } }
+/* box4 */
+.box4 { font-size: 15px; }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) { .layout1 .layout1-thumb { width: 200px; } }
+@media only screen and (min-width: 576px) { .box4::after { content: ""; display: block; clear: both; }
+  .box4 .box4-thumb { float: left; width: 270px; } }
 
-@media only screen and (min-width: 576px) { .layout1 .layout1-main { float: left; width: calc(100% - 270px); } }
+@media only screen and (min-width: 576px) and (max-width: 767px) { .box4 .box4-thumb { width: 200px; } }
 
-@media only screen and (min-width: 576px) and (max-width: 767px) { .layout1 .layout1-main { width: calc(100% - 200px); } }
+@media only screen and (min-width: 576px) { .box4 .box4-main { float: left; width: calc(100% - 270px); } }
 
-@media only screen and (min-width: 576px) { .layout1 .layout1-main-inner { padding-left: 30px; } }
+@media only screen and (min-width: 576px) and (max-width: 767px) { .box4 .box4-main { width: calc(100% - 200px); } }
 
-@media only screen and (max-width: 575px) { .layout1 .layout1-main { margin-top: 15px; } }
+@media only screen and (min-width: 576px) { .box4 .box4-main-inner { padding-left: 30px; } }
+
+@media only screen and (max-width: 575px) { .box4 .box4-main { margin-top: 15px; } }
+
+.box4-text { line-height: 2.0em; }
+
+/* block5 */
+.block5-ttl { font-size: 18px; }
 
 /* layout2 */
 .layout2 { padding: 50px 0; }
@@ -488,6 +477,10 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .dlList1 > dd { float: left; width: calc( 100% - 85px); padding-left: 20px; }
 
+.list2 > li { padding: 30px; }
+
+.list2 > li:not(:last-child) { border-bottom: 1px dashed #CCC; }
+
 .sidebox { border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 10px 5px 10px; }
 
 .sidebox-ttl { background-color: #F4F4F4; text-align: center; padding: 10px; font-weight: bold; }
@@ -525,6 +518,66 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .infwin-link > a::before { content: ''; position: absolute; top: 50%; left: 2px; width: 5px; height: 5px; margin-top: -5px; border-top: 2px solid #000; border-right: 2px solid #000; transform: rotate(45deg); }
 
 .infwin-link > a:hover::before { border-top: 2px solid; border-right: 2px solid; }
+
+.tab-container .panel { display: none; }
+
+.tab-container .panel.is-show { display: block; }
+
+/* TAB */
+/*--------------------------------------------------*/
+/* tab-1 */
+.tab-1 { margin: 0 50px; }
+
+.tab-1 > li { float: left; margin-right: 5px; }
+
+.tab-1 > li._active { border-top: 4px solid #e1e1e1; border-left: 4px solid #e1e1e1; border-right: 4px solid #e1e1e1; margin-bottom: -4px; }
+
+.tab-1 > li._active > a { display: block; border-top: 8px solid #f4f4f4; border-left: 8px solid #f4f4f4; border-right: 8px solid #f4f4f4; margin-bottom: -8px; }
+
+.tab-1 > li._active > a > span { display: block; padding: 10px 15px; font-size: 16px; border-top: 1px solid #e4e4e4; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; margin-bottom: -5px; background-color: #FFF; position: relative; }
+
+.tab-1 > li._active > a > span::after { content: ''; position: absolute; left: 0; bottom: -1px; height: 1px; width: 100%; background-color: #FFF; }
+
+.tab-1 > li:not(._active) { margin-top: 7px; }
+
+.tab-1 > li:not(._active) > a { display: block; }
+
+.tab-1 > li:not(._active) > a > span { display: block; padding: 5px 15px; font-size: 16px; background-color: #c04c41; color: #FFF; }
+
+@media (max-width: 575px) { .tab-1 > li._active > a > span { font-size: 12px; padding: 5px; padding-bottom: 15px; }
+  .tab-1 > li:not(._active) > a > span { font-size: 12px; padding: 5px; }
+  .tab-1 { margin-left: 0px; }
+  .tab-1 > li._active > a { border-top: 4px solid #f4f4f4; border-left: 4px solid #f4f4f4; border-right: 4px solid #f4f4f4; margin-bottom: -10px; }
+  .tab-1 > li { margin-right: 1px; } }
+
+/* tabcontent-1 */
+.tabcontent-1 { margin-top: 0px; border-top: 4px solid #e1e1e1; }
+
+.tabcontent-1-inner { border-top: 8px solid #f4f4f4; background-color: #f4f4f4; }
+
+.tabcontent-1-main { background-color: #FFF; border: 1px solid #e1e1e1; margin-bottom: 10px; padding: 30px; }
+
+@media (max-width: 575px) { .tabcontent-1-main { padding: 10px; } }
+
+.tab-2 { overflow: hidden; }
+
+.tab-2-list { display: inline-block; position: relative; padding-left: 15px; }
+
+.tab-2-list::after { content: ""; display: block; clear: both; }
+
+.tab-2-list::before { position: absolute; content: ''; left: -1000px; width: 1015px; bottom: 0; height: 1px; background-color: #000; }
+
+.tab-2-list::after { position: absolute; content: ''; left: 100%; width: 3000px; bottom: 0; height: 1px; background-color: #777; }
+
+.tab-2-list > li { float: left; }
+
+.tab-2-list > li > a { display: block; padding: 5px 15px; background-color: #FFF; line-height: 1; height: 30px; }
+
+.tab-2-list > li:not(._active) { border-bottom: 1px solid #777; }
+
+.tab-2-list > li._active { border-top: 1px solid #777; border-left: 1px solid #777; border-right: 1px solid #777; }
+
+.tab-2-list > li._active > a { font-size: 18px; border-left: 5px solid #6ea364; }
 
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }

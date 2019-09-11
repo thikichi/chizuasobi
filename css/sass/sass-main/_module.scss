@@ -23,13 +23,20 @@
   text-align: left;
 }
 
-.color-lightBrue {
-  color: $color-lightBrue;
-}
+.color-white { color: #FFF; }
+.color-lightBrue { color: $color-lightBrue; }
+.color-lightGray { color: $color-lightGray; }
+.bgColor-white { background-color: #FFF; }
+.bgColor-lightBrue { background-color: $color-lightBrue; }
+.bgColor-lightGray { background-color: $color-lightGray; }
 
-.underline-dotted {
-  border-bottom: 1px dotted $color-gray;
-}
+.underline-dotted { border-bottom: 1px dotted $color-gray; }
+.underline-solid { border-bottom: 1px solid $color-gray; }
+.underline-dashed { border-bottom: 1px dashed $color-gray; }
+
+.inner-wide { padding: 50px; }
+.inner-normal { padding: 30px; }
+.inner-narrow { padding: 15px; }
 
 // <span class="table">
 // <span class="table-cell __left">
