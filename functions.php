@@ -266,12 +266,22 @@ EOM;
       $img_url = 'http://placehold.jp/18/cccccc/ffffff/100x100.png?text=NO IMAGE';
     }
 
+    // Map Icon Image
+    global $osfw;
+    $terms       = get_the_terms( $landmark->ID, 'landmark_cateogry' );
+    if( $terms ) {
+      $icon_img_id = $osfw->get_term_cfield( 'landmark_cateogry', $terms[0]->term_id, 'acf_landmark_cateogry_map_icon' );
+      $icon_img_temp = $osfw->get_thumbnail( $icon_img_id, 'thumbnail', '' );
+    } else {
+      $icon_img_temp = '';
+    }
+    $icon_img = $icon_img_temp=='' ? '' : $icon_img_temp['src'];
 
 $heredocs .= <<< EOM
 {
   pos: { lat: {$gmap['lat']}, lng: {$gmap['lng']} }, 
   title: "{$landmark->post_title}", 
-  icon: "", 
+  icon: "{$icon_img}", 
   post_id: {$landmark->ID},
   infoWindowContent: 
     "<div class='infwin cf' style='position:relative'>" + 
