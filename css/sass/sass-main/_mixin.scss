@@ -312,3 +312,17 @@
     display: none;
   }
 }
+
+/*
+* 適用するCSSのプロパティ
+* アニメーションの時間
+* 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値)
+* 変化がはじまるまでの時間を設定
+*/
+@mixin transition( $roperty: all, $duration: 0.25s, $timingFunction: linear, $delay: 0s ) {
+  -webkit-transition: $roperty $duration $delay $timingFunction;
+     -moz-transition: $roperty $duration $delay $timingFunction;
+      -ms-transition: $roperty $duration $delay $timingFunction;
+       -o-transition: $roperty $duration $delay $timingFunction;
+          transition: $roperty $duration $delay $timingFunction;
+}

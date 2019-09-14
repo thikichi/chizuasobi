@@ -380,7 +380,7 @@ $xml = @simplexml_load_file($url);
 <?php
 // mapID、投稿オブジェクト、MAP中心
 $style = 'width:100%;height:350px;margin-top:10px';
-the_google_map_disp_m('mapSingleHotel', $xml->Hotel, array(35.303036,135.125932,13), $style);
+the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
 ?>
 
       </div>
@@ -388,119 +388,37 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, array(35.303036,135.125932,
         <?php foreach ($xml->Hotel as $hotel): ?>
           <li>
             <div class="layout3-slider-box">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
+              <div style="background-image:url(<?php echo $hotel->PictureURL; ?>);background-repeat:no-repeat;background-size:cover;width:100%;height:230px">
+              </div>
               <div class="layout3-hoverBox">
                 <h3><?php echo $hotel->HotelName; ?></h3>
                 <p>
-                  大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
+                  <?php echo $hotel->HotelCatchCopy; ?>
                 </p>
                 <div class="btn-2">
-                  <a class="" href="#">地図を見る</a>
+                  <a class="link-1" href="#Gmap-<?php echo $hotel->HotelID; ?>" id="HandleMap-mapSingleHotel-<?php echo $hotel->HotelID; ?>">地図を見る</a>
                 </div>
                 <div class="btn-2 _red">
-                  <a class="" href="#">記事の詳細へ</a>
+                  <a href="<?php echo $hotel->HotelDetailURL; ?>" target="_blank">ホテルの詳細へ</a>
                 </div>
               </div>
             </div><!-- .layout3-slider-box -->
           </li>
         <?php endforeach; ?>
-        <li>
-          <div class="layout3-slider-box">
-            <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
-            <div class="layout3-hoverBox">
-              <h3>大阪城</h3>
-              <p>
-                大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
-              </p>
-              <div class="btn-2">
-                <a class="" href="#">地図を見る</a>
-              </div>
-              <div class="btn-2 _red">
-                <a class="" href="#">記事の詳細へ</a>
-              </div>
-            </div>
-          </div><!-- .layout3-slider-box -->
-        </li>
-        <li>
-          <div class="layout3-slider-box">
-            <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
-            <div class="layout3-hoverBox">
-              <h3>大阪城</h3>
-              <p>
-                大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
-              </p>
-              <div class="btn-2">
-                <a class="" href="#">地図を見る</a>
-              </div>
-              <div class="btn-2 _red">
-                <a class="" href="#">記事の詳細へ</a>
-              </div>
-            </div>
-          </div><!-- .layout3-slider-box -->
-        </li>
-        <li>
-          <div class="layout3-slider-box">
-            <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
-            <div class="layout3-hoverBox">
-              <h3>大阪城</h3>
-              <p>
-                大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
-              </p>
-              <div class="btn-2">
-                <a class="" href="#">地図を見る</a>
-              </div>
-              <div class="btn-2 _red">
-                <a class="" href="#">記事の詳細へ</a>
-              </div>
-            </div>
-          </div><!-- .layout3-slider-box -->
-        </li>
-        <li>
-          <div class="layout3-slider-box">
-            <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
-            <div class="layout3-hoverBox">
-              <h3>大阪城</h3>
-              <p>
-                大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
-              </p>
-              <div class="btn-2">
-                <a class="" href="#">地図を見る</a>
-              </div>
-              <div class="btn-2 _red">
-                <a class="" href="#">記事の詳細へ</a>
-              </div>
-            </div>
-          </div><!-- .layout3-slider-box -->
-        </li>
-        <li>
-          <div class="layout3-slider-box">
-            <img src="https://placehold.jp/3d4070/ffffff/750x750.png">
-            <div class="layout3-hoverBox">
-              <h3>大阪城</h3>
-              <p>
-                大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。大阪城は日本三名城の一つとしてあげられる名城で、豊臣秀吉の築いた城塞としてあまりにも有名。 ... [記事へ]
-              </p>
-              <div class="btn-2">
-                <a class="" href="#">地図を見る</a>
-              </div>
-              <div class="btn-2 _red">
-                <a class="" href="#">記事の詳細へ</a>
-              </div>
-            </div>
-          </div><!-- .layout3-slider-box -->
-        </li>
       </ul>
       <script type="text/javascript">
       jQuery(function($) {
         $(document).ready(function(){
           $('.layout3-slider').slick({
-            slidesToShow: 4,
+            slidesToShow: 5,
             slidesToScroll: 1,
+            prevArrow: '<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/arrow-left.svg" class="slide-arrow prev-arrow">',
+            nextArrow: '<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/arrow-right.svg" class="slide-arrow next-arrow">',
             responsive: [
               {
                 breakpoint: 991,
                 settings: {
-                  slidesToShow: 3,
+                  slidesToShow: 4,
                   centerMode: false,
                 }
               },
@@ -514,7 +432,7 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, array(35.303036,135.125932,
               {
                 breakpoint: 575,
                 settings: {
-                  slidesToShow: 1,
+                  slidesToShow: 2,
                   centerMode: true,
                 }
               }
@@ -533,72 +451,7 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, array(35.303036,135.125932,
 </div>
 
 
-<style type="text/css">
-#demoMap {
-  width: 500px;
-  height: 500px;
-  margin: 0;
-}
-</style>
-9999999999999
-<div id="demoMap"></div>
-8888888888888
-<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<script>
-// 
-// Static Marker sample
-// http://openstreetmap.piyolab.net/markeronmap.php を参考
-//
-function static_marker_sample() {
-     
-    var options = {
-        controls:[
-            new OpenLayers.Control.Navigation(),
-            new OpenLayers.Control.NavToolbar(),
-            new OpenLayers.Control.PanZoomBar(),
-            new OpenLayers.Control.ScaleLine(),
-//          new OpenLayers.Control.ZoomPanel(),
-            new OpenLayers.Control.Attribution()
-            ],
-    };
-     
-    var map = new OpenLayers.Map("demoMap", options);
-    map.addLayer(new OpenLayers.Layer.OSM());
-     
-    console.log(map.getProjectionObject().getCode());
-     
-    map.setCenter(new OpenLayers.LonLat(139.76, 35.68)
-        .transform(
-                new OpenLayers.Projection("EPSG:4326"),  // WGS84
-                new OpenLayers.Projection("EPSG:3857")   // Google Map / OSM / etc の球面メルカトル図法
-        ), 8
-    );
-     
-    // マーカー
-    var markers = new OpenLayers.Layer.Markers("Markers");
-    map.addLayer(markers);
-    var marker = new OpenLayers.Marker(
-        new OpenLayers.LonLat(139.76, 35.68)
-            .transform(
-                new OpenLayers.Projection("EPSG:4326"),
-                new OpenLayers.Projection("EPSG:900913")
-            )
-    );
-    markers.addMarker(marker);  
- 
-    // var marker2 = new OpenLayers.Marker(
-    //         new OpenLayers.LonLat(140.76, 35.68)
-    //             .transform(
-    //                 new OpenLayers.Projection("EPSG:4326"),
-    //                 new OpenLayers.Projection("EPSG:900913")
-    //             )
-    //     );
-    // markers.addMarker(marker2);
-}
-static_marker_sample();
 
-// https://blog.mori-soft.com/entry/%3Fp%3D535
-</script>
 
 
 

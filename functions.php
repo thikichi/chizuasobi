@@ -365,11 +365,36 @@ EOM;
 
 
 
-function the_google_map_disp_m($map_id, $hotels, $map_center=array(35.681236,139.767125,13), $style) {
+function the_google_map_disp_m($map_id, $hotels, $post_id ,$style) {
 
-  $map_center_lat  = $map_center[0];
-  $map_center_lng  = $map_center[1];
-  $map_center_zoom = $map_center[2];
+  global $osfw;
+  // post
+  $get_posts = get_posts( array('post_type'=>'landmark','include'=>$post_id) );
+  $post_title = $get_posts[0]->post_title;
+
+  // map lat and lng
+  $post_map_field = get_post_meta( $post_id, 'acf_landmark_gmap', true );
+  $post_map_address = get_post_meta( $post_id, 'acf_landmark_address', true );
+  $post_map_link = get_the_permalink( $post_id );
+  // thumbnail
+  $temp_img = $osfw->get_thumbnail_by_post( $post->ID, 'img_square' );
+  $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+
+  $map_center_lat  = $post_map_field['lat'];
+  $map_center_lng  = $post_map_field['lng'];
+  $map_center_zoom = 13;
+
+  // Map Icon Image
+  global $osfw;
+  $terms = get_the_terms( $post_id, 'landmark_cateogry' );
+  if( $terms ) {
+    $icon_img_id = $osfw->get_term_cfield( 'landmark_cateogry', $terms[0]->term_id, 'acf_landmark_cateogry_map_icon' );
+    $icon_img_temp = $osfw->get_thumbnail( $icon_img_id, 'thumbnail', '' );
+  } else {
+    $icon_img_temp = '';
+  }
+  $icon_img = $icon_img_temp=='' ? '' : $icon_img_temp['src'];
+
 
   echo '<div id="' . $map_id . '" class="gmap-main" style="' . $style . '"></div>';
   echo '<script>';
@@ -378,6 +403,24 @@ function mygooglemap_{$map_id}(){
   "use strict";
   var mapData    = { pos: { lat: {$map_center_lat}, lng: {$map_center_lng} }, zoom: {$map_center_zoom} };
   var markerData = [
+  {
+  pos: { lat: {$post_map_field['lat']}, lng: {$post_map_field['lng']} }, 
+  title: "{$post_title}", 
+  icon: "{$icon_img}", 
+  post_id: {$post_id},
+  infoWindowContent: 
+    "<div class='infwin cf' style='position:relative'>" + 
+    "<a id='Gmap-{$post_id}' style='position:absolute;top:-150px'></a>" + 
+    "<div class='infwin-thumb'>" + 
+    "<img class='img-responsive' src='{$post_map_img}'></div>" + 
+    "<div class='infwin-main'>" + 
+    "<h3>{$post_title}</h3>" + 
+    "<p>{$post_map_address}</p>" + 
+    "<p class='infwin-link'><a href='{$post_map_link}'>この記事を見る</a></p>" + 
+    "</div>" + 
+    "</div>"
+  },
+
 EOM;
 // echo $heredocs;
 
@@ -407,12 +450,13 @@ $jx = $hotel->Y / 3600000;
 $lng = $jy - $jy * 0.00010695 + $jx * 0.000017464 + 0.0046017;
 $lat = $jx - $jy * 0.000046038 - $jx * 0.000083043 + 0.010040;
 
+$icon_hotel = get_stylesheet_directory_uri() . '/images/common/icon-hotel.png';
 
 $heredocs .= <<< EOM
 {
   pos: { lat: {$lat}, lng: {$lng} }, 
   title: "{$hotel->HotelName}", 
-  icon: "", 
+  icon: "{$icon_hotel}", 
   post_id: {$hotel->HotelID},
   infoWindowContent: 
     "<div class='infwin cf' style='position:relative'>" + 
@@ -422,7 +466,7 @@ $heredocs .= <<< EOM
     "<div class='infwin-main'>" + 
     "<h3>{$hotel->HotelName}</h3>" + 
     "<p>{$hotel->HotelAddress}</p>" + 
-    "<p class='infwin-link'><a href='{$hotel->HotelDetailURL}'>この記事を見る</a></p>" + 
+    "<p class='infwin-link'><a href='{$hotel->HotelDetailURL}'>この宿泊施設を見る</a></p>" + 
     "</div>" + 
     "</div>"
 },

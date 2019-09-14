@@ -283,9 +283,9 @@ $layout3-slider-padding: 10px;
     padding: 15px;
     @include transition( top, 0.25s, linear, 0s );
     h3 {
-      margin-top: 15px;
-      font-size: 16px;
-      margin-bottom: 10px;
+      margin-bottom: 7px;
+      font-size: 14px;
+      font-weight: bold;
     }
     p {
       font-size: 12px;
@@ -631,4 +631,28 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
       border-left: 5px solid $color-green;
     }
   }
+} 
+
+
+// スライダー
+.layout3-slider {
+  .slide-arrow {
+    position: absolute;
+    top: 35%;
+    width: 30px;
+    cursor: pointer;
+    @include transition( all, 0.25s);
+    &.prev-arrow {
+      left: -45px;
+      &:hover { left: -55px; }
+    }
+    &.next-arrow {
+      right: -45px;
+      &:hover { right: -55px; }
+    }
+  }
 }
+
+
+
+// transition( $roperty: all, $duration: 0.25s, $timingFunction: linear, $delay: 0s )

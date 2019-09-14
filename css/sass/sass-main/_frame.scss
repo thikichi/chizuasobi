@@ -197,10 +197,13 @@
 
 .subvisual {
   height: 200px;
-  background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png);
-  background-position: center;
-  background-size: auto 100%;
+  // background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png);
+  // background-position: center;
+  // background-size: auto 100%;
   margin-top: 85px;
+}
+.subvisual-inner > div {
+  z-index: -1 !important;
 }
 
 /* Pagebody */
@@ -586,4 +589,6 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 .has-icon-plus-after.__avtive {
   @include icon-minus( #333, 10px, 2px, 20px, 15px, 2px );
 }
+
+
 
