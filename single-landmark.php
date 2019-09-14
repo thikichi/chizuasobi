@@ -388,7 +388,7 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
         <?php foreach ($xml->Hotel as $hotel): ?>
           <li>
             <div class="layout3-slider-box">
-              <div style="background-image:url(<?php echo $hotel->PictureURL; ?>);background-repeat:no-repeat;background-size:cover;width:100%;height:230px">
+              <div class="layout3-thumb" style="background-image:url(<?php echo $hotel->PictureURL; ?>)">
               </div>
               <div class="layout3-hoverBox">
                 <h3><?php echo $hotel->HotelName; ?></h3>

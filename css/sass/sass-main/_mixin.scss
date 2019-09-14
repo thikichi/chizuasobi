@@ -196,7 +196,6 @@
   }
 }
 
-
 @mixin button( $bgColor: #000, $textColor: #FFF, $fontSize: 14px, $fontWeight: bold, $padding: 10px 50px, $maxWidth: null, $display: inline-block, $isHover: false ) {
   color: $textColor;
   background-color: $bgColor;
