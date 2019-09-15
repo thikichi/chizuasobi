@@ -4,7 +4,7 @@ jQuery(function($) {
   /*============================================================*/
 
   $('.toggleSlide-nextElem').on('click', function(event) {
-    event.preventDefault();
+    // event.preventDefault();
     $(this).toggleClass('__avtive');
     $(this).siblings('ul').slideToggle('fast');
   });

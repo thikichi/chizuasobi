@@ -25,12 +25,7 @@
   <div class="header-naviFolding-inner">
     <ul class="header-naviFolding-main">
       <li>
-        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
-        <ul>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-        </ul>
+        <a class="toggleSlide-nextElem" href="<?php echo home_url('/'); ?>">TOPページ</a>
       </li>
       <li>
         <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
