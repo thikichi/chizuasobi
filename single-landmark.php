@@ -412,8 +412,8 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
           $('.layout3-slider').slick({
             slidesToShow: 5,
             slidesToScroll: 1,
-            prevArrow: '<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/arrow-left.svg" class="slide-arrow prev-arrow">',
-            nextArrow: '<img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/arrow-right.svg" class="slide-arrow next-arrow">',
+            prevArrow: '<a href="javascript:void(0)" class="slide-arrow prev-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="55.892,105.002 5.892,55.002 55.892,5.002"/></svg></span></a>',
+            nextArrow: '<a href="javascript:void(0)" class="slide-arrow next-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="3.892,5.002 53.892,55.002 3.892,105.002 "/></svg></span></a>',
             responsive: [
               {
                 breakpoint: 991,
@@ -433,6 +433,13 @@ the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
                 breakpoint: 575,
                 settings: {
                   slidesToShow: 2,
+                  centerMode: true,
+                }
+              },
+              {
+                breakpoint: 400,
+                settings: {
+                  slidesToShow: 1,
                   centerMode: true,
                 }
               }
