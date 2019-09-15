@@ -538,6 +538,69 @@ EOM;
 }
 
 
+function get_openLayers_map( $map_id, $location=array(35.681236,139.767125,13), $class='', $style='' ) {
+
+  $tag  = '';
+  $lat  = $location['lat'];
+  $lng  = $location['lng'];
+  $zoom = $location['zoom'];
+
+  $tag  .= '<div id="' . $map_id . '" class="' . $class . '" style="' . $style . '"></div>';
+
+$heredocs .= <<< EOM
+<script>
+function openLayersFuncSingle() {
+    var options = {
+        controls:[
+            // new OpenLayers.Control.Navigation(),
+            // new OpenLayers.Control.NavToolbar(),
+            // new OpenLayers.Control.PanZoomBar(),
+            // new OpenLayers.Control.ScaleLine(),
+            // new OpenLayers.Control.ZoomPanel(),
+            new OpenLayers.Control.Attribution()
+            ],
+    };
+    var map = new OpenLayers.Map({$map_id}, options);
+    map.addLayer(new OpenLayers.Layer.OSM());
+    console.log(map.getProjectionObject().getCode());
+    map.setCenter(new OpenLayers.LonLat( {$lng}, {$lat} )
+        .transform(
+                new OpenLayers.Projection("EPSG:4326"),  // WGS84
+                new OpenLayers.Projection("EPSG:3857")   // Google Map / OSM / etc の球面メルカトル図法
+        ), {$location['zoom']}
+    );
+    // マーカー
+    var markers = new OpenLayers.Layer.Markers("Markers");
+    map.addLayer(markers);
+    var marker = new OpenLayers.Marker(
+        new OpenLayers.LonLat( {$lng}, {$lat} )
+            .transform(
+                new OpenLayers.Projection("EPSG:4326"),
+                new OpenLayers.Projection("EPSG:900913")
+            )
+    );
+    markers.addMarker(marker);  
+    // var marker2 = new OpenLayers.Marker(
+    //         new OpenLayers.LonLat(140.76, 35.68)
+    //             .transform(
+    //                 new OpenLayers.Projection("EPSG:4326"),
+    //                 new OpenLayers.Projection("EPSG:900913")
+    //             )
+    //     );
+    // markers.addMarker(marker2);
+}
+openLayersFuncSingle();
+</script>
+EOM;
+
+  $tag .= $heredocs;
+
+  return $tag;
+
+}
+
+
+
 
 // ↑↑ ここまで追加記述してください ↑↑ //
 

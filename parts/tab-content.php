@@ -78,13 +78,17 @@ $the_query = new WP_Query( $args );
           $zoom = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
           $zoom = $zoom!='' ? $zoom : 6;
           // 経度・緯度・ズーム率
-          $map_center2 = array($gmap['lat'], $gmap['lng'], $zoom);
+          $location = array('lat' => $gmap['lat'], 'lng' => $gmap['lng'], 'zoom' => $zoom);
           // GoogleMapのフィールド、所在地のフィールド
           $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
           // style
           $style = 'height:135px;width:135px';
+          
           // mapID、投稿オブジェクト、MAP中心
-          the_google_map_disp('mapAreaTab_' . $post->ID, $post_single, $map_center2, $field_params, $style);
+          // the_google_map_disp('mapAreaTab_' . $post->ID, $post_single, $map_center2, $field_params, $style);
+
+          // 無料の地図アプリを呼び出す
+          echo get_openLayers_map( 'mapAreaTab_' . $post->ID , $location, '', $style );
           ?>
         </div>
         <div class="box-1-main matchHeight">

@@ -45,6 +45,14 @@ function wp_enqueue_scripts_js(){
   );
 
   /*
+   * OpenLayers という無料の地図アプリを組み込む
+  */
+  wp_enqueue_script(
+    'openLayers',
+   'http://www.openlayers.org/api/OpenLayers.js'
+  );
+
+  /*
    * main-frame.js
   */
   wp_enqueue_script(
