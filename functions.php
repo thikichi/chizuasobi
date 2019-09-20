@@ -286,7 +286,7 @@ $heredocs .= <<< EOM
   post_id: {$landmark->ID},
   infoWindowContent: 
     "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='Gmap-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
+    "<a id='{$map_id}-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
     "<div class='infwin-thumb'>" + 
     "<img class='img-responsive' src='{$img_url}'></div>" + 
     "<div class='infwin-main'>" + 
@@ -411,7 +411,7 @@ function mygooglemap_{$map_id}(){
   post_id: {$post_id},
   infoWindowContent: 
     "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='Gmap-{$post_id}' style='position:absolute;top:-150px'></a>" + 
+    "<a id='{$map_id}-{$post_id}' style='position:absolute;top:-150px'></a>" + 
     "<div class='infwin-thumb'>" + 
     "<img class='img-responsive' src='{$post_map_img}'></div>" + 
     "<div class='infwin-main'>" + 
@@ -461,7 +461,7 @@ $heredocs .= <<< EOM
   post_id: {$hotel->HotelID},
   infoWindowContent: 
     "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='Gmap-{$hotel->HotelID}' style='position:absolute;top:-150px'></a>" + 
+    "<a id='{$map_id}-{$hotel->HotelID}' style='position:absolute;top:-150px'></a>" + 
     "<div class='infwin-thumb'>" + 
     "<img class='img-responsive' src='{$hotel->PictureURL}'></div>" + 
     "<div class='infwin-main'>" + 

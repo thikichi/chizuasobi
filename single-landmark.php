@@ -283,7 +283,7 @@ $relative_posts = get_posts( array(
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a class="link-1" id="HandleMap-mapArea-<?php the_ID(); ?>" href="#Gmap-<?php the_ID(); ?>">
+                <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats-<?php the_ID(); ?>">
                   <span class="link-color-1">
                     <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
                     <span class="_linkText box-1-btnText">地図を見る</span>
