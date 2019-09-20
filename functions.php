@@ -276,6 +276,7 @@ EOM;
       $icon_img_temp = '';
     }
     $icon_img = $icon_img_temp=='' ? '' : $icon_img_temp['src'];
+    $link = get_the_permalink( $landmark->ID );
 
 $heredocs .= <<< EOM
 {
@@ -291,7 +292,7 @@ $heredocs .= <<< EOM
     "<div class='infwin-main'>" + 
     "<h3>{$landmark->post_title}</h3>" + 
     "<p>{$address}</p>" + 
-    "<p class='infwin-link'><a href='#'>この記事を見る</a></p>" + 
+    "<p class='infwin-link'><a href='{$link}'>この記事を見る</a></p>" + 
     "</div>" + 
     "</div>"
 },

@@ -1,5 +1,7 @@
 <?php
 global $osfw;
+$gmap_url = 'https://www.google.com/maps/search/?api=1';
+// https://www.google.com/maps/search/?api=1&query=35.6812362,139.7649361
 ?>
 <section class="mt-xs-50">
   <div class="tab-switch">
@@ -117,7 +119,11 @@ $the_query = new WP_Query( $args );
         </div>
         <div class="box-1-btn matchHeight">
           <div class="box-1-btnTop">
-            <a href="#">
+            <?php
+            $param = '&query=' . $gmap['lat'] . ',' . $gmap['lng'];
+            $gmap_url .= $param;
+            ?>
+            <a href="<?php echo esc_url($gmap_url); ?>" target="_blank">
               <span class="link-color-1">
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> <span class="box-1-btnText">大きな地図</span>
               </span>

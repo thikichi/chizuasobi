@@ -1,5 +1,52 @@
 @charset "UTF-8";
 
+/* Fonts */
+/*--------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+JP');
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+.font-noto-serif-jp {
+  font-family: 'Noto Serif JP', serif;
+}
+.font-noto-sans-jp {
+  font-family: 'Noto Sans JP', sans-serif;
+  transform: rotate(10deg);
+}
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSize5 { font-size: 24px; }
+
+/* Font set */
+/*--------------------------------------------------*/
+
+.fontSet5 {
+  font-family: 'Noto Serif JP', serif;
+  font-size: 24px;
+}
+@media (max-width: 991px) {
+  .fontSet5 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 650px) {
+  .fontSet5 {
+    font-size: 16px;
+  }
+}
+@media (max-width: 575px) {
+  .fontSet5 {
+    font-size: 12px;
+  }
+}
+
+
+.slider-nav-img {
+  width: 140px;
+}
+
 .container-1170 { @include container( $width-xl: 1170px, $width-lg: 970px, $width-md: 750px ) }
 
 .bg-lightGray { background-color: $color-lightGray !important; }
@@ -33,6 +80,13 @@
 .underline-dotted { border-bottom: 1px dotted $color-gray; }
 .underline-solid { border-bottom: 1px solid $color-gray; }
 .underline-dashed { border-bottom: 1px dashed $color-gray; }
+
+.borderT-dotted { border-top: 1px dotted $color-gray; }
+.borderT-solid { border-top: 1px solid $color-gray; }
+.borderT-dashed { border-top: 1px dashed $color-gray; }
+.border-dotted { border: 1px dotted $color-gray; }
+.border-solid { border: 1px solid $color-gray; }
+.border-dashed { border: 1px dashed $color-gray; }
 
 .inner-wide { padding: 50px; }
 .inner-normal { padding: 30px; }

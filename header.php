@@ -70,7 +70,9 @@
     <div class="container">
       <div class="header-inner">
         <div class="header-logo">
-          <img class="" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/header-logo.svg" alt="地図遊び">
+          <a href="<?php echo home_url(); ?>">
+            <img src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/header-logo.svg" alt="地図遊び">
+          </a>
         </div>
         <div class="header-main">
           <span class="table">

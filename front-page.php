@@ -26,7 +26,7 @@ the_google_map_disp('mapArea', $landmarks, $map_center, $field_params);
   <div class="container">
     <h2 class="ttl-2">
       <i class="fas fa-map-marker-alt"></i> 
-      ランドマーク一覧
+      史跡の一覧
       <!-- <span class="ttl-2-small">検索条件 : 城 / 日本の城 / 史跡</span> -->
     </h2>
 

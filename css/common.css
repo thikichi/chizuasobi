@@ -3,8 +3,32 @@
 /* タイトル等で両端にボーダーを指定する タイトル部分を中央寄せにする場合はCenter寄せを指定したdivでラッピングする */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
+/* Fonts */
+/*--------------------------------------------------*/
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+JP");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP");
+@import url("https://fonts.googleapis.com/css?family=Noto+Serif+JP");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP");
+.font-noto-serif-jp { font-family: 'Noto Serif JP', serif; }
+
+.font-noto-sans-jp { font-family: 'Noto Sans JP', sans-serif; transform: rotate(10deg); }
+
+/* Font set */
+/*--------------------------------------------------*/
+.fontSize5 { font-size: 24px; }
+
+/* Font set */
+/*--------------------------------------------------*/
+.fontSet5 { font-family: 'Noto Serif JP', serif; font-size: 24px; }
+
+@media (max-width: 991px) { .fontSet5 { font-size: 20px; } }
+
+@media (max-width: 650px) { .fontSet5 { font-size: 16px; } }
+
+@media (max-width: 575px) { .fontSet5 { font-size: 12px; } }
+
+.slider-nav-img { width: 140px; }
+
 .container-1170 { margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
 
 .container-1170::before, .container-1170::after { display: table; clear: both; content: ''; }
@@ -45,6 +69,18 @@
 
 .underline-dashed { border-bottom: 1px dashed #CCC; }
 
+.borderT-dotted { border-top: 1px dotted #CCC; }
+
+.borderT-solid { border-top: 1px solid #CCC; }
+
+.borderT-dashed { border-top: 1px dashed #CCC; }
+
+.border-dotted { border: 1px dotted #CCC; }
+
+.border-solid { border: 1px solid #CCC; }
+
+.border-dashed { border: 1px dashed #CCC; }
+
 .inner-wide { padding: 50px; }
 
 .inner-normal { padding: 30px; }
@@ -79,9 +115,19 @@
 
 .taglist-2::after { content: ""; display: block; clear: both; }
 
+.taglist-2.__iBlock { display: inline-block; }
+
 .taglist-2 > li { float: left; margin-right: 2px; margin-bottom: 2px; }
 
 .taglist-2 > li > a { display: block; background-color: #c04c41; color: #FFF; padding: 2px 10px 1px 10px; font-size: 13px; }
+
+.taglist-3::after { content: ""; display: block; clear: both; }
+
+.taglist-3.__iBlock { display: inline-block; }
+
+.taglist-3 > li { float: left; margin-right: 2px; margin-bottom: 2px; }
+
+.taglist-3 > li > a { display: block; background-color: #6ea364; color: #FFF; padding: 5px 20px 5px 20px; font-size: 14px; }
 
 /* BGColor */
 /*--------------------------------------------------*/
@@ -123,9 +169,9 @@
 .color-white { color: #FFF; }
 
 /* tab switch */
-.tab-switch-content { opacity: 0; height: 0; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -ms-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+.tab-switch-content { display: none; }
 
-.tab-switch-content._active { height: 100%; opacity: 1; }
+.tab-switch-content._active { display: block; }
 
 /* モバイルファースト */
 /*@media (min-width: 576px) {*/
@@ -649,7 +695,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 @media (max-width: 767px) { .ttl-1-inner::after { display: block; margin-left: 0; } }
 
-.ttl-2 { font-family: 'Noto Sans JP', sans-serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; font-weight: bold; }
+.ttl-2 { font-family: 'Noto Serif JP', serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; }
 
 .ttl-2-small { font-size: 14px; color: #333; font-weight: normal; }
 
