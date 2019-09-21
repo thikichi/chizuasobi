@@ -283,7 +283,7 @@ $relative_posts = get_posts( array(
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats-<?php the_ID(); ?>">
+                <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats">
                   <span class="link-color-1">
                     <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
                     <span class="_linkText box-1-btnText">地図を見る</span>
@@ -424,7 +424,7 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                     <?php echo $hotel->HotelCatchCopy; ?>
                   </p>
                   <div class="btn-2">
-                    <a class="link-1" href="#Gmap-<?php echo $hotel->HotelID; ?>" id="HandleMap-mapSingleHotel-<?php echo $hotel->HotelID; ?>">地図を見る</a>
+                    <a class="link-1" href="#mapSingleHotel" id="HandleMap-mapSingleHotel-<?php echo $hotel->HotelID; ?>">地図を見る</a>
                   </div>
                   <div class="btn-2 _red">
                     <a href="<?php echo $hotel->HotelDetailURL; ?>" target="_blank">ホテルの詳細へ</a>

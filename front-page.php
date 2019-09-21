@@ -86,7 +86,7 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
             </div>
             <div class="box-1-btn matchHeight">
               <div class="box-1-btnTop">
-                <a class="link-1" id="HandleMap-mapArea-<?php the_ID(); ?>" href="#mapArea-<?php the_ID(); ?>">
+                <a class="link-1" id="HandleMap-mapArea-<?php the_ID(); ?>" href="#mapArea">
                   <span class="link-color-1">
                     <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
                     <span class="_linkText box-1-btnText">地図を見る</span>
@@ -206,7 +206,7 @@ the_google_map_disp('mapAreaSp', $special_article, $map_center2, $field_params);
         <div class="box-2">
           <h3 class="box-2-subttl">
             <span class="box-2-subttl-num"><?php echo $i; ?></span>
-            <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#mapAreaSp-<?php the_ID(); ?>" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
+            <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#mapAreaSp" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
           </h3>
           <div class="box-2-main">
             <div class="box-2-main-inner">

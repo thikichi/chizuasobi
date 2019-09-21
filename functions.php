@@ -285,8 +285,8 @@ $heredocs .= <<< EOM
   icon: "{$icon_img}", 
   post_id: {$landmark->ID},
   infoWindowContent: 
-    "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='{$map_id}-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
+    "<div id='infoWin-{$landmark->ID}' class='infwin cf' style='position:relative'>" + 
+    "<a id='AAAAA{$map_id}-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
     "<div class='infwin-thumb'>" + 
     "<img class='img-responsive' src='{$img_url}'></div>" + 
     "<div class='infwin-main'>" + 
@@ -358,6 +358,10 @@ jQuery(function($) {
     }
   });
 });
+
+
+
+
 EOM;
   echo $heredocs;
   echo '</script>';
