@@ -201,7 +201,7 @@ function theme_customizer_extension($wp_customize) {
   $choices = array();
   $features = get_posts( array( 'post_type'=>'feature', 'get'=>'all', 'numberposts'=>-1 ) );
   foreach ($features as $feature_post) {
-    $choices[$feature_post->ID] = $feature_post->name;
+    $choices[$feature_post->ID] = $feature_post->post_title;
   }
 
   // セレクト
@@ -212,7 +212,7 @@ function theme_customizer_extension($wp_customize) {
     'section'  => 'top_special',
     'settings' => 'top_special_select_1',
     'label'    => '選択対象の特集',
-    'description' => '選択対象となるカテゴリーを選択',
+    'description' => '選択対象となる投稿を選択',
     'type'    => 'select',
     'choices' => $choices,
     'priority' => 80,

@@ -134,37 +134,43 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
 </section>
 
 
-
 <?php
-$select_feature_post_id = 89; // 選択した特集記事
-$select_feature_post = get_posts( array('post_type'=>'feature', 'include'=>$select_feature_post_id,) );
-$map_center = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_center', true );
-$map_zoom   = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_zoom', true );
-// feature_posts
-$landmark_posts = SCF::get('scf_ feature_posts', $select_feature_post[0]->ID);
-// var_dump($landmark_posts[0]['scf_ feature_posts_post']);
 $landmark_id_arr = array();
-foreach ($landmark_posts[0]['scf_ feature_posts_post'] as $landmark_post_id) {
-  $landmark_id_arr[] = $landmark_post_id;
+$get_feature_id  = get_theme_mod( 'top_special_select_1', false );
+$get_feature_ttl = get_theme_mod( 'top_special_text_1', false );
+
+if( $get_feature_id ) {
+  $select_feature_post = get_posts( array('post_type'=>'feature', 'include'=>$get_feature_id,) );
+  $map_center = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_center', true );
+  $map_zoom   = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_zoom', true );
+  // feature_posts
+  $landmark_posts = SCF::get('scf_ feature_posts', $select_feature_post[0]->ID);
+  // var_dump($landmark_posts[0]['scf_ feature_posts_post']);
+  foreach ($landmark_posts[0]['scf_ feature_posts_post'] as $landmark_post_id) {
+    $landmark_id_arr[] = $landmark_post_id;
+  }
 }
 $args = array(
   'post_type' => 'landmark',
-  'posts_per_page' => 3,
-  'include'=> $landmark_id_arr,
+  'posts_per_page' => 6,
 );
+// 結合
+$args = !empty($landmark_id_arr) ? array_merge( $args, array('include'=> $landmark_id_arr) ) : $args;
 $the_query = new WP_Query( $args );
 ?>
-<?php if ($the_query->have_posts()): ?>
+<?php if ($the_query->have_posts() && $get_feature_id): ?>
 
-
-<section class="mt-xs-50 bg-img-1 pb-xs-50 bt-s pt-xs-50">
+<section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
-    <h2 class="ttl-3">
-      <span class="ttl-3-sub">今月の特集テーマ</span>
-      <span class="ttl-3-main mml-char"><?php the_title(); ?></span>
-    </h2>
+    <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
+      <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
+        <?php echo $get_feature_ttl; ?><br>
+        『 <?php echo $select_feature_post[0]->post_title; ?> 』
+      </h3>
+      <div class="inner-normal">
+
     <div class="text-normal mt-xs-30">
-      <?php the_content(); ?>
+      <?php echo nl2br($select_feature_post[0]->post_content); ?>
     </div>
     <div class="mt-xs-15">
       <?php
@@ -177,10 +183,11 @@ $the_query = new WP_Query( $args );
       the_google_map_disp('mapAreaSp', $map_posts, $map_center2, $field_params);
       ?>
     </div>
-    <ul class="row mt-xs-30">
+    <ul class="list-1 row mt-xs-30">
       <?php $i=1; while($the_query->have_posts()) : $the_query->the_post(); ?>
-        <li class="col-md-4 matchHeight">
+        <li class="col-md-4 matchHeight mb-xs-15">
           <div class="box-2">
+            <?php if( $i > 5 ) { echo '<a class="_nextlink" href="#"><span>さらに記事を見るには<br>こちらをクリック！</span></a>'; } ?>
             <h3 class="box-2-subttl">
               <span class="box-2-subttl-num"><?php echo $i; ?></span>
               <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#mapAreaSp" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
@@ -199,7 +206,13 @@ $the_query = new WP_Query( $args );
                 </div>
                 <div class="box-2-main-text">
                   <p>
-                    <?php echo $osfw->get_excerpt_filter( get_the_excerpt(), 30, ' ...[続きを読む]', get_the_permalink() ); ?>
+                    <?php
+                    if( $i > 5 ) {
+                      echo $osfw->get_excerpt_filter( get_the_excerpt(), 30, '');
+                    } else {
+                      echo $osfw->get_excerpt_filter( get_the_excerpt(), 30, ' ...[続きを読む]', get_the_permalink() );
+                    }
+                    ?>
                   </p>
                 </div>
               </div>
@@ -208,9 +221,12 @@ $the_query = new WP_Query( $args );
         </li>
       <?php $i++; endwhile; ?>
     </ul>
-  </div>
-  <div class="btn-1">
-    <a href="<?php echo $osfw->get_archive_link('landmark'); ?>">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
+    <div class="btn-1">
+      <a href="<?php echo $osfw->get_archive_link('feature'); ?>">その他の特集記事の一覧 <i class="fas fa-angle-double-right"></i></a>
+    </div>
+
+      </div>
+    </div>
   </div>
 </section>
 
