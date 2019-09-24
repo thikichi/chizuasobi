@@ -199,9 +199,9 @@ function theme_customizer_extension($wp_customize) {
   ));
 
   $choices = array();
-  $specials = get_terms( array( 'taxonomy'=>'special', 'get'=>'all' ) );
-  foreach ($specials as $term) {
-    $choices[$term->term_id] = $term->name;
+  $features = get_posts( array( 'post_type'=>'feature', 'get'=>'all', 'numberposts'=>-1 ) );
+  foreach ($features as $feature_post) {
+    $choices[$feature_post->ID] = $feature_post->name;
   }
 
   // セレクト
