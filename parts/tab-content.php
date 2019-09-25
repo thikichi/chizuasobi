@@ -196,8 +196,7 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                             </h3>
                             <p class="mt-xs-5"><?php echo $osfw->get_excerpt_filter( get_the_excerpt(), 50, ' [...記事の詳細へ]', get_the_permalink()); ?></p>
                             <?php
-                            $tax = 'landmark_cateogry'; // タクソノミー名
-                            // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+                            $tax = 'feature_cateogry'; // タクソノミー名
                             $terms = get_the_terms($post->ID, $tax);
                             if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
                               echo '<ul class="taglist-1 cf mt-xs-10">';
@@ -206,7 +205,6 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                                 echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
                               }
                               echo '</ul>';
-                            } else {
                             }
                             ?>
                           </div>
@@ -224,7 +222,6 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                       <div class="box-1-bottom">
                         <?php
                         $tax = 'landmark_cateogry'; // タクソノミー名
-                        // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
                         $terms = get_the_terms($post->ID, $tax);
                         if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
                           echo '<ul class="taglist-1 cf mt-xs-10">';
@@ -242,7 +239,7 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                 <?php endif; ?>
                 <?php wp_reset_query(); ?>
                 <div class="btn-1">
-                  <a href="<?php echo $osfw->get_archive_link('feature'); ?>">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
+                  <a href="<?php echo $osfw->get_archive_link('feature'); ?>">特集記事の一覧 <i class="fas fa-angle-double-right"></i></a>
                 </div>
               </li><!-- tab -->
               <li class="tab-switch-content">
@@ -260,11 +257,19 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                           <div class="list-2-box">
                             <span class="_sub"><?php the_time('Y.m.d'); ?></span>
                             <span class="_main">
-                              <ul class="taglist-1 cf valign-middle inline-block">
-                                <li>
-                                  <a href="http://localhost/public_html/chachamarunet.com/chizuasobi/landmark_cateogry/castle/">城・城址</a>
-                                </li>
-                              </ul>
+                              <?php
+                              $tax = 'newscategory'; // タクソノミー名
+                              $terms = get_the_terms($post->ID, $tax);
+                              if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+                                echo '<ul class="taglist-1 cf mt-xs-10">';
+                                foreach ( $terms as $term ) {
+                                  $term_link = get_term_link( $term->term_id, $tax );
+                                  echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+                                }
+                                echo '</ul>';
+                              } else {
+                              }
+                              ?>
                               <a href="<?php the_permalink(); ?>" class="hover-underline">
                                 <?php echo $osfw->get_excerpt_filter( get_the_title(), 30, ' … [続きを読む]', get_the_permalink() ); ?>
                               </a>
@@ -282,7 +287,7 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
                   <?php wp_reset_query(); ?>
                 </div>
                 <div class="btn-1">
-                  <a href="<?php echo $osfw->get_archive_link('news'); ?>">記事の一覧 <i class="fas fa-angle-double-right"></i></a>
+                  <a href="<?php echo $osfw->get_archive_link('news'); ?>">新着記事の一覧 <i class="fas fa-angle-double-right"></i></a>
                 </div>
               </li><!-- tab -->
             </ul>
