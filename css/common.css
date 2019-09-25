@@ -692,9 +692,17 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .list-2-box::after { content: ""; display: block; clear: both; }
 
-.list-2-box > ._sub, .list-2-box > ._main { float: left; padding: 15px 10px; }
+.list-2-box > ._sub { display: block; }
 
-.list-2-box > ._sub { width: 120px; height: 100%; text-align: center; padding-top: 25px; }
+@media only screen and (max-width: 575px) { .list-2-box > ._sub { padding: 15px 15px 5px 15px; } }
+
+@media only screen and (min-width: 576px) { .list-2-box > ._sub { float: left; width: 120px; height: 100%; text-align: center; padding-top: 25px; } }
+
+.list-2-box > ._main { display: block; }
+
+@media only screen and (max-width: 575px) { .list-2-box > ._main { padding: 5px 15px 15px 15px; } }
+
+@media only screen and (min-width: 576px) { .list-2-box > ._main { float: left; width: calc(100% - 120px); padding: 15px 10px; } }
 
 .list-2-box ._small { font-size: 12px; }
 

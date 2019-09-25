@@ -730,15 +730,29 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
 }
 .list-2-box {
   @include cf;
-  > ._sub, > ._main {
-    float: left;
-    padding: 15px 10px;
-  }
   > ._sub {
-    width: 120px;
-    height: 100%;
-    text-align: center;
-    padding-top: 25px;
+    display: block;
+    @include media-max(sm) {
+      padding: 15px 15px 5px 15px;
+    }
+    @include media-min(sm) {
+      float: left;
+      width: 120px;
+      height: 100%;
+      text-align: center;
+      padding-top: 25px;
+    }
+  }
+  > ._main {
+    display: block;
+    @include media-max(sm) {
+      padding: 5px 15px 15px 15px;
+    }
+    @include media-min(sm) {
+      float: left;
+      width: calc(100% - 120px);
+      padding: 15px 10px;
+    }
   }
   ._small {
     font-size: 12px;
