@@ -97,3 +97,19 @@
 
 // </span>
 // </span>
+
+.block { display: block; }
+.inline-block { display: inline-block; }
+.valign-middle { vertical-align: middle };
+
+.hover-underline {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.hover-nonUnderline {
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}

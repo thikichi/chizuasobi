@@ -87,6 +87,18 @@
 
 .inner-narrow { padding: 15px; }
 
+.block { display: block; }
+
+.inline-block { display: inline-block; }
+
+.valign-middle { vertical-align: middle; }
+
+.hover-underline:hover { text-decoration: underline; }
+
+.hover-nonUnderline { text-decoration: underline; }
+
+.hover-nonUnderline:hover { text-decoration: none; }
+
 /* Fonts */
 /*--------------------------------------------------*/
 .font-noto-serif-jp { font-family: 'Noto Serif JP', serif; }
@@ -666,9 +678,25 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .list-1 > li:nth-of-type(6) .box-2 { position: relative; }
 
-.list-1 > li:nth-of-type(6) .box-2 > a._nextlink { font-size: 16px; text-decoration: underline; position: absolute; display: table; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); color: #FFF; }
+.list-1 > li:nth-of-type(6) .box-2 > a._nextlink { font-size: 16px; position: absolute; display: table; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); color: #FFF; }
 
 .list-1 > li:nth-of-type(6) .box-2 > a._nextlink > span { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; }
+
+.list-2 > li:not(:last-child) { border-bottom: 1px dashed #CCC; }
+
+.list-2 > li { position: relative; }
+
+.list-2 > li::after { content: ''; position: absolute; top: 50%; right: 15px; width: 15px; height: 15px; margin-top: -5px; border-top: 1px solid #CCC; border-right: 1px solid #CCC; transform: rotate(45deg); }
+
+.list-2 > li:hover::after { border-top: 1px solid; border-right: 1px solid; }
+
+.list-2-box::after { content: ""; display: block; clear: both; }
+
+.list-2-box > ._sub, .list-2-box > ._main { float: left; padding: 15px 10px; }
+
+.list-2-box > ._sub { width: 120px; height: 100%; text-align: center; padding-top: 25px; }
+
+.list-2-box ._small { font-size: 12px; }
 
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }

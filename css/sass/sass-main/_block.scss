@@ -702,7 +702,6 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
       position: relative;
       > a._nextlink {
         font-size: 16px;
-        text-decoration: underline;
         position: absolute;
         display: table;
         top: 0; left: 0;
@@ -721,8 +720,29 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
   }
 }
 
-
-
-
+.list-2 {
+  > li:not(:last-child) {
+    border-bottom: 1px dashed $color-gray;
+  }
+  > li {
+    @include icon-arrow-after( $color-gray, 15px, -5px, 15px, 1px, null );
+  }
+}
+.list-2-box {
+  @include cf;
+  > ._sub, > ._main {
+    float: left;
+    padding: 15px 10px;
+  }
+  > ._sub {
+    width: 120px;
+    height: 100%;
+    text-align: center;
+    padding-top: 25px;
+  }
+  ._small {
+    font-size: 12px;
+  }
+}
 
 // transition( $roperty: all, $duration: 0.25s, $timingFunction: linear, $delay: 0s )

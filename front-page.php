@@ -144,9 +144,9 @@ if( $get_feature_id ) {
   $map_center = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_center', true );
   $map_zoom   = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_zoom', true );
   // feature_posts
-  $landmark_posts = SCF::get('scf_ feature_posts', $select_feature_post[0]->ID);
-  // var_dump($landmark_posts[0]['scf_ feature_posts_post']);
-  foreach ($landmark_posts[0]['scf_ feature_posts_post'] as $landmark_post_id) {
+  $landmark_posts = SCF::get('scf_feature_posts', $select_feature_post[0]->ID);
+  // var_dump($landmark_posts[0]['scf_feature_posts_post']);
+  foreach ($landmark_posts[0]['scf_feature_posts_post'] as $landmark_post_id) {
     $landmark_id_arr[] = $landmark_post_id;
   }
 }
@@ -169,7 +169,7 @@ $the_query = new WP_Query( $args );
       </h3>
       <div class="inner-normal">
 
-    <div class="text-normal mt-xs-30">
+    <div class="text-normal">
       <?php echo nl2br($select_feature_post[0]->post_content); ?>
     </div>
     <div class="mt-xs-15">
@@ -187,7 +187,7 @@ $the_query = new WP_Query( $args );
       <?php $i=1; while($the_query->have_posts()) : $the_query->the_post(); ?>
         <li class="col-md-4 matchHeight mb-xs-15">
           <div class="box-2">
-            <?php if( $i > 5 ) { echo '<a class="_nextlink" href="#"><span>さらに記事を見るには<br>こちらをクリック！</span></a>'; } ?>
+            <?php if( $i > 5 ) { echo '<a class="_nextlink hover-nonUnderline" href="#"><span>さらに記事を見るには<br>こちらをクリック！</span></a>'; } ?>
             <h3 class="box-2-subttl">
               <span class="box-2-subttl-num"><?php echo $i; ?></span>
               <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#mapAreaSp" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
