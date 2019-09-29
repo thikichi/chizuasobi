@@ -385,6 +385,31 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 <?php endif; ?>
 
 
+<h2>『<?php the_title(); ?>』の10km圏内の史跡一覧</h2>
+<?php
+
+$acf_landmark_gmap = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+// $lat1 = (float)$acf_landmark_gmap['lat'];
+// $lng2 = (float)$acf_landmark_gmap['lng'];
+// var_dump((float)$lat);
+
+// 東京タワー 座標(WGS84)　緯度: 35.658581 経度: 139.745433
+
+// latitude 緯度
+// longitude 経度
+$lat1 = 35.681236;  // 緯度
+$lng1 = 139.767125; // 経度
+
+// 緯度: 35.681236 経度: 139.767125 東京駅
+
+$lat2 = 35.658581;  // 緯度
+$lng2 = 139.745433; // 経度
+
+$dist = distance($lat1, $lng1, $lat2, $lng2, true);
+var_dump( $dist * 0.001 );
+?>
+
+
 
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
