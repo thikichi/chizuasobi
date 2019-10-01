@@ -1,49 +1,123 @@
 <?php get_header(); ?>
 
-<div id="map" style="width:100%;height:350px"></div>
+<section class="mt-50">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12">
+
+
+
+
+<?php
+$landmark_posts  = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
+$marker_data_arr = array();
+$i=0;
+foreach ($landmark_posts as $landmark_post) {
+    $map_center = get_post_meta( $landmark_post->ID, 'acf_landmark_gmap', true );
+    $map_zoom   = get_post_meta( $landmark_post->ID, 'acf_landmark_zoom', true );
+    $land_cat   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
+    // get markerData
+    $marker_data_arr[$i]['name'] = $landmark_post->post_title;
+    $marker_data_arr[$i]['lat']  = $map_center['lat'];
+    $marker_data_arr[$i]['lng']  = $map_center['lng'];
+    $marker_data_arr[$i]['cat']  = $land_cat[0]->term_id;
+    $i++;
+}
+// var_dump($marker_data_arr);
+?>
+
+<div id="map" style="width: 100%;height: 500px"></div>
+
+<?php
+$all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
+foreach ($all_land_cats as $all_land_cat): ?>
+  <input id="MarkerCheck-<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" name="marker-check-1" value="<?php echo esc_attr($all_land_cat->term_id); ?>">
+  <?php echo esc_html($all_land_cat->name); ?>
+<?php endforeach; ?>
+
 
 <script>
+jQuery(function($) {
+var map;
+var marker = [];
+var infoWindow = [];
+var markerData = [ // マーカーを立てる場所名・緯度・経度
+<?php foreach ($marker_data_arr as $marker_data): ?>
+ {
+    name: '<?php echo esc_js($marker_data['name']); ?>',
+    lat: <?php echo esc_js($marker_data['lat']); ?>,
+    lng: <?php echo esc_js($marker_data['lng']); ?>,
+    cat: <?php echo esc_js($marker_data['cat']); ?>,
+ },
+<?php endforeach; ?>
+];
+  
 function initMap() {
-    // ルート検索の条件
-    var request = {
-        origin: new google.maps.LatLng(35.681382,139.766084), // 出発地
-        destination: new google.maps.LatLng(34.73348,135.500109), // 目的地
-        waypoints: [ // 経由地点(指定なしでも可)
-            { location: new google.maps.LatLng(35.630152,139.74044) },
-            { location: new google.maps.LatLng(35.507456,139.617585) },
-            { location: new google.maps.LatLng(35.25642,139.154904) },
-            { location: new google.maps.LatLng(35.103217,139.07776) },
-            { location: new google.maps.LatLng(35.127152,138.910627) },
-            { location: new google.maps.LatLng(35.142365,138.663199) },
-            { location: new google.maps.LatLng(34.97171,138.38884) },
-            { location: new google.maps.LatLng(34.769758,138.014928) },
-        ],
-        travelMode: google.maps.DirectionsTravelMode.WALKING, // 交通手段(歩行。DRIVINGの場合は車)
-
-
-
-    };
-
-    // マップの生成
-    var map = new google.maps.Map(document.getElementById("map"), {
-        center: new google.maps.LatLng(35.681382,139.766084), // マップの中心
-        zoom: 7 // ズームレベル
-    });
-
-    var d = new google.maps.DirectionsService(); // ルート検索オブジェクト
-    var r = new google.maps.DirectionsRenderer({ // ルート描画オブジェクト
-        map: map, // 描画先の地図
-        preserveViewport: true, // 描画後に中心点をずらさない
-    });
-    // ルート検索
-    d.route(request, function(result, status){
-        // OKの場合ルート描画
-        if (status == google.maps.DirectionsStatus.OK) {
-            r.setDirections(result);
-        }
-    });
+ // 地図の作成
+    var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
+    map = new google.maps.Map(document.getElementById('map'), { // #sampleに地図を埋め込む
+    center: mapLatLng, // 地図の中心を指定
+    zoom: 13 // 地図のズームを指定
+   });
+   // dispMarker(markerData);
 }
+  
+// マーカーにクリックイベントを追加
+function markerEvent(i) {
+    marker[i].addListener('click', function() { // マーカーをクリックしたとき
+      infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+  });
+}
+
+// マーカー毎の処理
+function dispMarker(markerData, catNum) {
+  for (var i = 0; i < markerData.length; i++) {
+
+      if( markerData[i]['cat']===catNum ) {
+        markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
+        marker[i] = new google.maps.Marker({ // マーカーの追加
+         position: markerLatLng, // マーカーを立てる位置を指定
+         animation: google.maps.Animation.DROP,
+            map: map // マーカーを立てる地図を指定
+       });
+       infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
+           content: '<div class="map">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
+       });
+       markerEvent(i); // マーカーにクリックイベントを追加
+     } 
+  }
+}
+
+//マーカーを削除する
+function deleteMakers(markerData, catNum) {
+  for (var i = 0; i < markerData.length; i++) {
+    if( markerData[i]['cat']===catNum ) {
+      marker[i].setMap(null);
+    }
+  }
+}
+
 initMap();
+
+$(function() {
+  <?php foreach ($all_land_cats as $all_land_cat): ?>
+    $('#MarkerCheck-<?php echo esc_attr($all_land_cat->term_id); ?>').click(function() {
+      if ( $(this).prop('checked') ) {
+        dispMarker(markerData, <?php echo esc_attr($all_land_cat->term_id); ?>);
+      } else {
+        deleteMakers(markerData, <?php echo esc_attr($all_land_cat->term_id); ?>);
+      }
+    });
+  <?php endforeach; ?>
+});
+
+});
 </script>
+
+
+      </div>
+    </div>
+  </div>
+</section>
 
 <?php get_footer(); ?>
