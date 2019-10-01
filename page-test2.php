@@ -115,6 +115,39 @@ $(function() {
 </script>
 
 
+
+
+
+<?php
+// 東京タワー 座標(WGS84)　緯度: 35.658581 経度: 139.745433
+$lat1 = 35.681236;  // 緯度
+$lng1 = 139.767125; // 経度
+
+// 半径xxKm圏内の史跡一覧を取得
+$landmark_posts  = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
+$marker_data_arr = array();
+$i=0;
+foreach ($landmark_posts as $landmark_post) {
+  $map_center = get_post_meta( $landmark_post->ID, 'acf_landmark_gmap', true );
+  $map_zoom   = get_post_meta( $landmark_post->ID, 'acf_landmark_zoom', true );
+  $land_cat   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
+
+  // 起点となる史跡と距離を比較
+  $dist = distance($lat1, $lng1, $map_center['lat'], $map_center['lng'], true);
+  if( $dist < 10 ) {
+    // get markerData
+    $marker_data_arr[$i]['name'] = $landmark_post->post_title;
+    $marker_data_arr[$i]['lat']  = $map_center['lat'];
+    $marker_data_arr[$i]['lng']  = $map_center['lng'];
+    $marker_data_arr[$i]['cat']  = $land_cat[0]->term_id;
+    $i++;
+  }
+}
+var_dump($marker_data_arr);
+
+?>
+
+
       </div>
     </div>
   </div>
