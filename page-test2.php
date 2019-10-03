@@ -53,14 +53,18 @@ foreach ($landmark_posts as $landmark_post) {
 <?php
 $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
 foreach ($all_land_cats as $all_land_cat): ?>
-  <input id="MarkerCheck-<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" name="marker-check-1" value="<?php echo esc_attr($all_land_cat->term_id); ?>">
+  <input class="marker-check" data-termid="<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" value="<?php echo esc_attr($all_land_cat->term_id); ?>">
   <?php echo esc_html($all_land_cat->name); ?>
 <?php endforeach; ?>
 <select id="MarkerSelectDist">
-  <option value="10000" selected>10000m以下</option>
-  <option value="7500"> 7500m以下</option>
-  <option value="5000"> 5000m以下</option>
-  <option value="3000"> 3000m以下</option>
+  <option value="100000" data-zoom="4.0"  selected>1000km以下</option>
+  <option value="50000" data-zoom="5.0">500km以下</option>
+  <option value="20000" data-zoom="6.0">200km以下</option>
+  <option value="10000" data-zoom="7.0">100km以下</option>
+  <option value="5000" data-zoom="8.0">50km以下</option>
+  <option value="2000" data-zoom="9.0">20km以下</option>
+  <option value="1000" data-zoom="10.0">10km以下</option>
+  <option value="500" data-zoom="11.0">5km以下</option>
 </select>
 
 <script>
@@ -126,6 +130,7 @@ function deleteMakers(markerData, catNum) {
   }
 }
 
+// マーカーを隠す
 function hiddenMakersAll( markerData, dist=3000 ) {
   $.each(marker, function(index, val) {
     if(marker[index]) {
@@ -138,25 +143,30 @@ function hiddenMakersAll( markerData, dist=3000 ) {
   });
 }
 
+// ズームレベルを変更する
+function changeZoom( zoom=map.getZoom() ) {
+  map.setZoom( zoom );
+}
+
 initMap();
 
 $(function() {
-  <?php foreach ($all_land_cats as $all_land_cat): ?>
-    $('#MarkerCheck-<?php echo esc_attr($all_land_cat->term_id); ?>').click(function() {
-      if ( $(this).prop('checked') ) {
-        dispMarker(markerData, <?php echo esc_attr($all_land_cat->term_id); ?>);
-      } else {
-        deleteMakers(markerData, <?php echo esc_attr($all_land_cat->term_id); ?>);
-      }
-    });
-  <?php endforeach; ?>
+  $('.marker-check').click(function() {
+    var termid = $(this).data('termid');
+    if ( $(this).prop('checked') ) {
+      dispMarker(markerData, termid);
+    } else {
+      deleteMakers(markerData, termid);
+    }
+  });
 
   $('#MarkerSelectDist').change(function() {
     //選択したvalue値を変数に格納
     var val = $(this).val();
+    var zoom = $(this).data('zoom');
     hiddenMakersAll( markerData, val );
+    changeZoom(zoom);
   });
-
 });
 
 });
