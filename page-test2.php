@@ -9,11 +9,11 @@
 
 
 <?php
+/* 初期値 */
 $distance = 10;
 // 東京タワー 座標(WGS84)　緯度: 35.658581 経度: 139.745433
-// 東京駅 座標(WGS84)　緯度: 35.681236 経度: 139.767125
-$lat1 = 35.658581;
-$lng1 = 139.745433;
+$lat_init = 35.658581;
+$lng_init = 139.745433;
 
 $landmark_posts  = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 $marker_data_arr = array();
@@ -24,7 +24,7 @@ foreach ($landmark_posts as $landmark_post) {
     $land_cat   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
     // 起点となる史跡と距離を比較
     
-    // $dist = distance($lat1, $lng1, $map_center['lat'], $map_center['lng'], true);
+    // $dist = distance($lat_init, $lng_init, $map_center['lat'], $map_center['lng'], true);
     // if( $dist < $distance ) {
     //   // get markerData
     //   $marker_data_arr[$i]['name'] = $landmark_post->post_title;
@@ -33,7 +33,7 @@ foreach ($landmark_posts as $landmark_post) {
     //   $marker_data_arr[$i]['cat']  = $land_cat[0]->term_id;
     //   $i++;
     // }
-    $dist = distance($lat1, $lng1, $map_center['lat'], $map_center['lng'], true);
+    $dist = distance($lat_init, $lng_init, $map_center['lat'], $map_center['lng'], true);
 
     // get markerData
     $marker_data_arr[$i]['id']   = $landmark_post->ID;
@@ -57,20 +57,31 @@ foreach ($all_land_cats as $all_land_cat): ?>
   <?php echo esc_html($all_land_cat->name); ?>
 <?php endforeach; ?>
 <select id="MarkerSelectDist">
-  <option value="100000" data-zoom="4.0"  selected>1000km以下</option>
-  <option value="50000" data-zoom="5.0">500km以下</option>
-  <option value="20000" data-zoom="6.0">200km以下</option>
-  <option value="10000" data-zoom="7.0">100km以下</option>
-  <option value="5000" data-zoom="8.0">50km以下</option>
-  <option value="2000" data-zoom="9.0">20km以下</option>
-  <option value="1000" data-zoom="10.0">10km以下</option>
-  <option value="500" data-zoom="11.0">5km以下</option>
+  <option value="1000000" data-zoom="5.0">1000km以下</option>
+  <option value="900000" data-zoom="5.0">900km以下</option>
+  <option value="800000" data-zoom="6.0">800km以下</option>
+  <option value="700000" data-zoom="6.0">700km以下</option>
+  <option value="600000" data-zoom="6.0">600km以下</option>
+  <option value="500000" data-zoom="6.0">500km以下</option>
+  <option value="400000" data-zoom="7.0">400km以下</option>
+  <option value="300000" data-zoom="7.0">300km以下</option>
+  <option value="200000" data-zoom="8.0">200km以下</option>
+  <option value="100000" data-zoom="9.0">100km以下</option>
+  <option value="50000" data-zoom="10.0">50km以下</option>
+  <option value="20000" data-zoom="11.0">20km以下</option>
+  <option value="10000" data-zoom="12.0">10km以下</option>
+  <option value="5000" data-zoom="13.0" selected>5km以下</option>
+  <option value="2500" data-zoom="14.0">2.5km以下</option>
+  <option value="1000" data-zoom="15.0">1.0km以下</option>
 </select>
 
 <script>
 jQuery(function($) {
 var map;
 var marker = [];
+var mapLatLng;
+var circleObj;
+var currentDist = 5000;
 var infoWindow = [];
 var markerData = [ // マーカーを立てる場所名・緯度・経度
 <?php foreach ($marker_data_arr as $marker_data): ?>
@@ -87,12 +98,13 @@ var markerData = [ // マーカーを立てる場所名・緯度・経度
   
 function initMap() {
  // 地図の作成
-    var mapLatLng = new google.maps.LatLng({lat: markerData[0]['lat'], lng: markerData[0]['lng']}); // 緯度経度のデータ作成
+    mapLatLng = new google.maps.LatLng({lat: <?php echo $lat_init; ?>, lng: <?php echo $lng_init; ?>}); // 緯度経度のデータ作成
     map = new google.maps.Map(document.getElementById('map'), { // #sampleに地図を埋め込む
     center: mapLatLng, // 地図の中心を指定
     zoom: 13 // 地図のズームを指定
    });
    // dispMarker(markerData);
+   paintCircleMap( mapLatLng, currentDist );
 }
   
 // マーカーにクリックイベントを追加
@@ -118,7 +130,7 @@ function dispMarker(markerData, catNum) {
        markerEvent(i); // マーカーにクリックイベントを追加
      } 
   }
-  // hiddenMakersAll( markerData, 3000 );
+  hiddenMakersAll( markerData, currentDist );
 }
 
 //マーカーを削除する
@@ -131,7 +143,7 @@ function deleteMakers(markerData, catNum) {
 }
 
 // マーカーを隠す
-function hiddenMakersAll( markerData, dist=3000 ) {
+function hiddenMakersAll( markerData, dist=currentDist ) {
   $.each(marker, function(index, val) {
     if(marker[index]) {
       if( markerData[index]['dist'] < dist) {
@@ -145,7 +157,25 @@ function hiddenMakersAll( markerData, dist=3000 ) {
 
 // ズームレベルを変更する
 function changeZoom( zoom=map.getZoom() ) {
-  map.setZoom( zoom );
+  map.setZoom( parseInt(zoom) );
+}
+
+// 半径の表示円を描画
+function paintCircleMap( myLatLng, dist=currentDist ) {
+  circleObj = new google.maps.Circle({
+    center: myLatLng,       // 中心点(google.maps.LatLng)
+    fillColor: '#ff0000',   // 塗りつぶし色
+    fillOpacity: 0.1,       // 塗りつぶし透過度（0: 透明 ⇔ 1:不透明）
+    map: map,             // 表示させる地図（google.maps.Map）
+    radius: parseInt(dist),          // 半径（ｍ）
+    strokeColor: '#ff0000', // 外周色 
+    strokeOpacity: 0.5,       // 外周透過度（0: 透明 ⇔ 1:不透明）
+    strokeWeight: 1         // 外周太さ（ピクセル）
+  });
+}
+// 半径の表示円を削除
+function dalatePaintCircleMap( circleObj ) {
+  circleObj.setMap(null);
 }
 
 initMap();
@@ -163,9 +193,13 @@ $(function() {
   $('#MarkerSelectDist').change(function() {
     //選択したvalue値を変数に格納
     var val = $(this).val();
-    var zoom = $(this).data('zoom');
-    hiddenMakersAll( markerData, val );
+    currentDist = val;
+    // var zoom = $(this).data('zoom');
+    var zoom = $(this).find('option:selected').data('zoom');
+    hiddenMakersAll( markerData, currentDist );
     changeZoom(zoom);
+    dalatePaintCircleMap(circleObj);
+    paintCircleMap( mapLatLng, currentDist );
   });
 });
 
@@ -176,38 +210,7 @@ $(function() {
 
 
 
-<?php
-$distance = 10; // 距離 km
-// 東京タワー 座標(WGS84)　緯度: 35.658581 経度: 139.745433
-$lat1 = 35.681236;  // 緯度
-$lng1 = 139.767125; // 経度
 
-// 半径xxKm圏内の史跡一覧を取得
-$landmark_posts  = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
-$marker_data_arr = array();
-$i=0;
-foreach ($landmark_posts as $landmark_post) {
-  $map_center = get_post_meta( $landmark_post->ID, 'acf_landmark_gmap', true );
-  $map_zoom   = get_post_meta( $landmark_post->ID, 'acf_landmark_zoom', true );
-  $land_cat   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
-
-  // 起点となる史跡と距離を比較
-  $dist = distance($lat1, $lng1, $map_center['lat'], $map_center['lng'], true);
-  if( $dist < $distance ) {
-    // get markerData
-    $marker_data_arr[$i]['name'] = $landmark_post->post_title;
-    $marker_data_arr[$i]['lat']  = $map_center['lat'];
-    $marker_data_arr[$i]['lng']  = $map_center['lng'];
-    $marker_data_arr[$i]['cat']  = $land_cat[0]->term_id;
-    $i++;
-  } else {
-
-  }
-}
-var_dump($marker_data_arr);
-
-
-?>
 
 
       </div>
