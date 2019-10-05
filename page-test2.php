@@ -103,8 +103,7 @@ function initMap() {
     center: mapLatLng, // 地図の中心を指定
     zoom: 13 // 地図のズームを指定
    });
-   // dispMarker(markerData);
-   paintCircleMap( mapLatLng, currentDist );
+   paintCircleMap();
 }
   
 // マーカーにクリックイベントを追加
@@ -115,7 +114,7 @@ function markerEvent(i) {
 }
 
 // マーカー毎の処理
-function dispMarker(markerData, catNum) {
+function dispMarker(catNum) {
   for (var i = 0; i < markerData.length; i++) {
       if( markerData[i]['cat']===catNum ) {
         markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
@@ -130,11 +129,11 @@ function dispMarker(markerData, catNum) {
        markerEvent(i); // マーカーにクリックイベントを追加
      } 
   }
-  hiddenMakersAll( markerData, currentDist );
+  hiddenMakersAll();
 }
 
 //マーカーを削除する
-function deleteMakers(markerData, catNum) {
+function deleteMakers(catNum) {
   for (var i = 0; i < markerData.length; i++) {
     if( markerData[i]['cat']===catNum) {
       marker[i].setMap(null);
@@ -143,10 +142,10 @@ function deleteMakers(markerData, catNum) {
 }
 
 // マーカーを隠す
-function hiddenMakersAll( markerData, dist=currentDist ) {
+function hiddenMakersAll() {
   $.each(marker, function(index, val) {
     if(marker[index]) {
-      if( markerData[index]['dist'] < dist) {
+      if( markerData[index]['dist'] < currentDist) {
         marker[index].setVisible(true);
       } else {
         marker[index].setVisible(false);
@@ -161,20 +160,20 @@ function changeZoom( zoom=map.getZoom() ) {
 }
 
 // 半径の表示円を描画
-function paintCircleMap( myLatLng, dist=currentDist ) {
+function paintCircleMap() {
   circleObj = new google.maps.Circle({
-    center: myLatLng,       // 中心点(google.maps.LatLng)
+    center: mapLatLng,       // 中心点(google.maps.LatLng)
     fillColor: '#ff0000',   // 塗りつぶし色
     fillOpacity: 0.1,       // 塗りつぶし透過度（0: 透明 ⇔ 1:不透明）
     map: map,             // 表示させる地図（google.maps.Map）
-    radius: parseInt(dist),          // 半径（ｍ）
+    radius: parseInt(currentDist),          // 半径（ｍ）
     strokeColor: '#ff0000', // 外周色 
     strokeOpacity: 0.5,       // 外周透過度（0: 透明 ⇔ 1:不透明）
     strokeWeight: 1         // 外周太さ（ピクセル）
   });
 }
 // 半径の表示円を削除
-function dalatePaintCircleMap( circleObj ) {
+function dalatePaintCircleMap() {
   circleObj.setMap(null);
 }
 
@@ -184,9 +183,9 @@ $(function() {
   $('.marker-check').click(function() {
     var termid = $(this).data('termid');
     if ( $(this).prop('checked') ) {
-      dispMarker(markerData, termid);
+      dispMarker(termid);
     } else {
-      deleteMakers(markerData, termid);
+      deleteMakers(termid);
     }
   });
 
@@ -196,10 +195,10 @@ $(function() {
     currentDist = val;
     // var zoom = $(this).data('zoom');
     var zoom = $(this).find('option:selected').data('zoom');
-    hiddenMakersAll( markerData, currentDist );
+    hiddenMakersAll();
     changeZoom(zoom);
-    dalatePaintCircleMap(circleObj);
-    paintCircleMap( mapLatLng, currentDist );
+    dalatePaintCircleMap();
+    paintCircleMap();
   });
 });
 
