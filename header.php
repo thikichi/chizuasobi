@@ -14,6 +14,42 @@
   <?php endif; ?>
   <?php if ( is_singular() ) wp_enqueue_script( 'comment-reply' ); ?>
   <?php wp_head(); ?>
+<script>
+jQuery(function($) {
+  $(function(){
+    
+    $.fn.myLazyLoadingObj = function(options) {
+      var callback  = options.callback;
+      var thisOffset = this.offset().top;
+      var cnt_mapdist = 0;
+      $(window).scroll(function(){
+        if( $(window).scrollTop() + $(window).height() > thisOffset && cnt_mapdist < 1 ){
+          callback();
+          cnt_mapdist++;
+        }
+      });
+      return this;
+    }
+  });
+});
+
+function getInfowinContent( post_id, map_id, img_url, post_title, address, link ) {
+  var tag = '';
+  tag += "<div id='infoWin-" + post_id + "' class='infwin cf' style='position:relative'>";
+  tag += "<a id='AAAAA" + map_id + "-" + post_id + "' style='position:absolute;top:-150px'></a>";
+  tag += "<div class='infwin-thumb'>";
+  tag += "<img class='img-responsive' src='" + img_url + "'></div>";
+  tag += "<div class='infwin-main'>";
+  tag += "<h3>" + post_title + "</h3>";
+  tag += "<p>" + address + "</p>";
+  tag += "<p class='infwin-link'><a href='" + link + "'>この記事を見る</a></p>";
+  tag += "</div>";
+  tag += "</div>";
+  return tag;
+}
+</script>
+
+
 </head>
 
 <body <?php body_class(); ?>>
