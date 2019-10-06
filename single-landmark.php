@@ -426,6 +426,13 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             $map_address = get_post_meta( $landmark_post->ID, 'acf_landmark_address', true );
             $land_cat   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
             $dist = distance($lat_init, $lng_init, $map_center['lat'], $map_center['lng'], true);
+
+
+            $img = $osfw->get_thumbnail_by_post( $landmark_post->ID, 'img_square' );
+            $img_url = $img ? $img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+            
+
+
             // get markerData
             $marker_data_arr[$i]['id']   = $landmark_post->ID;
             $marker_data_arr[$i]['name'] = $landmark_post->post_title;
@@ -433,6 +440,8 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             $marker_data_arr[$i]['lng']  = $map_center['lng'];
             $marker_data_arr[$i]['cat']  = $land_cat[0]->term_id;
             $marker_data_arr[$i]['address'] = $map_address;
+            $marker_data_arr[$i]['link'] = get_the_permalink($landmark_post->ID);
+            $marker_data_arr[$i]['img_url'] = $img_url;
             $marker_data_arr[$i]['dist'] = floor($dist);
             $i++;
         }
@@ -486,10 +495,10 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                 infoWindowContent: getInfowinContent(
                   <?php echo esc_js($marker_data['id']); ?>, 
                   'mapDistSearch', 
-                  'img_url', 
+                  '<?php echo esc_js($marker_data['img_url']); ?>',
                   '<?php echo esc_js($marker_data['name']); ?>',
                   '<?php echo esc_js($marker_data['address']); ?>',
-                  'link'
+                  '<?php echo esc_js($marker_data['link']); ?>',
                 ),
              },
             <?php endforeach; ?>
