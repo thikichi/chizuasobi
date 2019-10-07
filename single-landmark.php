@@ -614,6 +614,37 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           });
         });
         </script>
+        <div class="mt-xs-30">
+<div id="DispPost"></div>
+<script>
+jQuery(function($) {
+  $(function(){
+    var mes = 'Hello World!!';
+
+    $.ajax({
+        type: 'POST',
+        url: ajaxurl,
+        data: {
+            'action' : 'view_mes',
+            'mes' : mes,
+        },
+        success: function( response ){
+          jsonData = JSON.parse( response );
+          var tag = ''
+          $.each( jsonData, function( i, val ){
+              tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
+              tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
+
+              $('#DispPost').html(tag);
+          });
+        }
+    });
+  });
+});
+
+</script>
+
+        </div>
       </div>
     </div>
   </div>

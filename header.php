@@ -17,7 +17,6 @@
 <script>
 jQuery(function($) {
   $(function(){
-    
     $.fn.myLazyLoadingObj = function(options) {
       var callback  = options.callback;
       var thisOffset = this.offset().top;

@@ -284,17 +284,7 @@ $heredocs .= <<< EOM
   title: "{$landmark->post_title}", 
   icon: "{$icon_img}", 
   post_id: {$landmark->ID},
-  infoWindowContent: 
-    "<div id='infoWin-{$landmark->ID}' class='infwin cf' style='position:relative'>" + 
-    "<a id='AAAAA{$map_id}-{$landmark->ID}' style='position:absolute;top:-150px'></a>" + 
-    "<div class='infwin-thumb'>" + 
-    "<img class='img-responsive' src='{$img_url}'></div>" + 
-    "<div class='infwin-main'>" + 
-    "<h3>{$landmark->post_title}</h3>" + 
-    "<p>{$address}</p>" + 
-    "<p class='infwin-link'><a href='{$link}'>この記事を見る</a></p>" + 
-    "</div>" + 
-    "</div>"
+  infoWindowContent: getInfowinContent( {$landmark->ID}, {$map_id}, '{$img_url}', '{$landmark->post_title}', '{$address}', '{$link}' )
 },
 EOM;
 
@@ -346,16 +336,11 @@ $heredocs .= <<< EOM
 };
 // 遅延読み込み
 jQuery(function($) {
-  var thisOffset_{$map_id};
-  var counter_{$map_id}=0;
-  $(window).on('load',function(){
-    thisOffset_{$map_id} = $('#{$map_id}').offset().top;
-  });
-  $(window).scroll(function(){
-    if( $(window).scrollTop() + $(window).height() > thisOffset_{$map_id} && counter_{$map_id} < 1 ){
-      mygooglemap_{$map_id}();
-      counter_{$map_id}++;
-    }
+  $(function(){
+    // 遅延読み込み
+    $('#{$map_id}').myLazyLoadingObj({
+      callback : mygooglemap_{$map_id}
+    });
   });
 });
 
@@ -413,17 +398,7 @@ function mygooglemap_{$map_id}(){
   title: "{$post_title}", 
   icon: "{$icon_img}", 
   post_id: {$post_id},
-  infoWindowContent: 
-    "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='{$map_id}-{$post_id}' style='position:absolute;top:-150px'></a>" + 
-    "<div class='infwin-thumb'>" + 
-    "<img class='img-responsive' src='{$post_map_img}'></div>" + 
-    "<div class='infwin-main'>" + 
-    "<h3>{$post_title}</h3>" + 
-    "<p>{$post_map_address}</p>" + 
-    "<p class='infwin-link'><a href='{$post_map_link}'>この記事を見る</a></p>" + 
-    "</div>" + 
-    "</div>"
+  infoWindowContent: getInfowinContent( {$post_id}, {$map_id}, '{$post_map_img}', '{$post_title}', '{$post_map_address}', '{$post_map_link}' )
   },
 
 EOM;
@@ -463,17 +438,7 @@ $heredocs .= <<< EOM
   title: "{$hotel->HotelName}", 
   icon: "{$icon_hotel}", 
   post_id: {$hotel->HotelID},
-  infoWindowContent: 
-    "<div class='infwin cf' style='position:relative'>" + 
-    "<a id='{$map_id}-{$hotel->HotelID}' style='position:absolute;top:-150px'></a>" + 
-    "<div class='infwin-thumb'>" + 
-    "<img class='img-responsive' src='{$hotel->PictureURL}'></div>" + 
-    "<div class='infwin-main'>" + 
-    "<h3>{$hotel->HotelName}</h3>" + 
-    "<p>{$hotel->HotelAddress}</p>" + 
-    "<p class='infwin-link'><a href='{$hotel->HotelDetailURL}'>この宿泊施設を見る</a></p>" + 
-    "</div>" + 
-    "</div>"
+  infoWindowContent: getInfowinContent( {$hotel->HotelID}, {$map_id}-{$hotel->HotelID}, '{$hotel->PictureURL}', '{$hotel->HotelName}', '{$hotel->HotelAddress}', '{$hotel->HotelDetailURL}' )
 },
 EOM;
 
@@ -523,20 +488,17 @@ $heredocs .= <<< EOM
     }());
   }
 };
-// 遅延読み込み
 jQuery(function($) {
-  var thisOffset_{$map_id};
-  var counter_{$map_id}=0;
-  $(window).on('load',function(){
-    thisOffset_{$map_id} = $('#{$map_id}').offset().top;
-  });
-  $(window).scroll(function(){
-    if( $(window).scrollTop() + $(window).height() > thisOffset_{$map_id} && counter_{$map_id} < 1 ){
-      mygooglemap_{$map_id}();
-      counter_{$map_id}++;
-    }
+  $(function(){
+    // 遅延読み込み
+    $('#{$map_id}').myLazyLoadingObj({
+      callback : mygooglemap_{$map_id}
+    });
   });
 });
+
+
+
 EOM;
   echo $heredocs;
   echo '</script>';
@@ -650,6 +612,53 @@ function distance($lat1, $lng1, $lat2, $lng2, $mode=true) {
 
   return $dist;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * このテーマTOPの「すべてを表示」ボタンで表示される投稿
+*/
+function add_my_ajaxurl() {
+  echo '<script>';
+  echo 'var ajaxurl = "' . admin_url( 'admin-ajax.php') . '"';
+  echo '</script>';
+}
+add_action( 'wp_head', 'add_my_ajaxurl', 1 );
+
+function view_mes(){
+    // $mes = $_POST['mes'];
+    $returnObj = array();
+    $args = array(
+        'post_type' => 'post',
+        'numberposts' => 5,
+    );
+    $posts = get_posts( $args );
+    foreach( $posts as $key => $post ) {
+        $returnObj[$key] = array(
+            'post_title' => $post->post_title,
+            'permalink' => get_permalink( $post->ID ),
+        );
+    }
+    echo json_encode( $returnObj );
+    die();
+}
+add_action( 'wp_ajax_view_mes', 'view_mes' );
+add_action( 'wp_ajax_nopriv_view_mes', 'view_mes' );
+
+
 
 
 // ↑↑ ここまで追加記述してください ↑↑ //
