@@ -615,28 +615,45 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         });
         </script>
         <div class="mt-xs-30">
-<div id="DispPost"></div>
+<div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>"></div>
 <script>
 jQuery(function($) {
   $(function(){
-    var mes = 'Hello World!!';
 
+
+
+    var query = [];
+    var dist = $('#MarkerSelectDist').val();
+    var chk_terms = [];
+    $('.marker-check').each(function(index,el) {
+      chk_terms.push($(this).val());
+    });
+    query_post_type = 'landmark';
+    query_terms     = chk_terms;
+    query_postid    = $('#DispPost').data('mainpostid');
+
+    function doAjaxPosts() {
+
+    }
     $.ajax({
         type: 'POST',
         url: ajaxurl,
         data: {
             'action' : 'view_mes',
-            'mes' : mes,
+            'dist'   : dist,
+            'query_post_type' : query_post_type,
+            'query_terms'     : query_terms,
+            'query_postid' : query_postid,
         },
         success: function( response ){
           jsonData = JSON.parse( response );
           var tag = ''
-          $.each( jsonData, function( i, val ){
+          $.each( jsonData['post'], function( i, val ){
               tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
               tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
-
-              $('#DispPost').html(tag);
           });
+          $('#DispPost').html(jsonData['tags']);
+          $('.matchHeight').matchHeight();
         }
     });
   });
