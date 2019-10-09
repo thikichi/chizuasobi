@@ -641,93 +641,83 @@ add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 function view_mes(){
     $dist  = $_POST['dist'];
     $query_post_type = $_POST['query_post_type'];
-    $query_terms     = $_POST['query_terms'];
+    $query_terms     = isset($_POST['query_terms']) ? $_POST['query_terms'] : '';
     $query_postid    = $_POST['query_postid'];
 
-    $term_posts = get_posts( array( 
-      'post_type' => $query_post_type, 
-      'tax_query' => array( 
-        array(
-          'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
-          'field' => 'term_id', //ターム名をスラッグで指定する
-          'terms' => $query_terms,
-        ),
-      ),
-    ));
     $selected_posts = array();
-
+    if( $query_terms ) {
+      $term_posts = get_posts( array( 
+        'post_type' => $query_post_type, 
+        'tax_query' => array( 
+          array(
+            'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
+            'field' => 'term_id', //ターム名をスラッグで指定する
+            'terms' => $query_terms,
+          ),
+        ),
+      ));
+      foreach ($term_posts as $term_post) {
+        $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
+        $loop_gmap = get_post_meta( $term_post->ID, 'acf_landmark_gmap', true );
+        $thisdist  =  distance($this_gmap['lat'], $this_gmap['lng'], $loop_gmap['lat'], $loop_gmap['lng'], true);
+        if( $thisdist < $dist ) {
+          $selected_posts[] = $term_post->ID;
+        }
+      }
+    }
 
 ob_start();
-var_dump($query_terms);
+var_dump( $query_terms );
 $out = ob_get_contents();
 ob_end_clean();
 file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
-    foreach ($term_posts as $term_post) {
-      # code...
-      $this_gmap = get_post_meta( $query_postid->ID, 'acf_landmark_gmap', true );
-      $loop_gmap = get_post_meta( $term_post->ID, 'acf_landmark_gmap', true );
-      $thisdist  =  distance($this_gmap['lat'], $this_gmap['lng'], $loop_gmap['lat'], $loop_gmap['lng']);
-      if( $thisdist < $dist ) {
-        $selected_posts[] = $term_post->ID;
-      }
-    }
+    if( !empty($selected_posts) ) {
+      $returnObj = array();
+      $args = array(
+        'post_type' => $query_post_type,
+        'post__in' => $selected_posts,
+        'posts_per_page' => -1,
+      );
+      $the_query = new WP_Query( $args );
+      $returnObj['tags'] = '';
+      if ($the_query->have_posts()) {
+        $returnObj['tags'] .= '<ul class="row mt-xs-15">';
+        while($the_query->have_posts()) {
+          $the_query->the_post();
+          $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
+          $cfield_addr = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
+          // Theme URL
+          $theme_url = get_stylesheet_directory_uri();
+          // Permalink
+          $permalink = get_the_permalink();
 
-
-
-
-
-
-
-    $returnObj = array();
-    
-    $args = array(
-      'post_type' => $query_post_type,
-      'include' => $selected_posts,
-      'posts_per_page' => -1,
-    );
-    $the_query = new WP_Query( $args );
-    $returnObj['tags'] = '';
-    if ($the_query->have_posts()) {
-      $returnObj['tags'] .= '<ul class="row mt-xs-15">';
-      while($the_query->have_posts()) {
-        $the_query->the_post();
-        $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
-        $cfield_addr = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
-
-
-
-        // Theme URL
-        $theme_url = get_stylesheet_directory_uri();
-        // Permalink
-        $permalink = get_the_permalink();
-
-        // Thumbnail
-        $img_id = get_post_thumbnail_id( get_the_ID() );
-        if( $img_id!='' ) {
-          $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
-          $thumb = '<img src="' . $temp_img[0] . '" alt="">';
-        } else {
-          $thumb = '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
-        }
-        // Title
-        $title = get_the_title();
-        // Date time
-        $date  = get_the_time('Y.m.d');
-
-        // Taxonomy
-        $taxtag = '';
-        $tax = 'landmark_cateogry'; // タクソノミー名
-        $terms = get_the_terms(get_the_ID(), $tax);
-        if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-          $taxtag .= '<ul class="taglist-1 cf mt-xs-10">';
-          foreach ( $terms as $term ) {
-            $term_link = get_term_link( $term->term_id, $tax );
-            $taxtag .= '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+          // Thumbnail
+          $img_id = get_post_thumbnail_id( get_the_ID() );
+          if( $img_id!='' ) {
+            $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+            $thumb = '<img src="' . $temp_img[0] . '" alt="">';
+          } else {
+            $thumb = '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
           }
-          $taxtag .= '</ul>';
-        }
+          // Title
+          $title = get_the_title();
+          // Date time
+          $date  = get_the_time('Y.m.d');
+
+          // Taxonomy
+          $taxtag = '';
+          $tax = 'landmark_cateogry'; // タクソノミー名
+          $terms = get_the_terms(get_the_ID(), $tax);
+          if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+            $taxtag .= '<ul class="taglist-1 cf mt-xs-10">';
+            foreach ( $terms as $term ) {
+              $term_link = get_term_link( $term->term_id, $tax );
+              $taxtag .= '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+            }
+            $taxtag .= '</ul>';
+          }
 
 $returnObj['tags'] .= <<< EOM
 <li class="col-md-6 mt-xs-15">
@@ -771,8 +761,11 @@ $returnObj['tags'] .= <<< EOM
   </div>
 </li>
 EOM;
+      }
+      $returnObj['tags'] .= '</ul>';
     }
-    $returnObj['tags'] .= '</ul>';
+  } else {
+    $returnObj['tags'] .= '<li>史跡の登録がありません。</li>';
   }
   echo json_encode( $returnObj );
   die();

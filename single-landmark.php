@@ -452,7 +452,7 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         <?php
         $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
         foreach ($all_land_cats as $all_land_cat): ?>
-          <input class="marker-check" data-termid="<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" value="<?php echo esc_attr($all_land_cat->term_id); ?>">
+          <input class="marker-check" data-termid="<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" value="<?php echo esc_attr($all_land_cat->term_id); ?>" checked>
           <?php echo esc_html($all_land_cat->name); ?>
         <?php endforeach; ?>
         <select id="MarkerSelectDist">
@@ -474,6 +474,10 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           <option value="1000" data-zoom="15.0">1.0km以下</option>
         </select>
 
+        <div class="mt-xs-30">
+          <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>"></div>
+        </div>
+
         <script>
         jQuery(function($) {
           $(function(){
@@ -482,6 +486,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             var mapLatLng;
             var circleObj;
             var currentDist = 5000;
+            var query_terms = []; // termID list
+            var query_postid = $('#DispPost').data('mainpostid');
+            var query_post_type = 'landmark';
             var infoWindow = [];
             var markerData = [ // マーカーを立てる場所名・緯度・経度
             <?php foreach ($marker_data_arr as $marker_data): ?>
@@ -511,8 +518,65 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                 zoom: 13 // 地図のズームを指定
                });
                paintCircleMap();
+               // カテゴリーのチェッック状態に応じてマーカーをつける
+              $('.marker-check').each(function(index,el) {
+                if ( $(this).prop('checked') ) {
+                  // console.log( $(this).data('termid') );
+                  query_terms.push($(this).val());
+                  dispMarker($(this).data('termid'));
+                }
+              });
+              // Ajax post
+              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
             }
-              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // ajax main
+            function doAjaxPosts( dist, query_post_type, query_terms, query_postid ) {
+              $.ajax({
+                  type: 'POST',
+                  url: ajaxurl,
+                  data: {
+                      'action' : 'view_mes',
+                      'dist'   : dist,
+                      'query_post_type' : query_post_type,
+                      'query_terms'     : query_terms,
+                      'query_postid' : query_postid,
+                  },
+                  success: function( response ){
+                    jsonData = JSON.parse( response );
+                    var tag = ''
+                    $.each( jsonData['post'], function( i, val ){
+                        tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
+                        tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
+                    });
+                    $('#DispPost').html(jsonData['tags']);
+                    $('.matchHeight').matchHeight();
+                  }
+              });
+            }
+
             // マーカーにクリックイベントを追加
             function markerEvent(i) {
                 marker[i].addListener('click', function() { // マーカーをクリックしたとき
@@ -583,6 +647,10 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             function dalatePaintCircleMap() {
               circleObj.setMap(null);
             }
+
+
+
+
             $('.marker-check').click(function() {
               var termid = $(this).data('termid');
               if ( $(this).prop('checked') ) {
@@ -590,6 +658,13 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
               } else {
                 deleteMakers(termid);
               }
+              query_terms = [];
+              $('.marker-check').each(function(index,el) {
+                if ( $(this).prop('checked') ) {
+                  query_terms.push($(this).val());
+                }
+              });
+              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
             });
             // セレクトボックス選択
             $('#MarkerSelectDist').change(function() {
@@ -603,10 +678,11 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
               dalatePaintCircleMap();
               paintCircleMap();
             });
+
             // 遅延読み込み部分
             var mylazyloadDone = function() {
               initMapDist();
-              $('.marker-check').trigger('click');
+              // $('.marker-check').trigger('click');
             }
             $('#mapDistSearch').myLazyLoadingObj({
               callback : mylazyloadDone,
@@ -614,54 +690,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           });
         });
         </script>
-        <div class="mt-xs-30">
-<div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>"></div>
-<script>
-jQuery(function($) {
-  $(function(){
-
-
-
-    var query = [];
-    var dist = $('#MarkerSelectDist').val();
-    var chk_terms = [];
-    $('.marker-check').each(function(index,el) {
-      chk_terms.push($(this).val());
-    });
-    query_post_type = 'landmark';
-    query_terms     = chk_terms;
-    query_postid    = $('#DispPost').data('mainpostid');
-
-    function doAjaxPosts() {
-
-    }
-    $.ajax({
-        type: 'POST',
-        url: ajaxurl,
-        data: {
-            'action' : 'view_mes',
-            'dist'   : dist,
-            'query_post_type' : query_post_type,
-            'query_terms'     : query_terms,
-            'query_postid' : query_postid,
-        },
-        success: function( response ){
-          jsonData = JSON.parse( response );
-          var tag = ''
-          $.each( jsonData['post'], function( i, val ){
-              tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
-              tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
-          });
-          $('#DispPost').html(jsonData['tags']);
-          $('.matchHeight').matchHeight();
-        }
-    });
-  });
-});
-
-</script>
-
-        </div>
       </div>
     </div>
   </div>
