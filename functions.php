@@ -666,11 +666,11 @@ function view_mes(){
       }
     }
 
-ob_start();
-var_dump( $query_terms );
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+// ob_start();
+// var_dump( $query_terms );
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
     if( !empty($selected_posts) ) {
@@ -683,7 +683,7 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
       $the_query = new WP_Query( $args );
       $returnObj['tags'] = '';
       if ($the_query->have_posts()) {
-        $returnObj['tags'] .= '<ul class="row mt-xs-15">';
+        $returnObj['tags'] .= '<ul class="row mt-xs-15 fadeIn-1">';
         while($the_query->have_posts()) {
           $the_query->the_post();
           $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
@@ -692,7 +692,8 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
           $theme_url = get_stylesheet_directory_uri();
           // Permalink
           $permalink = get_the_permalink();
-
+          // Post ID
+          $post_id = get_the_ID();
           // Thumbnail
           $img_id = get_post_thumbnail_id( get_the_ID() );
           if( $img_id!='' ) {
@@ -705,7 +706,6 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
           $title = get_the_title();
           // Date time
           $date  = get_the_time('Y.m.d');
-
           // Taxonomy
           $taxtag = '';
           $tax = 'landmark_cateogry'; // タクソノミー名
@@ -738,7 +738,7 @@ $returnObj['tags'] .= <<< EOM
       </div>
       <div class="box-1-btn matchHeight">
         <div class="box-1-btnTop">
-          <a class="link-1" id="HandleMap-mapArea-{$post->ID}" href="#mapArea">
+          <a class="link-1" id="HandleMap-mapDistSearch-{$post_id}" href="#mapArea">
             <span class="link-color-1">
               <img class="_icon" src="{$theme_url}/images/common/icon-pin.svg"> 
               <span class="_linkText box-1-btnText">地図を見る</span>
@@ -763,6 +763,7 @@ $returnObj['tags'] .= <<< EOM
 EOM;
       }
       $returnObj['tags'] .= '</ul>';
+      $returnObj['tags'] .= '<p>さらに記事を表示する。</p>';
     }
   } else {
     $returnObj['tags'] .= '<li>史跡の登録がありません。</li>';

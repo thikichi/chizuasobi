@@ -447,7 +447,8 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         }
         ?>
 
-        <div id="mapDistSearch" style="width: 100%;height: 500px"></div>
+        <div id="mapDistSearch" style="width: 100%;height: 500px">
+        </div>
         
         <?php
         $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
@@ -474,8 +475,7 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           <option value="1000" data-zoom="15.0">1.0km以下</option>
         </select>
 
-        <div class="mt-xs-30">
-          <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>"></div>
+        <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>" class="mt-xs-30 align-center">
         </div>
 
         <script>
@@ -554,6 +554,7 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 
             // ajax main
             function doAjaxPosts( dist, query_post_type, query_terms, query_postid ) {
+              $('#DispPost').html('<img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif">');
               $.ajax({
                   type: 'POST',
                   url: ajaxurl,
@@ -566,11 +567,11 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                   },
                   success: function( response ){
                     jsonData = JSON.parse( response );
-                    var tag = ''
-                    $.each( jsonData['post'], function( i, val ){
-                        tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
-                        tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
-                    });
+                    var tag = '';
+                    // $.each( jsonData['post'], function( i, val ){
+                    //     tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
+                    //     tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
+                    // });
                     $('#DispPost').html(jsonData['tags']);
                     $('.matchHeight').matchHeight();
                   }
@@ -677,6 +678,8 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
               changeZoom(zoom);
               dalatePaintCircleMap();
               paintCircleMap();
+              // Ajax post
+              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
             });
 
             // 遅延読み込み部分
