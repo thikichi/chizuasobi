@@ -643,6 +643,12 @@ function view_mes(){
     $query_post_type = $_POST['query_post_type'];
     $query_terms     = isset($_POST['query_terms']) ? $_POST['query_terms'] : '';
     $query_postid    = $_POST['query_postid'];
+    $display_mode    = $_POST['display_mode']; // default: replace
+    $disp_num   = $_POST['disp_num']; // 表示させたい記事件数
+    $disped_num = $display_mode=='replace' ? 0 :  $_POST['disped_num']; // すでに表示されている件数
+
+
+
 
     $selected_posts = array();
     if( $query_terms ) {
@@ -666,24 +672,36 @@ function view_mes(){
       }
     }
 
-// ob_start();
-// var_dump( $query_terms );
-// $out = ob_get_contents();
-// ob_end_clean();
-// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+ob_start();
+var_dump( $selected_posts );
+$out = ob_get_contents();
+ob_end_clean();
+file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
     if( !empty($selected_posts) ) {
       $returnObj = array();
       $args = array(
         'post_type' => $query_post_type,
-        'post__in' => $selected_posts,
-        'posts_per_page' => -1,
+        'post__in'  => $selected_posts,
+        'offset'    => $disped_num,
+        'posts_per_page' => $disp_num,
       );
       $the_query = new WP_Query( $args );
-      $returnObj['tags'] = '';
+      $get_num = $the_query->post_count;
+      $returnObj['post_num_all']  = $all_num = intval($the_query->found_posts);
+      $returnObj['post_num_get']  = $get_num + $disped_num;
+      $returnObj['no_more_posts'] = $returnObj['post_num_get']>=$all_num ? true : false;
+
+
+
+
+      // if( $display_mode==='replace' ) {
+        $returnObj['tags'] = '';
+      // } else if($the_query->have_posts()) {
+      //   $returnObj['tags'] .= '';
+      // }
       if ($the_query->have_posts()) {
-        $returnObj['tags'] .= '<ul class="row mt-xs-15 fadeIn-1">';
         while($the_query->have_posts()) {
           $the_query->the_post();
           $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
@@ -761,9 +779,8 @@ $returnObj['tags'] .= <<< EOM
   </div>
 </li>
 EOM;
+
       }
-      $returnObj['tags'] .= '</ul>';
-      $returnObj['tags'] .= '<p>さらに記事を表示する。</p>';
     }
   } else {
     $returnObj['tags'] .= '<li>史跡の登録がありません。</li>';
