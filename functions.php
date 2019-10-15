@@ -639,6 +639,7 @@ function add_my_ajaxurl() {
 add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 
 function view_mes(){
+    $returnObj = array();
     $dist  = $_POST['dist'];
     $query_post_type = $_POST['query_post_type'];
     $query_terms     = isset($_POST['query_terms']) ? $_POST['query_terms'] : '';
@@ -647,28 +648,72 @@ function view_mes(){
     $disp_num   = $_POST['disp_num']; // 表示させたい記事件数
     $disped_num = $display_mode=='replace' ? 0 :  $_POST['disped_num']; // すでに表示されている件数
 
+    // 現在の投稿
+    $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'include'=>$query_postid, 'numberposts'=>-1 ) );
+    $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
+    $thisdist = distance($this_gmap['lat'], $this_gmap['lng'], $this_gmap['lat'], $this_gmap['lng'], true);
+    foreach ($this_posts as $this_post) {
+      $terms = get_the_terms(get_the_ID(), 'landmark_cateogry');
+      $term_list = '[';
+      foreach ( $terms as $term ) {
+        $term_list .= "'" . $term->term_id . "'";
+        if ($term !== end($terms)) $term_list .= ',';
+      }
+      $term_list .= ']';
+      $returnObj['markerDataAjax'][0]['id']   = $this_post->ID;
+      $returnObj['markerDataAjax'][0]['name'] = $this_post->post_title;
+      $returnObj['markerDataAjax'][0]['lat']  = floatval($this_gmap['lat']);
+      $returnObj['markerDataAjax'][0]['lng']  = floatval($this_gmap['lng']);
+      $returnObj['markerDataAjax'][0]['cat']  = $term_list;
+      $returnObj['markerDataAjax'][0]['dist'] = $thisdist;
+      $returnObj['markerDataAjax'][0]['infoWindowContent'] = $this_post->post_title;
+    }
 
-
-
+    // 対象となる投稿（距離による絞り込みなし）
     $selected_posts = array();
     if( $query_terms ) {
       $term_posts = get_posts( array( 
-        'post_type' => $query_post_type, 
+        'post_type' => $query_post_type,
+        'post__not_in' => array(intval($query_postid)),
         'tax_query' => array( 
           array(
             'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
             'field' => 'term_id', //ターム名をスラッグで指定する
             'terms' => $query_terms,
+            'operator' => 'IN',
+            'numberposts'=>-1,
           ),
         ),
       ));
+      $i=1;
       foreach ($term_posts as $term_post) {
-        $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
+        
         $loop_gmap = get_post_meta( $term_post->ID, 'acf_landmark_gmap', true );
         $thisdist  =  distance($this_gmap['lat'], $this_gmap['lng'], $loop_gmap['lat'], $loop_gmap['lng'], true);
+        $terms = get_the_terms($term_post->ID, 'landmark_cateogry');
+        if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+          $term_list = '[';
+          foreach ( $terms as $term ) {
+            $term_list .= "'" . $term->term_id . "'";
+            if ($term !== end($terms)) {
+              $term_list .= ',';
+            }
+          }
+          $term_list .= ']';
+        }
+        // マーカーオブジェクトをつくる
+        $returnObj['markerDataAjax'][$i]['id']   = $term_post->ID;
+        $returnObj['markerDataAjax'][$i]['name'] = $term_post->post_title;
+        $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
+        $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
+        $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
+        $returnObj['markerDataAjax'][$i]['dist'] = $thisdist;
+        $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $term_post->post_title;
+        // $returnObj['markerDataAjax'][$i]['infoWindowContent'] = getInfowinContent($term_post->ID, 'mapDistSearch', '画像', $term_post->post_title, '住所', 'link' );
         if( $thisdist < $dist ) {
           $selected_posts[] = $term_post->ID;
         }
+        $i++;
       }
     }
 
@@ -679,8 +724,8 @@ ob_end_clean();
 file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
+    // 対象となる投稿（距離により絞り込む）
     if( !empty($selected_posts) ) {
-      $returnObj = array();
       $args = array(
         'post_type' => $query_post_type,
         'post__in'  => $selected_posts,
@@ -692,16 +737,14 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
       $returnObj['post_num_all']  = $all_num = intval($the_query->found_posts);
       $returnObj['post_num_get']  = $get_num + $disped_num;
       $returnObj['no_more_posts'] = $returnObj['post_num_get']>=$all_num ? true : false;
-
-
-
-
       // if( $display_mode==='replace' ) {
         $returnObj['tags'] = '';
       // } else if($the_query->have_posts()) {
       //   $returnObj['tags'] .= '';
       // }
       if ($the_query->have_posts()) {
+        // $returnObj['markerDataAjax'] = [];
+        $i=1;
         while($the_query->have_posts()) {
           $the_query->the_post();
           $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
@@ -717,8 +760,10 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
           if( $img_id!='' ) {
             $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
             $thumb = '<img src="' . $temp_img[0] . '" alt="">';
+            $img_url = $temp_img[0];
           } else {
             $thumb = '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+            $img_url = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
           }
           // Title
           $title = get_the_title();
@@ -736,6 +781,8 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
             }
             $taxtag .= '</ul>';
           }
+
+
 
 $returnObj['tags'] .= <<< EOM
 <li class="col-md-6 mt-xs-15">
@@ -779,12 +826,15 @@ $returnObj['tags'] .= <<< EOM
   </div>
 </li>
 EOM;
-
+        $i++;
       }
     }
   } else {
     $returnObj['tags'] .= '<li>史跡の登録がありません。</li>';
   }
+
+
+
   echo json_encode( $returnObj );
   die();
 }

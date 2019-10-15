@@ -416,42 +416,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         $post_map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
         $lat_init = $post_map_center['lat'];
         $lng_init = $post_map_center['lng'];
-        // 全ての史跡を取得
-        $landmark_posts  = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
+
         $marker_data_arr = array();
-        $i=0;
-        foreach ($landmark_posts as $landmark_post) {
-            $map_center = get_post_meta( $landmark_post->ID, 'acf_landmark_gmap', true );
-            $map_zoom   = get_post_meta( $landmark_post->ID, 'acf_landmark_zoom', true );
-            $map_address = get_post_meta( $landmark_post->ID, 'acf_landmark_address', true );
-            
-            $landmark_cateogry   = get_the_terms( $landmark_post->ID, 'landmark_cateogry' );
-            $land_cats = '[';
-            foreach ($landmark_cateogry as $land_cat_obj) {
-              $land_cats .= "'" . $land_cat_obj->term_id . "'";
-              if ($land_cat_obj !== end($landmark_cateogry)) $land_cats .= ',';
-            }
-            $land_cats .= ']';
- var_dump($land_cats);
-            $dist = distance($lat_init, $lng_init, $map_center['lat'], $map_center['lng'], true);
 
-
-            $img = $osfw->get_thumbnail_by_post( $landmark_post->ID, 'img_square' );
-            $img_url = $img ? $img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-
-
-            // get markerData
-            $marker_data_arr[$i]['id']   = $landmark_post->ID;
-            $marker_data_arr[$i]['name'] = $landmark_post->post_title;
-            $marker_data_arr[$i]['lat']  = $map_center['lat'];
-            $marker_data_arr[$i]['lng']  = $map_center['lng'];
-            $marker_data_arr[$i]['cat']  = $land_cats;
-            $marker_data_arr[$i]['address'] = $map_address;
-            $marker_data_arr[$i]['link'] = get_the_permalink($landmark_post->ID);
-            $marker_data_arr[$i]['img_url'] = $img_url;
-            $marker_data_arr[$i]['dist'] = floor($dist);
-            $i++;
-        }
         ?>
 
         <div id="mapDistSearch" style="width: 100%;height: 500px"></div>
@@ -496,71 +463,22 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             var mapLatLng;
             var circleObj;
             var currentDist = 5000;
-            var query_terms = []; // termID list
+            // var currentDist = 700000;
+            var query_terms = [3,2,6];
             var query_postid = $('#DispPost').data('mainpostid');
             var query_post_type = 'landmark';
             var infoWindow = [];
-            var markerData = [ // マーカーを立てる場所名・緯度・経度
-            <?php foreach ($marker_data_arr as $marker_data): ?>
-             {
-                id:   <?php echo esc_js($marker_data['id']); ?>,
-                name: '<?php echo esc_js($marker_data['name']); ?>',
-                lat:  <?php echo esc_js($marker_data['lat']); ?>,
-                lng:  <?php echo esc_js($marker_data['lng']); ?>,
-                cat:  <?php echo $marker_data['cat']; ?>,
-                dist: <?php echo esc_js($marker_data['dist']); ?>,
-                infoWindowContent: getInfowinContent(
-                  <?php echo esc_js($marker_data['id']); ?>, 
-                  'mapDistSearch', 
-                  '<?php echo esc_js($marker_data['img_url']); ?>',
-                  '<?php echo esc_js($marker_data['name']); ?>',
-                  '<?php echo esc_js($marker_data['address']); ?>',
-                  '<?php echo esc_js($marker_data['link']); ?>',
-                ),
-             },
-            <?php endforeach; ?>
-            ];
+            var markerData = [];
             function initMapDist() {
              // 地図の作成
                 mapLatLng = new google.maps.LatLng({lat: <?php echo $lat_init; ?>, lng: <?php echo $lng_init; ?>}); // 緯度経度のデータ作成
                 map = new google.maps.Map(document.getElementById('mapDistSearch'), { // #sampleに地図を埋め込む
                 center: mapLatLng, // 地図の中心を指定
-                zoom: 13 // 地図のズームを指定
+                zoom: 13.0 // 地図のズームを指定
                });
                paintCircleMap();
-               // カテゴリーのチェッック状態に応じてマーカーをつける
-              $('.marker-check').each(function(index,el) {
-                if ( $(this).prop('checked') ) {
-                  // console.log( $(this).data('termid') );
-                  query_terms.push($(this).val());
-                  dispMarker($(this).data('termid'));
-                }
-              });
-              // Ajax post
               doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             // ajax main
             function doAjaxPosts( dist, query_post_type, query_terms, query_postid, display_mode='replace' ) {
@@ -592,7 +510,10 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                     //     tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
                     //     tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
                     // });
-                    // console.log(jsonData['tags']);
+                    markerData = jsonData['markerDataAjax'];
+                    console.log(markerData);
+                    dispMarker(jsonData['markerDataAjax'], 0);
+
                     $('#PostNum > ._allnum').html(jsonData['post_num_all']);
                     $('#PostNum > ._getnum').html(jsonData['post_num_get']);
                     if( display_mode=='replace' ) {
@@ -621,65 +542,44 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             }
 
             // マーカー毎の処理
-            function dispMarker(catNum) {
-              for (var i = 0; i < markerData.length; i++) {
-                var flg=false;
-                $.each(markerData[i]['cat'], function(index, val) {
-                  if(val==catNum) flg=true;
-                });
-                if( flg ) {
+            function dispMarker(markerData, offset=0) {
+              for (var i = offset; i < markerData.length; i++) {
+                if( currentDist > markerData[i]['dist'] ) {
                   markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
-                  marker[i] = new google.maps.Marker({ // マーカーの追加
-                  position: markerLatLng, // マーカーを立てる位置を指定
-                  animation: google.maps.Animation.DROP,
-                      map: map // マーカーを立てる地図を指定
-                  });
+                  if( i < 1 ) {
+                    marker[i] = new google.maps.Marker({ // マーカーの追加
+                    position: markerLatLng, // マーカーを立てる位置を指定
+                    icon: {
+                      fillColor: "#FF0000",                //塗り潰し色
+                      fillOpacity: 0.8,                    //塗り潰し透過率
+                      path: google.maps.SymbolPath.CIRCLE, //円を指定
+                      scale: 16,                           //円のサイズ
+                      strokeColor: "#FF0000",              //枠の色
+                      strokeWeight: 1.0                    //枠の透過率
+                    },
+                    map: map // マーカーを立てる地図を指定
+                    });
+                  } else {
+                    marker[i] = new google.maps.Marker({ // マーカーの追加
+                    position: markerLatLng, // マーカーを立てる位置を指定
+                    animation: google.maps.Animation.DROP,
+                        map: map // マーカーを立てる地図を指定
+                    });
+                  }
+
                   infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
                      content: markerData[i]['infoWindowContent'] // 吹き出しに表示する内容
                   });
                   markerEvent(i); // マーカーにクリックイベントを追加
                 }
               }
-              hiddenMakersAll();
             }
 
             //マーカーを削除する
-            function deleteMakers(catNum) {
-              var current_terms = [];
-              // 現在のカテゴリーチェック項目を取得
-              $('.marker-check').each(function(index,el) {
-                if ( $(this).prop('checked') ) {
-                  current_terms.push($(this).val());
-                }
-              });
-              for (var i = 0; i < markerData.length; i++) {
-                var flg=false;
-                var flg2=false;
-                $.each(markerData[i]['cat'], function(index, val) {
-                  if(val==catNum) flg=true;
-                });
-                if( flg ) {
-                  $.each(markerData[i]['cat'], function(index2, val2) {
-                    $.each(current_terms, function(index3, val3) {
-                      if(val2==val3) flg2=true;
-                    });
-                  });
-                }
-                if(!flg2) marker[i].setMap(null);
+            function deleteMakers(markerData, offset=0) {
+              for (var i = offset; i < markerData.length; i++) {
+                if(marker[i]) marker[i].setMap(null);
               }
-            }
-
-            // マーカーを隠す
-            function hiddenMakersAll() {
-              $.each(marker, function(index, val) {
-                if(marker[index]) {
-                  if( markerData[index]['dist'] < currentDist) {
-                    marker[index].setVisible(true);
-                  } else {
-                    marker[index].setVisible(false);
-                  }
-                }
-              });
             }
 
             // ズームレベルを変更する
@@ -705,37 +605,36 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
               circleObj.setMap(null);
             }
 
-
-
-
             $('.marker-check').click(function() {
               var termid = $(this).data('termid');
-              if ( $(this).prop('checked') ) {
-                dispMarker(termid);
-              } else {
-                deleteMakers(termid);
-              }
-              query_terms = [];
+              var temp_query_terms = [];
               $('.marker-check').each(function(index,el) {
                 if ( $(this).prop('checked') ) {
-                  query_terms.push($(this).val());
+                  temp_query_terms.push($(this).val());
                 }
               });
-              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
+              query_terms = temp_query_terms;
+              deleteMakers(markerData, 1);
+              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid,  );
             });
 
             // セレクトボックス選択
             $('#MarkerSelectDist').change(function() {
               //選択したvalue値を変数に格納
-              var val = $(this).val();
-              currentDist = val;
-              // var zoom = $(this).data('zoom');
+              var temp_query_terms = [];
+              $('.marker-check').each(function(index,el) {
+                if ( $(this).prop('checked') ) {
+                  temp_query_terms.push($(this).val());
+                }
+              });
+              query_terms = temp_query_terms;
+              currentDist = $(this).val();
               var zoom = $(this).find('option:selected').data('zoom');
-              hiddenMakersAll();
+              // hiddenMakersAll();
               changeZoom(zoom);
               dalatePaintCircleMap();
               paintCircleMap();
-              // Ajax post
+              deleteMakers(markerData, 1);
               doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
             });
 
@@ -747,7 +646,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             // 遅延読み込み部分
             var mylazyloadDone = function() {
               initMapDist();
-              // $('.marker-check').trigger('click');
             }
             $('#mapDistSearch').myLazyLoadingObj({
               callback : mylazyloadDone,
