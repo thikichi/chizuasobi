@@ -639,6 +639,7 @@ function add_my_ajaxurl() {
 add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 
 function view_mes(){
+    global $osfw;
     $returnObj = array();
     $dist  = $_POST['dist'];
     $query_post_type = $_POST['query_post_type'];
@@ -667,6 +668,7 @@ function view_mes(){
       $returnObj['markerDataAjax'][0]['cat']  = $term_list;
       $returnObj['markerDataAjax'][0]['dist'] = $thisdist;
       $returnObj['markerDataAjax'][0]['infoWindowContent'] = $this_post->post_title;
+      // $returnObj['markerDataAjax'][0]['infoWindowContent'] = getInfowinContent( $this_post->ID, 'mapDistSearch', 'img_url', $this_post->post_title, 'address', 'link' );
     }
 
     // 対象となる投稿（距離による絞り込みなし）
@@ -687,8 +689,8 @@ function view_mes(){
       ));
       $i=1;
       foreach ($term_posts as $term_post) {
-        
         $loop_gmap = get_post_meta( $term_post->ID, 'acf_landmark_gmap', true );
+        $loop_address = get_post_meta( $term_post->ID, 'acf_landmark_address', true );
         $thisdist  =  distance($this_gmap['lat'], $this_gmap['lng'], $loop_gmap['lat'], $loop_gmap['lng'], true);
         $terms = get_the_terms($term_post->ID, 'landmark_cateogry');
         if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
@@ -701,6 +703,22 @@ function view_mes(){
           }
           $term_list .= ']';
         }
+
+        // thumbnail
+        $temp_img = $osfw->get_thumbnail_by_post( $term_post->ID, 'img_square' );
+        $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+        // InfoWindow
+        $infoWin  = '';
+        $infoWin .= "<div id='infoWin-" . $term_post->ID . "' class='infwin cf' style='position:relative'>";
+        $infoWin .= "<a id='AAAAA-" . $term_post->ID . "' style='position:absolute;top:-150px'></a>";
+        $infoWin .= "<div class='infwin-thumb'>";
+        $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
+        $infoWin .= "<div class='infwin-main'>";
+        $infoWin .= "<h3>" . $term_post->post_title . "</h3>";
+        $infoWin .= "<p>" . $loop_address . "</p>";
+        $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
+        $infoWin .= "</div>";
+        $infoWin .= "</div>";
         // マーカーオブジェクトをつくる
         $returnObj['markerDataAjax'][$i]['id']   = $term_post->ID;
         $returnObj['markerDataAjax'][$i]['name'] = $term_post->post_title;
@@ -708,22 +726,13 @@ function view_mes(){
         $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
         $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
         $returnObj['markerDataAjax'][$i]['dist'] = $thisdist;
-        $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $term_post->post_title;
-        // $returnObj['markerDataAjax'][$i]['infoWindowContent'] = getInfowinContent($term_post->ID, 'mapDistSearch', '画像', $term_post->post_title, '住所', 'link' );
+        $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $infoWin;
         if( $thisdist < $dist ) {
           $selected_posts[] = $term_post->ID;
         }
         $i++;
       }
     }
-
-ob_start();
-var_dump( $selected_posts );
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
-
-
     // 対象となる投稿（距離により絞り込む）
     if( !empty($selected_posts) ) {
       $args = array(
@@ -840,6 +849,107 @@ EOM;
 }
 add_action( 'wp_ajax_view_mes', 'view_mes' );
 add_action( 'wp_ajax_nopriv_view_mes', 'view_mes' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getwpposts(){
+  global $osfw;
+  $returnObj = array();
+  $disp_num  = $_POST['disp_num']; // 表示させたい記事件数
+  $query_args = $_POST['query_args'];
+
+
+// ob_start();
+// var_dump( $query_args );
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
+
+  $the_query = new WP_Query( $query_args );
+  if ($the_query->have_posts()) {
+    $i=0;
+    while($the_query->have_posts()) {
+      $the_query->the_post();
+      $loop_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
+      $loop_address = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
+
+      $terms = get_the_terms(get_the_ID(), 'landmark_cateogry');
+      if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+        $term_list = '[';
+        foreach ( $terms as $term ) {
+          $term_list .= "'" . $term->term_id . "'";
+          if ($term !== end($terms)) {
+            $term_list .= ',';
+          }
+        }
+        $term_list .= ']';
+      }
+
+      // thumbnail
+      $temp_img = $osfw->get_thumbnail_by_post( get_the_ID(), 'img_square' );
+      $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+      // InfoWindow
+      $infoWin  = '';
+      $infoWin .= "<div id='infoWin-" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
+      $infoWin .= "<a id='AAAAA-" . get_the_ID() . "' style='position:absolute;top:-150px'></a>";
+      $infoWin .= "<div class='infwin-thumb'>";
+      $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
+      $infoWin .= "<div class='infwin-main'>";
+      $infoWin .= "<h3>" . get_the_title() . "</h3>";
+      $infoWin .= "<p>" . $loop_address . "</p>";
+      $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
+      $infoWin .= "</div>";
+      $infoWin .= "</div>";
+      // マーカーオブジェクトをつくる
+      $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
+      $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
+      $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
+      $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
+      $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
+      $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $infoWin;
+      $i++;
+    }
+  }
+  echo json_encode( $returnObj );
+  die();
+}
+add_action( 'wp_ajax_getwpposts', 'getwpposts' );
+add_action( 'wp_ajax_nopriv_getwpposts', 'getwpposts' );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

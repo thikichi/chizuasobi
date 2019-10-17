@@ -185,8 +185,6 @@ $relative_posts = get_posts( array(
           <?php echo $term_ttl; ?>
         </div>
       </div>
-
-
       <div class="inner-normal">
       <div class="mt-xs-15">
       <?php
@@ -195,9 +193,67 @@ $relative_posts = get_posts( array(
       // GoogleMapのフィールド、所在地のフィールド
       $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
       // mapID、投稿オブジェクト、MAP中心
-      the_google_map_disp('mapCats', $relative_posts, $map_center_cat, $field_params);
+      // the_google_map_disp('mapCats', $relative_posts, $map_center_cat, $field_params);
       ?>
+        <div id="mapCats" class="gmap-main"></div>
       </div>
+<?php
+$post_map_center = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+$lat_init = $post_map_center['lat'];
+$lng_init = $post_map_center['lng'];
+// get terms of this post.
+$terms = get_the_terms($post->ID, 'landmark_cateogry');
+$term_id_arr = array();
+if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+  foreach ( $terms as $term ) { $term_id_arr[] = $term->term_id; }
+}
+// query args
+$post_args = array(
+  'post_type' => 'landmark',
+  'numberposts'=>-1,
+  'tax_query' => array( 
+    array(
+      'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
+      'field' => 'term_id', //ターム名をスラッグで指定する
+      'terms' => $term_id_arr,
+      'operator' => 'IN',
+    ),
+  ),
+);
+?>
+<script>
+jQuery(function($) {
+  $(function(){
+    // 遅延読み込み部分
+    var mapCatsDone = function() {
+      var markerData = [];
+      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
+      var map = initMapDist( 'mapCats', mapLatLng, 13.0 );
+      var disp_num = 2;
+      var query_args = <?php echo json_encode($post_args); ?>;
+      $.ajax({
+          type: 'POST',
+          url: ajaxurl,
+          data: {
+            'action'     : 'getwpposts',
+            'query_args' : query_args,
+            'disp_num'   : disp_num, // 記事○件ずつ表示
+          },
+          success: function( response ){
+            jsonData = JSON.parse( response );
+            // console.log(jsonData['markerDataAjax']);
+            markerData = jsonData['markerDataAjax'];
+            dispMarker2( map, markerData );
+          }
+      });
+    }
+    $('#mapCats').myLazyLoadingObj({
+      callback : mapCatsDone,
+    });
+  });
+});
+</script>
+
 
 
       <div class="tab-switch tab-2 mt-xs-30">
@@ -412,13 +468,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         /* 初期値 */
         $distance = 10;
         // 中心の投稿の地図情報
-        $post_map_center = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+
         $post_map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
-        $lat_init = $post_map_center['lat'];
-        $lng_init = $post_map_center['lng'];
-
         $marker_data_arr = array();
-
         ?>
 
         <div id="mapDistSearch" style="width: 100%;height: 500px"></div>
@@ -447,233 +499,16 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           <option value="2500" data-zoom="14.0">2.5km以下</option>
           <option value="1000" data-zoom="15.0">1.0km以下</option>
         </select>
-
         <p id="PostNum" class="fadeIn-1" style="display:none">記事件数: <span class="_allnum"></span> 件中 <span class="_getnum"></span>件表示</p>
         <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>" class="mt-xs-30 align-center">
           <ul class="row mt-xs-15 fadeIn-1">
           </ul>
           <p id="DispPostMore" style="display:none">さらに表示する</p>
         </div>
-
-        <script>
-        jQuery(function($) {
-          $(function(){
-            var map;
-            var marker = [];
-            var mapLatLng;
-            var circleObj;
-            var currentDist = 5000;
-            // var currentDist = 700000;
-            var query_terms = [3,2,6];
-            var query_postid = $('#DispPost').data('mainpostid');
-            var query_post_type = 'landmark';
-            var infoWindow = [];
-            var markerData = [];
-            function initMapDist() {
-             // 地図の作成
-                mapLatLng = new google.maps.LatLng({lat: <?php echo $lat_init; ?>, lng: <?php echo $lng_init; ?>}); // 緯度経度のデータ作成
-                map = new google.maps.Map(document.getElementById('mapDistSearch'), { // #sampleに地図を埋め込む
-                center: mapLatLng, // 地図の中心を指定
-                zoom: 13.0 // 地図のズームを指定
-               });
-               paintCircleMap();
-              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
-            }
-
-            // ajax main
-            function doAjaxPosts( dist, query_post_type, query_terms, query_postid, display_mode='replace' ) {
-              if( display_mode=='replace' ) {
-                $('#DispPost > ul').html('<img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif">');
-              } else {
-                $('#DispPost > ul').append('<img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif">');
-              }
-              $('#PostNum').css('display','none');
-              var disped_num = $('#DispPost > ul > li').length;
-              console.log($('#DispPost > ul > li').length);
-              $.ajax({
-                  type: 'POST',
-                  url: ajaxurl,
-                  data: {
-                      'action' : 'view_mes',
-                      'dist'   : dist,
-                      'query_post_type' : query_post_type,
-                      'query_terms'     : query_terms,
-                      'query_postid' : query_postid,
-                      'disp_num' : 2, // 記事2件ずつ表示
-                      'display_mode' : display_mode, // 表示のさせ方 replace 入れ替え additional
-                      'disped_num' : disped_num,
-                  },
-                  success: function( response ){
-                    jsonData = JSON.parse( response );
-                    var tag = '';
-                    // $.each( jsonData['post'], function( i, val ){
-                    //     tag += '<p>' + 'タイトル: ' +  val['post_title'] + '</p>';
-                    //     tag += '<p>' + 'パーマリンク: ' +  val['permalink'] + '</p>';
-                    // });
-                    markerData = jsonData['markerDataAjax'];
-                    console.log(markerData);
-                    dispMarker(jsonData['markerDataAjax'], 0);
-
-                    $('#PostNum > ._allnum').html(jsonData['post_num_all']);
-                    $('#PostNum > ._getnum').html(jsonData['post_num_get']);
-                    if( display_mode=='replace' ) {
-                      $('#DispPost > ul').html(jsonData['tags']);
-                      $('#DispPost ._loader').remove();
-                    } else if(display_mode=='additional') {
-                      $('#DispPost > ul').append(jsonData['tags']);
-                      $('#DispPost ._loader').remove();
-                    }
-                    if( jsonData['no_more_posts'] ) {
-                      $('#DispPostMore').css('display','none');
-                    } else {
-                      $('#DispPostMore').css('display','block');
-                    }
-                    $('#PostNum').css('display','block');
-                    $('.matchHeight').matchHeight();
-                  }
-              });
-            }
-
-            // マーカーにクリックイベントを追加
-            function markerEvent(i) {
-                marker[i].addListener('click', function() { // マーカーをクリックしたとき
-                  infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-              });
-            }
-
-            // マーカー毎の処理
-            function dispMarker(markerData, offset=0) {
-              for (var i = offset; i < markerData.length; i++) {
-                if( currentDist > markerData[i]['dist'] ) {
-                  markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
-                  if( i < 1 ) {
-                    marker[i] = new google.maps.Marker({ // マーカーの追加
-                    position: markerLatLng, // マーカーを立てる位置を指定
-                    icon: {
-                      fillColor: "#FF0000",                //塗り潰し色
-                      fillOpacity: 0.8,                    //塗り潰し透過率
-                      path: google.maps.SymbolPath.CIRCLE, //円を指定
-                      scale: 16,                           //円のサイズ
-                      strokeColor: "#FF0000",              //枠の色
-                      strokeWeight: 1.0                    //枠の透過率
-                    },
-                    map: map // マーカーを立てる地図を指定
-                    });
-                  } else {
-                    marker[i] = new google.maps.Marker({ // マーカーの追加
-                    position: markerLatLng, // マーカーを立てる位置を指定
-                    animation: google.maps.Animation.DROP,
-                        map: map // マーカーを立てる地図を指定
-                    });
-                  }
-
-                  infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-                     content: markerData[i]['infoWindowContent'] // 吹き出しに表示する内容
-                  });
-                  markerEvent(i); // マーカーにクリックイベントを追加
-                }
-              }
-            }
-
-            //マーカーを削除する
-            function deleteMakers(markerData, offset=0) {
-              for (var i = offset; i < markerData.length; i++) {
-                if(marker[i]) marker[i].setMap(null);
-              }
-            }
-
-            // ズームレベルを変更する
-            function changeZoom( zoom=map.getZoom() ) {
-              map.setZoom( parseInt(zoom) );
-            }
-
-            // 半径の表示円を描画
-            function paintCircleMap() {
-              circleObj = new google.maps.Circle({
-                center: mapLatLng,       // 中心点(google.maps.LatLng)
-                fillColor: '#ff0000',   // 塗りつぶし色
-                fillOpacity: 0.1,       // 塗りつぶし透過度（0: 透明 ⇔ 1:不透明）
-                map: map,             // 表示させる地図（google.maps.Map）
-                radius: parseInt(currentDist),          // 半径（ｍ）
-                strokeColor: '#ff0000', // 外周色 
-                strokeOpacity: 0.5,       // 外周透過度（0: 透明 ⇔ 1:不透明）
-                strokeWeight: 1         // 外周太さ（ピクセル）
-              });
-            }
-            // 半径の表示円を削除
-            function dalatePaintCircleMap() {
-              circleObj.setMap(null);
-            }
-
-            $('.marker-check').click(function() {
-              var termid = $(this).data('termid');
-              var temp_query_terms = [];
-              $('.marker-check').each(function(index,el) {
-                if ( $(this).prop('checked') ) {
-                  temp_query_terms.push($(this).val());
-                }
-              });
-              query_terms = temp_query_terms;
-              deleteMakers(markerData, 1);
-              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid,  );
-            });
-
-            // セレクトボックス選択
-            $('#MarkerSelectDist').change(function() {
-              //選択したvalue値を変数に格納
-              var temp_query_terms = [];
-              $('.marker-check').each(function(index,el) {
-                if ( $(this).prop('checked') ) {
-                  temp_query_terms.push($(this).val());
-                }
-              });
-              query_terms = temp_query_terms;
-              currentDist = $(this).val();
-              var zoom = $(this).find('option:selected').data('zoom');
-              // hiddenMakersAll();
-              changeZoom(zoom);
-              dalatePaintCircleMap();
-              paintCircleMap();
-              deleteMakers(markerData, 1);
-              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
-            });
-
-            // さらに表示する
-            $('#DispPostMore').on('click', function(event) {
-              doAjaxPosts( currentDist, query_post_type, query_terms, query_postid, 'additional' );
-            });
-
-            // 遅延読み込み部分
-            var mylazyloadDone = function() {
-              initMapDist();
-            }
-            $('#mapDistSearch').myLazyLoadingObj({
-              callback : mylazyloadDone,
-            });
-          });
-        });
-        </script>
       </div>
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

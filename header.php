@@ -31,21 +31,6 @@ jQuery(function($) {
     }
   });
 });
-
-function getInfowinContent( post_id, map_id, img_url, post_title, address, link ) {
-  var tag = '';
-  tag += "<div id='infoWin-" + post_id + "' class='infwin cf' style='position:relative'>";
-  tag += "<a id='AAAAA" + map_id + "-" + post_id + "' style='position:absolute;top:-150px'></a>";
-  tag += "<div class='infwin-thumb'>";
-  tag += "<img class='img-responsive' src='" + img_url + "'></div>";
-  tag += "<div class='infwin-main'>";
-  tag += "<h3>" + post_title + "</h3>";
-  tag += "<p>" + address + "</p>";
-  tag += "<p class='infwin-link'><a href='" + link + "'>この記事を見る</a></p>";
-  tag += "</div>";
-  tag += "</div>";
-  return tag;
-}
 </script>
 
 

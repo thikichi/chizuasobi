@@ -77,6 +77,11 @@
 
     })(jQuery);
   </script>
+<?php
+if(is_singular('landmark')) {
+  get_template_part('parts/js-single-landmark');
+}
+?>
 
   </body>
 </html>
