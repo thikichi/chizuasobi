@@ -93,7 +93,7 @@ function dalatePaintCircleMap( circleObj ) {
   circleObj.setMap(null);
 }
 
-function initMapDist( mapID, mapLatLng, zoomLevel ) {
+function initMapDist( mapID, mapLatLng, centerMap, zoomLevel ) {
   // mapLatLng = new google.maps.LatLng({lat: centerMap['lat'], lng: centerMap['lng']}); // 緯度経度のデータ作成
   map = new google.maps.Map(document.getElementById(mapID), { // #sampleに地図を埋め込む
     center: mapLatLng, // 地図の中心を指定
@@ -101,6 +101,15 @@ function initMapDist( mapID, mapLatLng, zoomLevel ) {
   });
   return map;
 }
+
+function initMap( mapID, mapLatLng, zoomLevel ) {
+  map = new google.maps.Map(document.getElementById(mapID), { // #sampleに地図を埋め込む
+    center: mapLatLng, // 地図の中心を指定
+    zoom: zoomLevel // 地図のズームを指定
+  });
+  return map;
+}
+
 
 function getCenerLatLng( lat, lng ) {
   mapLatLng = new google.maps.LatLng({lat: lat, lng: lng});
@@ -167,7 +176,7 @@ function dispMarker2(map, markerData) {
   }
 }
 
-// Google Map Infowindow
+// Google MapInfowindow
 function getInfowinContent( post_id, map_id, img_url, post_title, address, link ) {
   var tag = '';
   tag += "<div id='infoWin-" + post_id + "' class='infwin cf' style='position:relative'>";
@@ -182,4 +191,3 @@ function getInfowinContent( post_id, map_id, img_url, post_title, address, link 
   tag += "</div>";
   return tag;
 }
-

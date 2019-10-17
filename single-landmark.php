@@ -228,7 +228,7 @@ jQuery(function($) {
     var mapCatsDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMapDist( 'mapCats', mapLatLng, 13.0 );
+      var map = initMap( 'mapCats', mapLatLng, 13.0 );
       var disp_num = 2;
       var query_args = <?php echo json_encode($post_args); ?>;
       $.ajax({
