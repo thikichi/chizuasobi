@@ -863,8 +863,10 @@ add_action( 'wp_ajax_nopriv_view_mes', 'view_mes' );
 
 
 
-
-function getwpposts(){
+/*
+ * Google Map Ajax
+*/
+function get_wp_posts_map(){
   global $osfw;
   $returnObj = array();
   $disp_num  = $_POST['disp_num']; // 表示させたい記事件数
@@ -897,7 +899,6 @@ function getwpposts(){
         }
         $term_list .= ']';
       }
-
       // thumbnail
       $temp_img = $osfw->get_thumbnail_by_post( get_the_ID(), 'img_square' );
       $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
@@ -926,11 +927,42 @@ function getwpposts(){
   echo json_encode( $returnObj );
   die();
 }
-add_action( 'wp_ajax_getwpposts', 'getwpposts' );
-add_action( 'wp_ajax_nopriv_getwpposts', 'getwpposts' );
+add_action( 'wp_ajax_get_wp_posts_map', 'get_wp_posts_map' );
+add_action( 'wp_ajax_nopriv_get_wp_posts_map', 'get_wp_posts_map' );
+
+
+/*
+ * Google Map Ajax
+*/
+function get_wp_posts_only(){
+  global $osfw;
+  $returnObj = array();
+  $disp_num  = $_POST['disp_num']; // 表示させたい記事件数
+  $query_args = $_POST['query_args'];
+  $the_query = new WP_Query( $query_args );
+  if ($the_query->have_posts()) {
+    $i=0;
+    while($the_query->have_posts()) {
+      $the_query->the_post();
+      // custom field
+      $loop_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
+      $loop_address = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
+      // thumbnail
+      $temp_img = $osfw->get_thumbnail_by_post( get_the_ID(), 'img_square' );
+      $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
 
 
 
+
+
+      $i++;
+    }
+  }
+  echo json_encode( $returnObj );
+  die();
+}
+add_action( 'wp_ajax_get_wp_posts_only', 'get_wp_posts_only' );
+add_action( 'wp_ajax_nopriv_get_wp_posts_only', 'get_wp_posts_only' );
 
 
 

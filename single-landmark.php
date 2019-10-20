@@ -143,36 +143,6 @@
 
 
 
-
-
-
-
-<?php
-$tax = 'landmark_cateogry';
-$terms = get_the_terms($post->ID, $tax);
-$term_ttl = '';
-$term_arr = array();
-$term_ttl .= '<ul class="taglist-3 __iBlock">';
-foreach ($terms as $term) {
-  $term_arr[] = $term->term_id;
-  $term_ttl .= '<li>';
-  $term_ttl .= '<a href="#">';
-  $term_ttl .= $term->name;
-  $term_ttl .= '</a> ';
-  $term_ttl .= '</li>';
-}
-$term_ttl .= '</ul>';
-$relative_posts = get_posts( array( 
-  'post_type'=>'landmark', 
-  'tax_query' => array( 
-    array(
-      'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
-      'field' => 'term_id', //ターム名をスラッグで指定する
-      'terms' => $term_arr,
-    ),
-  ),
-));
-?>
 <section class="block5">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50 border-solid">
@@ -187,75 +157,8 @@ $relative_posts = get_posts( array(
       </div>
       <div class="inner-normal">
       <div class="mt-xs-15">
-      <?php
-      // 経度・緯度・ズーム率
-      $map_center_cat = array(35.681236,139.767125,7);
-      // GoogleMapのフィールド、所在地のフィールド
-      $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
-      // mapID、投稿オブジェクト、MAP中心
-      // the_google_map_disp('mapCats', $relative_posts, $map_center_cat, $field_params);
-      ?>
         <div id="mapCats" class="gmap-main"></div>
       </div>
-<?php
-$post_map_center = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
-$lat_init = $post_map_center['lat'];
-$lng_init = $post_map_center['lng'];
-// get terms of this post.
-$terms = get_the_terms($post->ID, 'landmark_cateogry');
-$term_id_arr = array();
-if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-  foreach ( $terms as $term ) { $term_id_arr[] = $term->term_id; }
-}
-// query args
-$post_args = array(
-  'post_type' => 'landmark',
-  'numberposts'=>-1,
-  'tax_query' => array( 
-    array(
-      'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
-      'field' => 'term_id', //ターム名をスラッグで指定する
-      'terms' => $term_id_arr,
-      'operator' => 'IN',
-    ),
-  ),
-);
-?>
-<script>
-jQuery(function($) {
-  $(function(){
-    // 遅延読み込み部分
-    var mapCatsDone = function() {
-      var markerData = [];
-      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapCats', mapLatLng, 13.0 );
-      var disp_num = 2;
-      var query_args = <?php echo json_encode($post_args); ?>;
-      $.ajax({
-          type: 'POST',
-          url: ajaxurl,
-          data: {
-            'action'     : 'getwpposts',
-            'query_args' : query_args,
-            'disp_num'   : disp_num, // 記事○件ずつ表示
-          },
-          success: function( response ){
-            jsonData = JSON.parse( response );
-            // console.log(jsonData['markerDataAjax']);
-            markerData = jsonData['markerDataAjax'];
-            dispMarker2( map, markerData );
-          }
-      });
-    }
-    $('#mapCats').myLazyLoadingObj({
-      callback : mapCatsDone,
-    });
-  });
-});
-</script>
-
-
-
       <div class="tab-switch tab-2 mt-xs-30">
       <?php
       if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
@@ -290,88 +193,18 @@ jQuery(function($) {
             ),
           );
           $the_query = new WP_Query( $args );
-          ?>
-
-
-<?php if ($the_query->have_posts()): ?>
-  <ul class="row mt-xs-15">
-    <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-      <?php
-      $field = array();
-      $field['Coordinate'] = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
-      $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
-      ?>
-      <li class="col-md-6 mt-xs-15">
-        <div class="box-1 box-1-2col cf"> 
-          <div class="box-1-inner cf">
-            <div class="box-1-thumb matchHeight">
-              <?php
-              $img = $osfw->get_thumbnail_by_post( $post->ID, 'thumbnail' );
-              if( $img!='' ) {
-                echo $osfw->the_image_tag( $img );
-              } else {
-                echo '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
-              }
-              ?>
-            </div>
-            <div class="box-1-main matchHeight">
-              <div class="box-1-text">
-                <h3 class="subttl-1">
-                  <?php the_title(); ?> 
-                  <span class="subttl-1-mini">投稿日時 <?php the_time('Y.m.d'); ?></span>
-                </h3>
-                <p class="mt-xs-5"><?php echo esc_html($field['address']); ?></p>
-                <?php
-                $tax = 'landmark_cateogry'; // タクソノミー名
-                // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
-                $terms = get_the_terms($post->ID, $tax);
-                if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-                  echo '<ul class="taglist-1 cf mt-xs-10">';
-                  foreach ( $terms as $term ) {
-                    $term_link = get_term_link( $term->term_id, $tax );
-                    echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
-                  }
-                  echo '</ul>';
-                } else {
-                }
-                ?>
-              </div>
-            </div>
-            <div class="box-1-btn matchHeight">
-              <div class="box-1-btnTop">
-                <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats">
-                  <span class="link-color-1">
-                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
-                    <span class="_linkText box-1-btnText">地図を見る</span>
-                  </span>
-                </a>
-              </div>
-              <div class="box-1-btnBottom">
-                <a class="link-1" href="<?php the_permalink(); ?>">
-                  <span class="link-color-1">
-                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> 
-                    <span class="_linkText box-1-btnText">記事を読む</span>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div><!-- .box-1 -->
-      </li>
-    <?php endwhile; ?>
-  </ul>
-<?php else: ?>
-  <p>記事の投稿がありません。</p>
-<?php endif; ?>
-<?php wp_reset_query(); ?>
-
-
-
-
-<?php }} ?>
-
-</div>
-
+          if ($the_query->have_posts()): ?>
+            <ul class="row mt-xs-15">
+              <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+                <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
+              <?php endwhile; ?>
+            </ul>
+          <?php else: ?>
+            <p>記事の投稿がありません。</p>
+          <?php endif; ?>
+          <?php wp_reset_query(); ?>
+        <?php }} ?>
+      </div>
     </div>
   </div>
 </section>
@@ -511,18 +344,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 </section>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -530,8 +351,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
       </h3>
       <div class="inner-normal">
-
-
         <p class="text-16">他に『日本の100名城』と同じテーマに属する記事を掲載しています。<br>
           下のマップアイコンを選択するか、スライダーからお好きな記事を選択してください。<br>
           スライダーを指定して指定の距離範囲内のランドマークを表示
@@ -571,63 +390,14 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             </li>
           <?php endforeach; ?>
         </ul>
-        <script type="text/javascript">
-        jQuery(function($) {
-          $(document).ready(function(){
-            $('.layout3-slider').slick({
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              prevArrow: '<a href="javascript:void(0)" class="slide-arrow prev-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="55.892,105.002 5.892,55.002 55.892,5.002"/></svg></span></a>',
-              nextArrow: '<a href="javascript:void(0)" class="slide-arrow next-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="3.892,5.002 53.892,55.002 3.892,105.002 "/></svg></span></a>',
-              responsive: [
-                {
-                  breakpoint: 991,
-                  settings: {
-                    slidesToShow: 4,
-                    centerMode: false,
-                  }
-                },
-                {
-                  breakpoint: 767,
-                  settings: {
-                    slidesToShow: 3,
-                    centerMode: true,
-                  }
-                },
-                {
-                  breakpoint: 575,
-                  settings: {
-                    slidesToShow: 2,
-                    centerMode: true,
-                  }
-                },
-                {
-                  breakpoint: 400,
-                  settings: {
-                    slidesToShow: 1,
-                    centerMode: true,
-                  }
-                }
-              ],
-            });
-          });
-        });
-        </script>
       </div>
 
     </div>
   </div>
 </section>
 
-
 <div class="mt-xs-15">
-<?php get_template_part('parts/tab-content'); ?>
+  <?php get_template_part('parts/tab-content'); ?>
 </div>
-
-
-
-
-
-
 
 <?php get_footer(); ?>
