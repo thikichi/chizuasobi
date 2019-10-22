@@ -42,7 +42,7 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
       </div>
       <div class="box-1-btn matchHeight">
         <div class="box-1-btnTop">
-          <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats">
+          <a class="link-1" data-mapid="<?php the_ID(); ?>" href="#mapArea">
             <span class="link-color-1">
               <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
               <span class="_linkText box-1-btnText">地図を見る</span>

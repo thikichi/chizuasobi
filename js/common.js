@@ -62,8 +62,8 @@ function markerEvent(i, marker, infoWindow, map) {
 }
 
 function markerEvent2(marker, infoWindow, map) {
-    marker.addListener('click', function() { // マーカーをクリックしたとき
-      infoWindow.open(map, marker); // 吹き出しの表示
+  marker.addListener('click', function() {
+    infoWindow.open(map, marker); // 吹き出しの表示
   });
 }
 
@@ -162,16 +162,16 @@ function getInfoWindow( markerData ) {
 // マーカー毎の処理
 function dispMarker2(map, markerData) {
   var marker = [];
-  var infoWindow = [];
   for (var i = 0; i < markerData.length; i++) {
     markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
-    marker[i] = new google.maps.Marker({ // マーカーの追加
+    marker[markerData[i]['id']] = new google.maps.Marker({ // マーカーの追加
       position: markerLatLng, // マーカーを立てる位置を指定
       map: map // マーカーを立てる地図を指定
     });
     infoWinData = getInfoWindow( markerData[i]['infoWindowContent'] );
-    markerEvent2(marker[i], infoWinData, map);
+    markerEvent2(marker[markerData[i]['id']], infoWinData, map);
   }
+  return marker;
 }
 
 // Google MapInfowindow

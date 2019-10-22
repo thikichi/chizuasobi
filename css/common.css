@@ -170,18 +170,9 @@
 /*--------------------------------------------------*/
 .gmap-main { background-color: #CCC; }
 
-/* マイナスマージンで文字の先頭を調整 */
 .mml-char { margin-left: -0.5em; }
 
 .gmap-main { height: 500px; }
-
-.gmap-main-wrapper { height: 600px; }
-
-@media (max-width: 575px) { .gmap-main { height: 300px; }
-  .gmap-main-wrapper { height: 400px; } }
-
-/* bg-green */
-.bg-green { background-color: #6ea364; }
 
 .color-white { color: #FFF; }
 
@@ -353,6 +344,12 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .has-icon-plus-after.__avtive::after { display: none; }
 
+.gmap-all { position: relative; }
+
+.gmap-all::after { content: ''; top: 0; left: 0; position: absolute; width: 100%; height: 300px; background-color: #6ea364; z-index: -1; }
+
+.gmap-all__map-area { height: 350px; width: 100%; z-index: 100; }
+
 /* BOX */
 /*--------------------------------------------------*/
 .box-1 { width: 100%; border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); }
@@ -416,7 +413,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
   .box-1-3col .box-1-main { width: calc(100% - 50px); } }
 
 /* box-2 */
-.box-2 { border: 1px solid #CCC; }
+.box-2 { border: 1px solid #CCC; height: 100%; }
 
 .box-2-main { padding: 15px; background-color: #FFF; }
 

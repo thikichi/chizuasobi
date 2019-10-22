@@ -151,29 +151,25 @@
 .gmap-main {
   background-color: #CCC;
 }
-/* マイナスマージンで文字の先頭を調整 */
 .mml-char {
   margin-left: -0.5em;
 }
 .gmap-main {
   height: 500px;
 }
-.gmap-main-wrapper {
-  height: 600px;
-}
-@media (max-width: 575px) {
-  .gmap-main {
-    height: 300px;
-  }
-  .gmap-main-wrapper {
-    height: 400px;
-  }
-}
+// .gmap-main-wrapper {
+//   height: 550px;
+// }
+// @media (max-width: 575px) {
+//   .gmap-main {
+//     height: 300px;
+//   }
+//   .gmap-main-wrapper {
+//     height: 390px;
+//   }
+// }
 
-/* bg-green */
-.bg-green {
-  background-color: #6ea364;
-}
+
 
 .color-white {
   color: #FFF;
@@ -610,4 +606,30 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 }
 
 
+
+
+
+
+// BEM
+
+
+
+// gmap-all
+.gmap-all {
+  position: relative;
+  &::after {
+    content: '';
+    top: 0; left: 0;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    background-color: $color-green;
+    z-index: -1;
+  }
+  &__map-area {
+    height: 350px;
+    width: 100%;
+    z-index: 100;
+  }
+}
 

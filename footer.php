@@ -80,6 +80,8 @@
 <?php
 if(is_singular('landmark')) {
   get_template_part('parts/js-single-landmark');
+} else if(is_front_page()) {
+  get_template_part('parts/js-frontPage-landmark');
 }
 ?>
 

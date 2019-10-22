@@ -868,8 +868,9 @@ add_action( 'wp_ajax_nopriv_view_mes', 'view_mes' );
 */
 function get_wp_posts_map(){
   global $osfw;
-  $returnObj = array();
-  $disp_num  = $_POST['disp_num']; // 表示させたい記事件数
+  $returnObj  = array();
+  $map_id     = $_POST['map_id'];
+  $disp_num   = $_POST['disp_num']; // 表示させたい記事件数
   $query_args = $_POST['query_args'];
 
 
@@ -904,8 +905,8 @@ function get_wp_posts_map(){
       $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
       // InfoWindow
       $infoWin  = '';
-      $infoWin .= "<div id='infoWin-" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
-      $infoWin .= "<a id='AAAAA-" . get_the_ID() . "' style='position:absolute;top:-150px'></a>";
+      $infoWin .= "<div id='" . $map_id . "-" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
+      $infoWin .= "<a style='position:absolute;top:-150px'></a>";
       $infoWin .= "<div class='infwin-thumb'>";
       $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
       $infoWin .= "<div class='infwin-main'>";
@@ -950,11 +951,6 @@ function get_wp_posts_only(){
       // thumbnail
       $temp_img = $osfw->get_thumbnail_by_post( get_the_ID(), 'img_square' );
       $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-
-
-
-
-
       $i++;
     }
   }
