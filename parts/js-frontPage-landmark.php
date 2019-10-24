@@ -17,12 +17,12 @@ $post_map_sp['posts_per_page'] = -1;
 <script>
 jQuery(function($) {
   $(function(){
+    var markerMapArea = [];
     // var marker;
     /*
      * TOPページ
     */
     // 遅延読み込み部分
-    var markerMapArea = [];
     var mapAreaDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
@@ -39,7 +39,8 @@ jQuery(function($) {
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            markerData  = jsonData['markerDataAjax'];
+            markerData = jsonData['markerDataAjax'];
+            console.log(markerData);
             markerMapArea = dispMarker2( map, markerData );
           }
       });
@@ -47,10 +48,8 @@ jQuery(function($) {
     $('#mapArea').myLazyLoadingObj({
       callback : mapAreaDone,
     });
-    $('[data-mapid]').on('click', function(event) {
-      var mapid = Number($(this).data('mapid'));
-      google.maps.event.trigger(markerMapArea[mapid], "click");
-    });
+
+
     /*
      * TOPページ
      * 特集テーマ
@@ -68,17 +67,24 @@ jQuery(function($) {
           data: {
             'action'     : 'get_wp_posts_map',
             'query_args' : query_args,
+            'map_id'     : 'mapAreaSp',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            dispMarker2( map, markerData );
+            markerMapArea = dispMarker2( map, markerData );
           }
       });
     }
     $('#mapAreaSp').myLazyLoadingObj({
       callback : mapAreaSpDone,
     });
+
+    $('[data-mapid]').on('click', function(event) {
+      var map_post_id = $(this).data('mapid');
+      google.maps.event.trigger(markerMapArea[map_post_id], "click");
+    });
+
   });
 });
 </script>

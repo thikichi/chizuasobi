@@ -7,7 +7,9 @@ global $i;
     <?php if( $i > 5 ) { echo '<a class="_nextlink hover-nonUnderline" href="#"><span>さらに記事を見るには<br>こちらをクリック！</span></a>'; } ?>
     <h3 class="box-2-subttl">
       <span class="box-2-subttl-num"><?php echo $i; ?></span>
-      <span class="box-2-subttl-main"><?php the_title(); ?> <a href="#mapAreaSp" id="HandleMap-mapAreaSp-<?php the_ID(); ?>" class="link-color-1 text-12">[地図を見る]</a></span>
+      <span class="box-2-subttl-main"><?php the_title(); ?> 
+        <a class="link-color-1 text-12" data-mapid="mapAreaSp_<?php the_ID(); ?>" href="#mapAreaSp">[地図を見る]</a>
+      </span>
     </h3>
     <div class="box-2-main">
       <div class="box-2-main-inner">

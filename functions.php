@@ -916,7 +916,7 @@ function get_wp_posts_map(){
       $infoWin .= "</div>";
       $infoWin .= "</div>";
       // マーカーオブジェクトをつくる
-      $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
+      $returnObj['markerDataAjax'][$i]['id']   = $map_id . "_" . get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);

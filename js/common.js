@@ -46,6 +46,13 @@ jQuery(function($) {
 /* コンポーネント付随のスクリプトはこの下へ記述します */
 /*============================================================*/
 
+var cWinFunc = function() {
+  var cInfoWin = '';
+  function getCWin(win) {
+    cInfoWin = win;
+  }
+  return cInfoWin;
+}
 
 //マーカーを削除する
 function deleteMakers(markerData, offset=0, marker) {
@@ -61,11 +68,21 @@ function markerEvent(i, marker, infoWindow, map) {
   });
 }
 
+var currentWin = '';
 function markerEvent2(marker, infoWindow, map) {
   marker.addListener('click', function() {
-    infoWindow.open(map, marker); // 吹き出しの表示
+    if(currentWin) currentWin.close();
+    infoWindow.open(map, marker); // 吹き出しの表示ß
+    currentWin = infoWindow;
   });
 }
+
+
+
+
+
+
+
 
 // ズームレベルを変更する
 function changeZoom( zoom, map ) {
@@ -159,9 +176,11 @@ function getInfoWindow( markerData ) {
   return infoWindow;
 }
 
+
 // マーカー毎の処理
 function dispMarker2(map, markerData) {
   var marker = [];
+  //var infoWinDataArr = [];
   for (var i = 0; i < markerData.length; i++) {
     markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
     marker[markerData[i]['id']] = new google.maps.Marker({ // マーカーの追加
