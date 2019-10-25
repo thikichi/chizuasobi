@@ -27,6 +27,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
     <?php if ($the_query->have_posts()): ?>
       <ul class="row mt-xs-15">
         <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+          <?php $mapid='mapArea'; // GoogleMapを読み込む要素を指定 ?>
           <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
         <?php endwhile; ?>
       </ul>

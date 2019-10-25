@@ -28,7 +28,7 @@ $post_args_same_cat = array(
 <script>
 jQuery(function($) {
   $(function(){
-
+    var markerMapArea = [];
 
     /*
      * 同じカテゴリー
@@ -46,13 +46,13 @@ jQuery(function($) {
           data: {
             'action'     : 'get_wp_posts_map',
             'query_args' : query_args,
+            'map_id'     : 'mapCats',
             'disp_num'   : disp_num, // 記事○件ずつ表示
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            // console.log(jsonData['markerDataAjax']);
             markerData = jsonData['markerDataAjax'];
-            dispMarker2( map, markerData );
+            markerMapArea = dispMarker2( map, markerData );
           }
       });
     }
@@ -60,6 +60,10 @@ jQuery(function($) {
       callback : mapCatsDone,
     });
 
+    $('[data-mapid]').on('click', function(event) {
+      var map_post_id = $(this).data('mapid');
+      google.maps.event.trigger(markerMapArea[map_post_id], "click");
+    });
 
     /*
      * 付近の史跡一覧
@@ -211,6 +215,8 @@ jQuery(function($) {
         }
       ],
     });
+
+
 
   });
 });

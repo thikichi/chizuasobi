@@ -40,7 +40,6 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            console.log(markerData);
             markerMapArea = dispMarker2( map, markerData );
           }
       });
