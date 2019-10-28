@@ -54,6 +54,12 @@
                     array( 'name' => 'acf_castle_category', 'label' => '種類', 'type'=>'text' ),
                     array( 'name' => 'acf_castle_anothername', 'label' => '別名', 'type'=>'text' ),
                     array( 'name' => 'acf_castle_age', 'label' => '年代', 'type'=>'text' ),
+                    // 城　
+                    array( 'name' => 'acf_castle_anothername', 'label' => '城の別名', 'type'=>'text' ),
+                    array( 'name' => 'acf_castle_category', 'label' => '城の種類', 'type'=>'text' ),
+                    array( 'name' => 'acf_castle_chikujyosha', 'label' => '築城者', 'type'=>'text' ),
+                    array( 'name' => 'acf_castle_age', 'label' => '城の年代', 'type'=>'text' ),
+                    array( 'name' => 'acf_castle_jyoshu', 'label' => 'おもな城主', 'type'=>'text' ),
                   );
                   foreach ($field_arr as $field) {
                     # code...
@@ -62,8 +68,8 @@
                       if($fvalue!='') {
                         echo '<li>';
                         echo '<dl class="dlList1">';
-                        echo '<dt>' . $field['label'] . '</dt>';
-                        echo '<dd>' . $fvalue . '</dd>';
+                        echo '<dt class="dlList1__item--label">' . $field['label'] . '</dt>';
+                        echo '<dd class="dlList1__item--value">' . $fvalue . '</dd>';
                         echo '</dl>';
                         echo '</li>';
                       }
@@ -84,13 +90,6 @@
 <?php endif; ?>
 
 
-
-
-
-
-
-
-
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -99,42 +98,23 @@
       </h3>
       <div class="inner-normal">
         <ul class="gallery1">
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
-              <span class="_icon"><i class="fas fa-search"></i></span>
-            </a>
-          </li>
+          <?php
+          $photo_arr = SCF::get('scf_landmark_gallery');
+          foreach ($photo_arr as $photo) {
+            # code...
+            $img_250 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_250', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
+            $img_500 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_500', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
+            echo '<li class="gallery1__item">';
+            echo '<a class="gallery1__item-link" href="' . $img_500['src'] . '">';
+            echo '<img class="gallery1__item-image" src="' . $img_250['src'] . '" 
+             srcset="' . $img_250['src'] . ' 1x, 
+             ' . $img_500['src'] . ' 2x"
+             alt="">';
+            echo '<span class="gallery1__item-icon _icon"><i class="fas fa-search"></i></span>';
+            echo '</a>';
+            echo '</li>';
+          }
+          ?>
         </ul>
       </div>
     </div>
@@ -273,16 +253,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
     </div>
   </section>
 <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
 
 
 

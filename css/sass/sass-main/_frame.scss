@@ -213,12 +213,33 @@
 .subvisual {
   height: 200px;
   // background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png);
-  // background-position: center;
-  // background-size: auto 100%;
+  background-size: 100% auto;
   margin-top: 85px;
+  background-attachment: fixed;
+  position: relative;
+}
+.subvisual .container {
+  height: 100%;
 }
 .subvisual-inner > div {
   z-index: -1 !important;
+}
+.subvisual__inner {
+  @extend %table;
+  @extend %overlay;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.subvisual__inner-main {
+  @extend %table-cell;
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Noto Serif JP', serif;
+  color: #FFF;
+
+  
+}
+.subvisual:before {
+  @extend %overlay-content;
 }
 
 /* Pagebody */

@@ -43,6 +43,10 @@ require_once 'functions/utility.php';
 */
 require_once 'functions/others.php';
 
+/*
+ * 複合検索フォーム
+*/
+require_once 'functions/os-subquery-search.php';
 
 /*
  * オリジナルのカスタムフィールドを実装
@@ -53,6 +57,8 @@ require_once 'functions/others.php';
  * カスタムメニューを利用可能にする
 */
 // require_once 'functions/custom-menu.php';
+
+
 
 
 

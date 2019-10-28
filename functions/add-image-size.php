@@ -21,6 +21,8 @@
 add_action( 'after_setup_theme', function(){
   // 1000px × 1000px 比較的大きな画像
   add_image_size('img_square', 750, 750 ,true);
+  add_image_size('img_square_250', 250, 250 ,true);
+  add_image_size('img_square_500', 500, 500 ,true);
   // 黄金比の近似値 ※ 世界的な美の基準  1000×618
   add_image_size('img_golden_ratio', 1000, 620 ,true);
   // 白銀比の近似値 ※ 日本人になじみ深い 1000×707

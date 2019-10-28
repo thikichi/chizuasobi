@@ -155,10 +155,8 @@ jQuery(function($) {
       var zoom = $(this).find('option:selected').data('zoom');
       // hiddenMakersAll();
       changeZoom(zoom, map);
-      
       dalatePaintCircleMap( circleObj );
       circleObj = paintCircleMap( map, mapLatLng, currentDist );
-      
       deleteMakers(markerData, 1, marker);
       doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
     });
@@ -178,6 +176,8 @@ jQuery(function($) {
     $('#mapDistSearch').myLazyLoadingObj({
       callback : mylazyloadDone,
     });
+
+
 
     $('.layout3-slider').slick({
       slidesToShow: 5,

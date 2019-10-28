@@ -129,13 +129,13 @@ jQuery(function($) {
         <!-- breadcrumbs168 -->
         <!--==================================================-->
 
-        <div class="breadcrumbs168 mt-xs-20 mb-xs-30">
+<!--         <div class="breadcrumbs168 mt-xs-20 mb-xs-30">
           <div class="container-fluid">
             <div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
               <?php if(function_exists('bcn_display')){bcn_display();} ?>
             </div>
           </div>
-        </div>
+        </div> -->
 
   <?php endif; ?>
 

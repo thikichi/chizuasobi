@@ -49,6 +49,20 @@
   @include button( $color-red, #FFF, 14px, normal, 5px 0, 300px, block, true );
 }
 
+// button__1
+.button__1 {
+  &--reset {
+    @extend %button-normal;
+    background-color: $color-darkGray !important;
+    &:hover {
+      background-color: rgba($color-darkGray,0.7) !important;;
+    }
+  }
+  &--submit {
+    @extend %button-normal;
+  }
+}
+
 /* Title */
 /*--------------------------------------------------*/
 
