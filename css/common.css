@@ -18,6 +18,8 @@
 
 .button__1--reset:hover, .button__1--submit:hover { background-color: rgba(110, 163, 100, 0.7); }
 
+.block-6__ttl { font-family: 'Noto Serif JP', serif; }
+
 /* タイトル等で両端にボーダーを指定する タイトル部分を中央寄せにする場合はCenter寄せを指定したdivでラッピングする */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
@@ -493,6 +495,26 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 /* block5 */
 .block5-ttl { font-size: 18px; }
 
+.block-6--bg-lightGray { background-color: #FFF; }
+
+.block-6--bg-lightGray { background-color: #F4F4F4; }
+
+.block-6__inner { margin: 30px 0; }
+
+.block-6__ttl { background-color: #FFF; font-size: 24px; padding: 30px; border-bottom: 1px solid #CCC; text-align: center; }
+
+.block-6__main { background-color: #FFF; padding: 50px; }
+
+@media only screen and (max-width: 575px) { .block-6__main { padding: 30px; } }
+
+@media only screen and (max-width: 575px) { .block-6__item:nth-child(odd) { padding-right: 5px; }
+  .block-6__item:nth-child(even) { padding-left: 5px; } }
+
+.box-7 { padding: 10px; margin: -10px; }
+
+@media only screen and (min-width: 576px) { .box-7 { -webkit-transition: all 0.25s 0s linear; -moz-transition: all 0.25s 0s linear; -ms-transition: all 0.25s 0s linear; -o-transition: all 0.25s 0s linear; transition: all 0.25s 0s linear; }
+  .box-7:hover { box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.3); } }
+
 /* layout2 */
 .layout2 { padding: 50px 0; }
 
@@ -599,6 +621,10 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .list2 > li { padding: 30px; }
 
 .list2 > li:not(:last-child) { border-bottom: 1px dashed #CCC; }
+
+.list-7__main { padding-top: 5px; }
+
+.list-7__title-main { font-weight: bold; }
 
 .sidebox { border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 10px 5px 10px; }
 
@@ -781,7 +807,9 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 @media (max-width: 767px) { .ttl-1-inner::after { display: block; margin-left: 0; } }
 
-.ttl-2 { font-family: 'Noto Serif JP', serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; }
+.ttl-2 { font-family: 'Noto Serif JP', serif; border: 1px solid #CCC; font-size: 26px; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; }
+
+.ttl-2 > i { color: #df5656; }
 
 .ttl-2-small { font-size: 14px; color: #333; font-weight: normal; }
 

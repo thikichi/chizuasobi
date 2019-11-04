@@ -1,16 +1,5 @@
 <?php get_header(); ?>
 
-<div class="container">
-  <ul class="nav-pagelink">
-    <li class="nav-pagelink-item"><a href="#">史跡紹介</a></li>
-    <li class="nav-pagelink-item"><a href="#">ギャラリー</a></li>
-    <li class="nav-pagelink-item"><a href="#">同じカテゴリーの史跡</a></li>
-    <li class="nav-pagelink-item"><a href="#">周辺の史跡</a></li>
-    <li class="nav-pagelink-item"><a href="#">周辺地域の祝初施設一覧</a></li>
-  </ul>
-</div>
-
-
 <?php if (have_posts()): ?>
   <?php the_post(); ?>
   <section id="SingleMain">
@@ -65,12 +54,6 @@
                     array( 'name' => 'acf_castle_category', 'label' => '種類', 'type'=>'text' ),
                     array( 'name' => 'acf_castle_anothername', 'label' => '別名', 'type'=>'text' ),
                     array( 'name' => 'acf_castle_age', 'label' => '年代', 'type'=>'text' ),
-                    // 城　
-                    array( 'name' => 'acf_castle_anothername', 'label' => '城の別名', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_category', 'label' => '城の種類', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_chikujyosha', 'label' => '築城者', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_age', 'label' => '城の年代', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_jyoshu', 'label' => 'おもな城主', 'type'=>'text' ),
                   );
                   foreach ($field_arr as $field) {
                     # code...
@@ -79,8 +62,8 @@
                       if($fvalue!='') {
                         echo '<li>';
                         echo '<dl class="dlList1">';
-                        echo '<dt class="dlList1__item--label">' . $field['label'] . '</dt>';
-                        echo '<dd class="dlList1__item--value">' . $fvalue . '</dd>';
+                        echo '<dt>' . $field['label'] . '</dt>';
+                        echo '<dd>' . $fvalue . '</dd>';
                         echo '</dl>';
                         echo '</li>';
                       }
@@ -101,6 +84,13 @@
 <?php endif; ?>
 
 
+
+
+
+
+
+
+
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -109,23 +99,42 @@
       </h3>
       <div class="inner-normal">
         <ul class="gallery1">
-          <?php
-          $photo_arr = SCF::get('scf_landmark_gallery');
-          foreach ($photo_arr as $photo) {
-            # code...
-            $img_250 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_250', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-            $img_500 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_500', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-            echo '<li class="gallery1__item">';
-            echo '<a class="gallery1__item-link" href="' . $img_500['src'] . '">';
-            echo '<img class="gallery1__item-image" src="' . $img_250['src'] . '" 
-             srcset="' . $img_250['src'] . ' 1x, 
-             ' . $img_500['src'] . ' 2x"
-             alt="">';
-            echo '<span class="gallery1__item-icon _icon"><i class="fas fa-search"></i></span>';
-            echo '</a>';
-            echo '</li>';
-          }
-          ?>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img src="https://placehold.jp/3d4070/ffffff/750x750.png" alt="">
+              <span class="_icon"><i class="fas fa-search"></i></span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -134,6 +143,36 @@
 
 
 
+
+
+
+
+<?php
+$tax = 'landmark_cateogry';
+$terms = get_the_terms($post->ID, $tax);
+$term_ttl = '';
+$term_arr = array();
+$term_ttl .= '<ul class="taglist-3 __iBlock">';
+foreach ($terms as $term) {
+  $term_arr[] = $term->term_id;
+  $term_ttl .= '<li>';
+  $term_ttl .= '<a href="#">';
+  $term_ttl .= $term->name;
+  $term_ttl .= '</a> ';
+  $term_ttl .= '</li>';
+}
+$term_ttl .= '</ul>';
+$relative_posts = get_posts( array( 
+  'post_type'=>'landmark', 
+  'tax_query' => array( 
+    array(
+      'taxonomy' => 'landmark_cateogry', //タクソノミーを指定
+      'field' => 'term_id', //ターム名をスラッグで指定する
+      'terms' => $term_arr,
+    ),
+  ),
+));
+?>
 <section class="block5">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50 border-solid">
@@ -146,10 +185,21 @@
           <?php echo $term_ttl; ?>
         </div>
       </div>
+
+
       <div class="inner-normal">
       <div class="mt-xs-15">
-        <div id="mapCats" class="gmap-main"></div>
+      <?php
+      // 経度・緯度・ズーム率
+      $map_center_cat = array(35.681236,139.767125,7);
+      // GoogleMapのフィールド、所在地のフィールド
+      $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
+      // mapID、投稿オブジェクト、MAP中心
+      the_google_map_disp('mapCats', $relative_posts, $map_center_cat, $field_params);
+      ?>
       </div>
+
+
       <div class="tab-switch tab-2 mt-xs-30">
       <?php
       if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
@@ -184,19 +234,88 @@
             ),
           );
           $the_query = new WP_Query( $args );
-          if ($the_query->have_posts()): ?>
-            <ul class="row mt-xs-15">
-              <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-                <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
-                <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
-              <?php endwhile; ?>
-            </ul>
-          <?php else: ?>
-            <p>記事の投稿がありません。</p>
-          <?php endif; ?>
-          <?php wp_reset_query(); ?>
-        <?php }} ?>
-      </div>
+          ?>
+
+
+<?php if ($the_query->have_posts()): ?>
+  <ul class="row mt-xs-15">
+    <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+      <?php
+      $field = array();
+      $field['Coordinate'] = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+      $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
+      ?>
+      <li class="col-md-6 mt-xs-15">
+        <div class="box-1 box-1-2col cf"> 
+          <div class="box-1-inner cf">
+            <div class="box-1-thumb matchHeight">
+              <?php
+              $img = $osfw->get_thumbnail_by_post( $post->ID, 'thumbnail' );
+              if( $img!='' ) {
+                echo $osfw->the_image_tag( $img );
+              } else {
+                echo '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+              }
+              ?>
+            </div>
+            <div class="box-1-main matchHeight">
+              <div class="box-1-text">
+                <h3 class="subttl-1">
+                  <?php the_title(); ?> 
+                  <span class="subttl-1-mini">投稿日時 <?php the_time('Y.m.d'); ?></span>
+                </h3>
+                <p class="mt-xs-5"><?php echo esc_html($field['address']); ?></p>
+                <?php
+                $tax = 'landmark_cateogry'; // タクソノミー名
+                // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
+                $terms = get_the_terms($post->ID, $tax);
+                if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+                  echo '<ul class="taglist-1 cf mt-xs-10">';
+                  foreach ( $terms as $term ) {
+                    $term_link = get_term_link( $term->term_id, $tax );
+                    echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+                  }
+                  echo '</ul>';
+                } else {
+                }
+                ?>
+              </div>
+            </div>
+            <div class="box-1-btn matchHeight">
+              <div class="box-1-btnTop">
+                <a class="link-1" id="HandleMap-mapCats-<?php the_ID(); ?>" href="#mapCats">
+                  <span class="link-color-1">
+                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-pin.svg"> 
+                    <span class="_linkText box-1-btnText">地図を見る</span>
+                  </span>
+                </a>
+              </div>
+              <div class="box-1-btnBottom">
+                <a class="link-1" href="<?php the_permalink(); ?>">
+                  <span class="link-color-1">
+                    <img class="_icon" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-book.svg"> 
+                    <span class="_linkText box-1-btnText">記事を読む</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div><!-- .box-1 -->
+      </li>
+    <?php endwhile; ?>
+  </ul>
+<?php else: ?>
+  <p>記事の投稿がありません。</p>
+<?php endif; ?>
+<?php wp_reset_query(); ?>
+
+
+
+
+<?php }} ?>
+
+</div>
+
     </div>
   </div>
 </section>
@@ -269,6 +388,16 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 
 
 
+
+
+
+
+
+
+
+
+
+
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -326,6 +455,35 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 </section>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -333,6 +491,8 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
       </h3>
       <div class="inner-normal">
+
+
         <p class="text-16">他に『日本の100名城』と同じテーマに属する記事を掲載しています。<br>
           下のマップアイコンを選択するか、スライダーからお好きな記事を選択してください。<br>
           スライダーを指定して指定の距離範囲内のランドマークを表示
@@ -372,14 +532,63 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
             </li>
           <?php endforeach; ?>
         </ul>
+        <script type="text/javascript">
+        jQuery(function($) {
+          $(document).ready(function(){
+            $('.layout3-slider').slick({
+              slidesToShow: 5,
+              slidesToScroll: 1,
+              prevArrow: '<a href="javascript:void(0)" class="slide-arrow prev-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="55.892,105.002 5.892,55.002 55.892,5.002"/></svg></span></a>',
+              nextArrow: '<a href="javascript:void(0)" class="slide-arrow next-arrow"><span class="_inner"><svg class="icon-svg-arrow" version="1.1" id="レイヤー_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="15px" height="27.5px" viewBox="0 0 60 110" enable-background="new 0 0 60 110" xml:space="preserve"><polyline fill="none" stroke-width="5" stroke-miterlimit="10" points="3.892,5.002 53.892,55.002 3.892,105.002 "/></svg></span></a>',
+              responsive: [
+                {
+                  breakpoint: 991,
+                  settings: {
+                    slidesToShow: 4,
+                    centerMode: false,
+                  }
+                },
+                {
+                  breakpoint: 767,
+                  settings: {
+                    slidesToShow: 3,
+                    centerMode: true,
+                  }
+                },
+                {
+                  breakpoint: 575,
+                  settings: {
+                    slidesToShow: 2,
+                    centerMode: true,
+                  }
+                },
+                {
+                  breakpoint: 400,
+                  settings: {
+                    slidesToShow: 1,
+                    centerMode: true,
+                  }
+                }
+              ],
+            });
+          });
+        });
+        </script>
       </div>
 
     </div>
   </div>
 </section>
 
+
 <div class="mt-xs-15">
-  <?php get_template_part('parts/tab-content'); ?>
+<?php get_template_part('parts/tab-content'); ?>
 </div>
+
+
+
+
+
+
 
 <?php get_footer(); ?>

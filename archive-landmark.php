@@ -4,22 +4,26 @@
 */
 ?>
 <?php get_header(); ?>
-<?php if (have_posts()): ?>
-  <?php /* ↓↓ 記事が存在したら下記を実行 ↓↓ */ ?>
-  <?php while(have_posts()) : the_post(); ?>
-    <?php /* ↓↓ 記事の件数だけ繰り返し処理 ↓↓ */ ?>
 
-    <div><?php the_title(); // タイトルを表示 ?></div>
-    <div><?php the_content(); // コンテンツを表示 ?></div>
-    
-    <?php /* ↑↑ 記事の件数だけ繰り返し処理 ↑↑ */ ?>
-  <?php endwhile; ?>
-  <?php /* ↑↑ 記事が存在したら上記を実行 ↑↑ */ ?>
-<?php else: ?>
-<?php /* ↓↓ 記事が存在しない場合 ↓↓ */ ?>
-  
-  <p>まだ記事の投稿がありません。</p>
-  
-<?php /* ↑↑ 記事が存在しない場合 ↑↑ */ ?>
-<?php endif; ?>
+<section id="ArchiveLandmark">
+  <div class="container">
+    <?php if (have_posts()): ?>
+      <?php while(have_posts()) : the_post(); ?>
+
+        <?php $mapid='ArchiveLandmarkMap'; // GoogleMapを読み込む要素を指定 ?>
+        <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
+
+      <?php endwhile; ?>
+      <?php /* ↑↑ 記事が存在したら上記を実行 ↑↑ */ ?>
+    <?php else: ?>
+    <?php /* ↓↓ 記事が存在しない場合 ↓↓ */ ?>
+      
+      <p>まだ記事の投稿がありません。</p>
+      
+    <?php /* ↑↑ 記事が存在しない場合 ↑↑ */ ?>
+    <?php endif; ?>
+  </div>
+</section>
+
+
 <?php get_footer(); ?>
