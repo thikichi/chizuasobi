@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
-<div class="container">
+<div class="container align-center">
   <ul class="nav-pagelink">
-    <li class="nav-pagelink-item"><a href="#">史跡紹介</a></li>
-    <li class="nav-pagelink-item"><a href="#">ギャラリー</a></li>
-    <li class="nav-pagelink-item"><a href="#">同じカテゴリーの史跡</a></li>
-    <li class="nav-pagelink-item"><a href="#">周辺の史跡</a></li>
-    <li class="nav-pagelink-item"><a href="#">周辺地域の祝初施設一覧</a></li>
+    <li class="nav-pagelink__item"><a href="#">史跡紹介</a></li>
+    <li class="nav-pagelink__item"><a href="#">ギャラリー</a></li>
+    <li class="nav-pagelink__item"><a href="#">同じカテゴリーの史跡</a></li>
+    <li class="nav-pagelink__item"><a href="#">周辺の史跡</a></li>
+    <li class="nav-pagelink__item"><a href="#">周辺地域の祝初施設一覧</a></li>
   </ul>
 </div>
 
@@ -139,74 +139,47 @@
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50 border-solid">
       <div class="block5-ttl inner-narrow underline-solid align-center">
         <h3 class="font-noto-serif-jp text-24 ">
-          『<?php the_title(); ?>』と同じカテゴリーの史跡一覧
+          メインのカテゴリーが『<?php the_title(); ?>』と同じ史跡の一覧
         </h3>
-        <div class="align-center">
-          <p class="mt-xs-5 mb-xs-5">関連カテゴリー</p>
-          <?php echo $term_ttl; ?>
-        </div>
       </div>
       <div class="inner-normal">
-      <div class="mt-xs-15">
-        <div id="mapCats" class="gmap-main"></div>
-      </div>
-      <div class="tab-switch tab-2 mt-xs-30">
-      <?php
-      if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-        echo '<ul class="tab-2-list">';
-        foreach ( $terms as $term ) {
-          $term_link = get_term_link( $term->term_id, $tax );
-          $class_val = $term===reset($terms) ? 'tab-switch-nav _active' : 'tab-switch-nav';
-          echo '<li class="' . $class_val . '"><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
-        }
-        echo '</ul>';
-      }
-      ?>
-      <?php
-      if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-        echo '<ul>';
-        foreach ( $terms as $term ) {
-          $term_link = get_term_link( $term->term_id, $tax );
-          $class_val = $term===reset($terms) ? 'tab-switch-content _active' : 'tab-switch-content';
-          echo '<li class="' . $class_val . '">';
-          ?>
-          <p class="mt-xs-30">カテゴリーが「城・城址」である投稿の一覧です。</p>
-          <?php
-          $args = array(
-            'post_type' => 'landmark',
-            'posts_per_page' => 5,
-            'tax_query' => array(
-              array(
-                'taxonomy' => 'landmark_cateogry',
-                'field' => 'id',
-                'terms' => array( $term->term_id )
-              ),
-            ),
-          );
-          $the_query = new WP_Query( $args );
-          if ($the_query->have_posts()): ?>
-            <ul class="row mt-xs-15">
-              <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-                <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
-                <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
-              <?php endwhile; ?>
-            </ul>
-          <?php else: ?>
-            <p>記事の投稿がありません。</p>
-          <?php endif; ?>
-          <?php wp_reset_query(); ?>
-        <?php }} ?>
+        <div class="mt-xs-15">
+          <div id="mapCats" class="gmap-main"></div>
+        </div>
+        <div class="mt-xs-15">
+
+    <?php
+    $main_cat_id = get_post_meta( $post->ID, 'acf_landmark_main_category', true );
+    $args = array(
+      'post_type' => 'landmark',
+      'posts_per_page' => -1
+    );
+    $temp_cat_ids = get_the_terms( $post->ID, 'landmark_cateogry' );
+    if($main_cat_id) {
+      $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $main_cat_id )))));
+    } else if($temp_cat_ids[0]->term_id) {
+      $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $temp_cat_ids[0]->term_id )))));
+    }
+    $the_query = new WP_Query( $args );
+    ?>
+    <?php if ($the_query->have_posts()): ?>
+      <ul class="row mt-xs-15">
+        <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+          <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
+          <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
+        <?php endwhile; ?>
+      </ul>
+    <?php else: ?>
+      <p>記事の投稿がありません。</p>
+    <?php endif; ?>
+    <?php wp_reset_query(); ?>
+
+
+        </div>
       </div>
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
 
 
 <?php
@@ -266,9 +239,6 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 <?php endif; ?>
 
 
-
-
-
 <section class="block5 mt-xs-30 bgColor-lightGray">
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
@@ -326,12 +296,15 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 </section>
 
 
-<section class="block5 mt-xs-30 bgColor-lightGray">
+
+<section class="block5">
   <div class="container">
-    <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
-      <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
-        『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
-      </h3>
+    <div class="bgColor-white mt-xs-30 mt-md-50 border-solid">
+      <div class="block5-ttl inner-narrow underline-solid align-center">
+        <h3 class="font-noto-serif-jp text-24 ">
+          『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
+        </h3>
+      </div>
       <div class="inner-normal">
         <p class="text-16">他に『日本の100名城』と同じテーマに属する記事を掲載しています。<br>
           下のマップアイコンを選択するか、スライダーからお好きな記事を選択してください。<br>
@@ -373,12 +346,11 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           <?php endforeach; ?>
         </ul>
       </div>
-
     </div>
   </div>
 </section>
 
-<div class="mt-xs-15">
+<div class="">
   <?php get_template_part('parts/tab-content'); ?>
 </div>
 

@@ -213,10 +213,13 @@
 .subvisual {
   height: 200px;
   // background-image: url(https://placehold.jp/3d4070/ffffff/1920x200.png);
-  background-size: 100% auto;
-  margin-top: 85px;
+  // background-size: 100% auto;
+  background-size: cover;
+  margin-top: 70px;
   background-attachment: fixed;
   position: relative;
+  @include media-max(md) { margin-top: 50px; }
+  @include media-max(sm) { margin-top: 35px; }
 }
 .subvisual .container {
   height: 100%;
@@ -226,8 +229,8 @@
 }
 .subvisual__inner {
   @extend %table;
-  @extend %overlay;
-  background-color: rgba(0, 0, 0, 0.1);
+  // @extend %overlay;
+  // background-color: rgba(0, 0, 0, 0.1);
 }
 .subvisual__inner-main {
   @extend %table-cell;
@@ -238,9 +241,9 @@
 
   
 }
-.subvisual:before {
-  @extend %overlay-content;
-}
+// .subvisual:before {
+//   @extend %overlay-content;
+// }
 
 /* Pagebody */
 /*--------------------------------------------------*/

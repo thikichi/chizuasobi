@@ -876,3 +876,25 @@ $grid-gallery1-sm: ( columns: 2, gutter: 10px );
     }
   }
 }
+
+
+// nav-pagelink
+.nav-pagelink {
+  display: inline-block;
+  @include cf;
+  margin-bottom: 10px;
+  &__item {
+    float: left;
+    margin-bottom: 5px;
+    padding: 0 1px;
+    > a {
+      padding: 5px 10px;
+      display: block;
+      background-color: $color-green;
+      color: #FFF;
+      // &:hover {
+      //   text-decoration: underline;
+      // }
+    }
+  }
+}
