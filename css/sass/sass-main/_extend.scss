@@ -54,3 +54,27 @@
 %hover-shadow {
   box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.3);
 }
+
+
+%title-both-line-parent {
+  text-align: center;
+  overflow: hidden;
+}
+%title-both-line-child {
+  display: inline-block;
+  position: relative;
+  &::before, &::after {
+    content: '';
+    width: 3000px;
+    height: 1px;
+    background-color: $color-black;
+    position: absolute;
+    top: 45%;
+  }
+  &::before {
+    right: calc(100% + 20px);
+  }
+  &::after {
+    left: calc(100% + 20px);
+  }
+}

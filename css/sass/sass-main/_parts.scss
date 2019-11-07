@@ -98,43 +98,64 @@
   }
 }
 
-.ttl-2 {
-  font-family: 'Noto Serif JP', serif;
-  border: 1px solid #CCC;
-  font-size: 26px;
-  // color: #df5656;
-  box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  > i {
-    color: #df5656;
+
+// title-1
+
+.title-1 {
+  @extend %title-both-line-parent;
+  &__inner {
+    @extend %title-both-line-child;
+  }
+  &__main {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 26px;
+  }
+  &__sub {
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 16px;
+    margin-bottom: -5px;
   }
 }
-.ttl-2-small {
-  font-size: 14px;
-  color: #333;
-  font-weight: normal;
-}
-.ttl-2 .fas {
-}
+
+// .ttl-2 {
+//   font-family: 'Noto Serif JP', serif;
+//   border: 1px solid #CCC;
+//   font-size: 26px;
+//   // color: #df5656;
+//   box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+//   padding: 10px 20px;
+//   > i {
+//     color: #df5656;
+//   }
+// }
+// .ttl-2-small {
+//   font-size: 14px;
+//   color: #333;
+//   font-weight: normal;
+// }
+// .ttl-2 .fas {
+// }
 
 
-.ttl-2a {
-  font-family: 'Noto Sans JP', sans-serif;
-  border: 1px solid #CCC;
-  font-size: 26px;
-  color: #df5656;
-  box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #FFF;
-}
-.ttl-2a-small {
-  font-size: 14px;
-  color: #333;
-  font-weight: normal;
-}
-.ttl-2a .fas {
-}
+// .ttl-2a {
+//   font-family: 'Noto Sans JP', sans-serif;
+//   border: 1px solid #CCC;
+//   font-size: 26px;
+//   color: #df5656;
+//   box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+//   padding: 10px 20px;
+//   font-weight: bold;
+//   background-color: #FFF;
+// }
+// .ttl-2a-small {
+//   font-size: 14px;
+//   color: #333;
+//   font-weight: normal;
+// }
+// .ttl-2a .fas {
+// }
 
 
 .ttl-3 {

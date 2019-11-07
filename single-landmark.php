@@ -15,9 +15,16 @@
   <?php the_post(); ?>
   <section id="SingleMain">
     <div class="container">
-      <h2 class="ttl-2">
-        <i class="fas fa-map-marker-alt"></i> 
-        <?php the_title(); ?>
+      <h2 class="title-1 mt-xs-15 mb-xs-15">
+        <!--  <i class="fas fa-map-marker-alt"></i>  -->
+        <span class="title-1__inner">
+          <span class="title-1__sub">
+            Edo Castle
+          </span>
+          <span class="title-1__main">
+            <?php the_title(); ?>
+          </span>
+        </span>
       </h2>
       <div class="box4 mt-xs-30">
         <div class="box4-thumb">

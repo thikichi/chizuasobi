@@ -1,3 +1,4 @@
+<?php global $markers; ?>
 <script>
 // var markerData = [];
 var mapLatLng = getCenerLatLng( 35.681236, 139.767125 );

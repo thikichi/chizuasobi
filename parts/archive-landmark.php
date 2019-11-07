@@ -1,5 +1,7 @@
 <?php
+global $markers;
 global $osfw;
+global $mapid;
 $qobj = $queried_object = get_queried_object();
 // var_dump($qobj);
 $taxonomy = $qobj->taxonomy;
@@ -60,9 +62,12 @@ foreach ($map_posts as $map_post) {
 ?>
 
 <div class="container">
-  <h2 class="ttl-2">
-    <i class="fas fa-map-marker-alt"></i> 
-    カテゴリー『<?php echo $osfw->get_archive_title(); ?>』の記事一覧
+  <h2 class="title-1 mt-xs-15 mb-xs-15">
+    <span class="title-1__inner">
+      <span class="title-1__main">
+        カテゴリー『<?php echo $osfw->get_archive_title(); ?>』の記事一覧
+      </span>
+    </span>
   </h2>
 </div>
 

@@ -16,6 +16,16 @@
 
 .block-6__ttl { font-family: 'Noto Serif JP', serif; }
 
+.title-1 { text-align: center; overflow: hidden; }
+
+.title-1__inner { display: inline-block; position: relative; }
+
+.title-1__inner::before, .title-1__inner::after { content: ''; width: 3000px; height: 1px; background-color: #000; position: absolute; top: 45%; }
+
+.title-1__inner::before { right: calc(100% + 20px); }
+
+.title-1__inner::after { left: calc(100% + 20px); }
+
 /* タイトル等で両端にボーダーを指定する タイトル部分を中央寄せにする場合はCenter寄せを指定したdivでラッピングする */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
 /* 適用するCSSのプロパティ アニメーションの時間 変化のパターンを選択 ease / linear / ease-in / ease-out / ease-in-out / cubic-bezier(数値, 数値, 数値, 数値) 変化がはじまるまでの時間を設定 */
@@ -813,15 +823,9 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 @media (max-width: 767px) { .ttl-1-inner::after { display: block; margin-left: 0; } }
 
-.ttl-2 { font-family: 'Noto Serif JP', serif; border: 1px solid #CCC; font-size: 26px; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; }
+.title-1__main { display: block; font-family: 'Noto Serif JP', serif; font-size: 26px; }
 
-.ttl-2 > i { color: #df5656; }
-
-.ttl-2-small { font-size: 14px; color: #333; font-weight: normal; }
-
-.ttl-2a { font-family: 'Noto Sans JP', sans-serif; border: 1px solid #CCC; font-size: 26px; color: #df5656; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); padding: 10px 20px; font-weight: bold; background-color: #FFF; }
-
-.ttl-2a-small { font-size: 14px; color: #333; font-weight: normal; }
+.title-1__sub { display: block; font-family: 'Noto Serif JP', serif; font-size: 16px; margin-bottom: -5px; }
 
 .ttl-3 { font-size: 26px; font-family: 'Noto Sans JP', sans-serif; font-weight: bold; }
 
