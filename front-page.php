@@ -13,9 +13,12 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 
 <section class="mt-xs-15">
   <div class="container">
-    <h2 class="ttl-2">
-      <i class="fas fa-map-marker-alt"></i> 
-      史跡の一覧
+    <h2 class="title-1 mt-xs-15 mb-xs-15">
+      <span class="title-1__inner">
+        <span class="title-1__main">
+          史跡の一覧
+        </span>
+      </span>
     </h2>
     <?php
     $args = array(
@@ -37,8 +40,6 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
     <?php wp_reset_query(); ?>
   </div>
 </section>
-
-
 
 
 <?php

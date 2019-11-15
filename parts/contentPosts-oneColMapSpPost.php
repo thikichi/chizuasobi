@@ -20,7 +20,7 @@ global $osfw;
       // feature_posts
       $landmark_posts = SCF::get('scf_feature_posts', $post->ID);
       // var_dump($landmark_posts[0]['scf_feature_posts_post']);
-      foreach ($landmark_posts[0]['scf_feature_posts_post'] as $landmark_post_id) {
+      foreach ((array)$landmark_posts[0]['scf_feature_posts_post'] as $landmark_post_id) {
         $landmark_id_arr[] = $landmark_post_id;
       }
       // 投稿オブジェクトを単体で取得
