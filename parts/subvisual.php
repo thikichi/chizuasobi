@@ -11,7 +11,7 @@
 ?>
 
 <div id="SubVisual" class="subvisual" style="background-image: url(<?php if(function_exists('os_disp_sv_url')) os_disp_sv_url(); ?>)">
-  <div class="container">
+  <div class="subvisual__container">
     <div class="subvisual__inner">
       <div class="subvisual__inner-main">
         <?php if(function_exists('os_disp_sv_bgtxt')) os_disp_sv_bgtxt(); ?>

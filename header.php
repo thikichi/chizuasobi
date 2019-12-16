@@ -124,53 +124,15 @@ jQuery(function($) {
     <main class="frame-main">
       <article class="frame-article">
 
-
-
         <!-- breadcrumbs168 -->
         <!--==================================================-->
 
-        <div class="breadcrumbs168 mt-xs-20 mb-xs-30">
+        <div class="breadcrumbs168 mt-xs-10 mb-xs-10">
           <div class="container-fluid">
             <div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
               <?php if(function_exists('bcn_display')){bcn_display();} ?>
             </div>
           </div>
         </div>
-
-  <?php endif; ?>
-
-
-
-  <?php /* 条件分岐テンプレ（以下の条件分岐のどれか1つのみが適用されます） */ ?>
-
-  <?php /* TOPページ */ ?>
-  <?php if(is_front_page()): ?>
-
-  <?php /* 特定の固定ページ ※ slug : 固定ページのスラッグ名を指定 */ ?>
-  <?php elseif(is_page('slug')): ?>
-
-  <?php /* 上記以外の固定ページ */ ?>
-  <?php elseif(is_page()): ?>
-
-  <?php /* 新着情報（アーカイブ ＆ 詳細） */ ?>
-  <?php elseif(is_post_type_archive('news') || is_singular('news') || is_tax('newscategory')): ?>
-
-  <?php /* 特定のカスタム投稿のアーカイブ　※ slug: カスタム投稿のスラッグ名を指定 */ ?>
-  <?php elseif(is_post_type_archive('slug')): ?>
-
-  <?php /* 特定のカスタム投稿の詳細　※ slug: カスタム投稿のスラッグ名を指定 */ ?>
-  <?php elseif(is_singular('slug')): ?>
-
-  <?php /* 特定のカスタム分類アーカイブ　※ slug: カスタム分類のスラッグ名を指定 */ ?>
-  <?php elseif(is_tax('slug')): ?>
-
-  <?php /* 「投稿」（ブログ）のアーカイブ */ ?>
-  <?php elseif(is_archive() || is_single() || is_home()): ?>
-
-  <?php /* 404ページ */ ?>
-  <?php elseif(is_404()): ?>
-
-  <?php /* その他 */ ?>
-  <?php else: ?>
 
   <?php endif; ?>

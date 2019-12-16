@@ -43,11 +43,11 @@
 .title-1__inner::before { right: calc(100% + 20px); }
 .title-1__inner::after { left: calc(100% + 20px); }
 
-.block13__container { margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
-@media only screen and (min-width: 768px) { .block13__container { width: 750px; } }
-@media only screen and (min-width: 992px) { .block13__container { width: 970px; } }
-@media only screen and (min-width: 1200px) { .block13__container { width: 1200px; } }
-.block13__container::before, .block13__container::after { clear: both; content: ''; }
+.subvisual__container, .block13__container { margin-left: auto; margin-right: auto; padding-left: 15px; padding-right: 15px; }
+@media only screen and (min-width: 768px) { .subvisual__container, .block13__container { width: 750px; } }
+@media only screen and (min-width: 992px) { .subvisual__container, .block13__container { width: 970px; } }
+@media only screen and (min-width: 1200px) { .subvisual__container, .block13__container { width: 1200px; } }
+.subvisual__container::before, .block13__container::before, .subvisual__container::after, .block13__container::after { clear: both; content: ''; }
 
 /* Fonts */
 /*--------------------------------------------------*/
@@ -143,6 +143,8 @@
 
 .font-noto-sans-jp { font-family: 'Noto Sans JP', sans-serif; transform: rotate(10deg); }
 
+.font-sawarabi-mincho { font-family: 'Sawarabi Mincho', sans-serif; }
+
 /* Font set */
 /*--------------------------------------------------*/
 .fontSize5 { font-size: 24px; }
@@ -219,15 +221,18 @@
   /*@media (max-width: 575px) {*/ }
 /* SubVisual */
 /*--------------------------------------------------*/
-.subvisual { height: 200px; background-size: cover; margin-top: 70px; background-attachment: fixed; position: relative; }
-@media only screen and (max-width: 767px) { .subvisual { margin-top: 50px; } }
-@media only screen and (max-width: 575px) { .subvisual { margin-top: 35px; } }
+.subvisual { height: 250px; background-size: contain; margin-top: 70px; position: relative; background-size: 100% auto; background-position: bottom; font-size: 40px; font-family: 'Noto Serif JP', serif; color: #FFF; }
+@media only screen and (max-width: 767px) { .subvisual { margin-top: 50px; height: 200px; background-size: auto 100%; font-size: 30px; } }
+@media only screen and (max-width: 575px) { .subvisual { margin-top: 35px; height: 100px; font-size: 20px; } }
+.subvisual::after { content: ''; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.3); position: absolute; top: 0; left: 0; }
 
 .subvisual .container { height: 100%; }
 
 .subvisual-inner > div { z-index: -1 !important; }
 
-.subvisual__inner-main { font-size: 24px; font-weight: bold; font-family: 'Noto Serif JP', serif; color: #FFF; }
+.subvisual__container { height: 100%; position: relative; }
+
+.subvisual__inner { position: absolute; left: 0; top: 0; z-index: 1; }
 
 /* Pagebody */
 /*--------------------------------------------------*/
@@ -353,6 +358,27 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .gmap-all::after { content: ''; top: 0; left: 0; position: absolute; width: 100%; height: 300px; background-color: #6ea364; z-index: -1; }
 .gmap-all__map-area { height: 350px; width: 100%; z-index: 100; }
 
+.breadcrumbs { display: inline-block; position: relative; }
+.breadcrumbs::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 15px 15px; border-color: transparent transparent transparent #c04c41; position: absolute; right: -10px; top: 0px; z-index: 10; }
+.breadcrumbs span[property="itemListElement"] { position: relative; }
+.breadcrumbs span[property="itemListElement"]:not(:first-child) { margin-left: -2px; }
+.breadcrumbs span[property="itemListElement"]::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 15px 15px; border-color: transparent transparent transparent #c04c41; position: absolute; right: -15px; top: -5px; z-index: 10; }
+.breadcrumbs span[property="itemListElement"] > a { display: inline-block; background-color: #c04c41; color: #FFF; padding: 7px 20px 0 30px; height: 30px; position: relative; }
+.breadcrumbs span[property="itemListElement"] > a::before { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 15px 0 0; border-color: #FFF transparent transparent transparent; position: absolute; left: 0; bottom: 0; }
+.breadcrumbs span[property="itemListElement"] > a::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 0 15px; border-color: transparent transparent transparent #FFF; position: absolute; left: 0; top: 0; }
+.breadcrumbs .current-item { height: 30px; display: inline-block; height: 30px; background-color: #c04c41; color: #FFF; padding: 7px 20px 0 30px; position: relative; margin-left: -2px !important; }
+.breadcrumbs .current-item::before { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 15px 0 0; border-color: #FFF transparent transparent transparent; position: absolute; left: 0; bottom: 0; }
+.breadcrumbs .current-item::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 0 15px; border-color: transparent transparent transparent #FFF; position: absolute; left: 0; top: 0; }
+
+.breadcrumbs168 .breadcrumbs { font-size: 14px; line-height: 1.3; /*  margin: 5px -5px 0;*/ }
+
+.breadcrumbs168 .breadcrumbs > span { margin: 0 5px; vertical-align: middle; }
+
+.breadcrumbs168 .breadcrumbs a { -webkit-transition: color 100ms; transition: color 100ms; }
+
+.ua-nontouch .breadcrumbs168 .breadcrumbs a:hover { color: #00a9c7; }
+
+@media (max-width: 575px) { .breadcrumbs168 .breadcrumbs { display: none; } }
 /* BOX */
 /*--------------------------------------------------*/
 .box-1 { width: 100%; border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); }
@@ -700,6 +726,8 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 @media only screen and (max-width: 575px) { .block13__list-item { width: calc(100%  / 1); margin-bottom: 50px; } }
 .block13__list-item:not(:last-child)::after { content: ''; position: absolute; top: 35%; right: -10px; width: 0; height: 0; border-style: solid; border-width: 10px 0 10px 17.3px; border-color: transparent transparent transparent #c04c41; }
 @media only screen and (max-width: 575px) { .block13__list-item:not(:last-child)::after { transform: rotate(90deg); top: calc(100% + 20px); right: 50%; } }
+
+.block13__box > img { width: 100%; }
 
 .block13__box-step { display: inline-block; font-size: 16px; background-color: #6ea364; color: #FFF; padding: 2px 10px; }
 .block13__box-step--origin { background-color: #c04c41; }
