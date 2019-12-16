@@ -1,16 +1,91 @@
-<!DOCTYPE HTML>
-<html <?php language_attributes(); ?>>
-<head>
-<meta charset="<?php bloginfo( 'charset' ); ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="format-detection" content="telephone=no,address=no,email=no">
-<title><?php wp_title( '|', true, 'right' ); ?></title>
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
-<link href="<?php bloginfo('rss2_url'); ?>" rel="alternate" type="application/rss+xml" title="RSSフィード">
-<?php wp_head(); ?>
-</head>
+<?php get_header(); ?>
 
-<body <?php body_class(); ?>>
+
+<section class="block13">
+  <div class="block13__container">
+    <div class="block13__inner">
+      <h2 class="title-1 mt-xs-30">
+        <span class="title-1__inner">
+          <span class="title-1__sub title-1__sub--l">
+            おすすめ史跡めぐりコース
+          </span>
+          <span class="title-1__main">
+            浅草・上野、御朱印めぐり
+          </span>
+        </span>
+      </h2>
+      <p class="block13__read mt-xs-50">
+        <span class="block13__read-inner">
+        浅草、上野周辺の神社をめぐり御朱印を集めよう！<br>
+        ここではメジャーなルートをご紹介します。
+        </span>
+      </p>
+      <ul class="block13__list mt-xs-50">
+        <li class="block13__list-item matchHeight">
+          <div class="block13__box">
+            <span class="block13__box-step block13__box-step--origin">出発地点</span>
+              <img src="https://placehold.jp/750x750.png" alt="">
+            <h3 class="block13__box-ttl">サブタイトル</h3>
+            <p class="block13__box-text">
+              ここにテキストがはいります。ここにテキストがはいります。
+            </p>
+            <p class="block13__box-link">
+              <a href="#" class="block13__box-linkmain">
+                この経路を見る
+              </a>
+            </p>
+          </div>
+        </li>
+        <li class="block13__list-item matchHeight">
+          <div class="block13__box">
+            <span class="block13__box-step">中間地点1</span>
+              <img src="https://placehold.jp/750x750.png" alt="">
+            <h3 class="block13__box-ttl">サブタイトル</h3>
+            <p class="block13__box-text">
+              ここにテキストがはいります。ここにテキストがはいります。
+            </p>
+            <p class="block13__box-link">
+              <a href="#" class="block13__box-linkmain">
+                この経路を見る
+              </a>
+            </p>
+          </div>
+        </li>
+        <li class="block13__list-item matchHeight">
+          <div class="block13__box">
+            <span class="block13__box-step">中間地点2</span>
+              <img src="https://placehold.jp/750x750.png" alt="">
+            <h3 class="block13__box-ttl">サブタイトル</h3>
+            <p class="block13__box-text">
+              ここにテキストがはいります。ここにテキストがはいります。
+            </p>
+            <p class="block13__box-link">
+              <a href="#" class="block13__box-linkmain">
+                この経路を見る
+              </a>
+            </p>
+          </div>
+        </li>
+        <li class="block13__list-item matchHeight">
+          <div class="block13__box">
+            <span class="block13__box-step block13__box-step--destin">到着地点</span>
+              <img src="https://placehold.jp/750x750.png" alt="">
+            <h3 class="block13__box-ttl">サブタイトル</h3>
+            <p class="block13__box-text">
+              ここにテキストがはいります。ここにテキストがはいります。
+            </p>
+            <p class="block13__box-link">
+              <a href="#" class="block13__box-linkmain">
+                この経路を見る
+              </a>
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
 
 <?php
 $args = array(
@@ -26,26 +101,106 @@ $origin = $destination = array();
 $previous_post_id = '';
 
 
-$map_tag = '';
-var_dump($recommend_post_ids);
+$num=1;
 foreach ($recommend_post_ids as $recommend_post_id) {
+  $map_tag = '';
   // 前の投稿があれば取得
   if( $previous_post_id!='' ) {
-    $map_tag .= '<div class="gmap-content">' . "\n";
-    $map_tag .= '<div id="map-' . $previous_post_id . '" style="width:100%;height:50vh"></div>' . "\n";
-    $map_tag .= '<div id="panel-' . $previous_post_id . '" style="width:100%; height:50vh;overflow:scroll;"></div>' . "\n";
+    $map_tag .= '<div class="block1__map">' . "\n";
+    $map_tag .= '<div id="map-' . $previous_post_id . '" class="block1__map-main"></div>' . "\n";
+    $map_tag .= '<div id="panel-' . $previous_post_id . '" class="block1__panel"></div>' . "\n";
     $map_tag .= '</div>' . "\n";
+    ?>
+
+<?php
+$post_origin = get_post( (int)$previous_post_id ); 
+$post_destin = get_post( (int)$recommend_post_id ); 
+
+$origin['address'] = get_post_meta( $post_origin->ID, 'acf_landmark_address', true );
+$destin['address'] = get_post_meta( $post_destin->ID, 'acf_landmark_address', true );
+?>
+
+<section class="block1">
+  <div class="container">
+    <div class="bloc1__inner">
+      <h3 class="block1__ttl">
+        経路その<?php echo $num; ?>
+        <span class="block1__ttl--subttl">『<?php echo $post_origin->post_title; ?>』 から 『<?php echo $post_destin->post_title; ?>』までの経路</span>
+      </h3>
+      <div class="block1__main">
+        <div class="block1__spots">
+
+          <div class="block1__spots-origin">
+            <h4 class="block1__post-ttl">出発 : <span class="block1__post-ttl--strong">『<?php echo $post_origin->post_title; ?>』</span></h4>
+            <div class="block1__spots-photo">
+              <?php
+              $img_1x = $osfw->get_thumbnail_by_post( $post_origin->ID, 'img_3_4_1x', 'https://placehold.jp/640x480.png?text=No Image' );
+              $img_2x = $osfw->get_thumbnail_by_post( $post_origin->ID, 'img_3_4_2x', 'https://placehold.jp/300x225.png?text=No Image' );
+              ?>
+              <img src="<?php echo esc_url($img_1x['src']); ?>" srcset="<?php echo esc_url($img_1x['src']); ?> 1x, <?php echo esc_url($img_2x['src']); ?> 2x" class="block1__img">
+            </div>
+            <div class="block1__spots-text">
+              <ul class="block1__spotlist">
+                <li class="block1__spotlist-item"><?php echo esc_html($origin['address']); ?></li>
+              </ul>
+            </div>
+          </div>
+          <div class="block1__spots-destin">
+            <h4 class="block1__post-ttl">出発 : <span class="block1__post-ttl--strong">『<?php echo $post_origin->post_title; ?>』</span></h4>
+            <div class="block1__spots-photo">
+              <?php
+              $img_1x = $osfw->get_thumbnail_by_post( $post_origin->ID, 'img_3_4_1x', 'https://placehold.jp/640x480.png?text=No Image' );
+              $img_2x = $osfw->get_thumbnail_by_post( $post_origin->ID, 'img_3_4_2x', 'https://placehold.jp/300x225.png?text=No Image' );
+              ?>
+              <img src="<?php echo esc_url($img_1x['src']); ?>" srcset="<?php echo esc_url($img_1x['src']); ?> 1x, <?php echo esc_url($img_2x['src']); ?> 2x" class="block1__img">
+            </div>
+            <div class="block1__spots-text">
+              <ul class="block1__spotlist">
+                <li class="block1__spotlist-item"><?php echo esc_html($origin['address']); ?></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="block1__main-content">
+
+<?php echo $map_tag; ?>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section><!-- .block1 -->
+
+
+
+    <?php
+    $num++;
   }
   $previous_post_id = $recommend_post_id;
 }
-
 ?>
 
-<section class="mt-50">
-  <div class="container">
-    <?php echo $map_tag; ?>
-  </div>
-</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -148,6 +303,4 @@ foreach ($recommend_post_ids as $recommend_post_id) {
 ?>
 
 
-
-</body>
-</html>
+<?php get_footer(); ?>

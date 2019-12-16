@@ -118,19 +118,21 @@
         <ul class="gallery1">
           <?php
           $photo_arr = SCF::get('scf_landmark_gallery');
-          foreach ($photo_arr as $photo) {
-            # code...
-            $img_250 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_250', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-            $img_500 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_500', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-            echo '<li class="gallery1__item">';
-            echo '<a class="gallery1__item-link" href="' . $img_500['src'] . '">';
-            echo '<img class="gallery1__item-image" src="' . $img_250['src'] . '" 
-             srcset="' . $img_250['src'] . ' 1x, 
-             ' . $img_500['src'] . ' 2x"
-             alt="">';
-            echo '<span class="gallery1__item-icon _icon"><i class="fas fa-search"></i></span>';
-            echo '</a>';
-            echo '</li>';
+          if( isset($photo_arr) && is_array($photo_arr) ) {
+            foreach ($photo_arr as $photo) {
+              # code...
+              $img_250 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_250', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
+              $img_500 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_500', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
+              echo '<li class="gallery1__item">';
+              echo '<a class="gallery1__item-link" href="' . $img_500['src'] . '">';
+              echo '<img class="gallery1__item-image" src="' . $img_250['src'] . '" 
+               srcset="' . $img_250['src'] . ' 1x, 
+               ' . $img_500['src'] . ' 2x"
+               alt="">';
+              echo '<span class="gallery1__item-icon _icon"><i class="fas fa-search"></i></span>';
+              echo '</a>';
+              echo '</li>';
+            }
           }
           ?>
         </ul>
@@ -331,7 +333,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
         ?>
         <ul class="layout3-slider mt-xs-20">
-          <?php foreach ($xml->Hotel as $hotel): ?>
+          <?php 
+          if( isset($xml->Hotel) && is_array($xml->Hotel) ):
+            foreach ($xml->Hotel as $hotel): ?>
             <li>
               <div class="layout3-slider-box">
                 <div class="layout3-thumb" style="background-image:url(<?php echo $hotel->PictureURL; ?>)">
@@ -339,7 +343,7 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                 <div class="layout3-hoverBox">
                   <h3><?php echo $hotel->HotelName; ?></h3>
                   <p>
-                    <?php echo $hotel->HotelCatchCopy; ?>
+                    <?php echo $hotel->HotelCatchCopy; ?>http://localhost/chizuasobi
                   </p>
                   <div class="btn-2">
                     <a class="link-1" href="#mapSingleHotel" id="HandleMap-mapSingleHotel-<?php echo $hotel->HotelID; ?>">地図を見る</a>
@@ -350,7 +354,8 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
                 </div>
               </div><!-- .layout3-slider-box -->
             </li>
-          <?php endforeach; ?>
+          <?php endforeach;
+        endif; ?>
         </ul>
       </div>
     </div>
