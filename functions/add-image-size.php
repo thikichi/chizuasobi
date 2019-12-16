@@ -29,6 +29,8 @@ add_action( 'after_setup_theme', function(){
   // add_image_size('img_sailver_ratio', 1000, 700 ,true);
   // 独自定義のサムネイル画像を定義できます。
   // add_image_size('画像サイズの名前','幅ピクセル数','高さピクセル数','true or false');
+  add_image_size('img_3_4_1x', 640, 480 ,true);
+  add_image_size('img_3_4_2x', 300, 225 ,true);
 });
 
 
