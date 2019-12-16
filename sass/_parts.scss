@@ -111,6 +111,7 @@
       display: block;
       font-family: 'Noto Serif JP', serif;
       font-size: 26px;
+      @include media-max(sm) { font-size: 20px; }
     }
     .title-1__sub {
       display: block;
@@ -121,6 +122,7 @@
         font-size: 20px;
         margin-bottom: -3px;
       }
+      @include media-max(sm) { font-size: 14px; }
     }
   }
 }
