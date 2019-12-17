@@ -1,12 +1,22 @@
 <?php get_header(); ?>
 
-<div class="container align-center">
+<div class="container align-center mt-xs-30">
   <ul class="nav-pagelink">
-    <li class="nav-pagelink__item"><a href="#">史跡紹介</a></li>
-    <li class="nav-pagelink__item"><a href="#">ギャラリー</a></li>
-    <li class="nav-pagelink__item"><a href="#">同じカテゴリーの史跡</a></li>
-    <li class="nav-pagelink__item"><a href="#">周辺の史跡</a></li>
-    <li class="nav-pagelink__item"><a href="#">周辺地域の祝初施設一覧</a></li>
+    <li class="nav-pagelink__item">
+      <a href="#Siseki">史跡紹介</a>
+    </li>
+    <li class="nav-pagelink__item">
+      <a href="#Gallery">ギャラリー</a>
+    </li>
+    <li class="nav-pagelink__item">
+      <a href="#SameCat">同じカテゴリーの史跡</a>
+    </li>
+    <li class="nav-pagelink__item">
+      <a href="#Shuhen">周辺の史跡</a>
+    </li>
+    <li class="nav-pagelink__item">
+      <a href="#HotelList">周辺地域の祝初施設一覧</a>
+    </li>
   </ul>
 </div>
 
@@ -14,6 +24,9 @@
 <?php if (have_posts()): ?>
   <?php the_post(); ?>
   <section id="SingleMain">
+    <div style="position: relative;">
+      <div id="Siseki" style="position:absolute;top:-50px"></div>
+    </div>
     <div class="container">
       <h2 class="title-1 mt-xs-15 mb-xs-15">
         <!--  <i class="fas fa-map-marker-alt"></i>  -->
@@ -109,6 +122,9 @@
 
 
 <section class="block5 mt-xs-30 bgColor-lightGray">
+  <div style="position: relative;">
+    <div id="Gallery" style="position:absolute;top:-50px"></div>
+  </div>
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
       <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
@@ -144,6 +160,9 @@
 
 
 <section class="block5">
+  <div style="position: relative;">
+    <div id="SameCat" style="position:absolute;top:-50px"></div>
+  </div>
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50 border-solid">
       <div class="block5-ttl inner-narrow underline-solid align-center">
@@ -195,6 +214,9 @@
 $related_sites = SCF::get('related_sites');
 if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
   <section class="block5 bgColor-lightGray">
+    <div style="position: relative;">
+      <div id="Shuhen" style="position:absolute;top:-50px"></div>
+    </div>
     <div class="container">
       <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
         <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
@@ -249,6 +271,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 
 
 <section class="block5 mt-xs-30 bgColor-lightGray">
+  <div style="position: relative;">
+    <div id="Shuhen" style="position:absolute;top:-50px"></div>
+  </div>
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
       <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
@@ -307,6 +332,9 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 
 
 <section class="block5">
+  <div style="position: relative;">
+    <div id="HotelList" style="position:absolute;top:-50px"></div>
+  </div>
   <div class="container">
     <div class="bgColor-white mt-xs-30 mt-md-50 border-solid">
       <div class="block5-ttl inner-narrow underline-solid align-center">

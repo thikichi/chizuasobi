@@ -883,18 +883,32 @@ $layout3-slider-padding: 10px;
   display: inline-block;
   @include cf;
   margin-bottom: 10px;
-  &__item {
-    float: left;
-    margin-bottom: 5px;
-    padding: 0 1px;
-    > a {
-      padding: 5px 10px;
-      display: block;
-      background-color: $color-green;
-      color: #FFF;
-      // &:hover {
-      //   text-decoration: underline;
-      // }
+  @at-root {
+    .nav-pagelink__item {
+      float: left;
+      margin-bottom: 5px;
+      padding: 0 1px;
+      position: relative;
+      &:hover {
+        &::after { bottom: -5px; }
+      }
+      &::after {
+        content: '»';
+        position: absolute;
+        left: 50%;
+        bottom: -3px;
+        transform: rotate(90deg);
+        color: #FFF;
+      }
+      > a {
+        padding: 5px 15px 10px 15px;
+        display: block;
+        background-color: $color-green;
+        color: #FFF;
+        // &:hover {
+        //   text-decoration: underline;
+        // }
+      }
     }
   }
 }

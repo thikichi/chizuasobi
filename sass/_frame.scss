@@ -727,6 +727,9 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
       padding: 7px 20px 0 30px;
       height: 30px;
       position: relative;
+      &:hover {
+        text-decoration: underline;
+      }
       &::before {
         content: '';
         width: 0;

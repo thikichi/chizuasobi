@@ -364,6 +364,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .breadcrumbs span[property="itemListElement"]:not(:first-child) { margin-left: -2px; }
 .breadcrumbs span[property="itemListElement"]::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 15px 15px; border-color: transparent transparent transparent #c04c41; position: absolute; right: -15px; top: -5px; z-index: 10; }
 .breadcrumbs span[property="itemListElement"] > a { display: inline-block; background-color: #c04c41; color: #FFF; padding: 7px 20px 0 30px; height: 30px; position: relative; }
+.breadcrumbs span[property="itemListElement"] > a:hover { text-decoration: underline; }
 .breadcrumbs span[property="itemListElement"] > a::before { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 15px 0 0; border-color: #FFF transparent transparent transparent; position: absolute; left: 0; bottom: 0; }
 .breadcrumbs span[property="itemListElement"] > a::after { content: ''; width: 0; height: 0; border-style: solid; border-width: 15px 0 0 15px; border-color: transparent transparent transparent #FFF; position: absolute; left: 0; top: 0; }
 .breadcrumbs .current-item { height: 30px; display: inline-block; height: 30px; background-color: #c04c41; color: #FFF; padding: 7px 20px 0 30px; position: relative; margin-left: -2px !important; }
@@ -660,8 +661,10 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .nav-pagelink { display: inline-block; margin-bottom: 10px; }
 .nav-pagelink::after { content: ""; display: block; clear: both; }
-.nav-pagelink__item { float: left; margin-bottom: 5px; padding: 0 1px; }
-.nav-pagelink__item > a { padding: 5px 10px; display: block; background-color: #6ea364; color: #FFF; }
+.nav-pagelink__item { float: left; margin-bottom: 5px; padding: 0 1px; position: relative; }
+.nav-pagelink__item:hover::after { bottom: -5px; }
+.nav-pagelink__item::after { content: '»'; position: absolute; left: 50%; bottom: -3px; transform: rotate(90deg); color: #FFF; }
+.nav-pagelink__item > a { padding: 5px 15px 10px 15px; display: block; background-color: #6ea364; color: #FFF; }
 
 /* block1 */
 .block1 { background-color: #F4F4F4; padding-top: 50px; }
