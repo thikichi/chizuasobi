@@ -247,6 +247,9 @@ class utilityClass extends OsFmBase {
     return preg_match($pattern, $_SERVER['HTTP_USER_AGENT']);
   }
 
+  /**
+  * 文字を丸める関数
+  */
   public function get_excerpt_filter( $text, $num=50, $more_text='...続きを読む', $link='', $charset='UTF-8' ) {
     if( $link!='' ) {
       $more_text = '<a href="' . esc_url($link) . '">' . $more_text . '</a>';
@@ -258,7 +261,6 @@ class utilityClass extends OsFmBase {
       return $str_disp;
     }
   }
-
 }
 
 // ユーティリティークラスのオブジェクトを作成

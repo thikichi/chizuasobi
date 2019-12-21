@@ -47,6 +47,9 @@ $landmark_id_arr = array();
 $get_feature_id  = get_theme_mod( 'top_special_select_1', false );
 $get_feature_ttl = get_theme_mod( 'top_special_text_1', false );
 
+// var_dump($get_feature_id);
+
+
 if( $get_feature_id ) {
   $select_feature_post = get_posts( array('post_type'=>'feature', 'include'=>$get_feature_id,) );
   $map_center = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_center', true );
@@ -54,16 +57,15 @@ if( $get_feature_id ) {
   // feature_posts
   $landmark_posts = SCF::get('scf_feature_posts', $select_feature_post[0]->ID);
   // var_dump($landmark_posts[0]['scf_feature_posts_post']);
-  foreach ($landmark_posts[0]['scf_feature_posts_post'] as $landmark_post_id) {
-    $landmark_id_arr[] = $landmark_post_id;
-  }
+  $landmark_id_arr = $landmark_posts[0]['scf_feature_posts_post'];
 }
 $post_map_sp = array(
   'post_type' => 'landmark',
   'posts_per_page' => 6,
 );
 // 結合
-$post_map_sp = !empty($landmark_id_arr) ? array_merge( $post_map_sp, array('include'=> $landmark_id_arr) ) : $post_map_sp;
+$post_map_sp = !empty($landmark_id_arr) ? array_merge( $post_map_sp, array('post__in'=> $landmark_id_arr) ) : $post_map_sp;
+// var_dump($post_map_sp);
 $the_query = new WP_Query( $post_map_sp );
 ?>
 <?php if ($the_query->have_posts() && $get_feature_id): ?>
@@ -87,7 +89,7 @@ $the_query = new WP_Query( $post_map_sp );
             <?php $i++; endwhile; ?>
           </ul>
           <div class="btn-1">
-            <a href="<?php echo $osfw->get_archive_link('feature'); ?>">その他の特集記事の一覧 <i class="fas fa-angle-double-right"></i></a>
+            <a href="<?php echo $osfw->get_archive_link('feature'); ?>">過去の特集記事の一覧 <i class="fas fa-angle-double-right"></i></a>
           </div>
         </div>
       </div>

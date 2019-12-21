@@ -1,91 +1,49 @@
 <?php
-global $markers;
 global $osfw;
-global $mapid;
-$qobj = $queried_object = get_queried_object();
-// var_dump($qobj);
-$taxonomy = $qobj->taxonomy;
-$term_id  = $qobj->term_id;
-$map_posts = get_posts( array( 
-  'post_type'=>'landmark', 
-  'posts_per_page'=>-1,
-  'tax_query'      => array(
-      array(
-        'taxonomy' => $taxonomy,
-        'field'    => 'term_id',
-        'terms'    => $term_id,
-      )
-    )
-));
-$markers = array();
-// var_dump($map_posts);
-$i=0;
-foreach ($map_posts as $map_post) {
-  $acf_landmark_gmap = get_post_meta( $map_post->ID, 'acf_landmark_gmap', true );
-  $acf_landmark_address = get_post_meta( $map_post->ID, 'acf_landmark_address', true );
-  $terms = get_the_terms($map_post->ID, 'landmark_cateogry');
-  // var_dump($terms);
-  if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-    $term_list = '[';
-    foreach ( $terms as $term ) {
-      $term_list .= "'" . $term->term_id . "'";
-      if ($term !== end($terms)) {
-        $term_list .= ',';
-      }
-    }
-    $term_list .= ']';
-  }
-  $map_id = 'ArchiveLandmarkMapMain';
-  // thumbnail
-  $temp_img = $osfw->get_thumbnail_by_post( $map_post->ID, 'img_square' );
-  $post_map_img = isset($temp_img['src']) ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-  // InfoWindow
-  $infoWin  = '';
-  $infoWin .= "<div id='" . $map_id . "-" . $map_post->ID . "' class='infwin cf' style='position:relative'>";
-  $infoWin .= "<a style='position:absolute;top:-150px'></a>";
-  $infoWin .= "<div class='infwin-thumb'>";
-  $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
-  $infoWin .= "<div class='infwin-main'>";
-  $infoWin .= "<h3>" . $map_post->post_title . "</h3>";
-  $infoWin .= "<p>" . $acf_landmark_address . "</p>";
-  $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
-  $infoWin .= "</div>";
-  $infoWin .= "</div>";
-  // create marker object
-  $markers[$i]['id']   = $map_id . "_" . $map_post->ID;
-  $markers[$i]['name'] = get_the_title();
-  $markers[$i]['lat']  = floatval($acf_landmark_gmap['lat']);
-  $markers[$i]['lng']  = floatval($acf_landmark_gmap['lng']);
-  $markers[$i]['cat']  = $term_list;
-  $markers[$i]['infoWindowContent'] = $infoWin;
-  $i++;
-}
 ?>
 
-<div class="container">
-  <h2 class="title-1 mt-xs-15 mb-xs-15">
-    <span class="title-1__inner">
-      <span class="title-1__main">
-        カテゴリー『<?php echo $osfw->get_archive_title(); ?>』の記事一覧
+<section id="ArchiveLandmark" class="block2 mb-xs-50 mb-md-70 mt-xs-15">
+  <div class="block2__container">
+    <h2 class="title-1 mt-xs-15 mb-xs-15">
+      <span class="title-1__inner">
+        <span class="title-1__main">
+          <?php echo $osfw->get_archive_title(); ?>
+        </span>
       </span>
-    </span>
-  </h2>
-</div>
-
-<section id="ArchiveLandmarkMap" class="mb-xs-15 mt-xs-15">
-  <div class="container">
-    <div id="ArchiveLandmarkMapMain" class="gmap-all__map-area mt-xs-15" style="position: relative; overflow: hidden"></div>
-  </div>
-</section><!-- SearchFormMap -->
-
-<section id="ArchiveLandmark" class="mb-xs-50 mb-md-70 mt-xs-15">
-  <div class="container">
+    </h2>
     <?php if(have_posts()): ?>
-      <ul class="row">
+      <ul class="block2__list mt-xs-30">
         <?php // $markers = array(); // Marker Object ?>
         <?php $i=0; while(have_posts()) : the_post(); ?>
-          <?php $mapid=$map_id; ?>
-          <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
+          <li class="block2__list-item">
+            <div class="block2__box">
+              <div class="block2__box-inner">
+                <div class="block2__thumb matchHeight">
+                  <?php
+                  $img = $osfw->get_thumbnail_by_post( $post->ID, 'thumbnail' );
+                  if( $img!='' ) {
+                    echo $osfw->the_image_tag( $img );
+                  } else {
+                    echo '<img class="block2__thumb-main" src="' . get_stylesheet_directory_uri() . '/images/common/noimage-500.svg' . '" alt="">';
+                  }
+                  ?>
+                </div>
+                <div class="block2__main matchHeight">
+                  <div class="block2-text">
+                    <h3 class="subttl-1">
+                      <?php the_title(); ?> 
+                      <span class="subttl-1-mini">投稿日時 <?php the_time('Y.m.d'); ?></span>
+                    </h3>
+                    <p class="mt-xs-5">
+                      <?php echo $osfw->get_excerpt_filter( get_the_excerpt(), 56, '[...]' );
+                      ?>
+                    </p>
+                    <a href="<?php the_permalink(); ?>" class="block2__link"><span>記事を読む</span></a>
+                  </div>
+                </div>
+              </div>
+            </div><!-- .block2 -->
+          </li>
         <?php $i++; endwhile; ?>
       </ul>
       <?php /* ↑↑ 記事が存在したら上記を実行 ↑↑ */ ?>

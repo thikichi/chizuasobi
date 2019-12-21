@@ -1,0 +1,8 @@
+<svg class="block2__thumb-main"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ width="500px" height="500px">
+<path fill-rule="evenodd"  fill="rgb(204, 204, 204)"
+ d="M-0.000,-0.000 L500.000,-0.000 L500.000,500.000 L-0.000,500.000 L-0.000,-0.000 Z"/>
+<text kerning="auto" font-family="Kozuka Gothic Pr6N" fill="rgb(0, 0, 0)" transform="matrix( 6.4664702434838, 0, 0, 6.4664702434838,68.0259094342525, 273.365880973935)" font-size="11.134px"><tspan font-size="11.134px" font-family="Yu Gothic" font-weight="bold" fill="#FFFFFF">NO&#32;IMAGE</tspan></text>
+</svg>

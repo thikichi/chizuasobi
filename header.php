@@ -37,7 +37,9 @@ jQuery(function($) {
 </head>
 
 <body <?php body_class(); ?>>
-
+<?php
+global $osfw;
+?>
 <div class="header-naviFolding">
   <div class="header-naviFolding-close">
     <?php get_template_part( 'parts/hamburger' ) ?>
@@ -48,17 +50,17 @@ jQuery(function($) {
         <a class="toggleSlide-nextElem" href="<?php echo home_url('/'); ?>">TOPページ</a>
       </li>
       <li>
-        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
+        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">史跡の一覧</a>
         <ul>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
+          <li><a href="<?php echo $osfw->get_archive_link('feature'); ?>">過去の特集記事</a></li>
+          <li><a href="#">カテゴリーの一覧</a></li>
+          <li><a href="#">おすすめ史跡コースの一覧</a></li>
         </ul>
       </li>
       <li>
         <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
         <ul>
-          <li><a href="#">サブメニュー</a></li>
+          <li><a href="#">このサイトについて</a></li>
           <li><a href="#">サブメニュー</a></li>
           <li><a href="#">サブメニュー</a></li>
         </ul>
@@ -127,12 +129,19 @@ jQuery(function($) {
         <!-- breadcrumbs168 -->
         <!--==================================================-->
 
-        <div class="breadcrumbs168 mt-xs-10 mb-xs-10">
-          <div class="container-fluid">
-            <div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
-              <?php if(function_exists('bcn_display')){bcn_display();} ?>
-            </div>
-          </div>
-        </div>
+<?php if( !(is_home() || is_front_page() )): ?>
+  <div class="breadcrumb">
+    <div class="breadcrumb__container">
+      <div class="breadcrumb__inner">
+        <?php
+        if ( function_exists( 'bcn_display' ) ) {
+        bcn_display();
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+
 
   <?php endif; ?>

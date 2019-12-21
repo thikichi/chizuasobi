@@ -4,7 +4,6 @@ global $i;
 ?>
 <li class="col-md-4 matchHeight mb-xs-15">
   <div class="box-2">
-    <?php if( $i > 5 ) { echo '<a class="_nextlink hover-nonUnderline" href="#"><span>さらに記事を見るには<br>こちらをクリック！</span></a>'; } ?>
     <h3 class="box-2-subttl">
       <span class="box-2-subttl-num"><?php echo $i; ?></span>
       <span class="box-2-subttl-main"><?php the_title(); ?> 
