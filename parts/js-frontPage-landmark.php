@@ -47,43 +47,6 @@ jQuery(function($) {
     $('#mapArea').myLazyLoadingObj({
       callback : mapAreaDone,
     });
-
-
-    /*
-     * TOPページ
-     * 特集テーマ
-    */
-    // 遅延読み込み部分
-    var mapAreaSpDone = function() {
-      var markerData = [];
-      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapAreaSp', mapLatLng, 10.0 );
-      // var disp_num = 2;
-      var query_args = <?php echo json_encode($post_map_sp); ?>;
-      $.ajax({
-          type: 'POST',
-          url: ajaxurl,
-          data: {
-            'action'     : 'get_wp_posts_map',
-            'query_args' : query_args,
-            'map_id'     : 'mapAreaSp',
-          },
-          success: function( response ){
-            jsonData = JSON.parse( response );
-            markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
-          }
-      });
-    }
-    $('#mapAreaSp').myLazyLoadingObj({
-      callback : mapAreaSpDone,
-    });
-
-    $('[data-mapid]').on('click', function(event) {
-      var map_post_id = $(this).data('mapid');
-      google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    });
-
   });
 });
 </script>

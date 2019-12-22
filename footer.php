@@ -81,9 +81,14 @@
 <?php
 if(is_singular('landmark')) {
   get_template_part('parts/js-single-landmark');
-} else if(is_front_page()) {
+} 
+if(is_singular('feature') || is_front_page()) {
+  get_template_part('parts/js-featurePostMap');
+} 
+if(is_front_page()) {
   get_template_part('parts/js-frontPage-landmark');
-} else if(is_tax('landmark_cateogry') || is_post_type_archive('landmark')) {
+} 
+if(is_tax('landmark_cateogry') || is_post_type_archive('landmark')) {
   get_template_part('parts/js-landmark-archive');
 }
 ?>

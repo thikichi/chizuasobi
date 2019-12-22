@@ -251,42 +251,90 @@
 
 /* block5 */
 
-.block5-ttl {
-  font-size: 18px;
-}
+.block5 {
+  background-color: #F4F4F4;
+  padding: 50px 0;
+  @at-root {
+    .block5-ttl {
+      font-size: 24px;
+      font-family: 'Noto Serif JP', serif;
+      text-align: center;
+      border-bottom: 1px solid $color-border;
+      padding: 30px 0;
+    }
+    .block5__container {
+      @extend %container;
+    }
+    .block5__inner {
+      background-color: #FFF;
 
-%block-6 {
-  background-color: #FFF;
-}
-.block-6--bg-lightGray {
-  @extend %block-6;
-  background-color: $color-lightGray;
-}
-.block-6 {
-  &__inner {
-    // margin: 30px 50px;
-    margin: 30px 0;
-  }
-  &__ttl {
-    @extend %font-noto-serif-jp;
-    background-color: #FFF;
-    font-size: 24px;
-    padding: 30px;
-    border-bottom: 1px solid $color-gray;
-    text-align: center;
-  }
-  &__main {
-    background-color: #FFF;
-    padding: 50px;
-    @include media-max(sm) { padding: 30px; }
-  }
-  &__item {
-    @include media-max(sm) {
-      &:nth-child(odd) { padding-right: 5px; }
-      &:nth-child(even) { padding-left: 5px; }
+      border-radius: 10px;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    }
+    .block5__boxmain {
+      padding: 30px 30px 50px 30px;
+    }
+    .block5__lead {
+      font-size: 20px;
+      font-family: 'Noto Serif JP', serif;
+      // text-align: center;
+    }
+    .block5__lead-inner {
+      // display: inline-block;
+      // text-align: left;
     }
   }
 }
+
+/* block7 */
+
+.block7 {
+  background-color: #FFF;
+  padding: 50px 0;
+  @at-root {
+    .block7-ttl {
+      font-size: 24px;
+      font-family: 'Noto Serif JP', serif;
+      text-align: center;
+      border-bottom: 1px solid $color-border;
+      padding: 30px 0;
+    }
+    .block7__container {
+      @extend %container;
+    }
+    .block7__inner {
+      // background-color: #FFF;
+
+      border-radius: 10px;
+      border: 1px solid $color-border;
+    }
+    .block7__boxmain {
+      padding: 30px 30px 30px 30px;
+    }
+    .block7__lead {
+      font-size: 20px;
+      font-family: 'Noto Serif JP', serif;
+    }
+    .block-7__main {
+      margin-top: 30px;
+    }
+    .block-7__list {
+      @extend %flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+    .block-7__item {
+      width: calc(100% / 5);
+      padding: 0 15px;
+      margin-bottom: 15px;
+    }
+    .list-7__title-main {
+      text-align: center;
+    }
+  }
+}
+
+
 
 // box-7
 
@@ -927,7 +975,7 @@ $layout3-slider-padding: 10px;
   @at-root {
     .bloc1__inner {
       background-color: #FFF;
-      border-radius: 10px 10px 0 0;
+      border-radius: 20px;
       border: 1px solid $color-borderLight;
     }
     .block1__ttl {
@@ -948,7 +996,7 @@ $layout3-slider-padding: 10px;
     .block1__map-main {
       width:100%;
       height:50vh;
-      border-radius: 10px;
+
     }
     .block1__panel {
       width:100%;
@@ -1204,6 +1252,7 @@ $layout3-slider-padding: 10px;
       width: 50%;
       padding: 0 15px;
       margin-bottom: 15px;
+      @include media-max(md) { width: 100%; }
     }
     .block2__box {
       border: 1px solid #CCC;
@@ -1211,26 +1260,25 @@ $layout3-slider-padding: 10px;
       padding: 15px;
     }
     .block2__box {
-      
-      // @include cf;
     }
     .block2__box-inner {
       @extend %flex;
       justify-content: space-between;
     }
     .block2__thumb {
-      // float: left;
-      width: 150px;
+      width: 125px;
       > img { width: 100%; }
+      @include media-max(sm) { width: 75px; }
     }
     .block2__main {
-      // float: left;
-      width: calc(100% - 150px);
+      width: calc(100% - 125px);
       padding-left: 15px;
       position: relative;
+      font-size: 13px;
+      padding-bottom: 35px;
+      @include media-max(sm) { width: calc(100% - 75px); }
     }
     .block2__thumb-main {
-      // margin: -13px 0 -13px -13px;
       width: 100%;
       display: inline-block;
     }
@@ -1251,6 +1299,24 @@ $layout3-slider-padding: 10px;
       > span {
         display: inline-block;
       }
+    }
+    .block2__ttk {
+      font-size: 16px;
+      font-weight: bold;
+      &--small {
+        font-size: 12px;
+        font-weight: normal;
+        @include media-max(lg) { display: block; }
+      }
+    }
+    .block2__lead {
+      // text-align: center;
+    }
+    .block2__lead-inner {
+      // display: inline-block;
+      // text-align: left;
+      font-size: 20px;
+      font-family: 'Noto Serif JP', serif;
     }
   }
 }
