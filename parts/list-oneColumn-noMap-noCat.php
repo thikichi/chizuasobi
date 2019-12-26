@@ -51,5 +51,3 @@ global $osfw;
   </div>
 </section>
 
-
-<?php get_template_part( 'parts/recomend', 'category' ); ?>

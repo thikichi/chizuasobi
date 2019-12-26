@@ -1306,6 +1306,9 @@ $layout3-slider-padding: 10px;
       width: 50%;
       padding: 0 15px;
       margin-bottom: 15px;
+      &--col1 {
+        width: 100%;
+      }
       @include media-max(md) { width: 100%; }
     }
     .block2__box {

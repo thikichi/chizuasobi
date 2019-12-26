@@ -20,7 +20,6 @@ class utilityClass extends OsFmBase {
   /**
    * アーカイブタイトルを表示する（投稿一覧も対象）
    *
-   * @return string タームのタグを返す
    */
   public function get_archive_title() {
     $title_name = '';
@@ -36,6 +35,20 @@ class utilityClass extends OsFmBase {
       $title_name = post_type_archive_title('',false);
     } elseif(is_home()) {
       $title_name = get_the_title();
+    }
+    return $title_name;
+  }
+
+  /**
+   * アーカイブおよびシングルページのタイトルを表示する
+   *
+   */
+  public function get_title() {
+    $title_name = '';
+    if(is_single()) {
+      $title_name = get_the_title();
+    } else {
+      $title_name = $this->get_archive_title();
     }
     return $title_name;
   }

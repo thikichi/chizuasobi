@@ -3,6 +3,38 @@
 <div class="container-fluid single-news">
   <div class="row">
     <div class="col-md-9 col-sm-8">
+
+
+
+
+<?php get_template_part( 'parts/list' ); ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <?php if (have_posts()): ?>
         <?php the_post(); ?>
         <?php /* ↓↓ 記事が存在したら下記を実行 ↓↓ */ ?>
