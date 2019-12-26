@@ -1,4 +1,5 @@
 <?php
+global $mapid;
 $lat_init = 35.681236;
 $lng_init = 139.767125;
 
@@ -8,10 +9,10 @@ $post_map_area = array(
   'posts_per_page' => -1,
 );
 
-// 特集テーマ
-global $post_map_sp;
-// 投稿件数だけ無限大に
-$post_map_sp['posts_per_page'] = -1;
+// // 特集テーマ
+// global $post_map_sp;
+// // 投稿件数だけ無限大に
+// $post_map_sp['posts_per_page'] = -1;
 ?>
 
 <script>
@@ -26,7 +27,7 @@ jQuery(function($) {
     var mapAreaDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapArea', mapLatLng, 10.0 );
+      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, 10.0 );
       var disp_num = 2;
       var query_args = <?php echo json_encode($post_map_area); ?>;
       $.ajax({
@@ -35,7 +36,7 @@ jQuery(function($) {
           data: {
             'action'     : 'get_wp_posts_map',
             'query_args' : query_args,
-            'map_id'     : 'mapArea',
+            'mapid'     : '<?php echo $mapid; ?>',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
@@ -44,9 +45,15 @@ jQuery(function($) {
           }
       });
     }
-    $('#mapArea').myLazyLoadingObj({
+    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
       callback : mapAreaDone,
     });
+
+    $('[data-mapid]').on('click', function(event) {
+      var map_post_id = $(this).data('mapid');
+      google.maps.event.trigger(markerMapArea[map_post_id], "click");
+    });
+
   });
 });
 </script>

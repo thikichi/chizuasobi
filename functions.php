@@ -875,7 +875,7 @@ add_action( 'wp_ajax_nopriv_view_mes', 'view_mes' );
 function get_wp_posts_map(){
   global $osfw;
   $returnObj  = array();
-  $map_id     = $_POST['map_id'];
+  $mapid     = $_POST['mapid'];
   $disp_num   = $_POST['disp_num']; // 表示させたい記事件数
   $query_args = $_POST['query_args'];
 
@@ -911,7 +911,7 @@ function get_wp_posts_map(){
       $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
       // InfoWindow
       $infoWin  = '';
-      $infoWin .= "<div id='" . $map_id . "-" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
+      $infoWin .= "<div id='" . $mapid . "_" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
       $infoWin .= "<a style='position:absolute;top:-150px'></a>";
       $infoWin .= "<div class='infwin-thumb'>";
       $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
@@ -922,7 +922,7 @@ function get_wp_posts_map(){
       $infoWin .= "</div>";
       $infoWin .= "</div>";
       // マーカーオブジェクトをつくる
-      $returnObj['markerDataAjax'][$i]['id']   = $map_id . "_" . get_the_ID();
+      $returnObj['markerDataAjax'][$i]['id']   = $mapid . "_" . get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);

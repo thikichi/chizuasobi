@@ -65,6 +65,7 @@ $post_map_sp = !empty($landmark_id_arr) ? array_merge( $post_map_sp, array('post
 $the_query = new WP_Query( $post_map_sp );
 ?>
 <?php if ($the_query->have_posts() && $get_feature_id): ?>
+  <?php $mapid='mapAreaSp'; // GoogleMapを読み込む要素を指定 ?>
   <?php get_template_part('parts/feature'); ?>
 <?php else: ?>
   <p>記事の投稿がありません。</p>

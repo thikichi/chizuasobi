@@ -1,13 +1,14 @@
 <?php
 global $osfw;
 global $i;
+global $mapid;
 ?>
 <li class="col-md-4 matchHeight mb-xs-15">
   <div class="box-2">
     <h3 class="box-2-subttl">
       <span class="box-2-subttl-num"><?php echo $i; ?></span>
       <span class="box-2-subttl-main"><?php the_title(); ?> 
-        <a class="link-color-1 text-12" data-mapid="mapAreaSp_<?php the_ID(); ?>" href="#mapAreaSp">[地図を見る]</a>
+        <a class="link-color-1 text-12" data-mapid="<?php echo $mapid . '_' . get_the_ID(); ?>" href="#mapAreaSp">[地図を見る]</a>
       </span>
     </h3>
     <div class="box-2-main">

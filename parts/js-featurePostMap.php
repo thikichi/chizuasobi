@@ -1,4 +1,5 @@
 <?php
+global $mapid;
 $lat_init = 35.681236;
 $lng_init = 139.767125;
 // 特集テーマ
@@ -10,6 +11,7 @@ $post_map_sp['posts_per_page'] = -1;
 <script>
 jQuery(function($) {
   $(function(){
+    var markerMapArea = [];
     /*
      * TOPページ
      * 特集テーマ
@@ -18,7 +20,7 @@ jQuery(function($) {
     var mapAreaSpDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapAreaSp', mapLatLng, 10.0 );
+      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, 10.0 );
       // var disp_num = 2;
       var query_args = <?php echo json_encode($post_map_sp); ?>;
       $.ajax({
@@ -27,7 +29,7 @@ jQuery(function($) {
           data: {
             'action'     : 'get_wp_posts_map',
             'query_args' : query_args,
-            'map_id'     : 'mapAreaSp',
+            'mapid'     : '<?php echo $mapid; ?>',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
@@ -36,7 +38,7 @@ jQuery(function($) {
           }
       });
     }
-    $('#mapAreaSp').myLazyLoadingObj({
+    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
       callback : mapAreaSpDone,
     });
 
