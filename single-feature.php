@@ -26,7 +26,7 @@ $post_map_sp = !empty($landmark_id_arr) ? array_merge( $post_map_sp, array('post
 $the_query = new WP_Query( $post_map_sp );
 ?>
 <?php if ($the_query->have_posts()): ?>
-  <?php get_template_part('parts/list-feature'); ?>
+  <?php get_template_part('parts/feature'); ?>
 <?php else: ?>
   <p>記事の投稿がありません。</p>
 <?php endif; ?>

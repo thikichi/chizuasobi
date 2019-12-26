@@ -10,7 +10,7 @@
         <div class="container-fluid">
           <h2 class="title204-text">
             <?php /* functions/utility.php にて編集可 */ ?>
-            <span><?php echo $utility_class->get_archive_title(); ?></span>
+            <span><?php echo $osfw->get_archive_title(); ?></span>
           </h2>
         </div>
       </div>

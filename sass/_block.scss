@@ -254,6 +254,10 @@
 .block5 {
   background-color: #F4F4F4;
   padding: 50px 0;
+  &--nobg {
+    background: none;
+    padding: inherit;
+  }
   @at-root {
     .block5-ttl {
       font-size: 24px;
@@ -261,15 +265,21 @@
       text-align: center;
       border-bottom: 1px solid $color-border;
       padding: 30px 0;
+      &--gray {
+        background-color: #f4f4f4;
+        border-radius: 10px 10px 0 0;
+        padding: 20px 0;
+      }
+      
     }
     .block5__container {
       @extend %container;
     }
     .block5__inner {
       background-color: #FFF;
-
       border-radius: 10px;
-      box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+      // box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid $color-border;
     }
     .block5__boxmain {
       padding: 30px 30px 50px 30px;
@@ -875,55 +885,98 @@ $layout3-slider-padding: 10px;
 
 // transition( $roperty: all, $duration: 0.25s, $timingFunction: linear, $delay: 0s )
 
-// searchform1
+// sform
 
-.searchform1 {
+.sform {
+  margin-top: 15px;
+  font-size: 16px;
   background-color: $color-lightGray;
-  padding: 50px 0;
-  &__inner {
-    border: 1px solid $color-gray;
-  }
-  &__title {
-    @extend %title-main;
-    padding: 15px;
-    border-bottom: 1px solid $color-gray;
-    text-align: center;
-    background-color: $color-green;
-    color: #FFF;
-  }
-  &__main {
-    padding: 15px;
-    background-color: #FFF;
-  }
-  // 検索フォーム
-  &__row {
-    @include cf;
-    border-bottom: 1px dashed #CCC;
-    padding: 15px 0;
-  }
-  &__col {
-    &--label {
-      float: left;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px dashed $color-border;
+  margin-bottom: 15px;
+  @at-root {
+    .sform__row {
+      @extend %flex;
+      border-bottom: 1px dotted $color-border;
+      padding: 10px 0;
+    }
+    .sform__col-label {
       width: 150px;
-      text-align: center;
+      font-weight: bold;
       position: relative;
       &::after {
         content: '';
-        position: absolute;
-        right: 0;
-        top: 10%;
+        width: 1px;
         height: 80%;
-        width: 2px;
-        background-color: $color-black;
+        position: absolute;
+        top: 10%;
+        right: 0;
+        background-color: $color-border;
       }
     }
-    &--main {
-      float: left;
-      width: calc( 100% - 150px );
-      padding-left: 20px;
+    .sform__col-main {
+      width: calc(100% - 150px);
+      padding-left: 15px;
+    }
+    .sform__sword {
+      font-weight: bold;
+    }
+    .sform__result {
+      // font-weight: bold;
     }
   }
 }
+
+
+
+// .sform1 {
+//   background-color: $color-lightGray;
+//   padding: 50px 0;
+//   &__inner {
+//     border: 1px solid $color-gray;
+//   }
+//   &__title {
+//     @extend %title-main;
+//     padding: 15px;
+//     border-bottom: 1px solid $color-gray;
+//     text-align: center;
+//     background-color: $color-green;
+//     color: #FFF;
+//   }
+//   &__main {
+//     padding: 15px;
+//     background-color: #FFF;
+//   }
+//   // 検索フォーム
+//   &__row {
+//     @include cf;
+//     border-bottom: 1px dashed #CCC;
+//     padding: 15px 0;
+//   }
+//   &__col {
+//     &--label {
+//       float: left;
+//       width: 150px;
+//       text-align: center;
+//       position: relative;
+//       &::after {
+//         content: '';
+//         position: absolute;
+//         right: 0;
+//         top: 10%;
+//         height: 80%;
+//         width: 2px;
+//         background-color: $color-black;
+//       }
+//     }
+//     &--main {
+//       float: left;
+//       width: calc( 100% - 150px );
+//       padding-left: 20px;
+//     }
+//   }
+// }
 
 
 // nav-pagelink
@@ -1246,6 +1299,7 @@ $layout3-slider-padding: 10px;
     }
     .block2__list {
       @extend %flex;
+      flex-wrap: wrap;
       margin: 0 -15px;
     }
     .block2__list-item {

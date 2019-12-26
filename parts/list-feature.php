@@ -1,32 +1,21 @@
 <?php
 global $osfw;
 ?>
-<?php get_header(); ?>
+
 
 <section class="block5">
   <div class="block5__container">
     <div class="block5__inner">
       <h2 class="block5-ttl">
-        <?php if( get_search_query()!='' ): ?>
-          <?php the_search_query(); ?>の検索結果 : <?php echo $wp_query->found_posts; ?>件
-        <?php else: ?>
-          検索フォーム
-        <?php endif; ?>
+        <?php echo $osfw->get_archive_title(); ?>
       </h2>
-
       <div class="block5__boxmain">
-
-        <div class="mb-25">
-          <?php get_search_form(); ?>
-        </div>
-
         <p class="block5__lead">
           <span class="block5__lead-inner">
-            史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
+            特修記事の過去のアーカイブです。特修記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
             各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
           </span>
         </p>
-
         <?php if(have_posts()): ?>
           <ul class="block2__list mt-xs-30">
             <?php // $markers = array(); // Marker Object ?>
@@ -62,4 +51,5 @@ global $osfw;
   </div>
 </section>
 
-<?php get_footer(); ?>
+
+<?php get_template_part( 'parts/recomend', 'category' ); ?>

@@ -52,8 +52,9 @@ global $osfw;
       <li>
         <a class="toggleSlide-nextElem has-icon-plus-after" href="#">史跡の一覧</a>
         <ul>
-          <li><a href="<?php echo $osfw->get_archive_link('feature'); ?>">過去の特集記事</a></li>
-          <li><a href="#">カテゴリーの一覧</a></li>
+          <li><a href="<?php echo $osfw->get_archive_link('landmark'); ?>">史跡の一覧</a></li>
+          <li><a href="<?php echo $osfw->get_archive_link('feature'); ?>">特集</a></li>
+
           <li><a href="#">おすすめ史跡コースの一覧</a></li>
         </ul>
       </li>
@@ -74,12 +75,7 @@ global $osfw;
         </ul>
       </li>
       <li>
-        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
-        <ul>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-        </ul>
+        <a class="toggleSlide-nextElem" href="<?php $osfw->get_page_link('searchform'); ?>">史跡検索</a>
       </li>
     </ul>
   </div>
