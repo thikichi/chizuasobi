@@ -115,7 +115,9 @@
             $img_1x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w300' );
             $img_2x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w750' );
             echo '<li class="gallery__item">';
+            echo '<a href="' . esc_url($img_2x['src']) . '">';
             echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . esc_url($img_2x['alt']) . '">';
+            echo '</a>';
             echo '</li>';
           }
           echo '</ul>';
@@ -291,8 +293,8 @@
         the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
         ?>
         <ul class="layout3-slider mt-xs-20">
-          <?php 
-          if( isset($xml->Hotel) && is_array($xml->Hotel) ):
+          <?php
+          if( isset($xml->Hotel) ):
             foreach ($xml->Hotel as $hotel): ?>
             <li>
               <div class="layout3-slider-box">
