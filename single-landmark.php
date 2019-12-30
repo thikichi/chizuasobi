@@ -80,6 +80,8 @@
           </div>
         </div>
       </div>
+      <?php /* 引用のリスト */ ?>
+      <?php get_template_part( 'parts/items-quot' ); ?>
     </div>
   </section>
 <?php endif; ?>
@@ -183,9 +185,7 @@
 <hr class="line1"></hr>
 
 
-<?php
-$related_sites = SCF::get('related_sites');
-if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
+<?php if(have_rows('acf_related_sites')): ?>
   <section class="block5 bgColor-lightGray">
     <div style="position: relative;">
       <div id="Shuhen" style="position:absolute;top:-50px"></div>
@@ -195,47 +195,34 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
         <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
           他に『<?php the_title(); ?>』を紹介しているサイトの一覧
         </h3>
+        
         <ul class="list2 mt-xs-15">
-          <?php foreach ($related_sites as $related_site): ?>
-            <?php
-            $site_title = esc_html( $related_site['scf_landmark_relatedsites_sitetitle'] );
-            $site_url   = esc_url( $related_site['scf_landmark_relatedsites_siteurl'] );
-            $quot       = esc_html( $related_site['scf_landmark_relatedsites_quotations'] );
-            $explain    = esc_html( $related_site['scf_landmark_relatedsites_explain'] );
-            // サイト名
-            if( !empty($related_site['scf_landmark_relatedsites_website']) ) {
-              $post_id = $related_site['scf_landmark_relatedsites_website'][0];
-              $site = get_posts( array( 'post_type'=>'website', 'include'=>$post_id ) );
-              $site_name = $site[0]->post_title;
-            } else {
-              $site_name = $site_title;
-            }
-            ?>
+          <?php while(have_rows('acf_related_sites')): the_row(); ?>
             <li class="list2-item">
-              <h4 class="text-18"><?php echo $site_title; ?></h4>
-              <?php if( $site_url ): ?>
-                <q class="quote1-link" cite="<?php echo $site_url; ?>">
-                  <a class="link-color-1" href="<?php echo $site_url; ?>" target="_blank">
-                    <?php echo $site_url; ?> <i class="fas fa-external-link-alt"></i>
+              <h4 class="text-18"><?php the_sub_field('title'); ?></h4>
+              <?php if( get_sub_field('url') ): ?>
+                <q class="quote1-link" cite="<?php the_sub_field('url'); ?>">
+                  <a class="link-color-1" href="<?php the_sub_field('url'); ?>" target="_blank">
+                    <?php the_sub_field('url'); ?> <i class="fas fa-external-link-alt"></i>
                   </a>
                 </q>
               <?php endif; ?>
-              <?php if( $explain ): ?>
-                <p class="mt-xs-10"><?php echo $explain; ?></p>
+              <?php if( get_sub_field('explain') ): ?>
+                <p class="mt-xs-10"><?php the_sub_field('explain'); ?></p>
               <?php endif; ?>
 
-              <?php if( $quot ): ?>
+              <?php if( get_sub_field('quot') ): ?>
                 <blockquote class="quote1-main" cite="http://www.example.com/kusamakura.html">
-                  <?php echo esc_textarea($quot); ?>
+                  <?php the_sub_field('quot'); ?>
                 </blockquote>
               <?php endif; ?>
               <?php if( $site_name ): ?>
                 <p class="quote1-ttl">
-                  引用元『<?php echo $site_name; ?>』より抜粋
+                  引用元『<?php the_sub_field('title'); ?>』より抜粋
                 </p>
               <?php endif; ?>
             </li>
-          <?php endforeach; ?>
+          <?php endwhile; ?>
         </ul>
       </div>
     </div>

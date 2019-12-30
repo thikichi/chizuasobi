@@ -809,19 +809,21 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 /* Title */
 /*--------------------------------------------------*/
-.ttl-1 { font-size: 50px; font-family: 'Noto Serif JP', serif; color: #FFF; }
+.ttl-1 { font-size: 50px; font-family: "Noto Serif JP", serif; color: #FFF; }
 
 .ttl-1-inner::after { content: '目的のピンをクリックすると記事がポップアップします。'; font-size: 18px; margin-left: 15px; }
 
 @media (max-width: 991px) { .ttl-1 { font-size: 24px; }
   .ttl-1-inner::after { font-size: 14px; } }
 @media (max-width: 767px) { .ttl-1-inner::after { display: block; margin-left: 0; } }
-.title-1__main { display: block; font-family: 'Noto Serif JP', serif; font-size: 26px; }
+.title-1__main { display: block; font-family: "Noto Serif JP", serif; font-size: 26px; }
 @media only screen and (max-width: 575px) { .title-1__main { font-size: 20px; } }
 
-.title-1__sub { display: block; font-family: 'Noto Serif JP', serif; font-size: 16px; margin-bottom: -5px; }
+.title-1__sub { display: block; font-family: "Noto Serif JP", serif; font-size: 16px; margin-bottom: -5px; }
 .title-1__sub--l { font-size: 20px; margin-bottom: -3px; }
 @media only screen and (max-width: 575px) { .title-1__sub { font-size: 14px; } }
+
+.title-2 { font-family: "Noto Serif JP", serif; border-bottom: 1px solid #CCC; text-align: center; font-size: 24px; padding-bottom: 15px; }
 
 .ttl-3 { font-size: 26px; font-family: 'Noto Sans JP', sans-serif; font-weight: bold; }
 
