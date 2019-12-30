@@ -10,6 +10,35 @@ jQuery(function($) {
   });
 
 
+  $(window).on('load scroll', function() {
+    $('[data-bgsize]').each(function(index, el) {
+      var thisWidth  = $(this).width();
+      switch( $(this).data('bgsize') ) {
+        // 黄金比
+        case 'goldenRatio' :
+        var thisHeight = thisWidth / 1.6;
+        break;
+        // 黄金比　縦
+        case 'goldenRatioV' :
+        var thisHeight = thisWidth * 1.6;
+        break;
+        // ３：４
+        case 'commonRatio' :
+        var thisHeight = thisWidth * 0.75;
+        break;
+        // ３：４　縦
+        case 'commonRatioV' :
+        var thisHeight = thisWidth / 0.75;
+        break;
+        // square
+        case 'square' :
+        var thisHeight = thisWidth * 1;
+        break;
+      }
+      $(this).height(thisHeight);
+    });
+  });
+
   // TAB切り替わりの部分
   $('.tab-switch').each(function(index, el) {
     var thisTab = $(this);

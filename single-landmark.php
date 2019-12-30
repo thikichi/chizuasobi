@@ -23,7 +23,7 @@
 
 <?php if (have_posts()): ?>
   <?php the_post(); ?>
-  <section id="SingleMain">
+  <section id="SingleMain" class="pb-xs-50">
     <div style="position: relative;">
       <div id="Siseki" style="position:absolute;top:-50px"></div>
     </div>
@@ -41,74 +41,38 @@
       </h2>
       <div class="box4 mt-xs-30">
         <div class="box4-thumb">
-          <?php
-          $img = $osfw->get_thumbnail_by_post( $post->ID, 'img_square' );
-          if( $img!='' ) {
-            echo $osfw->the_image_tag( $img );
-          } else {
-            echo '<img loading="lazy" src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
-          }
-          $map_center = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
-          $map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
-          $single_post = get_posts( array( 'post_type'=>'landmark', 'include'=>$post->ID ) );
-          // 経度・緯度・ズーム率
-          $map_center = array($map_center['lat'], $map_center['lng'], $map_zoom);
-          // GoogleMapのフィールド、所在地のフィールド
-          $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
-          $style = 'width:100%;height:270px;margin-top:10px';
-          // mapID、投稿オブジェクト、MAP中心
-          the_google_map_disp('mapSingleMain', $single_post, $map_center, $field_params, $style);
-          ?>
+          <div class="box4-thumb__photo">
+            <?php
+            $img = $osfw->get_thumbnail_by_post( $post->ID, 'img_square' );
+            if( $img!='' ) {
+              echo $osfw->the_image_tag( $img );
+            } else {
+              echo '<img loading="lazy" src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+            }
+            $map_center = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
+            $map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
+            $single_post = get_posts( array( 'post_type'=>'landmark', 'include'=>$post->ID ) );
+            // 経度・緯度・ズーム率
+            $map_center = array($map_center['lat'], $map_center['lng'], $map_zoom);
+            // GoogleMapのフィールド、所在地のフィールド
+            $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
+            $style = 'width:100%;height:270px;margin-top:10px';
+            ?>
+          </div>
+          <div class="box4-thumb__map mt-xs-10">
+            <?php
+            $gmap_iframe = get_post_meta( $post->ID, 'acf_googlemap_iframe', true );
+            if( $gmap_iframe!='' ) {
+              echo $gmap_iframe;
+            } 
+            ?>
+          </div>
         </div>
         <div class="box4-main">
           <div class="box4-main-inner">
             <div class="box4-list">
-              <?php
-              $tax = 'landmark_cateogry'; // タクソノミー名
-              // $terms = get_terms( array('taxonomy'=>$tax,'get'=>'all' ) );
-              $terms = get_the_terms($post->ID, $tax);
-              if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-                echo '<ul class="taglist-2">';
-                foreach ( $terms as $term ) {
-                  $term_link = get_term_link( $term->term_id, $tax );
-                  echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
-                }
-                echo '</ul>';
-              } else {
-              }
-              ?>
-              <ul class="list1">
-                <?php
-                if ( is_object_in_term($post->ID, 'landmark_cateogry','castle') ) {
-                  $field_arr = array(
-                    array( 'name' => 'acf_landmark_address', 'label' => '所在地', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_category', 'label' => '種類', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_anothername', 'label' => '別名', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_age', 'label' => '年代', 'type'=>'text' ),
-                    // 城　
-                    array( 'name' => 'acf_castle_anothername', 'label' => '城の別名', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_category', 'label' => '城の種類', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_chikujyosha', 'label' => '築城者', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_age', 'label' => '城の年代', 'type'=>'text' ),
-                    array( 'name' => 'acf_castle_jyoshu', 'label' => 'おもな城主', 'type'=>'text' ),
-                  );
-                  foreach ($field_arr as $field) {
-                    # code...
-                    if($field['type']==='text') {
-                      $fvalue = get_post_meta( $post->ID, $field['name'], true );
-                      if($fvalue!='') {
-                        echo '<li>';
-                        echo '<dl class="dlList1">';
-                        echo '<dt class="dlList1__item--label">' . $field['label'] . '</dt>';
-                        echo '<dd class="dlList1__item--value">' . $fvalue . '</dd>';
-                        echo '</dl>';
-                        echo '</li>';
-                      }
-                    }
-                  }
-                }
-                ?>
-              </ul>
+              <?php /* カテゴリーのリスト */ ?>
+              <?php get_template_part( 'parts/items-cat' ); ?>
               <div class="box4-text mt-xs-30">
                 <?php the_content(); ?>
               </div>
@@ -121,56 +85,61 @@
 <?php endif; ?>
 
 
-<section class="block5 mt-xs-30 bgColor-lightGray">
-  <div style="position: relative;">
-    <div id="Gallery" style="position:absolute;top:-50px"></div>
-  </div>
-  <div class="container">
-    <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
-      <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
+<hr class="line1"></hr>
+
+
+
+<section class="block5">
+  <div class="block5__container">
+    <div class="block5__inner">
+      <h2 class="block5-ttl">
         史跡「<?php the_title(); ?>」の写真一覧
-      </h3>
-      <div class="inner-normal">
-        <ul class="gallery1">
-          <?php
-          $photo_arr = SCF::get('scf_landmark_gallery');
-          if( isset($photo_arr) && is_array($photo_arr) ) {
-            foreach ($photo_arr as $photo) {
-              # code...
-              $img_250 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_250', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-              $img_500 = $osfw->get_thumbnail( $photo['scf_landmark_gallery_img'], 'img_square_500', 'https://placehold.jp/3d4070/ffffff/750x750.png' );
-              echo '<li class="gallery1__item">';
-              echo '<a class="gallery1__item-link" href="' . $img_500['src'] . '">';
-              echo '<img class="gallery1__item-image" src="' . $img_250['src'] . '" 
-               srcset="' . $img_250['src'] . ' 1x, 
-               ' . $img_500['src'] . ' 2x"
-               alt="">';
-              echo '<span class="gallery1__item-icon _icon"><i class="fas fa-search"></i></span>';
-              echo '</a>';
-              echo '</li>';
-            }
+      </h2>
+      <div class="block5__boxmain">
+        <p class="block5__lead">
+          <span class="block5__lead-inner">
+            史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
+            各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
+          </span>
+        </p>
+        <?php
+        $gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
+        if( $gallery_id_arr ) {
+          echo '<ul class="gallery mt-xs-30">';
+          foreach ($gallery_id_arr as $gallery_id) {
+            $img_1x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w300' );
+            $img_2x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w750' );
+            echo '<li class="gallery__item">';
+            echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . esc_url($img_2x['alt']) . '">';
+            echo '</li>';
           }
-          ?>
-        </ul>
+          echo '</ul>';
+        }
+        ?>
       </div>
     </div>
   </div>
 </section>
 
-
+<hr class="line1"></hr>
 
 <section class="block5">
   <div style="position: relative;">
     <div id="SameCat" style="position:absolute;top:-50px"></div>
   </div>
-  <div class="container">
-    <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50 border-solid">
-      <div class="block5-ttl inner-narrow underline-solid align-center">
-        <h3 class="font-noto-serif-jp text-24 ">
-          メインのカテゴリーが『<?php the_title(); ?>』と同じ史跡の一覧
-        </h3>
-      </div>
-      <div class="inner-normal">
+  <div class="block5__container">
+    <div class="block5__inner">
+      <h2 class="block5-ttl">
+        メインのカテゴリーが『<?php the_title(); ?>』と同じ史跡の一覧
+      </h2>
+      <div class="block5__boxmain">
+        <p class="block5__lead">
+          <span class="block5__lead-inner">
+            史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
+            各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
+          </span>
+        </p>
+
         <div class="mt-xs-15">
           <div id="mapCats" class="gmap-main"></div>
         </div>
@@ -204,10 +173,14 @@
 
 
         </div>
+
       </div>
     </div>
   </div>
 </section>
+
+
+<hr class="line1"></hr>
 
 
 <?php
@@ -270,16 +243,27 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
 <?php endif; ?>
 
 
-<section class="block5 mt-xs-30 bgColor-lightGray">
+
+
+
+
+<section class="block5">
   <div style="position: relative;">
     <div id="Shuhen" style="position:absolute;top:-50px"></div>
   </div>
-  <div class="container">
-    <div class="bgColor-white mt-xs-30 mt-md-50 mb-xs-30 mb-md-50">
-      <h3 class="block5-ttl font-noto-serif-jp text-24 inner-normal underline-solid align-center">
+  <div class="block5__container">
+    <div class="block5__inner">
+      <h2 class="block5-ttl">
         『<?php the_title(); ?>』周辺の史跡一覧
-      </h3>
-      <div class="inner-normal">
+      </h2>
+      <div class="block5__boxmain">
+        <p class="block5__lead">
+          <span class="block5__lead-inner">
+            史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
+            各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
+          </span>
+        </p>
+
         <p class="text-16">
           周辺に存在する史跡一覧です。
         </p>
@@ -324,29 +308,34 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
           </ul>
           <p id="DispPostMore" style="display:none">さらに表示する</p>
         </div>
+
       </div>
     </div>
   </div>
 </section>
 
 
+<hr class="line1"></hr>
+
 
 <section class="block5">
   <div style="position: relative;">
     <div id="HotelList" style="position:absolute;top:-50px"></div>
   </div>
-  <div class="container">
-    <div class="bgColor-white mt-xs-30 mt-md-50 border-solid">
-      <div class="block5-ttl inner-narrow underline-solid align-center">
-        <h3 class="font-noto-serif-jp text-24 ">
-          『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
-        </h3>
-      </div>
-      <div class="inner-normal">
-        <p class="text-16">他に『日本の100名城』と同じテーマに属する記事を掲載しています。<br>
+  <div class="block5__container">
+    <div class="block5__inner">
+      <h2 class="block5-ttl">
+        『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
+      </h2>
+      <div class="block5__boxmain">
+        <p class="block5__lead">
+          <span class="block5__lead-inner">
+            他に『日本の100名城』と同じテーマに属する記事を掲載しています。<br>
           下のマップアイコンを選択するか、スライダーからお好きな記事を選択してください。<br>
           スライダーを指定して指定の距離範囲内のランドマークを表示
+          </span>
         </p>
+
         <?php
         $acf_landmark_gmap = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
         $lat = $acf_landmark_gmap['lat']; // 経度
@@ -390,7 +379,11 @@ if( $related_sites[0]['scf_landmark_relatedsites_siteurl']!='' ): ?>
   </div>
 </section>
 
-<div class="">
+
+<hr class="line1"></hr>
+
+
+<div class="pt-xs-50">
   <?php get_template_part('parts/tab-content'); ?>
 </div>
 

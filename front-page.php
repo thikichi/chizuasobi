@@ -11,7 +11,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
   </div>
 </div>
 
-<section class="mt-xs-15">
+<section class="mt-xs-15 pb-xs-50">
   <div class="container">
     <h2 class="title-1 mt-xs-15 mb-xs-15">
       <span class="title-1__inner">
@@ -48,6 +48,7 @@ $get_feature_id  = get_theme_mod( 'top_special_select_1', false );
 $get_feature_ttl = get_theme_mod( 'top_special_text_1', false );
 if( $get_feature_id ) {
   $select_feature_post = get_posts( array('post_type'=>'feature', 'include'=>$get_feature_id,) );
+  // var_dump($select_feature_post[0]);
   $map_center = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_center', true );
   $map_zoom   = get_post_meta( $select_feature_post[0]->ID, 'acf_feature_map_zoom', true );
   // feature_posts

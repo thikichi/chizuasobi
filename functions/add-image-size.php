@@ -20,17 +20,21 @@
 
 add_action( 'after_setup_theme', function(){
   // 1000px × 1000px 比較的大きな画像
-  add_image_size('img_square', 750, 750 ,true);
-  add_image_size('img_square_250', 250, 250 ,true);
-  add_image_size('img_square_500', 500, 500 ,true);
-  // 黄金比の近似値 ※ 世界的な美の基準  1000×618
-  add_image_size('img_golden_ratio', 1000, 620 ,true);
-  // 白銀比の近似値 ※ 日本人になじみ深い 1000×707
-  // add_image_size('img_sailver_ratio', 1000, 700 ,true);
-  // 独自定義のサムネイル画像を定義できます。
-  // add_image_size('画像サイズの名前','幅ピクセル数','高さピクセル数','true or false');
-  add_image_size('img_3_4_1x', 640, 480 ,true);
-  add_image_size('img_3_4_2x', 300, 225 ,true);
+  add_image_size('img_square_w750', 750, 750 ,true);
+  add_image_size('img_square_w300', 300, 300 ,true);
+  add_image_size('img_square_w100', 100, 100 ,true);
+
+  add_image_size('img_golden_w750', 750, 464 ,true);
+  add_image_size('img_golden_w300', 300, 185 ,true);
+  add_image_size('img_golden_w100', 100, 60 ,true);
+
+  add_image_size('img_silver_w750', 750, 530 ,true);
+  add_image_size('img_silver_w300', 300, 210 ,true);
+  add_image_size('img_silver_w100', 100, 70 ,true);
+
+  add_image_size('img_normal_w750', 750, 560 ,true);
+  add_image_size('img_normal_w300', 300, 227 ,true);
+  add_image_size('img_normal_w100', 100, 75 ,true);
 });
 
 

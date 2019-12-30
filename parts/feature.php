@@ -5,6 +5,8 @@ global $post_map_sp;
 global $get_feature_ttl;
 global $select_feature_post;
 global $the_query;
+
+// var_dump($select_feature_post);
 ?>
 
 <section class="block5">
@@ -14,7 +16,7 @@ global $the_query;
         <?php echo $get_feature_ttl; ?><br>
         『 
         <?php 
-        if( is_archive() ) {
+        if( is_archive() || is_front_page() ) {
           echo $select_feature_post[0]->post_title;
         } else if(is_single()) {
           the_title();

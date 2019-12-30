@@ -46,6 +46,7 @@
 .subvisual__container::before, .breadcrumb__container::before, .block5__container::before, .block7__container::before, .block13__container::before, .block2__container::before, .subvisual__container::after, .breadcrumb__container::after, .block5__container::after, .block7__container::after, .block13__container::after, .block2__container::after { clear: both; content: ''; }
 
 .block-7__list, .sform__row, .block2__list, .block2__box-inner { display: flex; }
+.gallery { display: flex; flex-wrap: wrap; }
 
 /* Fonts */
 /*--------------------------------------------------*/
@@ -73,6 +74,8 @@
 @media only screen and (min-width: 1200px) { .container-1170 { width: 1170px; } }
 
 .bg-lightGray { background-color: #F4F4F4 !important; }
+
+.bg-gray { background-color: #CCC !important; }
 
 .borderTop { border-top: 1px solid #CCC; }
 
@@ -463,11 +466,13 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .box4-text { line-height: 2.0em; }
 
+.box4-thumb__map iframe { width: 100% !important; height: 300px !important; }
+
 /* block5 */
 .block5 { background-color: #F4F4F4; padding: 50px 0; }
-.block5--nobg { background: none; padding: inherit; }
+.block5--nobg { background: none; }
 .block5-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 30px 0; }
-.block5-ttl--gray { background-color: #f4f4f4; border-radius: 10px 10px 0 0; padding: 20px 0; }
+.block5-ttl--gray { background-color: #F4F4F4; border-radius: 10px 10px 0 0; padding: 20px 0; }
 
 .block5__inner { background-color: #FFF; border-radius: 10px; border: 1px solid #CCC; }
 
@@ -542,6 +547,9 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 /* Gallery */
 /*--------------------------------------------------*/
+.gallery { margin: 0 -7.5px; }
+.gallery__item { width: calc(100% / 4); padding: 0 7.5px; margin-bottom: 15px; }
+
 /* list */
 /*--------------------------------------------------*/
 .list1 > li { border-bottom: 1px dashed #CCC; padding: 10px 0; }
@@ -856,5 +864,8 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .link-1 ._icon { -webkit-transition: all 0.25s 0s linear; -moz-transition: all 0.25s 0s linear; -ms-transition: all 0.25s 0s linear; -o-transition: all 0.25s 0s linear; transition: all 0.25s 0s linear; }
 .link-1:hover ._icon { transform: rotateY(360deg); }
 .link-1:hover ._linkText { border-bottom: 1px dashed #5a89f3; }
+
+/* line */
+.line1 { margin: 0; height: 0; border: 0; border-top: 1px solid #CCC; border-bottom: 1px solid #fff; }
 
 /*# sourceMappingURL=common.css.map */
