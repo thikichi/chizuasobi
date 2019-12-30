@@ -1,5 +1,8 @@
 <?php if(have_rows('acf_related_sites')): ?>
-  <div class="mt-xs-15">
+  <section class="mt-xs-15">
+    <div style="position: relative;">
+      <div id="Quot" style="position:absolute;top:-100px"></div>
+    </div>
     <h3 class="title-2">
       他に『<?php the_title(); ?>』を紹介しているサイトの一覧
     </h3>
@@ -32,5 +35,5 @@
         </li>
       <?php endwhile; ?>
     </ul>
-  </div>
+  </section>
 <?php endif; ?>
