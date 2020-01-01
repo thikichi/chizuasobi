@@ -151,36 +151,34 @@
           <div id="mapCats" class="gmap-main"></div>
         </div>
         <div class="mt-xs-15">
+          <?php
+          $main_cat_id = get_post_meta( $post->ID, 'acf_landmark_main_category', true );
+          $args = array(
+            'post_type' => 'landmark',
+            'posts_per_page' => 4
+          );
+          $temp_cat_ids = get_the_terms( $post->ID, 'landmark_cateogry' );
+          if($main_cat_id) {
+            $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $main_cat_id )))));
+          } else if($temp_cat_ids[0]->term_id) {
+            $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $temp_cat_ids[0]->term_id )))));
+          }
+          $the_query = new WP_Query( $args );
+          ?>
+          <?php if ($the_query->have_posts()): ?>
+            <ul class="row mt-xs-15">
+              <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
+                <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
+                <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
+              <?php endwhile; ?>
+            </ul>
+            <?php button('landmark'); ?>
 
-    <?php
-    $main_cat_id = get_post_meta( $post->ID, 'acf_landmark_main_category', true );
-    $args = array(
-      'post_type' => 'landmark',
-      'posts_per_page' => -1
-    );
-    $temp_cat_ids = get_the_terms( $post->ID, 'landmark_cateogry' );
-    if($main_cat_id) {
-      $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $main_cat_id )))));
-    } else if($temp_cat_ids[0]->term_id) {
-      $args = array_merge( $args, array('tax_query'=>array(array('taxonomy' => 'landmark_cateogry','field' => 'id','terms' => array( $temp_cat_ids[0]->term_id )))));
-    }
-    $the_query = new WP_Query( $args );
-    ?>
-    <?php if ($the_query->have_posts()): ?>
-      <ul class="row mt-xs-15">
-        <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-          <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
-          <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
-        <?php endwhile; ?>
-      </ul>
-    <?php else: ?>
-      <p>記事の投稿がありません。</p>
-    <?php endif; ?>
-    <?php wp_reset_query(); ?>
-
-
+          <?php else: ?>
+            <p>記事の投稿がありません。</p>
+          <?php endif; ?>
+          <?php wp_reset_query(); ?>
         </div>
-
       </div>
     </div>
   </div>

@@ -81,7 +81,11 @@
 <?php
 global $mapid;
 if(is_singular('landmark')) {
-  get_template_part('parts/js-single-landmark');
+  $mapid = 'mapCats';
+  get_template_part('parts/js-postSameCat');
+  $mapid = 'mapDistSearch';
+  get_template_part('parts/js-mapDistSearch');
+  get_template_part('parts/js-postNearHotel');
 } 
 if(is_singular('feature') || is_front_page()) {
   $mapid = 'mapAreaSp';

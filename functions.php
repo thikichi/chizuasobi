@@ -648,6 +648,7 @@ function view_mes(){
     global $osfw;
     $returnObj = array();
     $dist  = $_POST['dist'];
+    $mapid  = $_POST['mapid'];
     $query_post_type = $_POST['query_post_type'];
     $query_terms     = isset($_POST['query_terms']) ? $_POST['query_terms'] : '';
     $query_postid    = $_POST['query_postid'];
@@ -656,7 +657,7 @@ function view_mes(){
     $disped_num = $display_mode=='replace' ? 0 :  $_POST['disped_num']; // すでに表示されている件数
 
     // 現在の投稿
-    $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'include'=>$query_postid, 'numberposts'=>-1 ) );
+    $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'numberposts'=>-1 ) );
     $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
     $thisdist = distance($this_gmap['lat'], $this_gmap['lng'], $this_gmap['lat'], $this_gmap['lng'], true);
     foreach ($this_posts as $this_post) {
@@ -667,7 +668,7 @@ function view_mes(){
         if ($term !== end($terms)) $term_list .= ',';
       }
       $term_list .= ']';
-      $returnObj['markerDataAjax'][0]['id']   = $this_post->ID;
+      $returnObj['markerDataAjax'][0]['id']   = $mapid . '_' . $this_post->ID;
       $returnObj['markerDataAjax'][0]['name'] = $this_post->post_title;
       $returnObj['markerDataAjax'][0]['lat']  = floatval($this_gmap['lat']);
       $returnObj['markerDataAjax'][0]['lng']  = floatval($this_gmap['lng']);
@@ -716,7 +717,7 @@ function view_mes(){
         // InfoWindow
         $infoWin  = '';
         $infoWin .= "<div id='infoWin-" . $term_post->ID . "' class='infwin cf' style='position:relative'>";
-        $infoWin .= "<a id='AAAAA-" . $term_post->ID . "' style='position:absolute;top:-150px'></a>";
+        $infoWin .= "<a id='" . $mapid . "_" . $term_post->ID . "' style='position:absolute;top:-150px'></a>";
         $infoWin .= "<div class='infwin-thumb'>";
         $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
         $infoWin .= "<div class='infwin-main'>";
@@ -818,7 +819,7 @@ $returnObj['tags'] .= <<< EOM
       </div>
       <div class="box-1-btn matchHeight">
         <div class="box-1-btnTop">
-          <a class="link-1" id="HandleMap-mapDistSearch-{$post_id}" href="#mapArea">
+          <a class="link-1" data-mapid="mapDistSearch_{$post_id}" id="mapDistSearch" href="#mapArea">
             <span class="link-color-1">
               <img class="_icon" src="{$theme_url}/images/common/icon-pin.svg"> 
               <span class="_linkText box-1-btnText">地図を見る</span>
@@ -967,8 +968,19 @@ add_action( 'wp_ajax_get_wp_posts_only', 'get_wp_posts_only' );
 add_action( 'wp_ajax_nopriv_get_wp_posts_only', 'get_wp_posts_only' );
 
 
-
-
+/*
+ * Button
+*/
+function button( $slug, $label = '過去の特集記事の一覧' ) {
+  global $osfw;
+  $rdata  = '';
+  $rdata .= '<div class="btn-1">';
+  $rdata .= '<a href="' . $osfw->get_archive_link( $slug ) . '">';
+  $rdata .= $label . '<i class="fas fa-angle-double-right"></i>';
+  $rdata .= '</a>';
+  $rdata .= '</div>';
+  echo $rdata;
+}
 
 
 
