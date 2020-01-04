@@ -1,4 +1,1 @@
-string(3) "101"
-string(3) "101"
-string(3) "101"
-string(3) "101"
+int(22)

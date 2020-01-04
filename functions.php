@@ -535,7 +535,6 @@ function openLayersFuncSingle() {
     };
     var map = new OpenLayers.Map({$map_id}, options);
     map.addLayer(new OpenLayers.Layer.OSM());
-    console.log(map.getProjectionObject().getCode());
     map.setCenter(new OpenLayers.LonLat( {$lng}, {$lat} )
         .transform(
                 new OpenLayers.Projection("EPSG:4326"),  // WGS84
@@ -710,13 +709,12 @@ function view_mes(){
           }
           $term_list .= ']';
         }
-
         // thumbnail
         $temp_img = $osfw->get_thumbnail_by_post( $term_post->ID, 'img_square' );
         $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
         // InfoWindow
         $infoWin  = '';
-        $infoWin .= "<div id='infoWin-" . $term_post->ID . "' class='infwin cf' style='position:relative'>";
+        $infoWin .= "<div id='mapDistSearch_" . $term_post->ID . "' class='infwin cf' style='position:relative'>";
         $infoWin .= "<a id='" . $mapid . "_" . $term_post->ID . "' style='position:absolute;top:-150px'></a>";
         $infoWin .= "<div class='infwin-thumb'>";
         $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
@@ -819,7 +817,7 @@ $returnObj['tags'] .= <<< EOM
       </div>
       <div class="box-1-btn matchHeight">
         <div class="box-1-btnTop">
-          <a class="link-1" data-mapid="mapDistSearch_{$post_id}" id="mapDistSearch" href="#mapArea">
+          <a class="link-1" href="javascript:clickViewMap('{$post_id}')">
             <span class="link-color-1">
               <img class="_icon" src="{$theme_url}/images/common/icon-pin.svg"> 
               <span class="_linkText box-1-btnText">地図を見る</span>

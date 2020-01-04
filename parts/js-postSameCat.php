@@ -50,7 +50,6 @@ jQuery(function($) {
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            console.log(jsonData);
             markerData = jsonData['markerDataAjax'];
             markerMapArea = dispMarker2( map, markerData );
           }
@@ -61,6 +60,7 @@ jQuery(function($) {
     });
     $('[data-mapid]').on('click', function(event) {
       var map_post_id = $(this).data('mapid');
+      console.log(map_post_id);
       google.maps.event.trigger(markerMapArea[map_post_id], "click");
     });
   });

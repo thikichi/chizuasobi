@@ -4,11 +4,14 @@ $lat_init = $post_map_center['lat'];
 $lng_init = $post_map_center['lng'];
 ?>
 <script>
+var mapDistInfoWins = [];
+
 jQuery(function($) {
   $(function(){
     /*
      * 付近の史跡一覧
     */
+    var markerMapArea = [];
     var map;
     var marker = [];
     var mapLatLng;
@@ -61,7 +64,9 @@ jQuery(function($) {
             markerData = jsonData['markerDataAjax'];
 
             deleteMakers(markerData, 1, marker);
-            dispMarker(map, jsonData['markerDataAjax'], marker, currentDist, 0, infoWindow);
+            // dispMarker(map, jsonData['markerDataAjax'], marker, currentDist, 0, infoWindow);
+            markerMapArea = dispMarker2( map, markerData );
+            mapDistInfoWins = markerMapArea;
 
             $('#PostNum > ._allnum').html(jsonData['post_num_all']);
             $('#PostNum > ._getnum').html(jsonData['post_num_get']);
@@ -114,16 +119,15 @@ jQuery(function($) {
       map = initMapDist( 'mapDistSearch', mapLatLng, centerMap, 13.0 );
       circleObj = paintCircleMap( map, mapLatLng, currentDist );
       query_terms = get_checked_values('.marker-check');
-      // console.log(query_terms);
       doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
     }
     $('#mapDistSearch').myLazyLoadingObj({
       callback : mylazyloadDone,
     });
-    $('[data-mapid]').on('click', function(event) {
-      var map_post_id = $(this).data('mapid');
-      google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    });
   });
 });
+function clickViewMap( linkid ) {
+  google.maps.event.trigger(mapDistInfoWins[linkid], "click");
+  document.getElementById('mapDistSearchLocation').scrollIntoView({behavior: 'smooth'});
+}
 </script>

@@ -197,17 +197,15 @@
       <h2 class="block5-ttl">
         『<?php the_title(); ?>』周辺の史跡一覧
       </h2>
-      <div class="block5__boxmain">
+      <div class="block5__boxmain" style="position:relative">
         <p class="block5__lead">
           <span class="block5__lead-inner">
             史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
             各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
           </span>
+          
         </p>
-
-        <p class="text-16">
-          周辺に存在する史跡一覧です。
-        </p>
+        <div id="mapDistSearchLocation" style="position:absolute;top:-100px"></div>
         <?php
         /* 初期値 */
         $distance = 10;
@@ -216,8 +214,8 @@
         $post_map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
         $marker_data_arr = array();
         ?>
-
-        <div id="mapDistSearch" style="width: 100%;height: 500px"></div>
+        <div id="mapDistSearch" class="mt-xs-15" style="width: 100%;height: 500px">
+        </div>
         
         <?php
         $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
