@@ -6,14 +6,14 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 
 <div class="gmap-all">
   <div class="container"> 
-    <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">Google Mapで検索</span></h2>
+    <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
     <div id="mapArea" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
   </div>
 </div>
 
-<section class="mt-xs-15 pb-xs-50">
+<section class="mt-xs-70 pb-xs-50">
   <div class="container">
-    <h2 class="title-1 mt-xs-15 mb-xs-15">
+    <h2 class="title-1 mb-xs-15">
       <span class="title-1__inner">
         <span class="title-1__main">
           史跡の一覧
@@ -41,6 +41,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
   </div>
 </section>
 
+<section>
 <?php
 // global $post_map_sp;
 $landmark_id_arr = array();
@@ -72,7 +73,9 @@ $the_query = new WP_Query( $post_map_sp );
   <p>記事の投稿がありません。</p>
 <?php endif; ?>
 <?php wp_reset_query(); ?>
+</section>
 
+<hr class="line1"></hr>
 
 <?php get_template_part('parts/tab-content'); ?>
 

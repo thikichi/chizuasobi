@@ -243,8 +243,7 @@
         </select>
         <p id="PostNum" class="fadeIn-1" style="display:none">記事件数: <span class="_allnum"></span> 件中 <span class="_getnum"></span>件表示</p>
         <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>" class="mt-xs-30 align-center">
-          <ul class="row mt-xs-15 fadeIn-1">
-          </ul>
+          <ul class="row mt-xs-15 fadeIn-1"></ul>
           <p id="DispPostMore" style="display:none">さらに表示する</p>
         </div>
 
@@ -321,9 +320,6 @@
 
 <hr class="line1"></hr>
 
-
-<div class="pt-xs-50">
-  <?php get_template_part('parts/tab-content'); ?>
-</div>
+<?php get_template_part('parts/tab-content'); ?>
 
 <?php get_footer(); ?>

@@ -75,6 +75,8 @@
 
 .bg-lightGray { background-color: #F4F4F4 !important; }
 
+.bg-lightGray2 { background-color: #FEFEFE !important; }
+
 .bg-gray { background-color: #CCC !important; }
 
 .borderTop { border-top: 1px solid #CCC; }
@@ -260,7 +262,7 @@
 /*--------------------------------------------------*/
 .spnavi-hamburger { -webkit-transition: 440ms; transition: 440ms; text-align: center; }
 
-.spnavi-hamburger-text { font-size: 10px; line-height: 1; letter-spacing: -0.05em; margin-top: -2px; -webkit-transition: color 440ms; transition: color 440ms; color: #f5de55; }
+.spnavi-hamburger-text { font-size: 10px; line-height: 1; letter-spacing: -0.05em; margin-top: -2px; -webkit-transition: color 440ms; transition: color 440ms; color: #ECD759; }
 @media only screen and (max-width: 575px) { .spnavi-hamburger-text { margin-top: -5px; } }
 
 .hamburger { font: inherit; display: inline-block; overflow: visible; margin: 0; padding: 0; cursor: pointer; -webkit-transition-timing-function: linear; transition-timing-function: linear; -webkit-transition-duration: .15s; transition-duration: .15s; -webkit-transition-property: opacity, -webkit-filter; -webkit-transition-property: opacity, filter, -webkit-filter; transition-property: opacity, -webkit-filter; transition-property: opacity, filter; transition-property: opacity, filter, -webkit-filter; text-transform: none; color: inherit; border: 0; background-color: transparent; }
@@ -271,7 +273,7 @@
 
 .hamburger-inner { top: 50%; display: block; margin-top: -2px; }
 
-.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after { position: absolute; width: 25px; height: 3px; -webkit-transition-timing-function: ease; transition-timing-function: ease; -webkit-transition-duration: .15s; transition-duration: .15s; border-radius: 4px; background-color: #f5de55; }
+.hamburger-inner, .hamburger-inner::before, .hamburger-inner::after { position: absolute; width: 25px; height: 3px; -webkit-transition-timing-function: ease; transition-timing-function: ease; -webkit-transition-duration: .15s; transition-duration: .15s; border-radius: 4px; background-color: #ECD759; }
 
 .hamburger-inner::before, .hamburger-inner::after { display: block; content: ''; }
 
@@ -356,8 +358,11 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .has-icon-plus-after.__avtive::after { display: none; }
 
 .gmap-all { position: relative; }
-.gmap-all::after { content: ''; top: 0; left: 0; position: absolute; width: 100%; height: 300px; background-color: #6ea364; z-index: -1; }
-.gmap-all__map-area { height: 350px; width: 100%; z-index: 100; }
+.gmap-all::after { content: ''; top: 0; left: 0; position: absolute; width: 80%; height: 300px; background-color: #6ea364; z-index: -1; }
+@media only screen and (max-width: 575px) { .gmap-all::after { width: 100%; } }
+.gmap-all::before { content: ''; top: 50px; right: 0; position: absolute; width: 100%; height: 450px; background-color: #F4F4F4; z-index: -2; }
+@media only screen and (max-width: 767px) { .gmap-all::before { top: 30px; } }
+.gmap-all__map-area { height: 350px; width: 100%; }
 
 .breadcrumb { margin-top: 15px; margin-bottom: 15px; }
 .breadcrumb span[property="itemListElement"], .breadcrumb span.current-item { background-color: #c04c41; color: #FFF; height: 30px; padding: 0 5px 0 22px; display: inline-block; margin-right: 5px; padding-top: 5px; margin-bottom: 3px; position: relative; }
@@ -789,7 +794,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }
 
-.btn-1 > a { display: block; margin: auto; border-radius: 3px; background-color: #6ea364; box-shadow: 1px 1.732px 1px 0px rgba(0, 0, 0, 0.3); color: #FFF; padding: 5px 20px; font-size: 18px; font-weight: bold; max-width: 350px; }
+.btn-1 > a { display: block; margin: auto; background-color: #6ea364; box-shadow: 1px 1.732px 1px 0px rgba(0, 0, 0, 0.3); color: #FFF; padding: 5px 20px; font-size: 18px; font-weight: bold; max-width: 350px; }
 
 /* btn-2 */
 .btn-2 { text-align: center; margin-top: 5px; }

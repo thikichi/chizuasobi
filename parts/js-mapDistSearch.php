@@ -48,7 +48,7 @@ jQuery(function($) {
           type: 'POST',
           url: ajaxurl,
           data: {
-              'action' : 'view_mes',
+              'action' : 'mapDistSearchFunc',
               'dist'   : dist,
               'mapid'  : 'mapDistSearch',
               'query_post_type' : query_post_type,

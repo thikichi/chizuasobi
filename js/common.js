@@ -149,7 +149,18 @@ function initMapDist( mapID, mapLatLng, centerMap, zoomLevel ) {
 function initMap( mapID, mapLatLng, zoomLevel ) {
   map = new google.maps.Map(document.getElementById(mapID), { // #sampleに地図を埋め込む
     center: mapLatLng, // 地図の中心を指定
-    zoom: zoomLevel // 地図のズームを指定
+    zoom: zoomLevel, // 地図のズームを指定
+    styles: [
+  {
+    "featureType": "road.local",
+    "elementType": "labels.icon",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  }
+]
   });
   return map;
 }

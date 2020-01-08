@@ -43,7 +43,7 @@ jQuery(function($) {
           type: 'POST',
           url: ajaxurl,
           data: {
-            'action'     : 'get_wp_posts_map',
+            'action'     : 'postSameCatFunc',
             'query_args' : query_args,
             'mapid'      : 'mapCats',
             'disp_num'   : disp_num, // 記事○件ずつ表示

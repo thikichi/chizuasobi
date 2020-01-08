@@ -54,28 +54,11 @@ global $osfw;
         <ul>
           <li><a href="<?php echo $osfw->get_archive_link('landmark'); ?>">史跡の一覧</a></li>
           <li><a href="<?php echo $osfw->get_archive_link('feature'); ?>">特集</a></li>
-
           <li><a href="#">おすすめ史跡コースの一覧</a></li>
         </ul>
       </li>
       <li>
-        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
-        <ul>
-          <li><a href="#">このサイトについて</a></li>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-        </ul>
-      </li>
-      <li>
-        <a class="toggleSlide-nextElem has-icon-plus-after" href="#">メニュー</a>
-        <ul>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-          <li><a href="#">サブメニュー</a></li>
-        </ul>
-      </li>
-      <li>
-        <a class="toggleSlide-nextElem" href="<?php $osfw->get_page_link('searchform'); ?>">史跡検索</a>
+        <a class="toggleSlide-nextElem" href="<?php echo $osfw->get_page_link('searchform'); ?>">史跡検索</a>
       </li>
     </ul>
   </div>
@@ -95,7 +78,7 @@ global $osfw;
         <div class="header-main">
           <span class="table">
             <span class="table-cell __left">
-              <h1 class="fontSet5">GoogleMapで遊ぶ<br class="visible-xs">ランドマーク紹介サイト</h1>
+              <h1 class="fontSet5">歴史を地図で巡る<br class="visible-xs">史跡紹介サイト</h1>
             </span>
           </span>
         </div>

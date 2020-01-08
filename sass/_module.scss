@@ -50,6 +50,7 @@
 .container-1170 { @include container( $width-xl: 1170px, $width-lg: 970px, $width-md: 750px ) }
 
 .bg-lightGray { background-color: $color-lightGray !important; }
+.bg-lightGray2 { background-color: $color-lightGray2 !important; }
 .bg-gray { background-color: $color-gray !important; }
 
 .borderTop { border-top: 1px solid $color-gray; }
