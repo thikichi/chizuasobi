@@ -57,18 +57,7 @@
 /* Taglist */
 /*--------------------------------------------------*/
 
-.taglist-1 > li {
-  float: left;
-  margin-right: 2px;
-  margin-bottom: 2px;
-}
-.taglist-1 > li > a {
-  display: block;
-  background-color: #6ea364;
-  color: #FFF;
-  padding: 2px 10px 1px 10px;
-  font-size: 13px;
-}
+
 
 
 .taglist-2 {
@@ -669,6 +658,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 
 // gmap-all
 .gmap-all {
+  // background-color: $color-lightGray;
   position: relative;
   &::after {
     content: '';
@@ -686,7 +676,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
     right: 0;
     position: absolute;
     width: 100%;
-    height: 450px;
+    height: 100%;
     background-color: $color-lightGray;
     z-index: -2;
     @include media-max(md) { top: 30px; }

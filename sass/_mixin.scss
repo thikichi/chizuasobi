@@ -325,3 +325,10 @@
        -o-transition: $roperty $duration $delay $timingFunction;
           transition: $roperty $duration $delay $timingFunction;
 }
+
+
+@mixin hoverAlpha( $baseColor, $transparency: 0.7 ) {
+  &:hover {
+    background-color: rgba($baseColor, $transparency);
+  }
+}

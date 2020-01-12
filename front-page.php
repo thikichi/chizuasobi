@@ -4,12 +4,67 @@
 $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 ?>
 
-<div class="gmap-all">
+<section class="gmap-all">
   <div class="container"> 
     <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
     <div id="mapArea" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
   </div>
-</div>
+  <div class="block3">
+    <div class="block3__container">
+      <div class="block3__inner">
+        <div class="block3__search">
+          <div class="block3__search-main matchHeight">
+            <div class="block3__search-box block3__search-box--first">
+              <input type="text" name="freetext" class="block3__form-text" placeholder="検索ワードを指定">
+            </div>
+            <div class="block3__search-box">
+              <select name="category" class="block3__form-select">
+                <option value="">種類を選択</option>
+                <option value="">選択１</option>
+                <option value="">選択２</option>
+              </select>
+            </div>
+            <div class="block3__search-box">
+              <select name="category" class="block3__form-select">
+                <option value="">種類を選択</option>
+                <option value="">選択１</option>
+                <option value="">選択２</option>
+              </select>
+            </div>
+            <div class="block3__search-box">
+              <select name="category" class="block3__form-select">
+                <option value="">種類を選択</option>
+                <option value="">選択１</option>
+                <option value="">選択２</option>
+              </select>
+            </div>
+          </div>
+          <div class="block3__search-sub matchHeight">
+            <div class="table">
+              <div class="table-cell cf">
+                <p class="block3__num">
+                  件数
+                  <span class="block3__num-main">
+                    <span class="block3__num-main2">30</span>件
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="block3__search-link matchHeight">
+            <div class="table">
+              <div class="table-cell cf">
+                <div class="link-1">
+                  <a href="<?php echo $osfw->get_archive_link('feature'); ?>">詳細検索</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="mt-xs-70 pb-xs-50">
   <div class="container">
@@ -40,7 +95,6 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
     <?php wp_reset_query(); ?>
   </div>
 </section>
-
 <section>
 <?php
 // global $post_map_sp;
