@@ -799,8 +799,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 @media only screen and (max-width: 575px) { .block3__search-main { float: none; width: 100%; } }
 
 .block3__search-sub { float: left; width: 135px; border-left: 1px solid #BBB; height: 100%; }
-.block3__search-sub .table-cell { text-align: right; }
-@media only screen and (max-width: 575px) { .block3__search-sub .table-cell { text-align: center; } }
+.block3__search-sub .table-cell { text-align: center; }
 @media only screen and (max-width: 991px) { .block3__search-sub { width: 100px; } }
 @media only screen and (max-width: 575px) { .block3__search-sub { width: 50%; border: none; } }
 

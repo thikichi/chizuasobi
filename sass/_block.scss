@@ -1431,8 +1431,8 @@ $layout3-slider-padding: 10px;
       border-left: 1px solid #BBB;
       height: 100%;
       .table-cell {
-        text-align: right;
-        @include media-max(sm) { text-align: center; }
+        text-align: center;
+        // @include media-max(sm) { text-align: center; }
       }
       @include media-max(lg) { width: 100px; }
       @include media-max(sm) { width: 50%; border: none; }
