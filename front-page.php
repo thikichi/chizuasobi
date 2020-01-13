@@ -7,7 +7,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 <section class="gmap-all">
   <div class="container"> 
     <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
-    <div id="mapArea" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
+    <div id="mapArea2" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
   </div>
   <div class="block3">
     <div class="block3__container">
@@ -55,7 +55,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
             <div class="table">
               <div class="table-cell cf">
                 <div class="link-1">
-                  <a href="<?php echo $osfw->get_archive_link('feature'); ?>">詳細検索</a>
+                  <a id="testlink" href="#">詳細検索</a>
                 </div>
               </div>
             </div>
@@ -65,6 +65,68 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
     </div>
   </div>
 </section>
+
+
+
+<?php
+$mapid = 'mapArea2';
+$lat_init = 35.681236;
+$lng_init = 139.767125;
+
+// query args
+$post_map_area = array(
+  'post_type' => 'landmark',
+  'posts_per_page' => -1,
+);
+
+// // 特集テーマ
+// global $post_map_sp;
+// // 投稿件数だけ無限大に
+// $post_map_sp['posts_per_page'] = -1;
+?>
+
+<script>
+jQuery(function($) {
+  $(function(){
+    var markerMapArea = [];
+    // var marker;
+    /*
+     * TOPページ
+    */
+    // 遅延読み込み部分
+    var mapAreaDone = function() {
+      var markerData = [];
+      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
+      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, 10.0 );
+      var disp_num = 2;
+      var query_args = <?php echo json_encode($post_map_area); ?>;
+      $.ajax({
+          type: 'POST',
+          url: ajaxurl,
+          data: {
+            'action'     : 'mapSimpleSearchFunc',
+            'query_args' : query_args,
+            'mapid'     : '<?php echo $mapid; ?>',
+          },
+          success: function( response ){
+            jsonData = JSON.parse( response );
+            markerData = jsonData['markerDataAjax'];
+            markerMapArea = dispMarker2( map, markerData );
+          }
+      });
+    }
+    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
+      callback : mapAreaDone,
+    });
+
+    $('[data-mapid]').on('click', function(event) {
+      var map_post_id = $(this).data('mapid');
+      google.maps.event.trigger(markerMapArea[map_post_id], "click");
+    });
+  });
+});
+</script>
+
 
 <section class="mt-xs-70 pb-xs-50">
   <div class="container">
