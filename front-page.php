@@ -18,24 +18,39 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
               <input type="text" name="freetext" class="block3__form-text" placeholder="検索ワードを指定">
             </div>
             <div class="block3__search-box">
-              <select name="category" class="block3__form-select">
-                <option value="">種類を選択</option>
-                <option value="">選択１</option>
-                <option value="">選択２</option>
-              </select>
+              <?php
+              $lcat_arr = get_terms( array('taxonomy'=>'landmark_cateogry','hide_empty'=>false) );
+              if ( ! empty( $lcat_arr ) && !is_wp_error( $lcat_arr ) ){
+                echo '<select data-setcategory="landmark_cateogry" name="landmark_cateogry" class="block3__form-select search-hook-select">';
+                echo '<option value="">種類で探す</option>';
+                foreach ( $lcat_arr as $term ) {
+                  echo '<option value="' . $term->term_id . '">' . $term->name . '</option>';
+                }
+                echo '</select>';
+              }
+              ?>
             </div>
             <div class="block3__search-box">
-              <select name="category" class="block3__form-select">
-                <option value="">種類を選択</option>
-                <option value="">選択１</option>
-                <option value="">選択２</option>
-              </select>
+              <?php
+              $lcat_arr = get_terms( array('taxonomy'=>'historical_person','hide_empty'=>false) );
+              if ( ! empty( $lcat_arr ) && !is_wp_error( $lcat_arr ) ){
+                echo '<select data-setcategory="historical_person" name="historical_person" class="block3__form-select search-hook-select">';
+                echo '<option value="">人物で探す</option>';
+                foreach ( $lcat_arr as $term ) {
+                  echo '<option value="' . $term->term_id . '">' . $term->name . '</option>';
+                }
+                echo '</select>';
+              }
+              ?>
             </div>
             <div class="block3__search-box">
-              <select name="category" class="block3__form-select">
-                <option value="">種類を選択</option>
-                <option value="">選択１</option>
-                <option value="">選択２</option>
+              <select data-setfield="acf_landmark_level" name="acf_landmark_level" class="block3__form-select search-hook-select">
+                <option value="">見どころレベル</option>
+                <option value="5">5 : 星５つ [ ★★★★★ ] 以上</option>
+                <option value="4">4 : 星４つ [ ★★★★ ] 以上</option>
+                <option value="3">3 : 星３つ [ ★★★ ] 以上</option>
+                <option value="2">2 : 星２つ [ ★★ ] 以上</option>
+                <option value="1">1 : 星１つ [ ★ ] 以上</option>
               </select>
             </div>
           </div>
@@ -45,7 +60,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
                 <p class="block3__num">
                   件数
                   <span class="block3__num-main">
-                    <span class="block3__num-main2">30</span>件
+                    <span id="MapSimpleSearchNum" class="block3__num-main2" data-count="0">0</span>件
                   </span>
                 </p>
               </div>
@@ -74,21 +89,20 @@ $lat_init = 35.681236;
 $lng_init = 139.767125;
 
 // query args
-$post_map_area = array(
-  'post_type' => 'landmark',
-  'posts_per_page' => -1,
-);
+// $post_map_area = array(
+//   'post_type' => 'landmark',
+//   'posts_per_page' => -1,
+// );
 
-// // 特集テーマ
-// global $post_map_sp;
-// // 投稿件数だけ無限大に
-// $post_map_sp['posts_per_page'] = -1;
 ?>
 
 <script>
 jQuery(function($) {
   $(function(){
     var markerMapArea = [];
+    var selectTaxVal = {};
+    var selectFieldVal = {};
+    var inputTextVal = {};
     // var marker;
     /*
      * TOPページ
@@ -98,26 +112,95 @@ jQuery(function($) {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
       var map = initMap( '<?php echo $mapid; ?>', mapLatLng, 10.0 );
-      var disp_num = 2;
-      var query_args = <?php echo json_encode($post_map_area); ?>;
+      var disp_num = 5;
+      var query_args = {
+        "post_type":"landmark",
+        "posts_per_page": disp_num
+      };
+      $('#MapSimpleSearchBtn').remove();
+      // ローダー読み込み
+      $('#MapSimpleSearchPost').html('<div class="align-center mt-30"><img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif"></div>');
       $.ajax({
           type: 'POST',
           url: ajaxurl,
           data: {
             'action'     : 'mapSimpleSearchFunc',
             'query_args' : query_args,
+            'disp_num'   : disp_num,
+            'selectTaxVal' : selectTaxVal,
+            'selectFieldVal' : selectFieldVal,
+            'inputTextVal' : inputTextVal,
             'mapid'     : '<?php echo $mapid; ?>',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
+            console.log(jsonData);
             markerData = jsonData['markerDataAjax'];
             markerMapArea = dispMarker2( map, markerData );
+            // 記事の出力
+            $('#MapSimpleSearchPost').html( jsonData['tags'] );
+            $('.matchHeight').matchHeight();
+            // 表示件数カウント
+            $('#MapSimpleSearchNum').html(0);
+            $('#MapSimpleSearchNum').attr('data-count', jsonData['found_posts']);
+            var countElm = $('[data-count]'),
+            countSpeed = 20;
+            countElm.each(function(){
+              var self = $(this),
+              countMax = self.attr('data-count'),
+              thisCount = self.text(),
+              countTimer;
+              function timer(){
+                countTimer = setInterval(function(){
+                  var countNext = thisCount++;
+                  self.text(countNext);
+                  if(countNext == countMax){
+                    clearInterval(countTimer);
+                  }
+                },countSpeed);
+              }
+              timer();
+            });
+            // さらに見るボタンを追加
+            console.log(jsonData['tags_btn']);
+            $('#MapSimpleSearchPost').after(jsonData['tags_btn']);
           }
       });
     }
     $('#<?php echo $mapid; ?>').myLazyLoadingObj({
       callback : mapAreaDone,
     });
+
+    // 検索フォームが選択された場合
+    $('.search-hook-select').change(function() {
+      setFormValues();
+      mapAreaDone();
+    });
+
+    // フリーワード
+    $('.block3__form-text').blur(function() {
+      setFormValues();
+      mapAreaDone();
+    });
+
+    // すべてのフォームの値を取得する
+    function setFormValues() {
+      // カテゴリーを選択したとき
+      $('[data-setcategory]').each(function(index, el) {
+        var setcategory = $(this).data('setcategory');
+        var val = $(this).val();
+        selectTaxVal[setcategory] = val;
+      });
+      // カスタムフィールドを選択したとき
+      $('[data-setfield]').each(function(index, el) {
+        var setfield = $(this).data('setfield');
+        var val = $(this).val();
+        selectFieldVal[setfield] = val;
+      });
+      // フリーワード検索
+      inputTextVal = $('input[name="freetext"]').val();
+    }
+
 
     $('[data-mapid]').on('click', function(event) {
       var map_post_id = $(this).data('mapid');
@@ -137,24 +220,7 @@ jQuery(function($) {
         </span>
       </span>
     </h2>
-    <?php
-    $args = array(
-      'post_type' => 'landmark',
-      'posts_per_page' => -1
-    );
-    $the_query = new WP_Query( $args );
-    ?>
-    <?php if ($the_query->have_posts()): ?>
-      <ul class="row mt-xs-15">
-        <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-          <?php $mapid='mapArea'; // GoogleMapを読み込む要素を指定 ?>
-          <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
-        <?php endwhile; ?>
-      </ul>
-    <?php else: ?>
-      <p>記事の投稿がありません。</p>
-    <?php endif; ?>
-    <?php wp_reset_query(); ?>
+    <ul class="row mt-xs-15" id="MapSimpleSearchPost"></ul>
   </div>
 </section>
 <section>

@@ -651,6 +651,91 @@ require_once 'ajax/postSameCatFunc.php';
 require_once 'ajax/mapSimpleSearchFunc.php';
 
 
+function gmap_infowindow( $id, $post_map_img, $title, $address, $link  ) {
+  $tag  = '';
+  $tag .= "<div id='" . $id . "' class='infwin cf' style='position:relative'>";
+  $tag .= "<a style='position:absolute;top:-150px'></a>";
+  $tag .= "<div class='infwin-thumb'>";
+  $tag .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
+  $tag .= "<div class='infwin-main'>";
+  $tag .= "<h3>" . $title . "</h3>";
+  $tag .= "<p>" . $address . "</p>";
+  $tag .= "<p class='infwin-link'><a href='" . $link . "'>この記事を見る</a></p>";
+  $tag .= "</div>";
+  $tag .= "</div>";
+  return $tag;
+}
+
+function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
+
+  // Thumbnail
+  $img_id = get_post_thumbnail_id( $post_id );
+  if( $img_id!='' ) {
+    $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    $thumb = '<img src="' . $temp_img[0] . '" alt="">';
+    $img_url = $temp_img[0];
+  } else {
+    $thumb = '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
+    $img_url = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+  }
+
+  $theme_url = get_stylesheet_directory_uri();
+  $permalink = get_the_permalink();
+
+  $taxtag = '';
+  $terms = get_the_terms(get_the_ID(), $tax_slug);
+  if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+    $taxtag .= '<ul class="taglist-1 cf mt-xs-10">';
+    foreach ( $terms as $term ) {
+      $term_link = get_term_link( $term->term_id, $tax_slug );
+      $taxtag .= '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+    }
+    $taxtag .= '</ul>';
+  }
+
+  $tag  = '';
+  $tag .= '<li class="col-md-6 mt-xs-15">';
+  $tag .= '<div class="box-1 box-1-2col cf">';
+  $tag .= '<div class="box-1-inner cf">';
+  $tag .= '<div class="box-1-thumb matchHeight">';
+  $tag .= $thumb;
+  $tag .= '</div>';
+  $tag .= '<div class="box-1-main matchHeight">';
+  $tag .= '<div class="box-1-text">';
+  $tag .= '<h3 class="subttl-1">';
+  $tag .= get_the_title();
+  $tag .= '<span class="subttl-1-mini">投稿日時 ' . get_the_time('Y.m.d') . '</span>';
+  $tag .= '</h3>';
+  $tag .= '<p class="mt-xs-5">' . $address . '</p>';
+  $tag .= $taxtag;
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '<div class="box-1-btn matchHeight">';
+  $tag .= '<div class="box-1-btnTop">';
+  $tag .= '<a class="link-1" href="javascript:clickViewMap(\'' . $post_id . '\')">';
+  $tag .= '<span class="link-color-1">';
+  $tag .= '<img class="_icon" src="' . $theme_url . '/images/common/icon-pin.svg">'; 
+  $tag .= '<span class="_linkText box-1-btnText">地図を見る</span>';
+  $tag .= '</span>';
+  $tag .= '</a>';
+  $tag .= '</div>';
+  $tag .= '<div class="box-1-btnBottom">';
+  $tag .= '<a class="link-1" href="' . $permalink . '">';
+  $tag .= '<span class="link-color-1">';
+  $tag .= '<img class="_icon" src="' . $theme_url . '/images/common/icon-book.svg">';
+  $tag .= '<span class="_linkText box-1-btnText">記事を読む</span>';
+  $tag .= '</span>';
+  $tag .= '</a>';
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '<div class="box-1-bottom">';
+  $tag .= $taxtag;
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '</li>';
+  return $tag;
+}
 
 
 
