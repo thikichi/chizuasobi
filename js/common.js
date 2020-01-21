@@ -248,3 +248,8 @@ function getInfowinContent( post_id, map_id, img_url, post_title, address, link 
   tag += "</div>";
   return tag;
 }
+
+// function clickViewMap( mapDistInfoWins, linkid ) {
+//   google.maps.event.trigger(mapDistInfoWins[linkid], "click");
+//   document.getElementById('mapArea2').scrollIntoView({behavior: 'smooth'});
+// }

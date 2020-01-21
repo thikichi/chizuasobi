@@ -714,7 +714,7 @@ function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
   $tag .= '<div class="box-1-btnTop">';
   $tag .= '<a class="link-1" href="javascript:clickViewMap(\'' . $post_id . '\')">';
   $tag .= '<span class="link-color-1">';
-  $tag .= '<img class="_icon" src="' . $theme_url . '/images/common/icon-pin.svg">'; 
+  $tag .= '<img class="_icon " src="' . $theme_url . '/images/common/icon-pin.svg">'; 
   $tag .= '<span class="_linkText box-1-btnText">地図を見る</span>';
   $tag .= '</span>';
   $tag .= '</a>';
@@ -788,12 +788,30 @@ function button( $slug, $label = '過去の特集記事の一覧' ) {
 */
 if( function_exists('acf_add_options_page') ) {
   acf_add_options_page(array(
-    'page_title'  => 'slider',
-    'menu_title'  => 'ページスライダー',
-    'menu_slug'   => 'top_header_slider',
+    'page_title'  => '全体設定',
+    'menu_title'  => '全体設定',
+    'menu_slug'   => 'theme-general-settings',
     'capability'  => 'edit_posts',
     'redirect'    => false
   ));
+
+  acf_add_options_sub_page(array( // 子ページ
+    'page_title'  => 'スライダー設定', // ページタイトル
+    'menu_title'  => 'TOPスライダー設定', // メニュータイトル
+    'menu_slug'   => 'slider-settings',
+    'capability'  => 'edit_posts',
+    'parent_slug' => 'theme-general-settings', // 親メニューのスラッグ
+  ));
+
+  acf_add_options_sub_page(array( // 子ページ
+    'page_title'  => '地図設定', // ページタイトル
+    'menu_title'  => '地図設定', // メニュータイトル
+    'menu_slug'   => 'gnmap-settings',
+    'capability'  => 'edit_posts',
+    'parent_slug' => 'theme-general-settings', // 親メニューのスラッグ
+  ));
+
+
 }
 
 

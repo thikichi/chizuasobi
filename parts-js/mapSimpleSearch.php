@@ -1,16 +1,26 @@
 <?php
 $mapid = 'mapArea2';
-$lat_init = 35.681236;
-$lng_init = 139.767125;
+
+$gmap_ajax_search = get_field('acf_option_gmap_ajax_search','option');
+if( $gmap_ajax_search ) {
+  $init_lat = $gmap_ajax_search['position_center']['lat'];
+  $init_lng = $gmap_ajax_search['position_center']['lng'];
+  $init_zoom = (int)$gmap_ajax_search['zoom'];
+} else {
+  $init_lat = 35.681236;
+  $init_lng = 139.767125;
+  $init_zoom = 10;
+}
 ?>
 
 <script>
-jQuery(function($) {
-  $(function(){
     var markerMapArea = [];
     var selectTaxVal = {};
     var selectFieldVal = {};
     var inputTextVal = {};
+jQuery(function($) {
+  $(function(){
+
     // var marker;
     /*
      * TOPページ
@@ -18,8 +28,8 @@ jQuery(function($) {
     // 遅延読み込み部分
     var mapAreaDone = function() {
       var markerData = [];
-      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, 10.0 );
+      var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
+      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, <?php echo $init_zoom; ?> );
       var disp_num = 5;
       var query_args = {
         "post_type":"landmark",
@@ -75,9 +85,9 @@ jQuery(function($) {
           }
       });
     }
-    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
-      callback : mapAreaDone,
-    });
+    // $('#<?php echo $mapid; ?>').myLazyLoadingObj({
+    //   callback : mapAreaDone,
+    // });
 
     // 検索フォームが選択された場合
     $('.search-hook-select').change(function() {
@@ -90,6 +100,8 @@ jQuery(function($) {
       setFormValues();
       mapAreaDone();
     });
+
+    mapAreaDone();
 
     // すべてのフォームの値を取得する
     function setFormValues() {
@@ -109,11 +121,10 @@ jQuery(function($) {
       inputTextVal = $('input[name="freetext"]').val();
     }
 
-
-    $('[data-mapid]').on('click', function(event) {
-      var map_post_id = $(this).data('mapid');
-      google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    });
   });
 });
+function clickViewMap( linkid ) {
+  google.maps.event.trigger(markerMapArea[linkid], "click");
+  document.getElementById('mapArea2').scrollIntoView({behavior: 'smooth'});
+}
 </script>

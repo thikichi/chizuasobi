@@ -79,7 +79,7 @@ function mapSimpleSearchFunc(){
       $loop_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
       $loop_address = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
       // マーカーオブジェクトをつくる
-      $returnObj['markerDataAjax'][$i]['id']   = $mapid . "_" . get_the_ID();
+      $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);

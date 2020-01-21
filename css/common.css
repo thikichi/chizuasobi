@@ -887,7 +887,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 /*--------------------------------------------------*/
 .subttl-1 { font-size: 16px; font-weight: bold; }
 
-.subttl-1-mini { font-size: 12px; font-weight: normal; }
+.subttl-1-mini { font-size: 12px; font-weight: normal; display: block; }
 
 /* Quote */
 /*--------------------------------------------------*/
@@ -899,11 +899,11 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 /* link-color-1 */
 /*--------------------------------------------------*/
-.link-color-1 { color: #5a89f3; }
+.link-color-1 { color: #000; }
 
 /* link-1 */
 /*--------------------------------------------------*/
-.link-1 ._icon { -webkit-transition: all 0.25s 0s linear; -moz-transition: all 0.25s 0s linear; -ms-transition: all 0.25s 0s linear; -o-transition: all 0.25s 0s linear; transition: all 0.25s 0s linear; }
+.link-1 ._icon { -webkit-transition: all 0.25s 0s linear; -moz-transition: all 0.25s 0s linear; -ms-transition: all 0.25s 0s linear; -o-transition: all 0.25s 0s linear; transition: all 0.25s 0s linear; margin-right: 5px; }
 .link-1:hover ._icon { transform: rotateY(360deg); }
 .link-1:hover ._linkText { border-bottom: 1px dashed #5a89f3; }
 

@@ -45,9 +45,11 @@ jQuery(function($) {
           }
       });
     }
-    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
-      callback : mapAreaDone,
-    });
+    // $('#<?php echo $mapid; ?>').myLazyLoadingObj({
+    //   callback : mapAreaDone,
+    // });
+
+    mapAreaDone();
 
     $('[data-mapid]').on('click', function(event) {
       var map_post_id = $(this).data('mapid');

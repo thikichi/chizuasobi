@@ -212,6 +212,7 @@
 .subttl-1-mini {
   font-size: 12px;
   font-weight: normal;
+  display: block;
 }
 
 /* Quote */
@@ -234,14 +235,14 @@
 /*--------------------------------------------------*/
 
 .link-color-1 {
-  color: $color-lightBrue;
+  color: $color-black;
 }
 
 /* link-1 */
 /*--------------------------------------------------*/
 
 .link-1 {
-  ._icon { @include transition( all, 0.25s, linear, 0s ); }
+  ._icon { @include transition( all, 0.25s, linear, 0s ); margin-right: 5px; }
   &:hover {
     ._icon { transform: rotateY( 360deg ); }
     ._linkText { border-bottom: 1px dashed $color-lightBrue; }
