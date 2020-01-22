@@ -87,19 +87,14 @@ if(is_singular('landmark')) {
   get_template_part('parts/js-mapDistSearch');
   get_template_part('parts/js-postNearHotel');
 } 
-// if(is_page('searchform')) {
-//   $mapid = 'mapSearch';
-//   get_template_part('parts/js-postSameCat');
-// } 
 if(is_singular('feature') || is_front_page()) {
   $mapid = 'mapAreaSp';
   get_template_part('parts-js/featurePostMap');
 } 
 if(is_front_page()) {
   get_template_part('parts-js/mapSimpleSearch');
-  $mapid = 'mapArea';
-  get_template_part('parts-js/frontPage-landmark');
-
+  // $mapid = 'mapArea';
+  // get_template_part('parts-js/frontPage-landmark');
 } 
 if(is_tax('landmark_cateogry') || is_post_type_archive('landmark')) {
   get_template_part('parts/js-landmark-archive');

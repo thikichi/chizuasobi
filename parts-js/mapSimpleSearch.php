@@ -52,7 +52,6 @@ jQuery(function($) {
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            console.log(jsonData);
             markerData = jsonData['markerDataAjax'];
             markerMapArea = dispMarker2( map, markerData );
             // 記事の出力
@@ -80,14 +79,13 @@ jQuery(function($) {
               timer();
             });
             // さらに見るボタンを追加
-            console.log(jsonData['tags_btn']);
             $('#MapSimpleSearchPost').after(jsonData['tags_btn']);
           }
       });
     }
-    // $('#<?php echo $mapid; ?>').myLazyLoadingObj({
-    //   callback : mapAreaDone,
-    // });
+    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
+      callback : mapAreaDone,
+    });
 
     // 検索フォームが選択された場合
     $('.search-hook-select').change(function() {
@@ -101,7 +99,7 @@ jQuery(function($) {
       mapAreaDone();
     });
 
-    mapAreaDone();
+    // mapAreaDone();
 
     // すべてのフォームの値を取得する
     function setFormValues() {
