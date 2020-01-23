@@ -651,12 +651,25 @@ require_once 'ajax/postSameCatFunc.php';
 require_once 'ajax/mapSimpleSearchFunc.php';
 
 
-function gmap_infowindow( $id, $post_map_img, $title, $address, $link  ) {
+function gmap_infowindow( $post_id, $map_id ) {
+
+  // Thumbnail
+  $img_id = get_post_thumbnail_id( $post_id );
+  if( $img_id!='' ) {
+    $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    $img_url = $temp_img[0];
+  } else {
+    $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+  }
+  $title = esc_html(get_the_title( $post_id ));
+  $link  = esc_url(get_the_permalink( $post_id ));
+  $address = esc_html(get_post_meta( $post_id, 'acf_landmark_address', true ));
+
   $tag  = '';
-  $tag .= "<div id='" . $id . "' class='infwin cf' style='position:relative'>";
+  $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
   $tag .= "<a style='position:absolute;top:-150px'></a>";
   $tag .= "<div class='infwin-thumb'>";
-  $tag .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
+  $tag .= "<img class='img-responsive' src='" . $img_url . "'></div>";
   $tag .= "<div class='infwin-main'>";
   $tag .= "<h3>" . $title . "</h3>";
   $tag .= "<p>" . $address . "</p>";
@@ -734,6 +747,15 @@ function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
   $tag .= '</div>';
   $tag .= '</div>';
   $tag .= '</li>';
+
+
+ob_start();
+var_dump($tag);
+$out = ob_get_contents();
+ob_end_clean();
+file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
+
   return $tag;
 }
 
