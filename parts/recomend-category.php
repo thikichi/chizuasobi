@@ -21,7 +21,7 @@ global $osfw;
             foreach ($tax_arr as $key => $tax):
               $tax_description = term_description( $tax->term_id, $tax_slug );
               $tax_description = $osfw->get_excerpt_filter( $tax_description, 30, $more_text=' [...]');
-              $cat_thumb_id    = $osfw->get_term_cfield($tax_slug, $tax->term_id, 'acf_landmark_cateogry_image');
+              $cat_thumb_id    = $osfw->get_term_cfield($tax_slug, $tax->term_id, 'acf_landmark_cateogry_thumb');
               $term_link = get_term_link( $tax->term_id, $tax_slug );
               // var_dump($cat_thumb_id);
               ?>
