@@ -104,7 +104,6 @@ function mapSimpleSearchFunc(){
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
       $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
       $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
-      
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
       $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $loop_address );
       

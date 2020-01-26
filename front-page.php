@@ -4,10 +4,10 @@
 $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 ?>
 
-<section class="gmap-all">
+<section id="MapSimpleSearchSec" class="gmap-all">
   <div class="container"> 
     <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
-    <div id="mapArea2" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
+    <div id="MapSimpleSearch" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
   </div>
   <div class="block3">
     <div class="block3__container">
@@ -121,7 +121,6 @@ $post_map_sp = !empty($landmark_id_arr) ? array_merge( $post_map_sp, array('post
 $the_query = new WP_Query( $post_map_sp );
 ?>
 <?php if ($the_query->have_posts() && $get_feature_id): ?>
-  <?php $mapid='mapAreaSp'; // GoogleMapを読み込む要素を指定 ?>
   <?php get_template_part('parts/feature'); ?>
 <?php else: ?>
   <p>記事の投稿がありません。</p>

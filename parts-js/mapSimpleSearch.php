@@ -1,6 +1,4 @@
 <?php
-$mapid = 'mapArea2';
-
 $gmap_ajax_search = get_field('acf_option_gmap_ajax_search','option');
 if( $gmap_ajax_search ) {
   $init_lat = $gmap_ajax_search['position_center']['lat'];
@@ -29,7 +27,7 @@ jQuery(function($) {
     var mapAreaDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
-      var map = initMap( '<?php echo $mapid; ?>', mapLatLng, <?php echo $init_zoom; ?> );
+      var map = initMap( 'MapSimpleSearch', mapLatLng, <?php echo $init_zoom; ?> );
       var disp_num = 5;
       var query_args = {
         "post_type":"landmark",
@@ -48,7 +46,7 @@ jQuery(function($) {
             'selectTaxVal' : selectTaxVal,
             'selectFieldVal' : selectFieldVal,
             'inputTextVal' : inputTextVal,
-            'mapid'     : '<?php echo $mapid; ?>',
+            'mapid'     : 'MapSimpleSearch',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
@@ -83,7 +81,7 @@ jQuery(function($) {
           }
       });
     }
-    $('#<?php echo $mapid; ?>').myLazyLoadingObj({
+    $('#MapSimpleSearch').myLazyLoadingObj({
       callback : mapAreaDone,
     });
 
@@ -123,6 +121,6 @@ jQuery(function($) {
 });
 function clickViewMap( linkid ) {
   google.maps.event.trigger(markerMapArea[linkid], "click");
-  document.getElementById('mapArea2').scrollIntoView({behavior: 'smooth'});
+  document.getElementById('MapSimpleSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>
