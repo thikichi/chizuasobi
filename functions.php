@@ -649,6 +649,7 @@ add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 require_once 'ajax/mapDistSearchFunc.php';
 require_once 'ajax/featurePostMapFunc.php';
 require_once 'ajax/mapSimpleSearchFunc.php';
+require_once 'ajax/postSameCatFunc.php';
 
 
 function gmap_infowindow( $post_id, $map_id ) {
@@ -749,11 +750,11 @@ function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
   $tag .= '</li>';
 
 
-ob_start();
-var_dump($tag);
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+// ob_start();
+// var_dump($tag);
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
   return $tag;
