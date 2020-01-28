@@ -43,29 +43,55 @@ foreach ($map_posts as $map_post) {
     }
     $term_list .= ']';
   }
-  $map_id = 'ArchiveLandmarkMapMain';
+  $mapid = 'ArchiveLandmarkMapMain';
   // thumbnail
   $temp_img = $osfw->get_thumbnail_by_post( $map_post->ID, 'img_square' );
   $post_map_img = isset($temp_img['src']) ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+
+
+    // get main category of the landmark_cateogry post.
+    $main_cat_id = '';
+    $loop_catmain_id = get_post_meta( $map_post->ID, 'acf_landmark_cateogry_main', true );
+    // get all taxonomy term list of 'landmark_cateogry' and set main category id
+    $get_terms = get_the_terms($map_post->ID, 'landmark_cateogry');
+    if( $get_terms!='' && $loop_catmain_id!='' ) {
+      foreach ($get_terms as $key => $get_term) {
+        if( $get_term->term_id===(int)$loop_catmain_id ) {
+          $main_cat_id = $get_term->term_id;
+        }
+      }
+    } else {
+      $main_cat_id = $get_terms[0]->term_id;
+    }
+    // set icon from taxonomy term ID.
+    $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
+    $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
+
+
+
   // InfoWindow
-  $infoWin  = '';
-  $infoWin .= "<div id='" . $map_id . "-" . $map_post->ID . "' class='infwin cf' style='position:relative'>";
-  $infoWin .= "<a style='position:absolute;top:-150px'></a>";
-  $infoWin .= "<div class='infwin-thumb'>";
-  $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
-  $infoWin .= "<div class='infwin-main'>";
-  $infoWin .= "<h3>" . $map_post->post_title . "</h3>";
-  $infoWin .= "<p>" . $acf_landmark_address . "</p>";
-  $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
-  $infoWin .= "</div>";
-  $infoWin .= "</div>";
+  // $infoWin  = '';
+  // $infoWin .= "<div id='" . $mapid . "-" . $map_post->ID . "' class='infwin cf' style='position:relative'>";
+  // $infoWin .= "<a style='position:absolute;top:-150px'></a>";
+  // $infoWin .= "<div class='infwin-thumb'>";
+  // $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
+  // $infoWin .= "<div class='infwin-main'>";
+  // $infoWin .= "<h3>" . $map_post->post_title . "</h3>";
+  // $infoWin .= "<p>" . $acf_landmark_address . "</p>";
+  // $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
+  // $infoWin .= "</div>";
+  // $infoWin .= "</div>";
   // create marker object
-  $markers[$i]['id']   = $map_id . "_" . $map_post->ID;
+  $markers[$i]['id']   = $mapid . "_" . $map_post->ID;
   $markers[$i]['name'] = get_the_title();
   $markers[$i]['lat']  = floatval($acf_landmark_gmap['lat']);
   $markers[$i]['lng']  = floatval($acf_landmark_gmap['lng']);
   $markers[$i]['cat']  = $term_list;
-  $markers[$i]['infoWindowContent'] = $infoWin;
+  // $markers[$i]['infoWindowContent'] = $infoWin;
+  $markers[$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+  $markers[$i]['infoWindowContent'] = gmap_infowindow( $map_post->ID, $mapid . "_" . $map_post->ID );
+  // $markers[$i]['tags'] .= get_tag_postlist( $map_post->ID, 'landmark_cateogry', $acf_landmark_address );
+
   $i++;
 }
 ?>
