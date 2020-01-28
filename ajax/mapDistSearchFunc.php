@@ -65,21 +65,24 @@ function mapDistSearchFunc(){
           }
           $term_list .= ']';
         }
-        // thumbnail
-        $temp_img = $osfw->get_thumbnail_by_post( $term_post->ID, 'img_square' );
-        $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-        // InfoWindow
-        $infoWin  = '';
-        $infoWin .= "<div id='mapDistSearch_" . $term_post->ID . "' class='infwin cf' style='position:relative'>";
-        $infoWin .= "<a id='" . $mapid . "_" . $term_post->ID . "' style='position:absolute;top:-150px'></a>";
-        $infoWin .= "<div class='infwin-thumb'>";
-        $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
-        $infoWin .= "<div class='infwin-main'>";
-        $infoWin .= "<h3>" . $term_post->post_title . "</h3>";
-        $infoWin .= "<p>" . $loop_address . "</p>";
-        $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
-        $infoWin .= "</div>";
-        $infoWin .= "</div>";
+
+        // get main category of the landmark_cateogry post.
+        $main_cat_id = '';
+        $loop_catmain_id = get_post_meta( $term_post->ID, 'acf_landmark_cateogry_main', true );
+        // get all taxonomy term list of 'landmark_cateogry' and set main category id
+        $get_terms = get_the_terms($term_post->ID, 'landmark_cateogry');
+        if( $get_terms!='' && $loop_catmain_id!='' ) {
+          foreach ($get_terms as $key => $get_term) {
+            if( $get_term->term_id===(int)$loop_catmain_id ) {
+              $main_cat_id = $get_term->term_id;
+            }
+          }
+        } else {
+          $main_cat_id = $get_terms[0]->term_id;
+        }
+        // set icon from taxonomy term ID.
+        $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
+        $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
         // マーカーオブジェクトをつくる
         $returnObj['markerDataAjax'][$i]['id']   = $term_post->ID;
         $returnObj['markerDataAjax'][$i]['name'] = $term_post->post_title;
@@ -87,7 +90,8 @@ function mapDistSearchFunc(){
         $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
         $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
         $returnObj['markerDataAjax'][$i]['dist'] = $thisdist;
-        $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $infoWin;
+        $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+        $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( $term_post->ID, $mapid . "_" . $term_post->ID );
         if( $thisdist < $dist ) {
           $selected_posts[] = $term_post->ID;
         }
@@ -151,51 +155,8 @@ function mapDistSearchFunc(){
             }
             $taxtag .= '</ul>';
           }
-
-
-
-$returnObj['tags'] .= <<< EOM
-<li class="col-md-6 mt-xs-15">
-  <div class="box-1 box-1-2col cf"> 
-    <div class="box-1-inner cf">
-      <div class="box-1-thumb matchHeight">
-        {$thumb}
-      </div>
-      <div class="box-1-main matchHeight">
-        <div class="box-1-text">
-          <h3 class="subttl-1">
-            {$title}
-            <span class="subttl-1-mini">投稿日時 {$date}</span>
-          </h3>
-          <p class="mt-xs-5">{$cfield_addr}</p>
-          {$taxtag}
-        </div>
-      </div>
-      <div class="box-1-btn matchHeight">
-        <div class="box-1-btnTop">
-          <a class="link-1" href="javascript:clickViewMap('{$post_id}')">
-            <span class="link-color-1">
-              <img class="_icon" src="{$theme_url}/images/common/icon-pin.svg"> 
-              <span class="_linkText box-1-btnText">地図を見る</span>
-            </span>
-          </a>
-        </div>
-        <div class="box-1-btnBottom">
-          <a class="link-1" href="{$permalink}">
-            <span class="link-color-1">
-              <img class="_icon" src="{$theme_url}/images/common/icon-book.svg"> 
-              <span class="_linkText box-1-btnText">記事を読む</span>
-            </span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="box-1-bottom">
-      {$taxtag}
-    </div>
-  </div>
-</li>
-EOM;
+          // get post list
+          $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $cfield_addr );
         $i++;
       }
     }
