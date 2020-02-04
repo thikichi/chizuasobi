@@ -34,9 +34,13 @@
       <h2 class="title-1 mt-xs-15 mb-xs-15">
         <!--  <i class="fas fa-map-marker-alt"></i>  -->
         <span class="title-1__inner">
-          <span class="title-1__sub">
-            Edo Castle
-          </span>
+          <?php
+          $mainttl_sub = get_post_meta( $post->ID, 'afc_mainttl_sub', true );
+          if( $mainttl_sub ): ?>
+            <span class="title-1__sub">
+              <?php echo esc_html($mainttl_sub); ?>
+            </span>
+          <?php endif; ?>
           <span class="title-1__main">
             <?php the_title(); ?>
           </span>
@@ -155,7 +159,7 @@
           $main_cat_id = get_post_meta( $post->ID, 'acf_landmark_main_category', true );
           $args = array(
             'post_type' => 'landmark',
-            'posts_per_page' => 4
+            'posts_per_page' => 10
           );
           $temp_cat_ids = get_the_terms( $post->ID, 'landmark_cateogry' );
           if($main_cat_id) {

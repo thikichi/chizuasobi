@@ -287,7 +287,8 @@
       border: 1px solid $color-border;
     }
     .block5__boxmain {
-      padding: 30px 30px 50px 30px;
+      padding: 30px 30px 30px 30px;
+      @include media-max(sm) { padding: 15px 15px 15px 15px; }
     }
     .block5__lead {
       font-size: 18px;
@@ -1519,3 +1520,183 @@ $layout3-slider-padding: 10px;
   }
 }
 
+/* courselist */
+
+.courselist {
+  padding: 70px 0 0 0;
+  @at-root {
+    .courselist__container {
+      @extend %container;
+    }
+    .courselist__inner {
+
+    }
+    .courselist__read {
+      text-align: center;
+    }
+    .courselist__read-inner {
+      display: inline-block;
+      // text-align: left;
+      font-size: 20px;
+      margin-bottom: 30px;
+    }
+    .courselist__item {
+      margin-bottom: 30px;
+    }
+    .courselist__box {
+        border: 1px solid #CCC;
+        box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+    }
+    .courselist__box-top {
+      border-bottom: 1px dashed $color-border;
+      padding: 20px;
+      @include media-max(sm) { display: block; }
+    }
+    .courselist__box-bottom {
+      padding: 20px;
+    }
+
+    .courselist__box-top {
+      @extend %flex--wrap;
+    }
+    .courselist__box-topSub {
+      width: 125px;
+      text-align: center;
+      @include media-max(sm) { width: 100%; }
+    }
+    .courselist__box-topMain {
+      width: calc(100% - 125px);
+      padding-left: 30px;
+      @include media-max(sm) { width: 100%; padding: 0; margin-top: 15px; }
+    }
+
+    .courselist__box-topMain {
+      @extend %flex--wrap;
+      @include media-max(lg) { display: block; }
+    }
+    .courselist__box-topMainLeft {
+      width: 430px;
+      @include media-max(lg) { width: 100%; }
+    }
+    .courselist__box-topMainRight {
+      width: calc(100% - 430px);
+      @include media-max(lg) { width: 100%; margin-top: 10px; }
+    }
+
+    .courselist__box-dl {
+      position: relative;
+      line-height: 1.7;
+      > dt {
+        position: absolute;
+        width: 70px;
+      }
+      > dd {
+        padding-left: 70px;
+        &::before {
+          content: ':';
+          margin-right: 5px;
+        }
+      }
+    }
+    .courselist__box-bottomList {
+      @extend %flex--wrap;
+      margin: -7.5px;
+    }
+    .courselist__box-bopttomItem {
+      // width: calc(100% / 4);
+      width: 228px;
+      padding: 0 7.5px;
+      margin-bottom: 10px;
+      &:not(:last-child) {
+        @include icon-arrow-after( #333, 7px, -5px, 2px, 1px );
+        &::after { top: 65%; }
+      }
+      @include media-max(lg) { width: calc(100% / 3); }
+      @include media-max(md) { width: calc(100% / 2); }
+      @include media-max(sm) {
+        width: calc(100% / 1);
+        &:not(:last-child) {
+          &::after {
+            top: 100%; right: 50%;
+            transform: rotate(135deg);
+          }
+        }
+      }
+    }
+
+    .courselist__box-bopttomBox {
+      @extend %flex--wrap;
+    }
+    .courselist__box-bopttomBoxSub {
+      width: 80px;
+    }
+    .courselist__box-bopttomMain {
+      width: calc(100% - 80px);
+      padding-left: 15px;
+    }
+
+    .courselist__box-step {
+      background-color: $color-green;
+      text-align: center;
+      color: #FFF;
+      font-size: 12px;
+      padding: 3px;
+      margin-bottom: 10px;
+    }
+    .courselist__box-bopttomRead {
+      font-size: 12px;
+    }
+    .courselist__box-bopttomTtl {
+      font-size: 14px;
+      font-weight: bold;
+      > a {
+        text-decoration: underline;
+      }
+    }
+    .courselist__box-ttl {
+      font-weight: bold;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    .courselist__box-link {
+
+      margin-top: 10px;
+      display: block;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .courselist__box-read {
+      margin-top: 5px;
+    }
+    .courselist__box-rootttl {
+      font-weight: bold;
+    }
+
+    .courselist__item {
+      position: relative;
+    }
+    .courselist__item-link {
+      position: absolute;
+      right: -10px;
+      top: 50px;
+      background-color: $color-red;
+      color: #FFF;
+      display: block;
+      color: #FFF;
+      padding: 5px 15px;
+      &::after {
+        position: absolute;
+        content: '';
+        bottom: -10px;
+        right: 0; 
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 10px 10px 0 0;
+        border-color: #d87070 transparent transparent transparent;
+      }
+    }
+  }
+}

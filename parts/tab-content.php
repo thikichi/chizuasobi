@@ -3,7 +3,7 @@ global $osfw;
 $gmap_url = 'https://www.google.com/maps/search/?api=1';
 // https://www.google.com/maps/search/?api=1&query=35.6812362,139.7649361
 ?>
-<section class="bg-lightGray2 pt-xs-50">
+<section class="bg-lightGray2 pt-xs-30">
   <div class="tab-switch">
     <nav>
       <div class="container">
