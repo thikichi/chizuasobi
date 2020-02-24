@@ -119,5 +119,7 @@
 
 %flex {
   display:flex;
-  &--wrap { display:flex; flex-wrap:wrap; }
+  &--wrap { @extend %flex; flex-wrap:wrap; }
+  &--center { @extend %flex; justify-content: center; }
+  &--wrap--center { @extend %flex; flex-wrap:wrap; justify-content: center; }
 }

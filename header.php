@@ -54,7 +54,7 @@ global $osfw;
         <ul>
           <li><a href="<?php echo $osfw->get_archive_link('landmark'); ?>">史跡の一覧</a></li>
           <li><a href="<?php echo $osfw->get_archive_link('feature'); ?>">特集</a></li>
-          <li><a href="#">おすすめ史跡コースの一覧</a></li>
+          <li><a href="<?php echo $osfw->get_archive_link('course'); ?>">おすすめ史跡巡りコース</a></li>
         </ul>
       </li>
       <li>

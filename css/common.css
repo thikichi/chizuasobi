@@ -45,8 +45,9 @@
 @media only screen and (min-width: 1200px) { .subvisual__container, .breadcrumb__container, .block5__container, .block7__container, .block13__container, .block2__container, .block3__container, .courselist__container { width: 1200px; } }
 .subvisual__container::before, .breadcrumb__container::before, .block5__container::before, .block7__container::before, .block13__container::before, .block2__container::before, .block3__container::before, .courselist__container::before, .subvisual__container::after, .breadcrumb__container::after, .block5__container::after, .block7__container::after, .block13__container::after, .block2__container::after, .block3__container::after, .courselist__container::after { clear: both; content: ''; }
 
-.block-7__list, .sform__row, .block2__list, .block2__box-inner { display: flex; }
-.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox { display: flex; flex-wrap: wrap; }
+.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block13__list, .block-7__list, .sform__row, .block2__list, .block2__box-inner { display: flex; }
+.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox { flex-wrap: wrap; }
+.block13__list { flex-wrap: wrap; justify-content: center; }
 
 /* Fonts */
 /*--------------------------------------------------*/
@@ -361,7 +362,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .gmap-all__map-area { height: 350px; width: 100%; }
 
 .breadcrumb { margin-top: 15px; margin-bottom: 15px; }
-.breadcrumb span[property="itemListElement"], .breadcrumb span.current-item { background-color: #c04c41; color: #FFF; height: 30px; padding: 0 5px 0 22px; display: inline-block; margin-right: 5px; padding-top: 5px; margin-bottom: 3px; position: relative; }
+.breadcrumb span[property="itemListElement"], .breadcrumb span.current-item { background-color: #c04c41; color: #FFF; height: 30px; padding: 0 5px 0 22px; display: inline-block; margin-right: 2px; padding-top: 5px; margin-bottom: 3px; position: relative; }
 .breadcrumb span[property="itemListElement"] > a:hover, .breadcrumb span.current-item > a:hover { text-decoration: underline; }
 .breadcrumb span[property="itemListElement"]::before, .breadcrumb span.current-item::before { content: ''; position: absolute; left: 0; top: 0; z-index: 10; width: 0; height: 0; border-style: solid; border-width: 15px 0 15px 15px; border-color: transparent transparent transparent #FFF; }
 .breadcrumb span[property="itemListElement"]::after, .breadcrumb span.current-item::after { content: ''; position: absolute; right: -15px; top: 0; z-index: 20; width: 0; height: 0; border-style: solid; border-width: 15px 0 15px 15px; border-color: transparent transparent transparent #c04c41; }
@@ -472,10 +473,10 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 /* block5 */
 .block5 { background-color: #F4F4F4; padding: 50px 0; }
 .block5--nobg { background: none; }
-.block5-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 30px 0; }
+.block5-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 20px 0; }
 .block5-ttl--gray { background-color: #F4F4F4; border-radius: 10px 10px 0 0; padding: 20px 0; }
 
-.block5__inner { background-color: #FFF; border-radius: 10px; border: 1px solid #CCC; }
+.block5__inner { background-color: #FFF; border-radius: 10px; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); border: 1px solid #CCC; }
 
 .block5__boxmain { padding: 30px 30px 30px 30px; }
 @media only screen and (max-width: 575px) { .block5__boxmain { padding: 15px 15px 15px 15px; } }
@@ -484,10 +485,10 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 /* block7 */
 .block7 { background-color: #FFF; padding: 50px 0; }
-.block7-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 30px 0; }
+.block7-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 20px 0; }
 @media only screen and (max-width: 575px) { .block7-ttl { font-size: 20px; padding: 15px 0; } }
 
-.block7__inner { border-radius: 10px; border: 1px solid #CCC; }
+.block7__inner { box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); border-radius: 10px; border: 1px solid #CCC; }
 
 .block7__boxmain { padding: 30px 30px 30px 30px; }
 @media only screen and (max-width: 575px) { .block7__boxmain { padding: 15px; } }
@@ -733,9 +734,8 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .block13__list-wrapper { margin: auto; }
 
 .block13__list { margin: 0 -15px; margin-right: -20px; }
-.block13__list::after { content: ""; display: block; clear: both; }
 
-.block13__list-item { padding: 0 15px; float: left; width: calc(100%  / 5); margin-bottom: 15px; position: relative; }
+.block13__list-item { padding: 0 15px; width: calc(100%  / 3); margin-bottom: 15px; position: relative; }
 @media only screen and (max-width: 991px) { .block13__list-item { width: calc(100%  / 3); } }
 @media only screen and (max-width: 767px) { .block13__list-item { width: calc(100%  / 2); } }
 @media only screen and (max-width: 575px) { .block13__list-item { width: calc(100%  / 1); margin-bottom: 50px; } }
@@ -833,7 +833,6 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .block3__num-main2 { font-size: 28px; color: #c04c41; font-family: "Noto Serif JP", serif; margin-right: 5px; line-height: 1.0; }
 
 /* courselist */
-.courselist { padding: 70px 0 0 0; }
 .courselist__read { text-align: center; }
 
 .courselist__read-inner { display: inline-block; font-size: 20px; margin-bottom: 30px; }
@@ -992,5 +991,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .taglist-1 > li > a { display: block; background-color: #6ea364; color: #FFF; padding: 2px 10px 1px 10px; font-size: 13px; }
 .taglist-1 > li > a:hover { background-color: rgba(110, 163, 100, 0.7); }
+
+.taglist-1--red > li > a { background-color: #c04c41; }
 
 /*# sourceMappingURL=common.css.map */

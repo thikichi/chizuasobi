@@ -36,6 +36,19 @@ function wp_enqueue_scripts_css() {
   /*---------------------------------------------------------------*/
 
   /*
+   * slick.min.js
+  */
+  // wp_enqueue_script(
+  //   'slick', 
+  //   get_stylesheet_directory_uri() . '/vendor/slick/slick.min.js', 
+  //   array('jquery'), 
+  //   false, 
+  //   true
+  // );
+
+
+  
+  /*
    * fontello
   */
   wp_enqueue_style(

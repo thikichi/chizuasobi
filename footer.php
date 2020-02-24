@@ -93,7 +93,7 @@ if(is_singular('feature') || is_front_page()) {
 if(is_front_page()) {
   get_template_part('parts-js/mapSimpleSearch');
 } 
-if(is_tax('landmark_cateogry') || is_post_type_archive('landmark')) {
+if(is_tax('landmark_cateogry') || is_tax('landmark_tag') || is_post_type_archive('landmark')) {
   get_template_part('parts/js-landmark-archive');
 }
 ?>

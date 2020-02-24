@@ -78,6 +78,30 @@
         <div class="box4-main">
           <div class="box4-main-inner">
             <div class="box4-list">
+              <?php
+              $tax = 'landmark_cateogry'; // タクソノミー名
+              $terms = get_the_terms($post->ID, $tax);
+              if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+                echo '<ul class="taglist-1 cf">';
+                foreach ( $terms as $term ) {
+                  $term_link = get_term_link( $term->term_id, $tax );
+                  echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+                }
+                echo '</ul>';
+              }
+              ?>
+              <?php
+              $tax = 'landmark_tag'; // タクソノミー名
+              $terms = get_the_terms($post->ID, $tax);
+              if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
+                echo '<ul class="taglist-1 taglist-1--red cf mt-xs-5">';
+                foreach ( $terms as $term ) {
+                  $term_link = get_term_link( $term->term_id, $tax );
+                  echo '<li><a href="' . esc_url($term_link) . '">' . esc_html($term->name) . '</a></li>';
+                }
+                echo '</ul>';
+              }
+              ?>
               <?php /* カテゴリーのリスト */ ?>
               <?php get_template_part( 'parts/items-cat' ); ?>
               <div class="box4-text mt-xs-30">

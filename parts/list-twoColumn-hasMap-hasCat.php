@@ -111,6 +111,7 @@ foreach ($map_posts as $map_post) {
         </p>
 
         <div id="ArchiveLandmarkMap" class="mb-xs-15 mt-xs-15">
+          <div style="position:relative"><div id="ArchiveLandmarkMapPLink" style="position:absolute;top:-100px"></div></div>
           <div id="ArchiveLandmarkMapMain" class="gmap-all__map-area mt-xs-15" style="position: relative; overflow: hidden"></div>
         </div><!-- SearchFormMap -->
 
