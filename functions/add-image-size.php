@@ -35,6 +35,8 @@ add_action( 'after_setup_theme', function(){
   add_image_size('img_normal_w750', 750, 560 ,true);
   add_image_size('img_normal_w300', 300, 227 ,true);
   add_image_size('img_normal_w100', 100, 75 ,true);
+
+  add_image_size('img_marker', 75, 75 ,true);
 });
 
 

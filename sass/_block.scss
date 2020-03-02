@@ -675,6 +675,10 @@ $layout3-slider-padding: 10px;
     padding-left: 10px;
   }
 }
+.infwin-ttl {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
 .infwin-link {
   margin-top: 5px;
   > a {
@@ -684,6 +688,45 @@ $layout3-slider-padding: 10px;
     @include icon-arrow-before( $color-black, 5px, -5px, 2px, 2px );
   }
 }
+.infwin__blockquote {
+    position: relative;
+    padding: 30px 15px 8px 15px;
+    box-sizing: border-box;
+    font-style: italic;
+    background: #efefef;
+    color: #555;
+    margin-top: 10px;
+}
+.infwin__blockquote:before{
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    content: url(../images/common/icon-blockquote.svg);
+    width: 15px;
+}
+.infwin__blockquote:after{
+    display: inline-block;
+    position: absolute;
+    top: 13px;
+    left: 40px;
+    content: '引用';
+}
+
+.infwin__blockquote-text {
+    padding: 0;
+    margin: 5px 0;
+    line-height: 1.7;
+}
+
+.infwin__blockquote-cite {
+    display: block;
+    text-align: right;
+    color: #888888;
+    font-size: 0.9em;
+}
+
+
 
 
 .tab-container {
@@ -1698,6 +1741,94 @@ $layout3-slider-padding: 10px;
         border-width: 10px 10px 0 0;
         border-color: #d87070 transparent transparent transparent;
       }
+    }
+  }
+}
+
+/* block4 */
+
+.block4 {
+  padding-bottom: 50px;
+  @at-root {
+    .block4__mappost {
+      @include media-min(sm) {
+        display:flex;
+        flex-wrap:wrap;
+        height: 500px;
+      }
+    }
+    .block4__map {
+      width: 100%;
+      height: 100%;
+      box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+      border-top: 1px solid $color-border;
+      border-left: 1px solid $color-border;
+      @include media-max(sm) { height: 350px; }
+    }
+    .block4__mappost-map {
+      width: calc(100% - 300px);
+      height: 100%;
+      @include media-max(md) { width: calc(100% - 200px); }
+      @include media-max(sm) { width: 100%; }
+    }
+    .block4__mappost-post {
+      width: 300px;
+      height: 100%;
+      @include media-max(md) { width: 200px; }
+      @include media-max(sm) { width: 100%; }
+    }
+    .block4__mapside {
+      height: 100%;
+      border: 1px solid #CCC;
+      box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1);
+      @include media-min(sm) { margin-left: 15px; }
+      @include media-max(sm) { margin-top: 5px; height: 270px; }
+    }
+    
+    .block4__mapside-list {
+      height: calc(100% - 50px);
+      overflow: auto;
+    }
+    .block4__mapside-list-item {
+      border-bottom: 1px dashed #CCC;
+    }
+    .block4__mapside-link {
+      display: block;
+      @include icon-arrow-after( $color-border, 10px,-5px,15px,2px,$color-border );
+      &:hover {
+        @include icon-arrow-after( $color-border, 10px,-5px,10px,2px,$color-border );
+      }
+    }
+    .block4__mapside-ttl {
+      height: 50px;
+      text-align: center;
+      padding: 10px;
+      font-size: 18px;
+      background-color: $color-red;
+      color: #FFF;
+      border-bottom: 1px solid $color-border;
+    }
+    .block4__box {
+      @extend %flex--wrap;
+      padding: 10px 0;
+    }
+    .block4__box-sub {
+      width: 70px;
+      text-align: center;
+      > img { width: 50px; }
+    }
+    .block4__box-main {
+      width: calc(100% - 70px);
+    }
+    .block4__box-subttl {
+      font-size: 16px;
+    }
+    .block4__box-mainTable {
+      @extend %table;
+    }
+    .block4__box-mainTableCell {
+      @extend %table-cell;
+      text-align: left;
     }
   }
 }

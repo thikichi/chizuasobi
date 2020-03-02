@@ -25,9 +25,9 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP");
 @import url("https://fonts.googleapis.com/css?family=Noto+Serif+JP");
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans+JP");
-.subvisual__inner { display: table; width: 100%; height: 100%; }
+.subvisual__inner, .block4__box-mainTable { display: table; width: 100%; height: 100%; }
 
-.subvisual__inner-main { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; }
+.subvisual__inner-main, .block4__box-mainTableCell { display: table-cell; width: 100%; height: 100%; text-align: center; vertical-align: middle; }
 
 .button__1--reset, .button__1--submit { background-color: #6ea364; padding: 5px 0; color: #FFF; border: none; font-size: 16px; display: inline-block; min-width: 100px; }
 .button__1--reset:hover, .button__1--submit:hover { background-color: rgba(110, 163, 100, 0.7); }
@@ -45,8 +45,8 @@
 @media only screen and (min-width: 1200px) { .subvisual__container, .breadcrumb__container, .block5__container, .block7__container, .block13__container, .block2__container, .block3__container, .courselist__container { width: 1200px; } }
 .subvisual__container::before, .breadcrumb__container::before, .block5__container::before, .block7__container::before, .block13__container::before, .block2__container::before, .block3__container::before, .courselist__container::before, .subvisual__container::after, .breadcrumb__container::after, .block5__container::after, .block7__container::after, .block13__container::after, .block2__container::after, .block3__container::after, .courselist__container::after { clear: both; content: ''; }
 
-.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block13__list, .block-7__list, .sform__row, .block2__list, .block2__box-inner { display: flex; }
-.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox { flex-wrap: wrap; }
+.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block4__box, .block13__list, .block-7__list, .sform__row, .block2__list, .block2__box-inner { display: flex; }
+.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block4__box { flex-wrap: wrap; }
 .block13__list { flex-wrap: wrap; justify-content: center; }
 
 /* Fonts */
@@ -593,11 +593,23 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .infwin .infwin-thumb img { width: 100%; }
 .infwin .infwin-main { float: left; width: calc(100% - 80px); padding-left: 10px; }
 
+.infwin-ttl { font-size: 16px; margin-bottom: 5px; }
+
 .infwin-link { margin-top: 5px; }
 .infwin-link > a { padding-left: 15px; border-bottom: 1px dashed #CCC; position: relative; }
 .infwin-link > a:hover { border: none; }
 .infwin-link > a::before { content: ''; position: absolute; top: 50%; left: 2px; width: 5px; height: 5px; margin-top: -5px; border-top: 2px solid #000; border-right: 2px solid #000; transform: rotate(45deg); }
 .infwin-link > a:hover::before { border-top: 2px solid; border-right: 2px solid; }
+
+.infwin__blockquote { position: relative; padding: 30px 15px 8px 15px; box-sizing: border-box; font-style: italic; background: #efefef; color: #555; margin-top: 10px; }
+
+.infwin__blockquote:before { display: inline-block; position: absolute; top: 13px; left: 15px; content: url(../images/common/icon-blockquote.svg); width: 15px; }
+
+.infwin__blockquote:after { display: inline-block; position: absolute; top: 13px; left: 40px; content: '引用'; }
+
+.infwin__blockquote-text { padding: 0; margin: 5px 0; line-height: 1.7; }
+
+.infwin__blockquote-cite { display: block; text-align: right; color: #888888; font-size: 0.9em; }
 
 .tab-container .panel { display: none; }
 .tab-container .panel.is-show { display: block; }
@@ -901,6 +913,49 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .courselist__item-link { position: absolute; right: -10px; top: 50px; background-color: #c04c41; color: #FFF; display: block; color: #FFF; padding: 5px 15px; }
 .courselist__item-link::after { position: absolute; content: ''; bottom: -10px; right: 0; width: 0; height: 0; border-style: solid; border-width: 10px 10px 0 0; border-color: #d87070 transparent transparent transparent; }
+
+/* block4 */
+.block4 { padding-bottom: 50px; }
+@media only screen and (min-width: 576px) { .block4__mappost { display: flex; flex-wrap: wrap; height: 500px; } }
+
+.block4__map { width: 100%; height: 100%; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); border-top: 1px solid #CCC; border-left: 1px solid #CCC; }
+@media only screen and (max-width: 575px) { .block4__map { height: 350px; } }
+
+.block4__mappost-map { width: calc(100% - 300px); height: 100%; }
+@media only screen and (max-width: 767px) { .block4__mappost-map { width: calc(100% - 200px); } }
+@media only screen and (max-width: 575px) { .block4__mappost-map { width: 100%; } }
+
+.block4__mappost-post { width: 300px; height: 100%; }
+@media only screen and (max-width: 767px) { .block4__mappost-post { width: 200px; } }
+@media only screen and (max-width: 575px) { .block4__mappost-post { width: 100%; } }
+
+.block4__mapside { height: 100%; border: 1px solid #CCC; box-shadow: 1.5px 2.598px 0px 0px rgba(0, 0, 0, 0.1); }
+@media only screen and (min-width: 576px) { .block4__mapside { margin-left: 15px; } }
+@media only screen and (max-width: 575px) { .block4__mapside { margin-top: 5px; height: 270px; } }
+
+.block4__mapside-list { height: calc(100% - 50px); overflow: auto; }
+
+.block4__mapside-list-item { border-bottom: 1px dashed #CCC; }
+
+.block4__mapside-link { display: block; position: relative; }
+.block4__mapside-link::after { content: ''; position: absolute; top: 50%; right: 15px; width: 10px; height: 10px; margin-top: -5px; border-top: 2px solid #CCC; border-right: 2px solid #CCC; transform: rotate(45deg); }
+.block4__mapside-link:hover::after { border-top: 2px solid #CCC; border-right: 2px solid #CCC; }
+.block4__mapside-link:hover { position: relative; }
+.block4__mapside-link:hover::after { content: ''; position: absolute; top: 50%; right: 10px; width: 10px; height: 10px; margin-top: -5px; border-top: 2px solid #CCC; border-right: 2px solid #CCC; transform: rotate(45deg); }
+.block4__mapside-link:hover:hover::after { border-top: 2px solid #CCC; border-right: 2px solid #CCC; }
+
+.block4__mapside-ttl { height: 50px; text-align: center; padding: 10px; font-size: 18px; background-color: #c04c41; color: #FFF; border-bottom: 1px solid #CCC; }
+
+.block4__box { padding: 10px 0; }
+
+.block4__box-sub { width: 70px; text-align: center; }
+.block4__box-sub > img { width: 50px; }
+
+.block4__box-main { width: calc(100% - 70px); }
+
+.block4__box-subttl { font-size: 16px; }
+
+.block4__box-mainTableCell { text-align: left; }
 
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }

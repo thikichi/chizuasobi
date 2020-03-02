@@ -111,52 +111,71 @@
           </div>
         </div>
       </div>
-      <?php /* 引用のリスト */ ?>
-      <?php get_template_part( 'parts/items-quot' ); ?>
+
     </div>
   </section>
 <?php endif; ?>
 
 
-<hr class="line1"></hr>
-
-
-
-<section class="block5">
-  <div class="block5__container">
-    <div class="block5__inner">
-      <h2 class="block5-ttl">
-        史跡「<?php the_title(); ?>」の写真一覧
-      </h2>
-      <div class="block5__boxmain">
-        <p class="block5__lead">
-          <span class="block5__lead-inner">
-            史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
-            各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。
-          </span>
-        </p>
-        <?php
-        $gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
-        if( $gallery_id_arr ) {
-          echo '<ul class="gallery mt-xs-30">';
-          foreach ($gallery_id_arr as $gallery_id) {
-            $img_1x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w300' );
-            $img_2x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w750' );
-            echo '<li class="gallery__item">';
-            echo '<a href="' . esc_url($img_2x['src']) . '">';
-            echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . esc_url($img_2x['alt']) . '">';
-            echo '</a>';
-            echo '</li>';
-          }
-          echo '</ul>';
-        }
-        ?>
+<section class="block4">
+  <div class="container">
+    <div class="block4__main">
+      <h3 class="title-2 mb-xs-30">
+        『<?php the_title(); ?>』の関連する史跡
+      </h3>
+      <p class="block4__read mb-xs-15 align-center">「<?php the_title(); ?>」に直接・間接的に関連する施設・名所をご案内します。</p>
+      <div class="block4__mappost">
+        <div class="block4__mappost-map">
+          <div style="position:relative">
+            <div id="mapRelationWrap" style="position:absolute;top:-100px"></div>
+          </div>
+          <div id="mapRelation" class="block4__map"></div>
+        </div>
+        <div class="block4__mappost-post">
+          <div class="block4__mapside">
+            <h3 class="block4__mapside-ttl">
+              関連史跡を選択
+            </h3>
+            <ul class="block4__mapside-list"><?php /*ajax出力 */ ?></ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+
+<section class="block4">
+  <div class="container">
+    <div class="block4__main">
+      <h3 class="title-2 mb-xs-30">
+        史跡『<?php the_title(); ?>』の写真一覧
+      </h3>
+      <p class="block4__read mb-xs-15 align-center">史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
+      各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。</p>
+      <?php
+      $gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
+      if( $gallery_id_arr ) {
+        echo '<ul class="gallery mt-xs-30">';
+        foreach ($gallery_id_arr as $gallery_id) {
+          $img_1x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w300' );
+          $img_2x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w750' );
+          echo '<li class="gallery__item">';
+          echo '<a href="' . esc_url($img_2x['src']) . '">';
+          echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . esc_url($img_2x['alt']) . '">';
+          echo '</a>';
+          echo '</li>';
+        }
+        echo '</ul>';
+      }
+      ?>
+    </div>
+  </div>
+</section>
+
+
 <hr class="line1"></hr>
+
 
 <section class="block5">
   <div style="position: relative;">
@@ -347,6 +366,13 @@
 
 
 <hr class="line1"></hr>
+
+<section class="pt-xs-30">
+  <div class="container">
+    <?php /* 引用のリスト */ ?>
+    <?php get_template_part( 'parts/items-quot' ); ?>
+  </div>
+</section>
 
 <?php get_template_part('parts/tab-content'); ?>
 

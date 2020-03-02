@@ -650,6 +650,7 @@ require_once 'ajax/mapDistSearchFunc.php';
 require_once 'ajax/featurePostMapFunc.php';
 require_once 'ajax/mapSimpleSearchFunc.php';
 require_once 'ajax/postSameCatFunc.php';
+require_once 'ajax/mapRelation.php';
 
 
 function gmap_infowindow( $post_id, $map_id ) {
@@ -675,6 +676,36 @@ function gmap_infowindow( $post_id, $map_id ) {
   $tag .= "<h3>" . $title . "</h3>";
   $tag .= "<p>" . $address . "</p>";
   $tag .= "<p class='infwin-link'><a href='" . $link . "'>この記事を見る</a></p>";
+  $tag .= "</div>";
+  $tag .= "</div>";
+  return $tag;
+}
+
+function gmap_infowindow_simple( $title, $img_id, $textarea, $quote_arr ) {
+  if( $img_id!='' ) {
+    $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    $img_url = $temp_img[0];
+  } else {
+    $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+  }
+  $tag  = '';
+  $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
+  $tag .= "<a style='position:absolute;top:-150px'></a>";
+  $tag .= "<div class='infwin-thumb'>";
+  $tag .= "<img class='img-responsive' src='" . $img_url . "'></div>";
+  $tag .= "<div class='infwin-main'>";
+  $tag .= "<h3 class='infwin-ttl'>" . $title . "</h3>";
+  if($quote_arr) {
+    foreach ($quote_arr as $quote) {
+      $tag .= '<blockquote class="infwin__blockquote" cite="' . $quote['url'] . '">';
+      $tag .= '<p class="infwin__blockquote-text">' . $quote['textarea'] . '</p>';
+      $tag .= '<cite class="infwin__blockquote-cite">';
+      $tag .= $quote['site_name'];
+      if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
+      $tag .= '</cite>';
+      $tag .= '</blockquote>';
+    }
+  }
   $tag .= "</div>";
   $tag .= "</div>";
   return $tag;
