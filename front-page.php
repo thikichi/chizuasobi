@@ -4,10 +4,10 @@
 $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
 ?>
 
-<section id="MapSimpleSearchSec" class="gmap-all">
+<section id="mapSearchSec" class="gmap-all">
   <div class="container"> 
     <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
-    <div id="MapSimpleSearch" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
+    <div id="mapSearch" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
   </div>
   <div class="block3">
     <div class="block3__container">
@@ -60,7 +60,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
                 <p class="block3__num">
                   件数
                   <span class="block3__num-main">
-                    <span id="MapSimpleSearchNum" class="block3__num-main2" data-count="0">0</span>件
+                    <span id="mapSearchNum" class="block3__num-main2" data-count="0">0</span>件
                   </span>
                 </p>
               </div>
@@ -92,7 +92,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
         </span>
       </span>
     </h2>
-    <ul class="row mt-xs-15" id="MapSimpleSearchPost"></ul>
+    <ul class="row mt-xs-15" id="mapSearchPost"></ul>
   </div>
 </section>
 <section>

@@ -2,7 +2,7 @@
 /*
  * Google Map Ajax
 */
-function mapSimpleSearchFunc(){
+function mapSearchFunc(){
   global $osfw;
   $returnObj = array();
   $mapid     = $_POST['mapid'];
@@ -56,7 +56,7 @@ function mapSimpleSearchFunc(){
   $returnObj['post_count']  = $the_query->post_count;
   if( $the_query->found_posts > $disp_num ) {
     $returnObj['tags_btn'] = '
-      <div id="MapSimpleSearchBtn" class="btn-1">
+      <div id="mapSearchBtn" class="btn-1">
       <a href="' . $osfw->get_archive_link('landmark') . '">過去の特集記事の一覧 
       <i class="fas fa-angle-double-right"></i>
       </a>
@@ -79,6 +79,7 @@ function mapSimpleSearchFunc(){
       $loop_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
       $loop_address = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
 
+
       // get main category of the landmark_cateogry post.
       $main_cat_id = '';
       $loop_catmain_id = get_post_meta( get_the_ID(), 'acf_landmark_cateogry_main', true );
@@ -97,13 +98,19 @@ function mapSimpleSearchFunc(){
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
 
+      $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
+      if( $loop_marker_id ) {
+        $marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+      } else {
+        $marker = '';
+      }
       // create marker
       $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
       $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
-      $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+      $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
       $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $loop_address );
       
@@ -113,6 +120,6 @@ function mapSimpleSearchFunc(){
   echo json_encode( $returnObj );
   die();
 }
-add_action( 'wp_ajax_mapSimpleSearchFunc', 'mapSimpleSearchFunc' );
-add_action( 'wp_ajax_nopriv_mapSimpleSearchFunc', 'mapSimpleSearchFunc' );
+add_action( 'wp_ajax_mapSearchFunc', 'mapSearchFunc' );
+add_action( 'wp_ajax_nopriv_mapSearchFunc', 'mapSearchFunc' );
 

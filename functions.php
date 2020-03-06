@@ -648,7 +648,7 @@ add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 
 require_once 'ajax/mapDistSearchFunc.php';
 require_once 'ajax/featurePostMapFunc.php';
-require_once 'ajax/mapSimpleSearchFunc.php';
+require_once 'ajax/mapSearch.php';
 require_once 'ajax/postSameCatFunc.php';
 require_once 'ajax/mapRelation.php';
 

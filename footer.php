@@ -92,7 +92,7 @@ if(is_singular('feature') || is_front_page()) {
   get_template_part('parts-js/featurePostMap');
 } 
 if(is_front_page()) {
-  get_template_part('parts-js/mapSimpleSearch');
+  get_template_part('parts-js/mapSearch');
 } 
 if(is_tax('landmark_cateogry') || is_tax('landmark_tag') || is_post_type_archive('landmark')) {
   get_template_part('parts/js-landmark-archive');

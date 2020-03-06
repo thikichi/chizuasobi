@@ -27,37 +27,37 @@ jQuery(function($) {
     var mapAreaDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
-      var map = initMap( 'MapSimpleSearch', mapLatLng, <?php echo $init_zoom; ?> );
+      var map = initMap( 'mapSearch', mapLatLng, <?php echo $init_zoom; ?> );
       var disp_num = 5;
       var query_args = {
         "post_type":"landmark",
         "posts_per_page": disp_num
       };
-      $('#MapSimpleSearchBtn').remove();
+      $('#mapSearchBtn').remove();
       // ローダー読み込み
-      $('#MapSimpleSearchPost').html('<div class="align-center mt-30"><img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif"></div>');
+      $('#mapSearchPost').html('<div class="align-center mt-30"><img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif"></div>');
       $.ajax({
           type: 'POST',
           url: ajaxurl,
           data: {
-            'action'     : 'mapSimpleSearchFunc',
+            'action'     : 'mapSearchFunc',
             'query_args' : query_args,
             'disp_num'   : disp_num,
             'selectTaxVal' : selectTaxVal,
             'selectFieldVal' : selectFieldVal,
             'inputTextVal' : inputTextVal,
-            'mapid'     : 'MapSimpleSearch',
+            'mapid'     : 'mapSearch',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
             markerMapArea = dispMarker2( map, markerData );
             // 記事の出力
-            $('#MapSimpleSearchPost').html( jsonData['tags'] );
+            $('#mapSearchPost').html( jsonData['tags'] );
             $('.matchHeight').matchHeight();
             // 表示件数カウント
-            $('#MapSimpleSearchNum').html(0);
-            $('#MapSimpleSearchNum').attr('data-count', jsonData['found_posts']);
+            $('#mapSearchNum').html(0);
+            $('#mapSearchNum').attr('data-count', jsonData['found_posts']);
             var countElm = $('[data-count]'),
             countSpeed = 20;
             countElm.each(function(){
@@ -77,11 +77,11 @@ jQuery(function($) {
               timer();
             });
             // さらに見るボタンを追加
-            $('#MapSimpleSearchPost').after(jsonData['tags_btn']);
+            $('#mapSearchPost').after(jsonData['tags_btn']);
           }
       });
     }
-    $('#MapSimpleSearch').myLazyLoadingObj({
+    $('#mapSearch').myLazyLoadingObj({
       callback : mapAreaDone,
     });
 
@@ -121,6 +121,6 @@ jQuery(function($) {
 });
 function clickViewMap( linkid ) {
   google.maps.event.trigger(markerMapArea[linkid], "click");
-  document.getElementById('MapSimpleSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
+  document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>
