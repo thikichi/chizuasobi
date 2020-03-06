@@ -3,10 +3,10 @@
 <div class="container align-center mt-xs-30">
   <ul class="nav-pagelink">
     <li class="nav-pagelink__item">
-      <a href="#Siseki">史跡紹介</a>
+      <a href="#Overview">史跡概要</a>
     </li>
     <li class="nav-pagelink__item">
-      <a href="#Quot">関連サイト</a>
+      <a href="#mapRelationWrap">みどころMAP散歩</a>
     </li>
     <li class="nav-pagelink__item">
       <a href="#Gallery">ギャラリー</a>
@@ -18,7 +18,10 @@
       <a href="#Shuhen">周辺の史跡</a>
     </li>
     <li class="nav-pagelink__item">
-      <a href="#HotelList">周辺地域の祝初施設一覧</a>
+      <a href="#HotelList">周辺地域のホテルの一覧</a>
+    </li>
+    <li class="nav-pagelink__item">
+      <a href="#Quot">紹介サイトの一覧</a>
     </li>
   </ul>
 </div>
@@ -28,7 +31,7 @@
   <?php the_post(); ?>
   <section id="SingleMain" class="pb-xs-50">
     <div style="position: relative;">
-      <div id="Siseki" style="position:absolute;top:-50px"></div>
+      <div id="Overview" style="position:absolute;top:-100px"></div>
     </div>
     <div class="container">
       <h2 class="title-1 mt-xs-15 mb-xs-15">
@@ -104,9 +107,109 @@
               ?>
               <?php /* カテゴリーのリスト */ ?>
               <?php get_template_part( 'parts/items-cat' ); ?>
-              <div class="box4-text mt-xs-30">
+
+              <?php
+              $castle_feetext = get_field('acf_castle_feetext');
+              ?>
+              <div class="box4-content mt-xs-30">
+                
+                <?php if( $castle_feetext['overview'] ): ?>
+                  <div class="box4-content__sec">
+                    <h3 class="box4-content__subttl">概要</h3>
+                    <p class="box4-content__textarea">
+                      <?php echo nl2br($castle_feetext['overview']); ?>
+                    </p>
+                  </div>
+                <?php endif; ?>
+
+                <div class="box4-content__sec">
+                  <h3 class="box4-content__subttl">見どころ</h3>
+<?php
+$relationplace = get_field('relationplace');
+if ( $relationplace!='' ):
+  $i=0;
+  ?>
+  <div class="box4__highlight-wrapper">
+    <?php $i=0; foreach ($relationplace as $place):
+      // photo
+      if( $place['photo']!='' ) {
+        $temp_img = wp_get_attachment_image_src( $place['photo'] , 'img_square_w100' );
+        $img_url = $temp_img[0];
+      } else {
+        $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+      }
+      ?>
+      <dl class="box4__highlight" style="position:relative">
+        <a id="mapRelationArticle_<?php echo $i; ?>" style="position:absolute;top:-100px"></a>
+        <dt class="box4__highlight-ttl"><?php echo $place['title']; ?>【 <a href="javascript:clickViewMap('mapRelation_<?php echo $i; ?>')">地図</a> 】</dt>
+        <dd class="box4__highlight-main">
+          <div class="box4__highlight-photo">
+            <img src="<?php echo esc_url($img_url); ?>">
+          </div>
+          <div class="box4__highlight-text">
+            <p class="box4__highlight-textarea">
+             <?php echo nl2br($place['textarea']); ?>
+            </p>
+            <?php if( $place['quote'] ):
+              foreach ($place['quote'] as $quote): ?>
+                <blockquote class="infwin__blockquote" cite="<?php echo esc_url($quote['url']); ?>">
+                <p class="infwin__blockquote-text">
+                  <?php echo $osfw->get_excerpt_filter( $quote['textarea'], 100, '...続きを読む', $quote['url'], '_blank' ); ?>
+                </p>
+                <cite class="infwin__blockquote-cite">
+                  <?php
+                  $tag  = '';
+                  $tag .= $quote['site_name'];
+                  if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
+                  echo $tag;
+                  ?>
+                </cite>
+                </blockquote>
+              <?php endforeach;
+            endif; ?>
+          </div>
+        </dd>
+      </dl>
+    <?php $i++; endforeach; ?>
+  </div>
+<?php endif;
+?>
+</div>
+                <?php if( $castle_feetext['history'] ): ?>
+                  <div class="box4-content__sec">
+                    <h3 class="box4-content__subttl">歴史</h3>
+                    <p class="box4-content__textarea">
+                      <?php echo nl2br($castle_feetext['history']); ?>
+                    </p>
+                  </div>
+                <?php endif; ?>
+
+                <?php if( $castle_feetext['access'] ): ?>
+                  <div class="box4-content__sec">
+                    <h3 class="box4-content__subttl">交通情報</h3>
+                    <p class="box4-content__textarea">
+                      <?php echo nl2br($castle_feetext['access']); ?>
+                    </p>
+                  </div>
+                <?php endif; ?>
+
+                <?php if( $castle_feetext['other'] ): ?>
+                  <div class="box4-content__sec">
+                    <h3 class="box4-content__subttl">その他</h3>
+                    <p class="box4-content__textarea">
+                      <?php echo nl2br($castle_feetext['other']); ?>
+                    </p>
+                  </div>
+                <?php endif; ?>
+
+              </div>
+
+
+              <div class="box4-text mt-xs-30 mb-xs-15">
                 <?php the_content(); ?>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -118,17 +221,17 @@
 
 
 <section class="block4">
+  <div style="position:relative">
+    <div id="mapRelationWrap" style="position:absolute;top:-100px"></div>
+  </div>
   <div class="container">
     <div class="block4__main">
       <h3 class="title-2 mb-xs-30">
-        『<?php the_title(); ?>』の関連する史跡
+        『<?php the_title(); ?>』の見どころMAP散歩
       </h3>
       <p class="block4__read mb-xs-15 align-center">「<?php the_title(); ?>」に直接・間接的に関連する施設・名所をご案内します。</p>
       <div class="block4__mappost">
         <div class="block4__mappost-map">
-          <div style="position:relative">
-            <div id="mapRelationWrap" style="position:absolute;top:-100px"></div>
-          </div>
           <div id="mapRelation" class="block4__map"></div>
         </div>
         <div class="block4__mappost-post">
@@ -140,12 +243,18 @@
           </div>
         </div>
       </div>
+
+
+
     </div>
   </div>
 </section>
 
 
 <section class="block4">
+  <div style="position:relative">
+    <div id="Gallery" style="position:absolute;top:-130px"></div>
+  </div>
   <div class="container">
     <div class="block4__main">
       <h3 class="title-2 mb-xs-30">
@@ -179,7 +288,7 @@
 
 <section class="block5">
   <div style="position: relative;">
-    <div id="SameCat" style="position:absolute;top:-50px"></div>
+    <div id="SameCat" style="position:absolute;top:-110px"></div>
   </div>
   <div class="block5__container">
     <div class="block5__inner">
@@ -237,7 +346,7 @@
 
 <section class="block5">
   <div style="position: relative;">
-    <div id="Shuhen" style="position:absolute;top:-50px"></div>
+    <div id="Shuhen" style="position:absolute;top:-100px"></div>
   </div>
   <div class="block5__container">
     <div class="block5__inner">
@@ -305,12 +414,12 @@
 
 <section class="block5">
   <div style="position: relative;">
-    <div id="HotelList" style="position:absolute;top:-50px"></div>
+    <div id="HotelList" style="position:absolute;top:-80px"></div>
   </div>
   <div class="block5__container">
     <div class="block5__inner">
       <h2 class="block5-ttl">
-        『<?php the_title(); ?>』周辺地域のホテル・旅館の一覧
+        『<?php the_title(); ?>』周辺地域のホテルの一覧
       </h2>
       <div class="block5__boxmain">
         <p class="block5__lead">

@@ -263,9 +263,10 @@ class utilityClass extends OsFmBase {
   /**
   * 文字を丸める関数
   */
-  public function get_excerpt_filter( $text, $num=50, $more_text='...続きを読む', $link='', $charset='UTF-8' ) {
+  public function get_excerpt_filter( $text, $num=50, $more_text='...続きを読む', $link='', $target='', $charset='UTF-8' ) {
     if( $link!='' ) {
-      $more_text = '<a href="' . esc_url($link) . '">' . $more_text . '</a>';
+      $target = $target!='' ? ' target="' . $target . '"' : '';
+      $more_text = '<a href="' . esc_url($link) . '"' . $target . '>' . $more_text . '</a>';
     }
     $str_disp = mb_substr( $text, 0, $num );
     if( mb_strlen( $str_disp, 'UTF-8' ) >= $num ) {

@@ -678,6 +678,7 @@ $layout3-slider-padding: 10px;
 .infwin-ttl {
   font-size: 16px;
   margin-bottom: 5px;
+  font-weight: bold;
 }
 .infwin-link {
   margin-top: 5px;
@@ -717,6 +718,11 @@ $layout3-slider-padding: 10px;
     padding: 0;
     margin: 5px 0;
     line-height: 1.7;
+    font-size: 12px;
+    a {
+      border-bottom: 1px dashed #777;
+      color: #597FC0;
+    }
 }
 
 .infwin__blockquote-cite {
@@ -1830,5 +1836,73 @@ $layout3-slider-padding: 10px;
       @extend %table-cell;
       text-align: left;
     }
+
+    .box4-content__sec {
+      margin-bottom: 15px;
+    }
+    .box4-content__subttl {
+      font-family: "Noto Serif JP", serif;
+      font-size: 18px;
+      padding-left: 0.5em;
+      margin-bottom: 15px;
+      position: relative;
+      &::after {
+        content: '';
+        width: 5px;
+        height: 70%;
+        position: absolute;
+        top: 15%;
+        left: 0;
+        background-color: $color-red;
+      }
+    }
+    .box4__highlight-wrapper {
+      margin-top: 15px;
+    }
+    .box4__highlight {
+      border-bottom: 1px dashed $color-border;
+      padding-bottom: 15px;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+    }
+    .box4__highlight-ttl {
+      font-size: 16px;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 10px;
+      // padding-left: 0.5em;
+      // position: relative;
+      // &::after {
+      //   content: '';
+      //   width: 5px;
+      //   height: 70%;
+      //   position: absolute;
+      //   top: 15%;
+      //   left: 0;
+      //   background-color: $color-red;
+      // }
+      > a {
+        border-bottom: 1px dashed #777;
+        color: $color-blue;
+      }
+    }
+    .block4__box-link {
+      border-bottom: 1px dashed #777;
+      color: $color-blue;
+      display: inline-block;
+      height: 1.4em;
+    }
+
+    .box4__highlight-main {
+      @extend %flex;
+    }
+    .box4__highlight-photo {
+      width: 100px;
+    }
+    .box4__highlight-text {
+      width: calc(100% - 100px);
+      padding-left: 15px;
+    }
+
   }
 }

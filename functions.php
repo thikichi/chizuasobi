@@ -695,17 +695,18 @@ function gmap_infowindow_simple( $title, $img_id, $textarea, $quote_arr ) {
   $tag .= "<img class='img-responsive' src='" . $img_url . "'></div>";
   $tag .= "<div class='infwin-main'>";
   $tag .= "<h3 class='infwin-ttl'>" . $title . "</h3>";
-  if($quote_arr) {
-    foreach ($quote_arr as $quote) {
-      $tag .= '<blockquote class="infwin__blockquote" cite="' . $quote['url'] . '">';
-      $tag .= '<p class="infwin__blockquote-text">' . $quote['textarea'] . '</p>';
-      $tag .= '<cite class="infwin__blockquote-cite">';
-      $tag .= $quote['site_name'];
-      if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
-      $tag .= '</cite>';
-      $tag .= '</blockquote>';
-    }
-  }
+  $tag .= "<p class='infwin-textarea'>" . $textarea . "</p>";
+  // if($quote_arr) {
+  //   foreach ($quote_arr as $quote) {
+  //     $tag .= '<blockquote class="infwin__blockquote" cite="' . $quote['url'] . '">';
+  //     $tag .= '<p class="infwin__blockquote-text">' . $quote['textarea'] . '</p>';
+  //     $tag .= '<cite class="infwin__blockquote-cite">';
+  //     $tag .= $quote['site_name'];
+  //     if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
+  //     $tag .= '</cite>';
+  //     $tag .= '</blockquote>';
+  //   }
+  // }
   $tag .= "</div>";
   $tag .= "</div>";
   return $tag;

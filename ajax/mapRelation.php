@@ -33,7 +33,7 @@ function mapRelationFunc(){
 
       // 一覧
       $tag .= '<li class="block4__mapside-list-item">';
-      $tag .= '<a class="block4__mapside-link" href="javascript:clickViewMap(\'' . $mapid . '_' . $i . '\')">';
+      $tag .= '<div class="block4__mapside-link">';
       $tag .= '<div class="block4__box">';
       $tag .= '<div class="block4__box-sub">';
       $tag .= '<img src="' . esc_url($img_url) . '">';
@@ -42,11 +42,12 @@ function mapRelationFunc(){
       $tag .= '<div class="block4__box-mainTable">';
       $tag .= '<div class="block4__box-mainTableCell">';
       $tag .= '<h4 class="block4__box-subttl">' . $place['title'] . '</h4>';
+      $tag .= '<div>[ <a class="block4__box-link" href="javascript:clickViewMap(\'' . $mapid . '_' . $i . '\')">地図</a> ][ <a class="block4__box-link" href="#mapRelationArticle_' . $i . '">詳細</a> ]</div>';
       $tag .= '</div>';
       $tag .= '</div>';
       $tag .= '</div>';
       $tag .= '</div>';
-      $tag .= '</a>';
+      $tag .= '</div>';
       $tag .= '</li>';
 
       // マーカーオブジェクトをつくる
