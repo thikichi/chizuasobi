@@ -97,12 +97,14 @@ function mapSearchFunc(){
       // set icon from taxonomy term ID.
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
-
+      // marker image
+      // marker image
       $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
       if( $loop_marker_id ) {
-        $marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+        $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+        $marker = $temp_marker['src'];
       } else {
-        $marker = '';
+        $marker = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
       }
       // create marker
       $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
@@ -110,7 +112,7 @@ function mapSearchFunc(){
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
       $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
-      $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
+      $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker;
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
       $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $loop_address );
       

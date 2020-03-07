@@ -144,7 +144,12 @@ $csearch->set_posts_per_page(10);
               <?php $search_count = $csearch->get_search_count(); ?>
               <p class="mb-xs-5">検索件数 ： 全 <?php echo $search_count['all_num']; ?> 件中 <?php echo $search_count['get_num']; ?> を表示</p>
               <p class="mb-xs-15">選択ワード： <?php echo $csearch->get_search_query(); ?> </p>
-              <div id="mapSearch" class="gmap-all__map-area"></div>
+
+              <div style="position:relative">
+                <div id="mapSearchWrap" style="position:absolute;top:-100px"></div>
+                <div id="mapSearch" class="gmap-all__map-area"></div>
+              </div>
+
             </div>
           </div>
         </section><!-- SFormMap -->
@@ -155,7 +160,6 @@ $csearch->set_posts_per_page(10);
             <ul class="row mt-xs-15">
               <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
               <!-- ここから記事の出力 -->
-                <?php $mapid='mapSearch'; // GoogleMapを読み込む要素を指定 ?>
                 <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
               <!-- ここまで記事の出力 -->
               <?php endwhile; ?>
@@ -166,60 +170,9 @@ $csearch->set_posts_per_page(10);
           <?php /* リセット */ ?>
           <?php wp_reset_postdata(); ?>
         </section>
-
-
-      <?php
-      $post_map_area = $csearch->get_subquery_args();
-      $lat_init = 35.681236;
-      $lng_init = 139.767125;
-      ?>
-
-      <script>
-      jQuery(function($) {
-        $(function(){
-          var markerMapArea = [];
-          // var marker;
-          /*
-           * TOPページ
-          */
-          // 遅延読み込み部分
-          var mapSearchDone = function() {
-            var markerData = [];
-            var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-            var map = initMap( 'mapSearch', mapLatLng, 10.0 );
-            var query_args = <?php echo json_encode($post_map_area); ?>;
-            $.ajax({
-                type: 'POST',
-                url: ajaxurl,
-                data: {
-                  'action'     : 'postSameCatFunc',
-                  'query_args' : query_args,
-                  'mapid'     : 'mapSearch',
-                },
-                success: function( response ){
-                  jsonData = JSON.parse( response );
-                  markerData = jsonData['markerDataAjax'];
-                  markerMapArea = dispMarker2( map, markerData );
-                }
-            });
-          }
-          $('#mapSearch').myLazyLoadingObj({
-            callback : mapSearchDone,
-          });
-          $('[data-mapid]').on('click', function(event) {
-            var map_post_id = $(this).data('mapid');
-            console.log( markerMapArea );
-            google.maps.event.trigger(markerMapArea[map_post_id], "click");
-          });
-        });
-      });
-      </script>
-
-
       </div>
     </div>
   </div>
 </section>
-
 
 <?php get_template_part( 'parts/recomend-category' ); ?>

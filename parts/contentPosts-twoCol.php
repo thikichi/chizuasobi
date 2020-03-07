@@ -1,5 +1,4 @@
 <?php
-global $mapid;
 global $osfw;
 $field = array();
 $field['Coordinate'] = get_post_meta( $post->ID, 'acf_landmark_gmap', true );

@@ -91,6 +91,9 @@ if(is_singular('landmark')) {
 if(is_singular('feature') || is_front_page()) {
   get_template_part('parts-js/featurePostMap');
 } 
+if(is_page('searchform')) {
+  get_template_part('parts-js/mapSearchform');
+} 
 if(is_front_page()) {
   get_template_part('parts-js/mapSearch');
 } 
