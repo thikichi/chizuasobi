@@ -95,6 +95,9 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
     <ul class="row mt-xs-15" id="mapSearchPost"></ul>
   </div>
 </section>
+
+
+
 <section>
 <?php
 // global $post_map_sp;
@@ -127,6 +130,8 @@ $the_query = new WP_Query( $post_map_sp );
 <?php endif; ?>
 <?php wp_reset_query(); ?>
 </section>
+
+
 
 <section class="courselist mt-xs-50 mt-md-70">
   <div class="courselist__container">

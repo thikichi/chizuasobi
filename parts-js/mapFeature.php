@@ -24,19 +24,19 @@ jQuery(function($) {
      * 特集テーマ
     */
     // 遅延読み込み部分
-    var featurePostMapDone = function() {
+    var mapFeatureDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
-      var map = initMap( 'featurePostMap', mapLatLng, <?php echo $init_zoom; ?> );
+      var map = initMap( 'mapFeature', mapLatLng, <?php echo $init_zoom; ?> );
       // var disp_num = 2;
       var query_args = <?php echo json_encode($post_map_sp); ?>;
       $.ajax({
           type: 'POST',
           url: ajaxurl,
           data: {
-            'action'     : 'featurePostMapFunc',
+            'action'     : 'mapFeatureFunc',
             'query_args' : query_args,
-            'mapid'     : 'featurePostMap',
+            'mapid'     : 'mapFeature',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
@@ -45,8 +45,8 @@ jQuery(function($) {
           }
       });
     }
-    $('#featurePostMap').myLazyLoadingObj({
-      callback : featurePostMapDone,
+    $('#mapFeature').myLazyLoadingObj({
+      callback : mapFeatureDone,
     });
 
     $('[data-mapid]').on('click', function(event) {

@@ -98,7 +98,6 @@ function mapSearchFunc(){
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
       // marker image
-      // marker image
       $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
       if( $loop_marker_id ) {
         $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );

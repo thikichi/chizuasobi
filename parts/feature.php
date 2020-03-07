@@ -31,7 +31,7 @@ global $the_query;
           ?>
         </p>
         <div class="mt-xs-15">
-          <div id="featurePostMap" style="width:100%;height:350px"></div>
+          <div id="mapFeature" style="width:100%;height:350px"></div>
         </div>
         <ul class="list-1 row mt-xs-30">
           <?php $i=1; while($the_query->have_posts()) : $the_query->the_post(); ?>

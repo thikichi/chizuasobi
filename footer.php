@@ -89,7 +89,7 @@ if(is_singular('landmark')) {
   get_template_part('parts-js/mapRelation');
 } 
 if(is_singular('feature') || is_front_page()) {
-  get_template_part('parts-js/featurePostMap');
+  get_template_part('parts-js/mapFeature');
 } 
 if(is_page('searchform')) {
   get_template_part('parts-js/mapSearchform');

@@ -2,7 +2,7 @@
 /*
  * Google Map Ajax
 */
-function featurePostMapFunc(){
+function mapFeatureFunc(){
   global $osfw;
   $returnObj  = array();
   $mapid     = $_POST['mapid'];
@@ -36,6 +36,14 @@ function featurePostMapFunc(){
       } else {
         $main_cat_id = $get_terms[0]->term_id;
       }
+      // marker image
+      $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
+      if( $loop_marker_id ) {
+        $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+        $marker = $temp_marker['src'];
+      } else {
+        $marker = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
+      }
       // set icon from taxonomy term ID.
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
@@ -47,7 +55,7 @@ function featurePostMapFunc(){
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
       $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = $infoWin;
-      $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+      $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker;
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
       $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $loop_address );
       $i++;
@@ -56,5 +64,5 @@ function featurePostMapFunc(){
   echo json_encode( $returnObj );
   die();
 }
-add_action( 'wp_ajax_featurePostMapFunc', 'featurePostMapFunc' );
-add_action( 'wp_ajax_nopriv_featurePostMapFunc', 'featurePostMapFunc' );
+add_action( 'wp_ajax_mapFeatureFunc', 'mapFeatureFunc' );
+add_action( 'wp_ajax_nopriv_mapFeatureFunc', 'mapFeatureFunc' );
