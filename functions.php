@@ -649,7 +649,7 @@ add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 require_once 'ajax/mapDistSearch.php';
 require_once 'ajax/mapFeature.php';
 require_once 'ajax/mapSearch.php';
-require_once 'ajax/postSameCatFunc.php';
+require_once 'ajax/mapSamecat.php';
 require_once 'ajax/mapSearchform.php';
 require_once 'ajax/mapRelation.php';
 
@@ -682,7 +682,7 @@ function gmap_infowindow( $post_id, $map_id ) {
   return $tag;
 }
 
-function gmap_infowindow_simple( $title, $img_id, $textarea, $quote_arr ) {
+function mapRelationSideText( $title, $img_id, $textarea, $quote_arr ) {
   if( $img_id!='' ) {
     $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
     $img_url = $temp_img[0];
@@ -713,7 +713,7 @@ function gmap_infowindow_simple( $title, $img_id, $textarea, $quote_arr ) {
   return $tag;
 }
 
-function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
+function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address, $func_name='' ) {
 
   // Thumbnail
   $img_id = get_post_thumbnail_id( $post_id );
@@ -759,7 +759,12 @@ function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address ) {
   $tag .= '</div>';
   $tag .= '<div class="box-1-btn matchHeight">';
   $tag .= '<div class="box-1-btnTop">';
-  $tag .= '<a class="link-1" href="javascript:clickViewMap(\'' . $post_id . '\')">';
+  if( $func_name!='' ) {
+    $tag .= '<a class="link-1" href="javascript:' . $func_name . '(\'' . $post_id . '\')">';
+  } else {
+    $tag .= '<a class="link-1" href="javascript:clickViewMap(\'' . $post_id . '\')">';
+  }
+  
   $tag .= '<span class="link-color-1">';
   $tag .= '<img class="_icon " src="' . $theme_url . '/images/common/icon-pin.svg">'; 
   $tag .= '<span class="_linkText box-1-btnText">地図を見る</span>';

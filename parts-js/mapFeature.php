@@ -16,9 +16,9 @@ $post_map_sp['posts_per_page'] = -1;
 ?>
 
 <script>
+var mapFeatureMarker = [];
 jQuery(function($) {
   $(function(){
-    var markerMapArea = [];
     /*
      * TOPページ
      * 特集テーマ
@@ -41,7 +41,7 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
+            mapFeatureMarker = dispMarker2( map, markerData );
           }
       });
     }
@@ -49,11 +49,14 @@ jQuery(function($) {
       callback : mapFeatureDone,
     });
 
-    $('[data-mapid]').on('click', function(event) {
-      var map_post_id = $(this).data('mapid');
-      google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    });
-
+    // $('[data-mapid]').on('click', function(event) {
+    //   var map_post_id = $(this).data('mapid');
+    //   google.maps.event.trigger(mapFeatureMarker[map_post_id], "click");
+    // });
   });
 });
+function mapFeatureClick( linkid ) {
+  google.maps.event.trigger(mapFeatureMarker['mapFeature_' + linkid], "click");
+  document.getElementById('mapFeature').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
 </script>

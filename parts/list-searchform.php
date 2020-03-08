@@ -28,7 +28,7 @@ $csearch->set_posts_per_page(10);
           </span>
         </p>
 
-        <form class="sform" action="<?php echo $osfw->get_page_link( 'sform' ); ?>" method="GET">
+        <form class="sform" action="<?php echo $osfw->get_page_link( 'searchform' ); ?>" method="GET">
           <?php $csearch->setup_form(); ?>
           <div class="sform__main">
             <div class="sform__row cf">
@@ -128,7 +128,7 @@ $csearch->set_posts_per_page(10);
               </div>
             </div><!-- .sform__row -->
             <div class="align-center mt-xs-15">
-              <?php $csearch->form_input_reset( 'リセット', '/sform/', '', 'button__1--reset' ); ?>
+              <?php $csearch->form_input_reset( 'リセット', '/searchform/', '', 'button__1--reset' ); ?>
               <input type="submit" class="button__1--submit" value="送信">
             </div>
           </div>
@@ -146,8 +146,8 @@ $csearch->set_posts_per_page(10);
               <p class="mb-xs-15">選択ワード： <?php echo $csearch->get_search_query(); ?> </p>
 
               <div style="position:relative">
-                <div id="mapSearchWrap" style="position:absolute;top:-100px"></div>
-                <div id="mapSearch" class="gmap-all__map-area"></div>
+                <div id="mapSearchformWrap" style="position:absolute;top:-100px"></div>
+                <div id="mapSearchform" class="gmap-all__map-area"></div>
               </div>
 
             </div>

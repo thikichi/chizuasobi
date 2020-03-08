@@ -42,7 +42,7 @@ function mapRelationFunc(){
       $tag .= '<div class="block4__box-mainTable">';
       $tag .= '<div class="block4__box-mainTableCell">';
       $tag .= '<h4 class="block4__box-subttl">' . $place['title'] . '</h4>';
-      $tag .= '<div>[ <a class="block4__box-link" href="javascript:clickViewMap(\'' . $mapid . '_' . $i . '\')">地図</a> ][ <a class="block4__box-link" href="#mapRelationArticle_' . $i . '">詳細</a> ]</div>';
+      $tag .= '<div>[ <a class="block4__box-link" href="javascript:mapRelationClick(\'' . $mapid . '_' . $i . '\')">地図</a> ][ <a class="block4__box-link" href="#mapRelationArticle_' . $i . '">詳細</a> ]</div>';
       $tag .= '</div>';
       $tag .= '</div>';
       $tag .= '</div>';
@@ -56,7 +56,7 @@ function mapRelationFunc(){
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($place['map']['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($place['map']['lng']);
       $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
-      $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow_simple( $place['title'], $place['photo'], $place['textarea'], $place['quote'] );
+      $returnObj['markerDataAjax'][$i]['infoWindowContent'] = mapRelationSideText( $place['title'], $place['photo'], $place['textarea'], $place['quote'] );
       $i++;
     }
     $returnObj['tags'] = $tag;

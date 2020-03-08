@@ -11,7 +11,7 @@ $lng_init = $acf_landmark_gmap['lng'];
 ?>
 
 <script>
-var markerMapArea = [];
+var mapRelationMarker = [];
 jQuery(function($) {
   $(function(){
     
@@ -32,7 +32,7 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
+            mapRelationMarker = dispMarker2( map, markerData );
             console.log(jsonData['tags']);
             $('.block4__mapside-list').append(jsonData['tags']);
             // スムーズスクロール
@@ -54,21 +54,14 @@ jQuery(function($) {
                 return false;
               });
             });
-
-
-
           }
       });
     }
     mapAreaDone();
-    // $('[data-mapid]').on('click', function(event) {
-    //   var map_post_id = $(this).data('mapid');
-    //   google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    // });
   });
 });
-function clickViewMap( linkid ) {
-  google.maps.event.trigger(markerMapArea[linkid], "click");
+function mapRelationClick( linkid ) {
+  google.maps.event.trigger(mapRelationMarker[linkid], "click");
   document.getElementById('mapRelationWrap').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>

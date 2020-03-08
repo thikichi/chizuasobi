@@ -141,7 +141,7 @@ if ( $relationplace!='' ):
       ?>
       <dl class="box4__highlight" style="position:relative">
         <a id="mapRelationArticle_<?php echo $i; ?>" style="position:absolute;top:-100px"></a>
-        <dt class="box4__highlight-ttl"><?php echo $place['title']; ?>【 <a href="javascript:clickViewMap('mapRelation_<?php echo $i; ?>')">地図</a> 】</dt>
+        <dt class="box4__highlight-ttl"><?php echo $place['title']; ?>【 <a href="javascript:mapRelationClick('mapRelation_<?php echo $i; ?>')">地図</a> 】</dt>
         <dd class="box4__highlight-main">
           <div class="box4__highlight-photo">
             <img src="<?php echo esc_url($img_url); ?>">
@@ -304,7 +304,10 @@ if ( $relationplace!='' ):
         </p>
 
         <div class="mt-xs-15">
-          <div id="mapCats" class="gmap-main"></div>
+          <div style="position:relative">
+            <div id="mapSamecatWrap" style="position:absolute;top:-100px"></div>
+          </div>
+          <div id="mapSamecat" class="gmap-main"></div>
         </div>
         <div class="mt-xs-15">
           <?php
@@ -324,7 +327,7 @@ if ( $relationplace!='' ):
           <?php if ($the_query->have_posts()): ?>
             <ul class="row mt-xs-15">
               <?php while($the_query->have_posts()) : $the_query->the_post(); ?>
-                <?php $mapid='mapCats'; // GoogleMapを読み込む要素を指定 ?>
+                <?php // $mapid='mapSamecat'; // GoogleMapを読み込む要素を指定 ?>
                 <?php get_template_part( 'parts/contentPosts','twoCol' ); ?>
               <?php endwhile; ?>
             </ul>

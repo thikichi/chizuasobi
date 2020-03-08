@@ -8,7 +8,7 @@ $mapid = 'featurePostMap';
     <h3 class="box-2-subttl">
       <span class="box-2-subttl-num"><?php echo $i; ?></span>
       <span class="box-2-subttl-main"><?php the_title(); ?> 
-        <a class="link-color-1 text-12" data-mapid="<?php echo $mapid . '_' . get_the_ID(); ?>" href="#<?php echo $mapid; ?>">[地図を見る]</a>
+        <a class="link-color-1 text-12" href="javascript:mapFeatureClick('<?php echo $post->ID; ?>');">[地図を見る]</a>
       </span>
     </h3>
     <div class="box-2-main">

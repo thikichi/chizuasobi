@@ -26,43 +26,43 @@ $post_args_same_cat = array(
 ?>
 
 <script>
+var mapSamecatMarker = [];
 jQuery(function($) {
   $(function(){
-    var markerMapArea = [];
+    
     /*
      * 同じカテゴリー
     */
     // 遅延読み込み部分
-    var mapCatsDone = function() {
+    var mapSamecatDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapCats', mapLatLng, 10.0 );
+      var map = initMap( 'mapSamecat', mapLatLng, 10.0 );
       var disp_num = 2;
       var query_args = <?php echo json_encode($post_args_same_cat); ?>;
       $.ajax({
           type: 'POST',
           url: ajaxurl,
           data: {
-            'action'     : 'postSameCatFunc',
+            'action'     : 'mapSamecatFunc',
             'query_args' : query_args,
-            'mapid'      : 'mapCats',
+            'mapid'      : 'mapSamecat',
             'disp_num'   : disp_num, // 記事○件ずつ表示
           },
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
+            mapSamecatMarker = dispMarker2( map, markerData );
           }
       });
     }
-    $('#mapCats').myLazyLoadingObj({
-      callback : mapCatsDone,
-    });
-    $('[data-mapid]').on('click', function(event) {
-      var map_post_id = $(this).data('mapid');
-      console.log(map_post_id);
-      google.maps.event.trigger(markerMapArea[map_post_id], "click");
+    $('#mapSamecat').myLazyLoadingObj({
+      callback : mapSamecatDone,
     });
   });
 });
+function mapSamecatClick( linkid ) {
+  google.maps.event.trigger(mapSamecatMarker['mapSamecat_' + linkid], "click");
+  document.getElementById('mapSamecatWrap').scrollIntoView({behavior: 'smooth', block: 'start'});
+}
 </script>

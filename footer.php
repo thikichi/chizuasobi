@@ -81,8 +81,9 @@
 <?php
 global $mapid;
 if(is_singular('landmark')) {
-  $mapid = 'mapCats';
-  get_template_part('parts/js-postSameCat');
+  // $mapid = 'mapCats';
+  // get_template_part('parts/js-postSameCat');
+  get_template_part('parts-js/mapSamecat');
   $mapid = 'mapDistSearch';
   get_template_part('parts/js-mapDistSearch');
   get_template_part('parts/js-postNearHotel');

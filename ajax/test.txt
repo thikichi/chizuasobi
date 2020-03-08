@@ -1,0 +1,60 @@
+array(7) {
+  ["src"]=>
+  string(65) "http://localhost/chizuasobi/wp-content/uploads/mapicon-sample.png"
+  ["width"]=>
+  int(85)
+  ["height"]=>
+  int(104)
+  ["alt"]=>
+  string(0) ""
+  ["title"]=>
+  string(14) "mapicon-sample"
+  ["excerpt"]=>
+  string(0) ""
+  ["content"]=>
+  string(0) ""
+}
+array(2) {
+  ["src"]=>
+  string(86) "http://localhost/chizuasobi/wp-content/themes/chizuasobi/images/common/noimage-100.jpg"
+  ["alt"]=>
+  string(0) ""
+}
+array(2) {
+  ["src"]=>
+  string(86) "http://localhost/chizuasobi/wp-content/themes/chizuasobi/images/common/noimage-100.jpg"
+  ["alt"]=>
+  string(0) ""
+}
+array(2) {
+  ["src"]=>
+  string(86) "http://localhost/chizuasobi/wp-content/themes/chizuasobi/images/common/noimage-100.jpg"
+  ["alt"]=>
+  string(0) ""
+}
+array(2) {
+  ["src"]=>
+  string(86) "http://localhost/chizuasobi/wp-content/themes/chizuasobi/images/common/noimage-100.jpg"
+  ["alt"]=>
+  string(0) ""
+}
+array(7) {
+  ["src"]=>
+  string(65) "http://localhost/chizuasobi/wp-content/uploads/mapicon-sample.png"
+  ["width"]=>
+  int(85)
+  ["height"]=>
+  int(104)
+  ["alt"]=>
+  string(0) ""
+  ["title"]=>
+  string(14) "mapicon-sample"
+  ["excerpt"]=>
+  string(0) ""
+  ["content"]=>
+  string(0) ""
+}
+string(0) ""
+string(0) ""
+string(0) ""
+string(0) ""

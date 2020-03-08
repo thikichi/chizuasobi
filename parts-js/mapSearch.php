@@ -12,7 +12,7 @@ if( $gmap_ajax_search ) {
 ?>
 
 <script>
-    var markerMapArea = [];
+    var mapSearchMarker = [];
     var selectTaxVal = {};
     var selectFieldVal = {};
     var inputTextVal = {};
@@ -51,7 +51,7 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
+            mapSearchMarker = dispMarker2( map, markerData );
             // 記事の出力
             $('#mapSearchPost').html( jsonData['tags'] );
             $('.matchHeight').matchHeight();
@@ -119,8 +119,8 @@ jQuery(function($) {
 
   });
 });
-function clickViewMap( linkid ) {
-  google.maps.event.trigger(markerMapArea[linkid], "click");
+function mapSearchClick( linkid ) {
+  google.maps.event.trigger(mapSearchMarker[linkid], "click");
   document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>

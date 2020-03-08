@@ -2,7 +2,7 @@
 /*
  * Google Map Ajax
 */
-function postSameCatFunc(){
+function mapSamecatFunc(){
   global $osfw;
   $returnObj  = array();
   $mapid     = $_POST['mapid'];
@@ -39,43 +39,23 @@ function postSameCatFunc(){
       } else {
         $main_cat_id = $get_terms[0]->term_id;
       }
+      // marker image
+      $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
+      if( $loop_marker_id ) {
+        $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+        $marker = $temp_marker['src'];
+      } else {
+        $marker = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
+      }
       // set icon from taxonomy term ID.
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
-
-      // $terms = get_the_terms(get_the_ID(), 'landmark_cateogry');
-      // if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
-      //   $term_list = '[';
-      //   foreach ( $terms as $term ) {
-      //     $term_list .= "'" . $term->term_id . "'";
-      //     if ($term !== end($terms)) {
-      //       $term_list .= ',';
-      //     }
-      //   }
-      //   $term_list .= ']';
-      // }
-      // // thumbnail
-      // $temp_img = $osfw->get_thumbnail_by_post( get_the_ID(), 'img_square' );
-      // $post_map_img = $temp_img['src'] ? $temp_img['src'] : get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-      // InfoWindow
-      // $infoWin  = '';
-      // $infoWin .= "<div id='" . $mapid . "_" . get_the_ID() . "' class='infwin cf' style='position:relative'>";
-      // $infoWin .= "<a style='position:absolute;top:-150px'></a>";
-      // $infoWin .= "<div class='infwin-thumb'>";
-      // $infoWin .= "<img class='img-responsive' src='" . $post_map_img . "'></div>";
-      // $infoWin .= "<div class='infwin-main'>";
-      // $infoWin .= "<h3>" . get_the_title() . "</h3>";
-      // $infoWin .= "<p>" . $loop_address . "</p>";
-      // $infoWin .= "<p class='infwin-link'><a href='" . get_the_permalink() . "'>この記事を見る</a></p>";
-      // $infoWin .= "</div>";
-      // $infoWin .= "</div>";
-      // マーカーオブジェクトをつくる
       $returnObj['markerDataAjax'][$i]['id']   = $mapid . "_" . get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();
       $returnObj['markerDataAjax'][$i]['lat']  = floatval($loop_gmap['lat']);
       $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
       $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
-      $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+      $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker;
       $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
       $returnObj['tags'] .= get_tag_postlist( get_the_ID(), 'landmark_cateogry', $loop_address );
       $i++;
@@ -84,5 +64,5 @@ function postSameCatFunc(){
   echo json_encode( $returnObj );
   die();
 }
-add_action( 'wp_ajax_postSameCatFunc', 'postSameCatFunc' );
-add_action( 'wp_ajax_nopriv_postSameCatFunc', 'postSameCatFunc' );
+add_action( 'wp_ajax_mapSamecatFunc', 'mapSamecatFunc' );
+add_action( 'wp_ajax_nopriv_mapSamecatFunc', 'mapSamecatFunc' );

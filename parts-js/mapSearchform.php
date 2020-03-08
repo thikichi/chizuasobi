@@ -6,7 +6,7 @@ $lng_init = 139.767125;
 ?>
 
 <script>
-var markerMapArea = [];
+var mapSearchformMarker = [];
 jQuery(function($) {
   $(function(){
     // var marker;
@@ -17,7 +17,7 @@ jQuery(function($) {
     var mapSearchDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapSearch', mapLatLng, 10.0 );
+      var map = initMap( 'mapSearchform', mapLatLng, 10.0 );
       var query_args = <?php echo json_encode($post_map_area); ?>;
       $.ajax({
           type: 'POST',
@@ -25,27 +25,22 @@ jQuery(function($) {
           data: {
             'action'     : 'mapSearchformFunc',
             'query_args' : query_args,
-            'mapid'     : 'mapSearch',
+            'mapid'     : 'mapSearchform',
           },
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
-            markerMapArea = dispMarker2( map, markerData );
+            mapSearchformMarker = dispMarker2( map, markerData );
           }
       });
     }
-    $('#mapSearch').myLazyLoadingObj({
+    $('#mapSearchform').myLazyLoadingObj({
       callback : mapSearchDone,
     });
-    // $('[data-mapid]').on('click', function(event) {
-    //   var map_post_id = $(this).data('mapid');
-    //   console.log( markerMapArea );
-    //   google.maps.event.trigger(markerMapArea[map_post_id], "click");
-    // });
   });
 });
-function clickViewMap( linkid ) {
-  google.maps.event.trigger(markerMapArea['mapSearch_' + linkid], "click");
-  document.getElementById('mapSearchWrap').scrollIntoView({behavior: 'smooth', block: 'start'});
+function mapSearchformClick( linkid ) {
+  google.maps.event.trigger(mapSearchformMarker['mapSearchform_' + linkid], "click");
+  document.getElementById('mapSearchformWrap').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>
