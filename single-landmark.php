@@ -122,59 +122,59 @@
                   </div>
                 <?php endif; ?>
 
-                <div class="box4-content__sec">
-                  <h3 class="box4-content__subttl">見どころ</h3>
+
 <?php
 $relationplace = get_field('relationplace');
-if ( $relationplace!='' ):
-  $i=0;
-  ?>
-  <div class="box4__highlight-wrapper">
-    <?php $i=0; foreach ($relationplace as $place):
-      // photo
-      if( $place['photo']!='' ) {
-        $temp_img = wp_get_attachment_image_src( $place['photo'] , 'img_square_w100' );
-        $img_url = $temp_img[0];
-      } else {
-        $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
-      }
-      ?>
-      <dl class="box4__highlight" style="position:relative">
-        <a id="mapRelationArticle_<?php echo $i; ?>" style="position:absolute;top:-100px"></a>
-        <dt class="box4__highlight-ttl"><?php echo $place['title']; ?>【 <a href="javascript:mapRelationClick('mapRelation_<?php echo $i; ?>')">地図</a> 】</dt>
-        <dd class="box4__highlight-main">
-          <div class="box4__highlight-photo">
-            <img src="<?php echo esc_url($img_url); ?>">
-          </div>
-          <div class="box4__highlight-text">
-            <p class="box4__highlight-textarea">
-             <?php echo nl2br($place['textarea']); ?>
-            </p>
-            <?php if( $place['quote'] ):
-              foreach ($place['quote'] as $quote): ?>
-                <blockquote class="infwin__blockquote" cite="<?php echo esc_url($quote['url']); ?>">
-                <p class="infwin__blockquote-text">
-                  <?php echo $osfw->get_excerpt_filter( $quote['textarea'], 100, '...続きを読む', $quote['url'], '_blank' ); ?>
-                </p>
-                <cite class="infwin__blockquote-cite">
-                  <?php
-                  $tag  = '';
-                  $tag .= $quote['site_name'];
-                  if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
-                  echo $tag;
-                  ?>
-                </cite>
-                </blockquote>
-              <?php endforeach;
-            endif; ?>
-          </div>
-        </dd>
-      </dl>
-    <?php $i++; endforeach; ?>
+if ( isset($relationplace) && $relationplace!='' ): ?>
+  <div class="box4-content__sec">
+    <h3 class="box4-content__subttl">見どころ</h3>
+    <?php $i=0; ?>
+    <div class="box4__highlight-wrapper">
+      <?php $i=0; foreach ($relationplace as $place):
+        // photo
+        if( $place['photo']!='' ) {
+          $temp_img = wp_get_attachment_image_src( $place['photo'] , 'img_square_w100' );
+          $img_url = $temp_img[0];
+        } else {
+          $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+        }
+        ?>
+        <dl class="box4__highlight" style="position:relative">
+          <a id="mapRelationArticle_<?php echo $i; ?>" style="position:absolute;top:-100px"></a>
+          <dt class="box4__highlight-ttl"><?php echo $place['title']; ?>【 <a href="javascript:mapRelationClick('mapRelation_<?php echo $i; ?>')">地図</a> 】</dt>
+          <dd class="box4__highlight-main">
+            <div class="box4__highlight-photo">
+              <img src="<?php echo esc_url($img_url); ?>">
+            </div>
+            <div class="box4__highlight-text">
+              <p class="box4__highlight-textarea">
+               <?php echo nl2br($place['textarea']); ?>
+              </p>
+              <?php if( $place['quote'] ):
+                foreach ($place['quote'] as $quote): ?>
+                  <blockquote class="infwin__blockquote" cite="<?php echo esc_url($quote['url']); ?>">
+                  <p class="infwin__blockquote-text">
+                    <?php echo $osfw->get_excerpt_filter( $quote['textarea'], 100, '...続きを読む', $quote['url'], '_blank' ); ?>
+                  </p>
+                  <cite class="infwin__blockquote-cite">
+                    <?php
+                    $tag  = '';
+                    $tag .= $quote['site_name'];
+                    if($quote['page_title']) $tag .= '『' . $quote['page_title'] . '』';
+                    echo $tag;
+                    ?>
+                  </cite>
+                  </blockquote>
+                <?php endforeach;
+              endif; ?>
+            </div>
+          </dd>
+        </dl>
+      <?php $i++; endforeach; ?>
+    </div>
   </div>
-<?php endif;
-?>
-</div>
+<?php endif; ?>
+
                 <?php if( $castle_feetext['history'] ): ?>
                   <div class="box4-content__sec">
                     <h3 class="box4-content__subttl">歴史</h3>
