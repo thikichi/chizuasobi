@@ -99,7 +99,7 @@ jQuery(function($) {
     });
 
     // フリーワード
-    $('.block3__form-text').blur(function() {
+    $('.block3__form-text').on('input',function(e){
       setFormValues();
       mapAreaDone();
     });
