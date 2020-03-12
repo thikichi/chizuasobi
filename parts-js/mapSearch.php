@@ -50,10 +50,17 @@ jQuery(function($) {
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            markerData = jsonData['markerDataAjax'];
-            mapSearchMarker = dispMarker2( map, markerData );
+            if( 'markerDataAjax' in jsonData ) {
+              markerData = jsonData['markerDataAjax'];
+              mapSearchMarker = dispMarker2( map, markerData );
+            }
             // 記事の出力
-            $('#mapSearchPost').html( jsonData['tags'] );
+            if( jsonData['tags']!='' ) {
+              $('#mapSearchPost').html( jsonData['tags'] );
+            } else {
+              $('#mapSearchPost').html( '<p class="align-center mt-50 mb-50">お探しの投稿はありませんでした。</p>' );
+            }
+            
             $('.matchHeight').matchHeight();
             // 表示件数カウント
             $('#mapSearchNum').html(0);
@@ -120,7 +127,10 @@ jQuery(function($) {
   });
 });
 function mapSearchClick( linkid ) {
-  google.maps.event.trigger(mapSearchMarker[linkid], "click");
-  document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
+  if( !empty(mapSearchMarker) ) {
+    google.maps.event.trigger(mapSearchMarker[linkid], "click");
+    document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
+
 }
 </script>
