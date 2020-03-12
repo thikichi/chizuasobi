@@ -14,6 +14,7 @@ $lng_init = $acf_landmark_gmap['lng'];
 var mapRelationMarker = [];
 jQuery(function($) {
   $(function(){
+    var markerSize ='img_marker_large';
     
     // 遅延読み込み部分
     var mapAreaDone = function() {
@@ -28,13 +29,13 @@ jQuery(function($) {
             'action'    : 'mapRelationFunc',
             'place_arr' : place_arr,
             'mapid'     : 'mapRelation',
+            'marker_size' : markerSize,
           },
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
             mapRelationMarker = dispMarker2( map, markerData );
-            console.log(jsonData['tags']);
-            $('.block4__mapside-list').append(jsonData['tags']);
+            $('.block4__mapside-list').html(jsonData['tags']);
             // スムーズスクロール
             $(function(){
               // #で始まるa要素をクリックした場合に処理
@@ -58,6 +59,12 @@ jQuery(function($) {
       });
     }
     mapAreaDone();
+
+    $('input[name="chgmarker"]').change(function() {
+      markerSize = $("input[name='chgmarker']:checked").val();
+      mapAreaDone();
+    })
+
   });
 });
 function mapRelationClick( linkid ) {

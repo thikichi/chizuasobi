@@ -37,6 +37,11 @@ add_action( 'after_setup_theme', function(){
   add_image_size('img_normal_w100', 100, 75 ,true);
 
   add_image_size('img_marker', 75, 75 ,true);
+
+  // img_marker_large
+  add_image_size('img_marker_large', 85, 104 ,true);
+  add_image_size('img_marker_middle', 60, 73 ,true);
+  add_image_size('img_marker_small', 45, 55 ,true);
 });
 
 

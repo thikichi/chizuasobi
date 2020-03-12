@@ -80,6 +80,7 @@
         </div>
         <div class="box4-main">
           <div class="box4-main-inner">
+            <div class="mb-xs-15"><?php echo do_shortcode('[addtoany]'); ?></div>
             <div class="box4-list">
               <?php
               $tax = 'landmark_cateogry'; // タクソノミー名
@@ -201,23 +202,41 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
                     </p>
                   </div>
                 <?php endif; ?>
-
+                <?php
+                $nenpyo_arr = get_field('acf_nenpyo');
+                if ( isset($nenpyo_arr) && $nenpyo_arr!='' ): ?>
+                  <div class="box4-content__sec">
+                    <h3 class="box4-content__subttl">歴史年表</h3>
+                    <ul class="box4-content__list">
+                      <?php foreach ($nenpyo_arr as $nenpyo): ?>
+                        <li class="box4-content__item">
+                          <span class="box4-content__item-text box4-content__item-text--left">
+                            <?php echo esc_html($nenpyo['seireki']); ?>
+                          </span>
+                          <span class="box4-content__item-text box4-content__item-text--center">
+                            （<?php echo esc_html($nenpyo['wareki']); ?>）
+                          </span>
+                          <span class="box4-content__item-text box4-content__item-text--right">
+                            <?php echo esc_html($nenpyo['dekigoto']); ?>
+                          </span>
+                        </li>
+                      <?php endforeach; ?>
+                    </ul>
+                  </div>
+                <?php endif; ?>
               </div>
-
-
               <div class="box4-text mt-xs-30 mb-xs-15">
                 <?php the_content(); ?>
               </div>
-
-
+              <div class="fb-comments" data-href="http://localhost/chizuasobi/" data-width="100%" data-numposts="5"></div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 <?php endif; ?>
+
 
 
 <section class="block4">
@@ -233,6 +252,7 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
       <div class="block4__mappost">
         <div class="block4__mappost-map">
           <div id="mapRelation" class="block4__map"></div>
+
         </div>
         <div class="block4__mappost-post">
           <div class="block4__mapside">
@@ -244,8 +264,23 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
         </div>
       </div>
 
-
-
+      <div class="chgmarker">
+        <ul class="chgmarker__list">
+          <li class="chgmarker__ttl">地図アイコン</li>
+          <li class="chgmarker__list-item">
+            <input class="chgmarker__input" id="ChgmarkerLarge" type="radio" name="chgmarker" value="img_marker_large" checked="checked">
+            <label class="chgmarker__label" for="ChgmarkerLarge">大</label>
+          </li>
+          <li class="chgmarker__list-item">
+            <input class="chgmarker__input" id="ChgmarkerMiddle" type="radio" name="chgmarker" value="img_marker_middle">
+            <label class="chgmarker__label" for="ChgmarkerMiddle">中</label>
+          </li>
+          <li class="chgmarker-list-item">
+            <input class="chgmarker__input" id="ChgmarkerSmall" type="radio" name="chgmarker" value="img_marker_small">
+            <label class="chgmarker__label" for="ChgmarkerSmall">小</label>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>

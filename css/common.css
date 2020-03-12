@@ -45,7 +45,7 @@
 @media only screen and (min-width: 1200px) { .subvisual__container, .breadcrumb__container, .block5__container, .block7__container, .block13__container, .block2__container, .block3__container, .courselist__container { width: 1200px; } }
 .subvisual__container::before, .breadcrumb__container::before, .block5__container::before, .block7__container::before, .block13__container::before, .block2__container::before, .block3__container::before, .courselist__container::before, .subvisual__container::after, .breadcrumb__container::after, .block5__container::after, .block7__container::after, .block13__container::after, .block2__container::after, .block3__container::after, .courselist__container::after { clear: both; content: ''; }
 
-.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block4__box, .block13__list, .block-7__list, .sform__row, .block2__list, .block2__box-inner, .box4__highlight-main { display: flex; }
+.gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block4__box, .block13__list, .block-7__list, .sform__row, .block2__list, .block2__box-inner, .box4__highlight-main, .box4-content__item, .chgmarker__list { display: flex; }
 .gallery, .courselist__box-top, .courselist__box-topMain, .courselist__box-bottomList, .courselist__box-bopttomBox, .block4__box { flex-wrap: wrap; }
 .block13__list { flex-wrap: wrap; justify-content: center; }
 
@@ -975,6 +975,26 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .box4__highlight-photo { width: 100px; }
 
 .box4__highlight-text { width: calc(100% - 100px); padding-left: 15px; }
+
+.box4-content__item { border-bottom: 1px dashed #CCC; padding: 7px 0; }
+
+.box4-content__item-text { display: block; }
+.box4-content__item-text--left { width: 55px; text-align: center; }
+.box4-content__item-text--center { width: 100px; text-align: center; }
+.box4-content__item-text--right { width: calc(100% - 85px - 100px); padding-left: 5px; }
+
+.chgmarker { margin-top: 10px; }
+.chgmarker__list { margin: 0 -1px; }
+
+.chgmarker__list-item { padding: 0 1px; }
+
+.chgmarker__input { display: none; }
+
+.chgmarker__label { display: inline-block; color: #fff; background-color: #CCC; padding: 5px 15px; }
+
+.chgmarker__input:checked + .chgmarker__label { background-color: #c04c41; }
+
+.chgmarker__ttl { padding: 7px 10px 0 10px; background-color: #6ea364; color: #FFF; text-align: center; font-size: 12px; }
 
 /* btn-1 */
 .btn-1 { text-align: center; margin-top: 30px; }

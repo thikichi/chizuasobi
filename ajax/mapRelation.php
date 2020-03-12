@@ -7,14 +7,9 @@ function mapRelationFunc(){
   $returnObj  = array();
   $mapid     = $_POST['mapid'];
   $place_arr = $_POST['place_arr'];
+  $marker_size = $_POST['marker_size'];
 
 
-
-  // ob_start();
-  // var_dump( $query_args );
-  // $out = ob_get_contents();
-  // ob_end_clean();
-  // file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
   if ( $place_arr!='' ) {
     $i=0;
@@ -28,7 +23,23 @@ function mapRelationFunc(){
         $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
       }
 
-      $marker = $osfw->get_thumbnail( $place['marker'], 'full', get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
+      if( $marker_size==='img_marker_large' ) {
+        $set_marker_size = 'img_marker_large';
+      } else if( $marker_size==='img_marker_middle' ) {
+        $set_marker_size = 'img_marker_middle';
+      } else if( $marker_size==='img_marker_small' ) {
+        $set_marker_size = 'img_marker_small';
+      } else {
+        $set_marker_size = 'full';
+      }
+
+// ob_start();
+// var_dump( $set_marker_size );
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
+      $marker = $osfw->get_thumbnail( $place['marker'], $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
 
 
       // 一覧

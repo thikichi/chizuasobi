@@ -1904,5 +1904,108 @@ $layout3-slider-padding: 10px;
       padding-left: 15px;
     }
 
+    .box4-content__item {
+      @extend %flex;
+      border-bottom: 1px dashed $color-border;
+      padding: 7px 0;
+    }
+    .box4-content__item-text {
+      display: block;
+      &--left { width: 55px; text-align: center; }
+      &--center { width: 100px; text-align: center; }
+      &--right { width: calc(100% - 85px - 100px); padding-left: 5px; }
+    }
+
   }
 }
+
+.chgmarker {
+  margin-top: 10px;
+  @at-root {
+    .chgmarker__list {
+      @extend %flex;
+      margin: 0 -1px;
+    }
+    .chgmarker__list-item {
+      padding: 0 1px;
+      // width: 100px;
+    }
+    .chgmarker__input {
+      display:none;
+    }
+    .chgmarker__label {
+      display:inline-block;
+      color:#fff;
+      background-color:$color-gray;
+      padding:5px 15px;
+    }
+    .chgmarker__input:checked + .chgmarker__label { 
+      background-color: $color-red;
+    }
+    .chgmarker__ttl {
+      padding: 7px 10px 0 10px;
+      background-color: $color-green;
+      color: #FFF;
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+}
+
+
+
+
+// .chgmarker__form {
+//   background: #fff;
+//   width: 100%;
+//   margin: auto;
+//   padding: 30px;
+//   min-width: 320px;
+//   max-width: 540px;
+//   box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+//   border-radius: 3px;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+// .chgmarker {
+//   border: none;
+//   padding: 0;
+//   margin: 0;
+//   text-align: center;
+//   .radio-inline__input {
+//       clip: rect(1px, 1px, 1px, 1px);
+//       // position: absolute !important;
+//   }
+
+//   .radio-inline__label {
+//       display: inline-block;
+//       padding: 0.5rem 1rem;
+//       margin-right: 18px;
+//       border-radius: 3px;
+//       transition: all .2s;
+//   }
+
+//   .radio-inline__input:checked + .radio-inline__label {
+//       background: #B54A4A;
+//       color: #fff;
+//       text-shadow: 0 0 1px rgba(0,0,0,.7);
+//   }
+
+//   .radio-inline__input:focus + .radio-inline__label {
+//       outline-color: #4D90FE;
+//       outline-offset: -2px;
+//       outline-style: auto;
+//       outline-width: 5px;
+//   }
+// }
+
