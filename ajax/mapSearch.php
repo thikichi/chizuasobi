@@ -6,6 +6,7 @@ function mapSearchFunc(){
   global $osfw;
   $returnObj = array();
   $mapid     = $_POST['mapid'];
+  $marker_size = $_POST['marker_size'];
   $disp_num  = $_POST['disp_num']; // 表示させたい記事件数
   $query_args = $_POST['query_args'];
   $disp_num   = $_POST['disp_num'];
@@ -97,14 +98,27 @@ function mapSearchFunc(){
       // set icon from taxonomy term ID.
       $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
       $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
+      // // marker image
+      // $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
+      // if( $loop_marker_id ) {
+      //   $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
+      //   $marker = $temp_marker['src'];
+      // } else {
+      //   $marker = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
+      // }
       // marker image
-      $loop_marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
-      if( $loop_marker_id ) {
-        $temp_marker = $osfw->get_thumbnail( $loop_marker_id, 'full' );
-        $marker = $temp_marker['src'];
+      $marker_id = get_post_meta( get_the_ID(), 'acf_landmark_gmap_marker', true );
+      if( $marker_size==='img_marker_large' ) {
+        $set_marker_size = 'img_marker_large';
+      } else if( $marker_size==='img_marker_middle' ) {
+        $set_marker_size = 'img_marker_middle';
+      } else if( $marker_size==='img_marker_small' ) {
+        $set_marker_size = 'img_marker_small';
       } else {
-        $marker = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
+        $set_marker_size = 'full';
       }
+      $temp_marker = $osfw->get_thumbnail( $marker_id, $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
+      $marker = $temp_marker['src'];
       // create marker
       $returnObj['markerDataAjax'][$i]['id']   = get_the_ID();
       $returnObj['markerDataAjax'][$i]['name'] = get_the_title();

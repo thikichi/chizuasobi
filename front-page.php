@@ -8,6 +8,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
   <div class="container"> 
     <h2 class="ttl-1 mt-xs-15 mb-xs-15"><span class="ttl-1-inner">史跡を地図で検索</span></h2>
     <div id="mapSearch" class="gmap-all__map-area" style="position: relative; overflow: hidden"></div>
+
   </div>
   <div class="block3">
     <div class="block3__container">
@@ -77,6 +78,7 @@ $landmarks = get_posts( array( 'post_type'=>'landmark', 'numberposts'=>-1 ) );
           </div>
         </div>
       </div>
+      <?php echo marker_size_change_tag(); ?>
     </div>
   </div>
 </section>

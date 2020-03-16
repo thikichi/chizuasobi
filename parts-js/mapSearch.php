@@ -12,11 +12,11 @@ if( $gmap_ajax_search ) {
 ?>
 
 <script>
-    var mapSearchMarker = [];
-    var selectTaxVal = {};
-    var selectFieldVal = {};
-    var inputTextVal = {};
-jQuery(function($) {
+  var mapSearchMarker = [];
+  var selectTaxVal = {};
+  var selectFieldVal = {};
+  var inputTextVal = {};
+  jQuery(function($) {
   $(function(){
 
     // var marker;
@@ -24,8 +24,9 @@ jQuery(function($) {
      * TOPページ
     */
     // 遅延読み込み部分
-    var mapAreaDone = function() {
+    var mapSearchDone = function() {
       var markerData = [];
+      var markerSize ='img_marker_large';
       var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
       var map = initMap( 'mapSearch', mapLatLng, <?php echo $init_zoom; ?> );
       var disp_num = 5;
@@ -41,6 +42,7 @@ jQuery(function($) {
           url: ajaxurl,
           data: {
             'action'     : 'mapSearchFunc',
+            'marker_size': markerSize,
             'query_args' : query_args,
             'disp_num'   : disp_num,
             'selectTaxVal' : selectTaxVal,
@@ -89,22 +91,27 @@ jQuery(function($) {
       });
     }
     $('#mapSearch').myLazyLoadingObj({
-      callback : mapAreaDone,
+      callback : mapSearchDone,
+    });
+
+    $('input[name="chgmarker"]').change(function() {
+      markerSize = $("input[name='chgmarker']:checked").val();
+      mapSearchDone();
     });
 
     // 検索フォームが選択された場合
     $('.search-hook-select').change(function() {
       setFormValues();
-      mapAreaDone();
+      mapSearchDone();
     });
 
     // フリーワード
     $('.block3__form-text').on('input',function(e){
       setFormValues();
-      mapAreaDone();
+      mapSearchDone();
     });
 
-    // mapAreaDone();
+    // mapSearchDone();
 
     // すべてのフォームの値を取得する
     function setFormValues() {

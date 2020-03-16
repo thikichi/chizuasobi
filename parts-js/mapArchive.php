@@ -40,7 +40,7 @@ jQuery(function($) {
     var markerSize ='img_marker_large';
     var query_args = JSON.parse('<?php echo $query_args_encode; ?>');
     // 遅延読み込み部分
-    var mapAreaDone = function() {
+    var mapArchiveDone = function() {
       var markerData = [];
       $.ajax({
           type: 'POST',
@@ -63,11 +63,11 @@ jQuery(function($) {
           }
       });
     }
-    mapAreaDone();
+    mapArchiveDone();
 
     $('input[name="chgmarker"]').change(function() {
       markerSize = $("input[name='chgmarker']:checked").val();
-      mapAreaDone();
+      mapArchiveDone();
     });
 
   });
