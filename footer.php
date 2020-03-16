@@ -81,8 +81,6 @@
 <?php
 global $mapid;
 if(is_singular('landmark')) {
-  // $mapid = 'mapCats';
-  // get_template_part('parts/js-postSameCat');
   get_template_part('parts-js/mapSamecat');
   $mapid = 'mapDistSearch';
   get_template_part('parts/js-mapDistSearch');
@@ -99,7 +97,7 @@ if(is_front_page()) {
   get_template_part('parts-js/mapSearch');
 } 
 if(is_tax('landmark_cateogry') || is_tax('landmark_tag') || is_post_type_archive('landmark')) {
-  get_template_part('parts/js-landmark-archive');
+  get_template_part('parts-js/mapArchive');
 }
 ?>
 </body>

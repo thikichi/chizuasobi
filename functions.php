@@ -644,14 +644,13 @@ function add_my_ajaxurl() {
 add_action( 'wp_head', 'add_my_ajaxurl', 1 );
 
 
-
-
 require_once 'ajax/mapDistSearch.php';
 require_once 'ajax/mapFeature.php';
 require_once 'ajax/mapSearch.php';
 require_once 'ajax/mapSamecat.php';
 require_once 'ajax/mapSearchform.php';
 require_once 'ajax/mapRelation.php';
+require_once 'ajax/mapArchive.php';
 
 
 function gmap_infowindow( $post_id, $map_id ) {
@@ -877,7 +876,27 @@ if( function_exists('acf_add_options_page') ) {
 
 
 
-
+function marker_size_change_tag() {
+  $tag = '';
+  $tag .= '<div class="chgmarker">';
+  $tag .= '<ul class="chgmarker__list">';
+  $tag .= '<li class="chgmarker__ttl">地図アイコン</li>';
+  $tag .= '<li class="chgmarker__list-item">';
+  $tag .= '<input class="chgmarker__input" id="ChgmarkerLarge" type="radio" name="chgmarker" value="img_marker_large" checked="checked">';
+  $tag .= '<label class="chgmarker__label" for="ChgmarkerLarge">大</label>';
+  $tag .= '</li>';
+  $tag .= '<li class="chgmarker__list-item">';
+  $tag .= '<input class="chgmarker__input" id="ChgmarkerMiddle" type="radio" name="chgmarker" value="img_marker_middle">';
+  $tag .= '<label class="chgmarker__label" for="ChgmarkerMiddle">中</label>';
+  $tag .= '</li>';
+  $tag .= '<li class="chgmarker-list-item">';
+  $tag .= '<input class="chgmarker__input" id="ChgmarkerSmall" type="radio" name="chgmarker" value="img_marker_small">';
+  $tag .= '<label class="chgmarker__label" for="ChgmarkerSmall">小</label>';
+  $tag .= '</li>';
+  $tag .= '</ul>';
+  $tag .= '</div>';
+  return $tag;
+}
 
 
 

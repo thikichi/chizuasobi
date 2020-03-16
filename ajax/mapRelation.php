@@ -32,13 +32,6 @@ function mapRelationFunc(){
       } else {
         $set_marker_size = 'full';
       }
-
-// ob_start();
-// var_dump( $set_marker_size );
-// $out = ob_get_contents();
-// ob_end_clean();
-// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
-
       $marker = $osfw->get_thumbnail( $place['marker'], $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
 
 

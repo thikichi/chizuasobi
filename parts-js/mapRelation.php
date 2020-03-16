@@ -63,7 +63,7 @@ jQuery(function($) {
     $('input[name="chgmarker"]').change(function() {
       markerSize = $("input[name='chgmarker']:checked").val();
       mapAreaDone();
-    })
+    });
 
   });
 });

@@ -263,24 +263,10 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
           </div>
         </div>
       </div>
+      <?php echo marker_size_change_tag(); ?>
+      
 
-      <div class="chgmarker">
-        <ul class="chgmarker__list">
-          <li class="chgmarker__ttl">地図アイコン</li>
-          <li class="chgmarker__list-item">
-            <input class="chgmarker__input" id="ChgmarkerLarge" type="radio" name="chgmarker" value="img_marker_large" checked="checked">
-            <label class="chgmarker__label" for="ChgmarkerLarge">大</label>
-          </li>
-          <li class="chgmarker__list-item">
-            <input class="chgmarker__input" id="ChgmarkerMiddle" type="radio" name="chgmarker" value="img_marker_middle">
-            <label class="chgmarker__label" for="ChgmarkerMiddle">中</label>
-          </li>
-          <li class="chgmarker-list-item">
-            <input class="chgmarker__input" id="ChgmarkerSmall" type="radio" name="chgmarker" value="img_marker_small">
-            <label class="chgmarker__label" for="ChgmarkerSmall">小</label>
-          </li>
-        </ul>
-      </div>
+
     </div>
   </div>
 </section>

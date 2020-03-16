@@ -240,22 +240,13 @@ function getInfoWindow( markerData ) {
 // マーカー毎の処理
 function dispMarker2(map, markerData) {
   var marker = [];
+
   //var infoWinDataArr = [];
   for (var i = 0; i < markerData.length; i++) {
     markerLatLng = new google.maps.LatLng({lat: markerData[i]['lat'], lng: markerData[i]['lng']});
     marker[markerData[i]['id']] = new google.maps.Marker({ // マーカーの追加
       position: markerLatLng, // マーカーを立てる位置を指定
       icon: markerData[i]['cat_icon'],
-      // icon: new google.maps.MarkerImage(
-      //    markerData[i]['cat_icon'],//マーカー画像URL
-      //     new google.maps.Size(85, 104),//マーカー画像のサイズ
-      // ), 
-      // icon: {
-      //   url: markerData[i]['cat_icon'],
-      //   size: new google.maps.Size(85,104),
-      //   // origin: new google.maps.Point(0,0),
-      //   // anchor: new google.maps.Point(16,16)
-      // }
       title: 'アイコンタイトル',
       map: map // マーカーを立てる地図を指定
     });

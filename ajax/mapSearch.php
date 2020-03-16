@@ -118,15 +118,6 @@ function mapSearchFunc(){
       $i++;
     }
   }
-
-ob_start();
-var_dump( $returnObj );
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
-
-
-
   echo json_encode( $returnObj );
   die();
 }

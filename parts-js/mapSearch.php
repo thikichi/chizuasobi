@@ -127,10 +127,7 @@ jQuery(function($) {
   });
 });
 function mapSearchClick( linkid ) {
-  if( !empty(mapSearchMarker) ) {
-    google.maps.event.trigger(mapSearchMarker[linkid], "click");
-    document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
-  }
-
+  google.maps.event.trigger(mapSearchMarker[linkid], "click");
+  document.getElementById('mapSearchSec').scrollIntoView({behavior: 'smooth', block: 'start'});
 }
 </script>
