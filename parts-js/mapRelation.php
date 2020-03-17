@@ -17,7 +17,7 @@ jQuery(function($) {
     var markerSize ='img_marker_large';
     
     // 遅延読み込み部分
-    var mapAreaDone = function() {
+    var mapRelationDone = function() {
       var markerData = [];
       var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
       var map = initMap( 'mapRelation', mapLatLng, <?php echo $relationplace_zoom; ?> );
@@ -35,7 +35,7 @@ jQuery(function($) {
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
             mapRelationMarker = dispMarker2( map, markerData );
-            $('.block4__mapside-list').html(jsonData['tags']);
+            $('#mapRelationUL').html(jsonData['tags']);
             // スムーズスクロール
             $(function(){
               // #で始まるa要素をクリックした場合に処理
@@ -58,11 +58,13 @@ jQuery(function($) {
           }
       });
     }
-    mapAreaDone();
+    $('#mapRelation').myLazyLoadingObj({
+      callback : mapRelationDone,
+    });
 
     $('input[name="chgmarker"]').change(function() {
       markerSize = $("input[name='chgmarker']:checked").val();
-      mapAreaDone();
+      mapRelationDone();
     });
 
   });

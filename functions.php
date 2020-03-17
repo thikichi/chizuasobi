@@ -650,6 +650,7 @@ require_once 'ajax/mapSearch.php';
 require_once 'ajax/mapSamecat.php';
 require_once 'ajax/mapSearchform.php';
 require_once 'ajax/mapRelation.php';
+require_once 'ajax/mapSingleFeature.php';
 require_once 'ajax/mapArchive.php';
 
 
@@ -681,12 +682,12 @@ function gmap_infowindow( $post_id, $map_id ) {
   return $tag;
 }
 
-function mapRelationSideText( $title, $img_id, $textarea, $quote_arr ) {
-  if( $img_id!='' ) {
-    $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+function mapRelationSideText( $title, $thumb_id, $textarea, $quote_arr='' ) {
+  $temp_img = wp_get_attachment_image_src( $thumb_id , 'thumbnail' );
+  if( $temp_img ) {
     $img_url = $temp_img[0];
   } else {
-    $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+    $img_url = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
   }
   $tag  = '';
   $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
@@ -876,22 +877,22 @@ if( function_exists('acf_add_options_page') ) {
 
 
 
-function marker_size_change_tag() {
+function marker_size_change_tag( $name='chgmarker' ) {
   $tag = '';
   $tag .= '<div class="chgmarker">';
   $tag .= '<ul class="chgmarker__list">';
   $tag .= '<li class="chgmarker__ttl">地図アイコン</li>';
   $tag .= '<li class="chgmarker__list-item">';
-  $tag .= '<input class="chgmarker__input" id="ChgmarkerLarge" type="radio" name="chgmarker" value="img_marker_large" checked="checked">';
-  $tag .= '<label class="chgmarker__label" for="ChgmarkerLarge">大</label>';
+  $tag .= '<input class="chgmarker__input" id="' . $name . '_ChgmarkerLarge" type="radio" name="' . $name . '" value="img_marker_large" checked="checked">';
+  $tag .= '<label class="chgmarker__label" for="' . $name . '_ChgmarkerLarge">大</label>';
   $tag .= '</li>';
   $tag .= '<li class="chgmarker__list-item">';
-  $tag .= '<input class="chgmarker__input" id="ChgmarkerMiddle" type="radio" name="chgmarker" value="img_marker_middle">';
-  $tag .= '<label class="chgmarker__label" for="ChgmarkerMiddle">中</label>';
+  $tag .= '<input class="chgmarker__input" id="' . $name . '_ChgmarkerMiddle" type="radio" name="' . $name . '" value="img_marker_middle">';
+  $tag .= '<label class="chgmarker__label" for="' . $name . '_ChgmarkerMiddle">中</label>';
   $tag .= '</li>';
   $tag .= '<li class="chgmarker-list-item">';
-  $tag .= '<input class="chgmarker__input" id="ChgmarkerSmall" type="radio" name="chgmarker" value="img_marker_small">';
-  $tag .= '<label class="chgmarker__label" for="ChgmarkerSmall">小</label>';
+  $tag .= '<input class="chgmarker__input" id="' . $name . '_ChgmarkerSmall" type="radio" name="' . $name . '" value="img_marker_small">';
+  $tag .= '<label class="chgmarker__label" for="' . $name . '_ChgmarkerSmall">小</label>';
   $tag .= '</li>';
   $tag .= '</ul>';
   $tag .= '</div>';

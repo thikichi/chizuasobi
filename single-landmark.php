@@ -257,19 +257,53 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
         <div class="block4__mappost-post">
           <div class="block4__mapside">
             <h3 class="block4__mapside-ttl">
-              関連史跡を選択
+              史跡を選択
             </h3>
-            <ul class="block4__mapside-list"><?php /*ajax出力 */ ?></ul>
+            <ul id="mapRelationUL" class="block4__mapside-list"><?php /*ajax出力 */ ?></ul>
           </div>
         </div>
       </div>
       <?php echo marker_size_change_tag(); ?>
-      
-
-
     </div>
   </div>
 </section>
+
+
+<?php
+// 選択された「特集記事」の内容
+$select_id = get_post_meta( $post->ID, 'acf_select_feature', true );
+$feature_post = get_post($select_id);
+if( $select_id ):
+?>
+  <?php /* mapSingleFeature */ ?>
+  <section class="block4">
+    <div style="position:relative">
+      <div id="mapSingleFeatureWrap" style="position:absolute;top:-100px"></div>
+    </div>
+    <div class="container">
+      <div class="block4__main">
+        <h3 class="title-2 mb-xs-30">
+          関連記事『<?php echo $feature_post->post_title; ?>』
+        </h3>
+        <p class="block4__read mb-xs-15 align-center"><?php echo $feature_post->post_content; ?></p>
+        <div class="block4__mappost">
+          <div class="block4__mappost-map">
+            <div id="mapSingleFeature" class="block4__map"></div>
+          </div>
+          <div class="block4__mappost-post">
+            <div class="block4__mapside">
+              <h3 class="block4__mapside-ttl">
+                史跡を選択
+              </h3>
+              <ul id="mapSingleFeatureUL" class="block4__mapside-list"><?php /*ajax出力 */ ?></ul>
+            </div>
+          </div>
+        </div>
+        <?php echo marker_size_change_tag('chgmarkerMSF'); ?>
+      </div>
+    </div>
+  </section>
+<?php endif; ?>
 
 
 <section class="block4">
@@ -302,6 +336,7 @@ if ( isset($relationplace) && $relationplace!='' ): ?>
     </div>
   </div>
 </section>
+
 
 
 <hr class="line1"></hr>

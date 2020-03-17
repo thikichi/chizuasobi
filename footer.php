@@ -86,6 +86,7 @@ if(is_singular('landmark')) {
   get_template_part('parts/js-mapDistSearch');
   get_template_part('parts/js-postNearHotel');
   get_template_part('parts-js/mapRelation');
+  get_template_part('parts-js/mapSingleFeature');
 } 
 if(is_singular('feature') || is_front_page()) {
   get_template_part('parts-js/mapFeature');
