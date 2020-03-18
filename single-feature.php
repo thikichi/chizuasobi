@@ -107,7 +107,6 @@ $select_posts = get_post_meta( $post->ID, 'acf_feature_posts', true );
             </h3>
             <?php get_template_part( 'parts/landmark-data' ); ?>
             <?php wp_reset_postdata(); ?>
-
           <?php endwhile; ?>
         <?php endif; ?>
       <?php endforeach; ?>
