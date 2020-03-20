@@ -64,6 +64,150 @@ global $osfw;
         <?php /* カテゴリーのリスト */ ?>
         <?php get_template_part( 'parts/items-cat' ); ?>
 
+        <div class="dropping">
+          <h3 class="dropping__ttl">ちょっと寄り道</h3>
+          <div class="dropping__main">
+
+            <h4 class="dropping__subttl"><span class="dropping__subttl--strong">メインカテゴリー</span>が同じ『<span class="dropping__subttl--strong">カテゴリー名</span>』の記事</h4>
+            <div class="dropping__content">
+              <ul class="dropping__list">
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <h4 class="dropping__subttl mt-xs-15"><span class="dropping__subttl--strong">関連人物</span>が同じ『<span class="dropping__subttl--strong">徳川家康</span>』の記事</h4>
+            <div class="dropping__content">
+              <ul class="dropping__list">
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item">
+                  <a href="#" class="dropping__box">
+                    <div class="dropping__box-sub">
+                      <img class="img-responsive" src="https://placehold.jp/75x75.png">
+                    </div>
+                    <div class="dropping__box-main">
+                      <p><span>大阪城</span></p>
+                    </div>
+                  </a>
+                </li>
+                <li class="dropping__list-item dropping__list-item--more">
+                  <a href="#" class="dropping__box">
+                    さらに記事を見る
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+
         <?php
         $castle_feetext = get_field('acf_castle_feetext');
         ?>
