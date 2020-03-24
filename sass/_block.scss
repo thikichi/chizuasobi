@@ -1073,10 +1073,10 @@ $layout3-slider-padding: 10px;
 .nav-pagelink {
   display: inline-block;
   @include cf;
+  margin-top: 15px;
   margin-bottom: 10px;
   @include media-max(sm) { display: none; }
   @at-root {
-
     .nav-pagelink__item {
       float: left;
       margin-bottom: 5px;

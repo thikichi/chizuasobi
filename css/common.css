@@ -700,7 +700,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 
 .sform__sword { font-weight: bold; }
 
-.nav-pagelink { display: inline-block; margin-bottom: 10px; }
+.nav-pagelink { display: inline-block; margin-top: 15px; margin-bottom: 10px; }
 .nav-pagelink::after { content: ""; display: block; clear: both; }
 @media only screen and (max-width: 575px) { .nav-pagelink { display: none; } }
 .nav-pagelink__item { float: left; margin-bottom: 5px; padding: 0 1px; position: relative; }
