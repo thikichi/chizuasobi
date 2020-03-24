@@ -135,10 +135,10 @@ $the_query = new WP_Query( $post_map_sp );
 
 
 
-<section class="courselist mt-xs-50 mt-md-70">
+<section class="courselist mt-xs-30 mt-md-50">
   <div class="courselist__container">
     <div class="courselist__inner">
-      <h2 class="title-1 mb-xs-15 mb-md-30">
+      <h2 class="title-1 mb-xs-30">
         <span class="title-1__inner">
           <span class="title-1__main">
             おすすめコース巡りのコ～ナー

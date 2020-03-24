@@ -270,6 +270,7 @@
       text-align: center;
       border-bottom: 1px solid $color-border;
       padding: 20px 0;
+      @include media-max(sm) { font-size: 18px; }
       &--gray {
         background-color: $color-lightGray;
         border-radius: 10px 10px 0 0;
@@ -294,7 +295,7 @@
     .block5__lead {
       font-size: 18px;
       font-family: 'Noto Serif JP', serif;
-      // text-align: center;
+      @include media-max(sm) { font-size: 14px; }
     }
     .block5__lead-inner {
       // display: inline-block;
@@ -1597,9 +1598,11 @@ $layout3-slider-padding: 10px;
     }
     .courselist__read-inner {
       display: inline-block;
-      // text-align: left;
       font-size: 20px;
       margin-bottom: 30px;
+      @include media-max(sm) {
+        font-size: 14px;
+      }
     }
     .courselist__item {
       &:not(:last-child) {
