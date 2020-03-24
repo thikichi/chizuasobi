@@ -13,16 +13,7 @@ function mapSearchFunc(){
   $select_tax_val = $_POST['selectTaxVal'];
   $select_field_val = $_POST['selectFieldVal'];
   $input_text_val = $_POST['inputTextVal'];
-  
   $returnObj['tags'] = '';
-
-ob_start();
-var_dump( $select_field_val );
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
-
-
   // タクソノミー絞り込み
   $tax_query = array( 'relation' => 'AND' );
   if( isset($select_tax_val) ) {
@@ -81,8 +72,6 @@ file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
   } else {
     $returnObj['tags_btn'] = '';
   }
-
-
 
   if ($the_query->have_posts()) {
     $i=0;

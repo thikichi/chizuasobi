@@ -1,13 +1,9 @@
 <?php
 $gmap_ajax_search = get_field('acf_option_gmap_ajax_search','option');
 if( $gmap_ajax_search ) {
-  $init_lat = $gmap_ajax_search['position_center']['lat'];
-  $init_lng = $gmap_ajax_search['position_center']['lng'];
-  $init_zoom = (int)$gmap_ajax_search['zoom'];
+  $zoom = (int)$gmap_ajax_search['zoom'];
 } else {
-  $init_lat = 35.681236;
-  $init_lng = 139.767125;
-  $init_zoom = 10;
+  $zoom = 10;
 }
 ?>
 
@@ -27,8 +23,6 @@ if( $gmap_ajax_search ) {
     var mapSearchDone = function() {
       var markerData = [];
       var markerSize ='img_marker_large';
-      var mapLatLng = getCenerLatLng( <?php echo $init_lat; ?>, <?php echo $init_lng; ?> );
-      var map = initMap( 'mapSearch', mapLatLng, <?php echo $init_zoom; ?> );
       var disp_num = 5;
       var query_args = {
         "post_type":"landmark",
@@ -52,10 +46,13 @@ if( $gmap_ajax_search ) {
           },
           success: function( response ){
             jsonData = JSON.parse( response );
-            if( 'markerDataAjax' in jsonData ) {
-              markerData = jsonData['markerDataAjax'];
-              mapSearchMarker = dispMarker2( map, markerData );
-            }
+            markerData = jsonData['markerDataAjax'];
+            var last_lat = markerData[markerData.length - 1]['lat'];
+            var last_lng = markerData[markerData.length - 1]['lng'];
+            var mapLatLng = getCenerLatLng( last_lat, last_lng );
+            var map = initMap( 'mapSearch', mapLatLng, <?php echo $zoom; ?> );
+            mapSearchMarker = dispMarker2( map, markerData );
+
             // 記事の出力
             if( jsonData['tags']!='' ) {
               $('#mapSearchPost').html( jsonData['tags'] );
