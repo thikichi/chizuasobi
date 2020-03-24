@@ -90,6 +90,7 @@ if(is_singular('landmark')) {
 } 
 if(is_front_page()) {
   get_template_part('parts-js/mapFeature');
+  get_template_part('parts-js/mapSearch');
 } 
 if(is_singular('feature')) {
   get_template_part('parts-js/mapSingleFeature');
@@ -97,10 +98,7 @@ if(is_singular('feature')) {
 if(is_page('searchform')) {
   get_template_part('parts-js/mapSearchform');
 } 
-if(is_front_page()) {
-  get_template_part('parts-js/mapSearch');
-} 
-if(is_tax('landmark_cateogry') || is_tax('landmark_tag') || is_post_type_archive('landmark')) {
+if(is_tax('landmark_cateogry') || is_tax('landmark_tag') || is_tax('historical_person') || is_post_type_archive('landmark')) {
   get_template_part('parts-js/mapArchive');
 }
 ?>

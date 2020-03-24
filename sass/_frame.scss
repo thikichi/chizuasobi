@@ -298,6 +298,11 @@
   z-index: 150;
   @include transition( right, 0.25s );
   right: -30%; width: 30%;
+  @at-root {
+    body.logged-in .header-naviFolding {
+      top: 45px;
+    }
+  }
   @include media-max(md) { right: -40%; width: 40%; }
   @include media-max(sm) { right: -60%; width: 60%; }
   @include media-max(xs) { right: -70%; width: 70%; }
@@ -312,13 +317,15 @@
   background-color: $color-green;
   padding-top: 25px;
   padding-left: 0;
+  @at-root {
+  }
   @include media-max(md) {
     height: 50px;
     padding-top: 13px;
   }
   @include media-max(sm) {
-    height: 35px;
-    padding-top: 5px;
+    height: 51px;
+    padding-top: 14px;
     left: -60px;
     width: 50px;
   }
@@ -471,7 +478,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   background-color: white;
   height: 70px;
   @include media-max(md) { height: 50px; }
-  @include media-max(sm) { height: 35px; }
+  // @include media-max(sm) { height: 35px; }
 }
 .header .container {
   height: 100%;
@@ -484,7 +491,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   width: 140px;
   position: absolute;
   @include media-max(md) { width: 100px; }
-  @include media-max(sm) { width: 70px; }
+  @include media-max(sm) { width: 50px; }
 }
 .header-main {
   padding-left: 155px;
@@ -505,19 +512,24 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 /* MainVisual */
 /*--------------------------------------------------*/
 
-/*.mainvisual { height: 390px; margin-top: -85px; }*/
-// .mainvisual {
-//   margin-top: 85px;
-// }
-// @media (max-width: 991px) {
-//   .mainvisual { margin-top: 70px; }
-// }
-// @media (max-width: 650px) {
-//   .mainvisual { margin-top: 50px; }
-// }
-// @media (max-width: 575px) {
-//   .mainvisual { margin-top: 43px; }
-// }
+.mainvisual {
+  margin-top: 50px;
+  @include media-max(sm) {
+    // height: 200px;
+    // overflow: hidden;
+    // margin-top: 50px;
+  }
+}
+
+/* frame-main */
+/*--------------------------------------------------*/
+
+.home .frame-main {
+  @include media-max(sm) {
+    margin-top: -100px;
+  }
+}
+
 
 /* Slider */
 /*--------------------------------------------------*/
@@ -532,6 +544,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   right: 0;
   bottom: -60px;
   margin: auto;
+  @include media-max(md) { bottom: 7px; }
 }
 
 .slider-nav {
@@ -692,7 +705,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 
 .breadcrumb {
   margin-top: 15px;
-  margin-bottom: 15px;
+  // margin-bottom: 15px;
   @at-root {
     .breadcrumb__container {
       @extend %container;

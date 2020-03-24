@@ -16,6 +16,13 @@ function mapSearchFunc(){
   
   $returnObj['tags'] = '';
 
+ob_start();
+var_dump( $select_field_val );
+$out = ob_get_contents();
+ob_end_clean();
+file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
+
   // タクソノミー絞り込み
   $tax_query = array( 'relation' => 'AND' );
   if( isset($select_tax_val) ) {
@@ -31,12 +38,20 @@ function mapSearchFunc(){
   // カスタムフィールド絞り込み
   $meta_query = array( 'relation' => 'AND' );
   if( isset($select_field_val) ) {
-    foreach ($select_field_val as $field_slug => $field_val) {
-      if( $field_val!='' ) {
-        $temp_arr[] = array('key'=>$field_slug, 'value' => $field_val );
-      }
-    }
-    $meta_query = array_merge( $meta_query, $temp_arr );
+    if( $select_field_val['value']!='' && $select_field_val['type'] === 'NUMERIC' ) {
+      $temp_arr[] = array(
+        'key'   => $select_field_val['fieldname'], 
+        'value' => $select_field_val['value'],
+        'type'  => $select_field_val['type'],
+        'compare' => $select_field_val['compare']
+      );
+    } else if( $select_field_val['value']!='' ) {
+      $temp_arr[] = array(
+        'key'   => $select_field_val['fieldname'], 
+        'value' => $select_field_val['value']
+      );
+    } else {}
+    if( isset($temp_arr) ) $meta_query = array_merge( $meta_query, $temp_arr );
   }
   unset($temp_arr);
 
@@ -67,11 +82,7 @@ function mapSearchFunc(){
     $returnObj['tags_btn'] = '';
   }
 
-// ob_start();
-// var_dump( $the_query->found_posts . '--' . $disp_num );
-// $out = ob_get_contents();
-// ob_end_clean();
-// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
 
   if ($the_query->have_posts()) {
     $i=0;

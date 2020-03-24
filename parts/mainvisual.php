@@ -7,7 +7,11 @@ foreach ($slider_arr as $key => $slider) {
   // main slider
   $link   = $slider['slider']['link']['url'];
   $target = $slider['slider']['link']['target'] ? ' target="_blank"' : '';
-  $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_square_w750' );
+  if( $osfw->is_mobile() ) {
+    $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_golden_w750' );
+  } else {
+    $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_square_w750' );
+  }
   $slider_for .= '<li>';
   $slider_for .= $link!='' ? '<a href="' . $link . '"' . $target . '>' : '';
   $slider_for .= '<img src="' . $slider_img['square_w750']['src'] . '">';
@@ -100,7 +104,7 @@ jQuery(function($) {
         {
           breakpoint: 400,
           settings: {
-            slidesToShow: 2,
+            slidesToShow: 3,
             centerMode: true,
           }
         }

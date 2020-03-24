@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="container align-center mt-xs-30">
+<div class="container">
   <ul class="nav-pagelink">
     <li class="nav-pagelink__item">
       <a href="#Overview">史跡概要</a>
@@ -133,8 +133,6 @@ if( $select_id ):
       <h3 class="title-2 mb-xs-30">
         史跡『<?php the_title(); ?>』の写真一覧
       </h3>
-      <p class="block4__read mb-xs-15 align-center">史跡記事の過去のアーカイブです。史跡記事ではテーマに関連する様々な歴史的名所をご案内します。<br>
-      各名所についての細かい内容についても知ることが出来ますのでぜひご覧ください。</p>
       <?php
       $gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
       if( $gallery_id_arr ) {
@@ -144,7 +142,8 @@ if( $select_id ):
           $img_2x = $osfw->get_thumbnail( $gallery_id, 'img_normal_w750' );
           echo '<li class="gallery__item">';
           echo '<a href="' . esc_url($img_2x['src']) . '">';
-          echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . esc_url($img_2x['alt']) . '">';
+          echo '<img src="' . esc_url($img_1x['src']) . '" srcset="' . esc_url($img_1x['src']) . ' 1x, ' . esc_url($img_2x['src']) . ' 2x" alt="' . $img_1x['alt'] . '" title="' . $img_1x['excerpt'] . '">';
+          echo '<p class="gallery__cap">' . $img_1x['title'] . '</p>';
           echo '</a>';
           echo '</li>';
         }
@@ -219,6 +218,7 @@ if( $select_id ):
 
 
 <hr class="line1"></hr>
+
 
 
 <section class="block5">

@@ -9,21 +9,21 @@ $gmap_url = 'https://www.google.com/maps/search/?api=1';
       <div class="container">
         <ul class="tab-1 cf">
           <li class="tab-switch-nav _active">
-            <a href="#">
+            <a href="javascript:void(0)">
               <span>
                 注目の記事
               </span>
             </a>
           </li>
           <li class="tab-switch-nav">
-            <a href="#">
+            <a href="javascript:void(0)">
               <span>
                 特集一覧
               </span>
             </a>
           </li>
           <li class="tab-switch-nav">
-            <a href="#">
+            <a href="javascript:void(0)">
               <span>
                 新着情報
               </span>

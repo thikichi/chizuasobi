@@ -48,7 +48,11 @@ $field['address']    = get_post_meta( $post->ID, 'acf_landmark_address', true );
             <a class="link-1" href="javascript:mapSearchClick('<?php echo $post->ID; ?>')">
           <?php elseif( is_page('searchform') ): ?>
             <a class="link-1" href="javascript:mapSearchformClick('<?php echo $post->ID; ?>')">
-          <?php elseif( is_post_type_archive( 'landmark' ) || is_tax('landmark_cateogry') ): ?>
+          <?php elseif(
+            is_post_type_archive( 'landmark' ) || 
+            is_tax('landmark_cateogry') || 
+            is_tax('historical_person') 
+          ): ?>
             <a class="link-1" href="javascript:mapArchiveClick('<?php echo $post->ID; ?>')">
           <?php endif; ?>
             <span class="link-color-1">
