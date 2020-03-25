@@ -670,18 +670,19 @@ $layout3-slider-padding: 10px;
 /*--------------------------------------------------*/
 
 .infwin {
-  width: 300px;
+  // width: 300px;
+  @include cf;
   .infwin-thumb {
     float: left;
     width: 80px;
-    img {
-      width: 100%;
-    }
+    img { width: 100%; }
+    @include media-max(sm) { float: none; width: 100%; }
   }
   .infwin-main {
     float: left;
     width: calc(100% - 80px);
     padding-left: 10px;
+    @include media-max(sm) { float: none; width: 100%; }
   }
 }
 .infwin-ttl {
