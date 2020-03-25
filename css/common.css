@@ -994,11 +994,13 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .box4__highlight-text { width: calc(100% - 100px); padding-left: 15px; }
 
 .box4-content__item { border-bottom: 1px dashed #CCC; padding: 7px 0; }
+@media only screen and (max-width: 991px) { .box4-content__item { display: block; } }
 
 .box4-content__item-text { display: block; }
-.box4-content__item-text--left { width: 55px; text-align: center; }
-.box4-content__item-text--center { width: 100px; text-align: center; }
-.box4-content__item-text--right { width: calc(100% - 85px - 100px); padding-left: 5px; }
+.box4-content__item-text--left { width: 150px; }
+@media only screen and (max-width: 991px) { .box4-content__item-text--left { width: 100%; margin-bottom: 3px; font-weight: bold; } }
+.box4-content__item-text--right { width: calc(100% - 180px); }
+@media only screen and (max-width: 991px) { .box4-content__item-text--right { width: 100%; } }
 
 .chgmarker { margin-top: 10px; }
 .chgmarker__list { margin: 0 -1px; }
@@ -1074,6 +1076,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 @media only screen and (max-width: 575px) { .title-1__sub { font-size: 14px; } }
 
 .title-2 { font-family: "Noto Serif JP", serif; border-bottom: 1px solid #CCC; text-align: center; font-size: 24px; padding-bottom: 15px; }
+@media only screen and (max-width: 575px) { .title-2 { font-size: 18px; } }
 
 .ttl-3 { font-size: 26px; font-family: 'Noto Sans JP', sans-serif; font-weight: bold; }
 

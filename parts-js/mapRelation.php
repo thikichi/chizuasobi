@@ -1,13 +1,7 @@
 <?php
 $relationplace = get_field('relationplace');
 // var_dump($relationplace);
-
-$acf_landmark_gmap = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
-$relationplace_zoom = get_post_meta( $post->ID, 'relationplace_zoom', true );
-
-$lat_init = $acf_landmark_gmap['lat'];
-$lng_init = $acf_landmark_gmap['lng'];
-
+$zoom = get_post_meta( $post->ID, 'relationplace_zoom', true );
 ?>
 
 <script>
@@ -19,8 +13,6 @@ jQuery(function($) {
     // 遅延読み込み部分
     var mapRelationDone = function() {
       var markerData = [];
-      var mapLatLng = getCenerLatLng( <?php echo $lat_init; ?>, <?php echo $lng_init; ?> );
-      var map = initMap( 'mapRelation', mapLatLng, <?php echo $relationplace_zoom; ?> );
       var place_arr = <?php echo json_encode($relationplace); ?>;
       $.ajax({
           type: 'POST',
@@ -34,7 +26,13 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             markerData = jsonData['markerDataAjax'];
+
+            var last_lat = markerData[markerData.length - 1]['lat'];
+            var last_lng = markerData[markerData.length - 1]['lng'];
+            var mapLatLng = getCenerLatLng( last_lat, last_lng );
+            var map = initMap( 'mapRelation', mapLatLng, <?php echo $zoom; ?> );
             mapRelationMarker = dispMarker2( map, markerData );
+
             $('#mapRelationUL').html(jsonData['tags']);
             // スムーズスクロール
             $(function(){
@@ -58,9 +56,10 @@ jQuery(function($) {
           }
       });
     }
-    $('#mapRelation').myLazyLoadingObj({
-      callback : mapRelationDone,
-    });
+    // $('#mapRelation').myLazyLoadingObj({
+    //   callback : mapRelationDone,
+    // });
+    mapRelationDone();
 
     $('input[name="chgmarker"]').change(function() {
       markerSize = $("input[name='chgmarker']:checked").val();

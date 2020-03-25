@@ -29,7 +29,7 @@
 
 <?php if (have_posts()): ?>
   <?php the_post(); ?>
-  <section id="SingleMain" class="pb-xs-50">
+  <section id="SingleMain" class="pb-md-50 pb-xs-30">
     <div style="position: relative;">
       <div id="Overview" style="position:absolute;top:-100px"></div>
     </div>
@@ -63,7 +63,7 @@
   </div>
   <div class="container">
     <div class="block4__main">
-      <h3 class="title-2 mb-xs-30">
+      <h3 class="title-2 mb-md-30 mb-xs-15">
         『<?php the_title(); ?>』の見どころMAP散歩
       </h3>
       <p class="block4__read mb-xs-15 align-center">「<?php the_title(); ?>」に直接・間接的に関連する施設・名所をご案内します。</p>
@@ -100,7 +100,7 @@ if( $select_id ):
     </div>
     <div class="container">
       <div class="block4__main">
-        <h3 class="title-2 mb-xs-30">
+        <h3 class="title-2 mb-md-30 mb-xs-15">
           関連記事『<?php echo $feature_post->post_title; ?>』
         </h3>
         <p class="block4__read mb-xs-15 align-center"><?php echo $feature_post->post_content; ?></p>

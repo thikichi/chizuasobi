@@ -177,10 +177,7 @@ global $osfw;
                 <?php foreach ($nenpyo_arr as $nenpyo): ?>
                   <li class="box4-content__item">
                     <span class="box4-content__item-text box4-content__item-text--left">
-                      <?php echo esc_html($nenpyo['seireki']); ?>
-                    </span>
-                    <span class="box4-content__item-text box4-content__item-text--center">
-                      （<?php echo esc_html($nenpyo['wareki']); ?>）
+                      <?php echo esc_html($nenpyo['seireki']); ?>（<?php echo esc_html($nenpyo['wareki']); ?>）
                     </span>
                     <span class="box4-content__item-text box4-content__item-text--right">
                       <?php echo esc_html($nenpyo['dekigoto']); ?>
