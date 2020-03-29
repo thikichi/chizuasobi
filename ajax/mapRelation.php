@@ -8,9 +8,6 @@ function mapRelationFunc(){
   $mapid     = $_POST['mapid'];
   $place_arr = $_POST['place_arr'];
   $marker_size = $_POST['marker_size'];
-
-
-
   if ( $place_arr!='' ) {
     $i=0;
     $tag  = '';
@@ -18,11 +15,14 @@ function mapRelationFunc(){
       // photo
       if( $place['photo']!='' ) {
         $temp_img = wp_get_attachment_image_src( $place['photo'] , 'img_square_w100' );
-        $img_url = $temp_img[0];
+        if ($_SERVER['HTTPS']) {
+          $img_url = preg_replace( "/^http:/", "https:", $temp_img[0] );
+        } else {
+          $img_url = $temp_img[0];
+        }
       } else {
-        $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+        $img_url = '';
       }
-
       if( $marker_size==='img_marker_large' ) {
         $set_marker_size = 'img_marker_large';
       } else if( $marker_size==='img_marker_middle' ) {
@@ -33,16 +33,19 @@ function mapRelationFunc(){
         $set_marker_size = 'full';
       }
       $marker = $osfw->get_thumbnail( $place['marker'], $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
-
-
       // 一覧
       $tag .= '<li class="block4__mapside-list-item">';
       $tag .= '<div class="block4__mapside-link">';
       $tag .= '<div class="block4__box">';
-      $tag .= '<div class="block4__box-sub">';
-      $tag .= '<img src="' . esc_url($img_url) . '">';
-      $tag .= '</div>';
-      $tag .= '<div class="block4__box-main">';
+      if( $img_url ) {
+        $tag .= '<div class="block4__box-sub">';
+        $tag .= '<img src="' . esc_url($img_url) . '">';
+        $tag .= '</div>';
+        $style = '';
+      } else {
+        $style = ' style="width:100%;padding:0 15px"';
+      }
+      $tag .= '<div class="block4__box-main"' . $style . '>';
       $tag .= '<div class="block4__box-mainTable">';
       $tag .= '<div class="block4__box-mainTableCell">';
       $tag .= '<h4 class="block4__box-subttl">' . $place['title'] . '</h4>';

@@ -660,7 +660,11 @@ function gmap_infowindow( $post_id, $map_id ) {
   $img_id = get_post_thumbnail_id( $post_id );
   if( $img_id!='' ) {
     $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
-    $img_url = $temp_img[0];
+    if ($_SERVER['HTTPS']) {
+      $img_url = preg_replace( "/^http:/", "https:", $temp_img[0] );
+    } else {
+      $img_url = $temp_img[0];
+    }
   } else {
     $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
   }
@@ -684,17 +688,22 @@ function gmap_infowindow( $post_id, $map_id ) {
 
 function mapRelationSideText( $title, $thumb_id, $textarea, $quote_arr='' ) {
   $temp_img = wp_get_attachment_image_src( $thumb_id , 'thumbnail' );
-  if( $temp_img ) {
-    $img_url = $temp_img[0];
+  if ($_SERVER['HTTPS']) {
+    $img_url = preg_replace( "/^http:/", "https:", $temp_img[0] );
   } else {
-    $img_url = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+    $img_url = '';
   }
   $tag  = '';
   $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
   $tag .= "<a style='position:absolute;top:-150px'></a>";
-  $tag .= "<div class='infwin-thumb'>";
-  $tag .= "<img class='img-responsive' src='" . $img_url . "'></div>";
-  $tag .= "<div class='infwin-main'>";
+  if( $img_url ) {
+    $tag .= "<div class='infwin-thumb'>";
+    $tag .= "<img class='img-responsive' src='" . $img_url . "'></div>";
+    $style = "";
+  } else {
+    $style = " style='width:100%'";
+  }
+  $tag .= "<div class='infwin-main'" . $style . ">";
   $tag .= "<h3 class='infwin-ttl'>" . $title . "</h3>";
   $tag .= "<p class='infwin-textarea'>" . $textarea . "</p>";
   // if($quote_arr) {
@@ -719,8 +728,12 @@ function get_tag_postlist( $post_id ,$tax_slug='landmark_cateogry', $address, $f
   $img_id = get_post_thumbnail_id( $post_id );
   if( $img_id!='' ) {
     $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
-    $thumb = '<img src="' . $temp_img[0] . '" alt="">';
-    $img_url = $temp_img[0];
+    if ($_SERVER['HTTPS']) {
+      $img_url = preg_replace( "/^http:/", "https:", $temp_img[0] );
+    } else {
+      $img_url = $temp_img[0];
+    }
+    $thumb = '<img src="' . $img_url . '" alt="">';
   } else {
     $thumb = '<img src="' . get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg" alt="">';
     $img_url = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';

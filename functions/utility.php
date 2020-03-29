@@ -106,7 +106,11 @@ class utilityClass extends OsFmBase {
   public function get_thumbnail( $thumb_id, $size='medium', $alter_img_src = '' ) {
     if( $thumb_id ) {
       $eyecatch_img = wp_get_attachment_image_src( $thumb_id , $size );
-      $rdata['src'] = $eyecatch_img[0];
+      if ($_SERVER['HTTPS']) {
+        $rdata['src'] = preg_replace( "/^http:/", "https:", $eyecatch_img[0] );
+      } else {
+        $rdata['src'] = $eyecatch_img[0];
+      }
       $rdata['width']  = $eyecatch_img[1];
       $rdata['height'] = $eyecatch_img[2];
       $rdata['alt']    = get_post_meta( $thumb_id, '_wp_attachment_image_alt', true );

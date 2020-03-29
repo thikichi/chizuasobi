@@ -97,8 +97,10 @@ global $osfw;
                   if( $place['photo']!='' ) {
                     $temp_img = wp_get_attachment_image_src( $place['photo'] , 'img_square_w100' );
                     $img_url = $temp_img[0];
+                    $style = '';
                   } else {
-                    $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+                    $img_url = '';
+                    $style = ' style="padding-left:0;width:100%"';
                   }
                   ?>
                   <dl class="box4__highlight" style="position:relative">
@@ -109,10 +111,12 @@ global $osfw;
                     <?php endif; ?>
                     </dt>
                     <dd class="box4__highlight-main">
-                      <div class="box4__highlight-photo">
-                        <img src="<?php echo esc_url($img_url); ?>">
-                      </div>
-                      <div class="box4__highlight-text">
+                      <?php if( $img_url ): ?>
+                        <div class="box4__highlight-photo">
+                          <img src="<?php echo esc_url($img_url); ?>">
+                        </div>
+                      <?php endif; ?>
+                      <div class="box4__highlight-text"<?php echo $style; ?>>
                         <p class="box4__highlight-textarea">
                          <?php echo nl2br($place['textarea']); ?>
                         </p>
@@ -191,7 +195,7 @@ global $osfw;
         <div class="box4-text mt-xs-30 mb-xs-15">
           <?php the_content(); ?>
         </div>
-        <div class="fb-comments" data-href="http://localhost/chizuasobi/" data-width="100%" data-numposts="5"></div>
+        <div class="fb-comments" data-width="100%" data-numposts="5"></div>
       </div>
     </div>
   </div>
