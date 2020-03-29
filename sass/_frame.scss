@@ -515,20 +515,28 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
 
 .mainvisual {
   margin-top: 50px;
-  @include media-max(sm) {
-    // height: 200px;
-    // overflow: hidden;
-    // margin-top: 50px;
+  margin-bottom: 60px;
+  @include media-max(lg) {
+    margin-bottom: 55px;
   }
+  @include media-max(md) {
+    margin-bottom: 0;
+  }
+  @at-root {
+    .mainvisual-inner {
+      position: relative;
+    }
+  }
+
 }
 
 /* frame-main */
 /*--------------------------------------------------*/
 
 .home .frame-main {
-  @include media-max(sm) {
-    margin-top: -100px;
-  }
+  // @include media-max(sm) {
+  //   margin-top: -100px;
+  // }
 }
 
 
@@ -543,16 +551,16 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -60px;
+  bottom: -35px;
   margin: auto;
   @include media-max(lg) {
     width: 600px;
   }
+  // @include media-max(md) { 
+  //   bottom: 7px;
+  //   width: 450px;
+  // }
   @include media-max(md) { 
-    bottom: 7px;
-    width: 450px;
-  }
-  @include media-max(sm) { 
     position: static;
     width: inherit;
   }
@@ -568,9 +576,6 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after {
   margin: 0 7px;
 }
 
-.mainvisual-inner {
-  position: relative;
-}
 
 .slider-nav .slick-slide {
   position: relative;

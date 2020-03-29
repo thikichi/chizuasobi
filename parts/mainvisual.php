@@ -8,6 +8,7 @@ foreach ($slider_arr as $key => $slider) {
   $link   = $slider['slider']['link']['url'];
   $target = $slider['slider']['link']['target'] ? ' target="_blank"' : '';
   if( $osfw->is_mobile() ) {
+    // $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_golden_w750' );
     $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_golden_w750' );
   } else {
     $slider_img['square_w750'] = $osfw->get_thumbnail( $slider['slider']['image'], 'img_square_w750' );
@@ -29,7 +30,7 @@ foreach ($slider_arr as $key => $slider) {
 }
 ?>
 
-<div id="MainVisual" class="mainvisual mb-xs-100" style="background-color: gray">
+<div id="MainVisual" class="mainvisual" style="background-color: gray">
   <div class="mainvisual-inner">
     <ul class="slider-for">
       <?php echo $slider_for; ?>
@@ -57,15 +58,15 @@ jQuery(function($) {
             centerMode: false,
           }
         },
+        // {
+        //   breakpoint: 767,
+        //   settings: {
+        //     slidesToShow: 3,
+        //     centerMode: true,
+        //   }
+        // },
         {
           breakpoint: 767,
-          settings: {
-            slidesToShow: 3,
-            centerMode: true,
-          }
-        },
-        {
-          breakpoint: 575,
           settings: {
             slidesToShow: 1,
             centerMode: true,
@@ -90,17 +91,17 @@ jQuery(function($) {
         {
           breakpoint: 767,
           settings: {
-            slidesToShow: 3,
+            slidesToShow: 5,
             centerMode: true,
           }
         },
-        {
-          breakpoint: 575,
-          settings: {
-            slidesToShow: 3,
-            centerMode: true,
-          }
-        },
+        // {
+        //   breakpoint: 575,
+        //   settings: {
+        //     slidesToShow: 3,
+        //     centerMode: true,
+        //   }
+        // },
         {
           breakpoint: 400,
           settings: {

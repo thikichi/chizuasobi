@@ -13,34 +13,6 @@ global $osfw;
       }
       ?>
     </div>
-    <div class="box-1-map matchHeight">
-      <?php
-      // この投稿にひもづく史跡の一覧を取得
-      $landmark_id_arr = array();
-      // feature_posts
-      $landmark_posts = SCF::get('scf_feature_posts', $post->ID);
-      // var_dump($landmark_posts[0]['scf_feature_posts_post']);
-      foreach ((array)$landmark_posts[0]['scf_feature_posts_post'] as $landmark_post_id) {
-        $landmark_id_arr[] = $landmark_post_id;
-      }
-      // 投稿オブジェクトを単体で取得
-      $post_single = get_posts( array(
-        'post_type'=>'landmark',
-        'include'=>$landmark_id_arr,
-      ) );
-      $gmap = get_post_meta( $post->ID, 'acf_feature_map_center', true );
-      $zoom = get_post_meta( $post->ID, 'acf_feature_map_zoom', true );
-      $zoom = $zoom!='' ? $zoom : 6;
-      // 経度・緯度・ズーム率
-      $location = array('lat' => $gmap['lat'], 'lng' => $gmap['lng'], 'zoom' => $zoom);
-      // GoogleMapのフィールド、所在地のフィールド
-      $field_params = array( 'gmap' => 'acf_landmark_gmap', 'address' => 'acf_landmark_address');
-      // style
-      $style = 'height:135px;width:135px';
-      // 無料の地図アプリを呼び出す
-      echo get_openLayers_map( 'mapAreaTab_' . $post->ID , $location, '', $style );
-      ?>
-    </div>
     <div class="box-1-main matchHeight">
       <div class="box-1-text">
         <h3 class="subttl-1">

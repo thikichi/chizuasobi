@@ -89,22 +89,22 @@
 }
 .box-1-3col {
   .box-1-thumb { width: 150px; padding-right: 5px; }
-  .box-1-map { width: 150px; float: left; padding: 10px; padding-left: 5px; }
-  .box-1-main { width: calc(100% - 300px - 135px); }
+  // .box-1-map { width: 150px; float: left; padding: 10px; padding-left: 5px; }
+  .box-1-main { width: calc(100% - 150px - 135px); }
   .box-1-btn { width: 135px; }
   @include media-max(md) {
     .box-1-btnText { display: none; }
     .box-1-thumb { width: 100px }
-    .box-1-map { width: 100px; }
-    .box-1-main { width: calc(100% - 200px - 50px); }
+    // .box-1-map { width: 100px; }
+    .box-1-main { width: calc(100% - 100px - 50px); }
     .box-1-btn { width: 50px; }
   }
   @include media-max(sm) {
     .box-1-main .taglist-1 { display: none; }
     .box-1-bottom { display: block; }
     .box-1-thumb { width: 50%; border-bottom: 1px dotted #CCC; }
-    .box-1-map { width: 50%; border-bottom: 1px dotted #CCC; }
-    .box-1-main { width: calc(100% - 50px); }
+    // .box-1-map { width: 50%; border-bottom: 1px dotted #CCC; }
+    .box-1-main { width: calc(50% - 50px); }
   }
 }
 
