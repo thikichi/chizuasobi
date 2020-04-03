@@ -56,10 +56,10 @@ jQuery(function($) {
           }
       });
     }
-    // $('#mapRelation').myLazyLoadingObj({
-    //   callback : mapRelationDone,
-    // });
-    mapRelationDone();
+    $('#mapRelationHook').myLazyLoadingObj({
+      callback : mapRelationDone,
+    });
+    // mapRelationDone();
 
     $('input[name="chgmarker"]').change(function() {
       markerSize = $("input[name='chgmarker']:checked").val();

@@ -89,7 +89,7 @@ global $osfw;
           $relationplace = get_field('relationplace');
           if ( isset($relationplace) && $relationplace!='' ): ?>
             <div class="box4-content__sec">
-              <h3 class="box4-content__subttl">見どころ</h3>
+              <h3 id="mapRelationHook" class="box4-content__subttl">見どころ</h3>
               <?php $i=0; ?>
               <div class="box4__highlight-wrapper">
                 <?php $i=0; foreach ($relationplace as $place):

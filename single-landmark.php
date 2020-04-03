@@ -56,7 +56,10 @@
 <?php endif; ?>
 
 
-
+<?php
+$relationplace = get_field('relationplace');
+if( $relationplace ):
+?>
 <section class="block4">
   <div style="position:relative">
     <div id="mapRelationWrap" style="position:absolute;top:-100px"></div>
@@ -70,7 +73,6 @@
       <div class="block4__mappost">
         <div class="block4__mappost-map">
           <div id="mapRelation" class="block4__map"></div>
-
         </div>
         <div class="block4__mappost-post">
           <div class="block4__mapside">
@@ -85,6 +87,7 @@
     </div>
   </div>
 </section>
+<?php endif; ?>
 
 
 <?php
@@ -124,6 +127,10 @@ if( $select_id ):
 <?php endif; ?>
 
 
+<?php
+$gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
+if( $gallery_id_arr ):
+?>
 <section class="block4">
   <div style="position:relative">
     <div id="Gallery" style="position:absolute;top:-130px"></div>
@@ -134,7 +141,6 @@ if( $select_id ):
         史跡『<?php the_title(); ?>』の写真一覧
       </h3>
       <?php
-      $gallery_id_arr = get_post_meta( $post->ID, 'acf_gallery', true );
       if( $gallery_id_arr ) {
         echo '<ul class="gallery mt-xs-30">';
         foreach ($gallery_id_arr as $gallery_id) {
@@ -153,7 +159,7 @@ if( $select_id ):
     </div>
   </div>
 </section>
-
+<?php endif; ?>
 
 
 <hr class="line1"></hr>
