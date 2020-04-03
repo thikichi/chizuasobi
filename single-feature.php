@@ -38,11 +38,11 @@
   </div>
   <div class="container">
     <div class="block4__main">
-      <h2 class="title-1 mt-xs-15 mb-xs-15">
+      <h2 class="title-1 mt-xs-15 mb-xs-30">
         <span class="title-1__inner">
-          <span class="title-1__sub">
+<!--           <span class="title-1__sub">
             Featured Articles
-          </span>
+          </span> -->
           <span class="title-1__main">
             <?php the_title(); ?>
           </span>
@@ -50,7 +50,7 @@
       </h2>
       <?php if (have_posts()): ?>
         <?php while(have_posts()) : the_post(); ?>
-          <p class="block4__read mb-xs-15 align-center"><?php the_content(); ?></p>
+          <div class="block4__read mb-xs-15 align-center post-content"><?php the_content(); ?></div>
           <div class="block4__mappost">
             <div class="block4__mappost-map">
               <div id="mapSingleFeature" class="block4__map"></div>
