@@ -84,10 +84,11 @@ if(is_singular('landmark')) {
   get_template_part('parts-js/mapSamecat');
   $mapid = 'mapDistSearch';
   get_template_part('parts/js-mapDistSearch');
-  get_template_part('parts/js-postNearHotel');
+  // get_template_part('parts/js-postNearHotel');
   get_template_part('parts-js/mapRelation');
   get_template_part('parts-js/mapSingleFeature');
-} 
+  get_template_part('parts-js/mapHotel');
+}
 if(is_front_page()) {
   get_template_part('parts-js/mapFeature');
   get_template_part('parts-js/mapSearch');

@@ -431,10 +431,16 @@ EOM;
     // }
 
 
-$jy = $hotel->X / 3600000;
-$jx = $hotel->Y / 3600000;
-$lng = $jy - $jy * 0.00010695 + $jx * 0.000017464 + 0.0046017;
-$lat = $jx - $jy * 0.000046038 - $jx * 0.000083043 + 0.010040;
+// $jy = $hotel->X / 3600000;
+// $jx = $hotel->Y / 3600000;
+// $lng = $jy - $jy * 0.00010695 + $jx * 0.000017464 + 0.0046017;
+// $lat = $jx - $jy * 0.000046038 - $jx * 0.000083043 + 0.010040;
+
+
+$lat = $hotel->Y - $hotel->Y * 0.00010695 + $hotel->X * 0.000017464 + 0.0046017;
+$lng = $hotel->X - $hotel->Y * 0.000046038 - $hotel->X * 0.000083043 + 0.010040;
+
+
 
 $icon_hotel = get_stylesheet_directory_uri() . '/images/common/icon-hotel.png';
 
@@ -652,6 +658,7 @@ require_once 'ajax/mapSearchform.php';
 require_once 'ajax/mapRelation.php';
 require_once 'ajax/mapSingleFeature.php';
 require_once 'ajax/mapArchive.php';
+require_once 'ajax/mapHotel.php';
 
 
 function gmap_infowindow( $post_id, $map_id ) {
@@ -671,7 +678,11 @@ function gmap_infowindow( $post_id, $map_id ) {
   $title = esc_html(get_the_title( $post_id ));
   $link  = esc_url(get_the_permalink( $post_id ));
   $address = esc_html(get_post_meta( $post_id, 'acf_landmark_address', true ));
+  $tag = get_infowindow_tag($map_id, $img_url, $title, $address, $link );
+  return $tag;
+}
 
+function get_infowindow_tag($map_id, $img_url, $title, $address, $link ) {
   $tag  = '';
   $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
   $tag .= "<a style='position:absolute;top:-150px'></a>";
@@ -913,12 +924,80 @@ function marker_size_change_tag( $name='chgmarker' ) {
 }
 
 
+/*
+ * 緯度・経度の計算で日本測地系から世界測地系へ変換する
+*/
+function change_geodetic_system_from_jp_to_wd( $jlat, $jlng ) {
+  $rdata = array();
+  $jy = floatval($jlat) / 3600000;
+  $jx = floatval($jlng) / 3600000;
+  $rdata['lat'] = $jy - $jy * 0.00010695 + $jx * 0.000017464 + 0.0046017;
+  $rdata['lng'] = $jx - $jy * 0.000046038 - $jx * 0.000083043 + 0.010040;
+  return $rdata;
+}
 
 
+function slider_tags( $args ) {
+  
+  $title = isset($args['title']) ? $args['title'] : '';
+  $image = isset($args['image']) ? $args['image'] : '';
+  $text  = isset($args['text'])  ? $args['text']  : '';
+  $link_map  = isset($args['link_map'])  ? $args['link_map']  : '';
+  $link_main = isset($args['link_main']) ? $args['link_main'] : '';
+  $id    = isset($args['id'])    ? $args['id']    : '';
+  $link_text = isset($args['link_text']) ? $args['link_text'] : '';
 
+  $tag  = '';
+  $tag .= '<li>';
+  $tag .= '<div class="layout3-slider-box">';
+  $tag .= '<div class="layout3-thumb" style="background-image:url(' . $image . ')"></div>';
+  $tag .= '<div class="layout3-hoverBox">';
+  $tag .= '<h3>' . $title . '</h3>';
+  $tag .= '<p>' . $text . '</p>';
+  $tag .= '<div class="btn-2">';
+  $tag .= '<a class="link-1"';
+  $tag .= ' href="'. $link_map .'"';
+  $tag .= ' id="' . $id . '">地図を見る</a>';
+  $tag .= '</div>';
+  $tag .= '<div class="btn-2 _red">';
+  $tag .= '<a href="' . $link_main . '" target="_blank">' . $link_text .'</a>';
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '</div>';
+  $tag .= '</li>';
 
+  return $tag;
+}
 
+// マーカー画像
+function get_marker_image( $post_id, $marker_size ) {
+  global $osfw;
+  if( $marker_size==='img_marker_large' ) {
+    $set_marker_size = 'img_marker_large';
+  } else if( $marker_size==='img_marker_middle' ) {
+    $set_marker_size = 'img_marker_middle';
+  } else if( $marker_size==='img_marker_small' ) {
+    $set_marker_size = 'img_marker_small';
+  } else {
+    $set_marker_size = 'full';
+  }
+  $marker = $osfw->get_thumbnail( $post_id, $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
+}
 
+function get_landmark_thumbnail( $post_id ) {
+  $img_id = get_post_thumbnail_id( $post_id );
+  if( $img_id!='' ) {
+    $temp_img = wp_get_attachment_image_src( $img_id , 'thumbnail' );
+    if ($_SERVER['HTTPS']) {
+      $img_url = preg_replace( "/^http:/", "https:", $temp_img[0] );
+    } else {
+      $img_url = $temp_img[0];
+    }
+  } else {
+    $img_url   = get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg';
+  }
+  return $img_url;
+}
 
 // ↑↑ ここまで追加記述してください ↑↑ //
 

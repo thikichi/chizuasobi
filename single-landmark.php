@@ -297,7 +297,7 @@ if( $gallery_id_arr ):
 
 <section class="block5">
   <div style="position: relative;">
-    <div id="HotelList" style="position:absolute;top:-80px"></div>
+    <div id="mapHotelWrap" style="position:absolute;top:-80px"></div>
   </div>
   <div class="block5__container">
     <div class="block5__inner">
@@ -312,50 +312,12 @@ if( $gallery_id_arr ):
           スライダーを指定して指定の距離範囲内のランドマークを表示
           </span>
         </p>
-
-        <?php
-        $acf_landmark_gmap = get_post_meta( $post->ID, 'acf_landmark_gmap', true );
-        $lat = $acf_landmark_gmap['lat']; // 経度
-        $lng = $acf_landmark_gmap['lng']; // 緯度
-        $jx = ceil(($lng * 1.000106961 - $lat * 0.000017467 - 0.004602017) * 3600000);
-        $jy = ceil(($lat * 1.000083049 + $lng * 0.000046047 - 0.010041046) * 3600000);
-        $url = "http://jws.jalan.net/APIAdvance/HotelSearch/V1/?key=leo16d0c4beac1&x=" . $jx . "&y=" . $jy . "&range=50";
-        // $url = "http://jws.jalan.net/APIAdvance/HotelSearch/V1/?key=leo16d0c4beac1&x=125754539&y=488255756&range=10&count=1";
-        $xml = @simplexml_load_file($url);
-        // mapID、投稿オブジェクト、MAP中心
-        $style = 'width:100%;height:350px;margin-top:10px';
-        the_google_map_disp_m('mapSingleHotel', $xml->Hotel, $post->ID, $style);
-        ?>
-        <ul class="layout3-slider mt-xs-20">
-          <?php
-          if( isset($xml->Hotel) ):
-            foreach ($xml->Hotel as $hotel): ?>
-            <li>
-              <div class="layout3-slider-box">
-                <div class="layout3-thumb" style="background-image:url(<?php echo $hotel->PictureURL; ?>)">
-                </div>
-                <div class="layout3-hoverBox">
-                  <h3><?php echo $hotel->HotelName; ?></h3>
-                  <p>
-                    <?php echo $hotel->HotelCatchCopy; ?>http://localhost/chizuasobi
-                  </p>
-                  <div class="btn-2">
-                    <a class="link-1" href="#mapSingleHotel" id="HandleMap-mapSingleHotel-<?php echo $hotel->HotelID; ?>">地図を見る</a>
-                  </div>
-                  <div class="btn-2 _red">
-                    <a href="<?php echo $hotel->HotelDetailURL; ?>" target="_blank">ホテルの詳細へ</a>
-                  </div>
-                </div>
-              </div><!-- .layout3-slider-box -->
-            </li>
-          <?php endforeach;
-        endif; ?>
-        </ul>
+        <div id="mapHotel" class="gmap-main"><?php /* Ajax読み込み */ ?></div>
+        <ul id="mapHotelUL" class="layout3-slider mt-xs-20"><?php /*ajax出力 */ ?></ul>
       </div>
     </div>
   </div>
 </section>
-
 
 <hr class="line1"></hr>
 
