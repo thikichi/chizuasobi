@@ -542,7 +542,7 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .layout3-slider .slide-arrow.next-arrow { right: 0; }
 @media only screen and (min-width: 768px) { .layout3-slider .slide-arrow.next-arrow { right: -20px; } }
 
-.layout3-thumb { background-repeat: no-repeat; background-size: cover; width: 100%; height: 200px; }
+.layout3-thumb { background-repeat: no-repeat; width: 100%; height: 200px; background-color: #000; }
 @media only screen and (max-width: 991px) { .layout3-thumb { height: 150px; } }
 @media only screen and (max-width: 767px) { .layout3-thumb { height: 165px; } }
 @media only screen and (max-width: 575px) { .layout3-thumb { height: 168px; } }

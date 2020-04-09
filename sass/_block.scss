@@ -469,9 +469,10 @@ $layout3-slider-padding: 10px;
 
 .layout3-thumb {
   background-repeat:no-repeat;
-  background-size:cover;
+  // background-size:cover;
   width:100%;
   height:200px;
+  background-color: #000;
   @include media-max(lg) { height:150px; }
   @include media-max(md) { height:165px; }
   @include media-max(sm) { height:168px; }
