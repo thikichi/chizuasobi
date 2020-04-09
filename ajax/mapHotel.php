@@ -24,12 +24,21 @@ function mapHotelFunc(){
   $title   = esc_html(get_the_title( $post_id ));
   $address = esc_html(get_post_meta( $post_id, 'acf_landmark_address', true ));
   $link    = esc_url(get_the_permalink( $post_id ));
+  // marker image
+  $marker_id = get_post_meta( $post_id, 'acf_landmark_gmap_marker', true );
+  if( $marker_id ) {
+    $temp_marker = $osfw->get_thumbnail( $marker_id, 'full' );
+    $marker_main = $temp_marker['src'];
+  } else {
+    $marker_main = get_stylesheet_directory_uri() . '/images/common/icon-marker-noimage.png';
+  }
+
   // 中心のマーカーオブジェクト
   $returnObj['markerDataAjax'][0]['id']   = $mapid . "_" . 0;
   $returnObj['markerDataAjax'][0]['name'] = get_the_title( $post_id );
   $returnObj['markerDataAjax'][0]['lat']  = $lat_main;
   $returnObj['markerDataAjax'][0]['lng']  = $lng_main;
-  $returnObj['markerDataAjax'][0]['cat_icon'] = $marker['src'];
+  $returnObj['markerDataAjax'][0]['cat_icon'] = $marker_main;
   $returnObj['markerDataAjax'][0]['infoWindowContent'] = get_infowindow_tag($mapid, $img_url, $title, $address, $link );
 
   $i=1;
@@ -46,7 +55,7 @@ function mapHotelFunc(){
       'image'     => esc_url($img_url),
       'text'      => $hotel->HotelCaption,
       'link_map'  => 'javascript:mapHotelClick(\'' . $mapid . '_' . $i . '\')',
-      'link_main' => '#mapHotel_' . $i,
+      'link_main' => $hotel->HotelDetailURL,
       'id'        => '#mapHotel_' . $i,
       'link_text' => 'ホテルの詳細へ',
     );
@@ -58,7 +67,7 @@ function mapHotelFunc(){
     $returnObj['markerDataAjax'][$i]['lat']  = $lat;
     $returnObj['markerDataAjax'][$i]['lng']  = $lng;
     $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
-    $returnObj['markerDataAjax'][$i]['infoWindowContent'] = get_infowindow_tag($mapid, $hotel->PictureURL, $hotel->HotelName, $hotel->HotelAddress, $hotel->HotelDetailURL );
+    $returnObj['markerDataAjax'][$i]['infoWindowContent'] = get_infowindow_tag($mapid, $hotel->PictureURL, $hotel->HotelName, $hotel->HotelAddress, $hotel->HotelDetailURL, true );
     $i++;
   }
   $returnObj['tags'] = $tag;

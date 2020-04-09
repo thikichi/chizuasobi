@@ -682,7 +682,8 @@ function gmap_infowindow( $post_id, $map_id ) {
   return $tag;
 }
 
-function get_infowindow_tag($map_id, $img_url, $title, $address, $link ) {
+function get_infowindow_tag($map_id, $img_url, $title, $address, $link, $is_target_blank=false ) {
+  $target = $is_target_blank ? ' target="_blank"' : '';
   $tag  = '';
   $tag .= "<div id='" . $map_id . "' class='infwin cf' style='position:relative'>";
   $tag .= "<a style='position:absolute;top:-150px'></a>";
@@ -691,7 +692,7 @@ function get_infowindow_tag($map_id, $img_url, $title, $address, $link ) {
   $tag .= "<div class='infwin-main'>";
   $tag .= "<h3>" . $title . "</h3>";
   $tag .= "<p>" . $address . "</p>";
-  $tag .= "<p class='infwin-link'><a href='" . $link . "'>この記事を見る</a></p>";
+  $tag .= "<p class='infwin-link'><a href='" . $link . "'" . $target . ">この記事を見る</a></p>";
   $tag .= "</div>";
   $tag .= "</div>";
   return $tag;
@@ -982,6 +983,7 @@ function get_marker_image( $post_id, $marker_size ) {
     $set_marker_size = 'full';
   }
   $marker = $osfw->get_thumbnail( $post_id, $set_marker_size, get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
+  return $marker;
 }
 
 function get_landmark_thumbnail( $post_id ) {
