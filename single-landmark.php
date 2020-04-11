@@ -226,7 +226,6 @@ if( $gallery_id_arr ):
 <hr class="line1"></hr>
 
 
-
 <section class="block5">
   <div style="position: relative;">
     <div id="Shuhen" style="position:absolute;top:-100px"></div>
@@ -253,9 +252,7 @@ if( $gallery_id_arr ):
         $post_map_zoom   = get_post_meta( $post->ID, 'acf_landmark_zoom', true );
         $marker_data_arr = array();
         ?>
-        <div id="mapDistSearch" class="mt-xs-15" style="width: 100%;height: 500px">
-        </div>
-        
+        <div id="mapDistSearch" class="mt-xs-15" style="width: 100%;height: 500px"></div>
         <?php
         $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
         foreach ($all_land_cats as $all_land_cat): ?>
@@ -285,7 +282,6 @@ if( $gallery_id_arr ):
           <ul class="row mt-xs-15 fadeIn-1"></ul>
           <p id="DispPostMore" style="display:none">さらに表示する</p>
         </div>
-
       </div>
     </div>
   </div>

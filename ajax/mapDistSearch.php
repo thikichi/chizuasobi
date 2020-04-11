@@ -4,6 +4,7 @@ function mapDistSearchFunc(){
     $returnObj = array();
     $dist  = $_POST['dist'];
     $mapid  = $_POST['mapid'];
+    $post_id = $_POST['post_id'];
     $query_post_type = $_POST['query_post_type'];
     $query_terms     = isset($_POST['query_terms']) ? $_POST['query_terms'] : '';
     $query_postid    = $_POST['query_postid'];
@@ -12,27 +13,34 @@ function mapDistSearchFunc(){
     $disped_num = $display_mode=='replace' ? 0 :  $_POST['disped_num']; // すでに表示されている件数
 
     // 現在の投稿
-    $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'numberposts'=>-1 ) );
-    $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
-    $thisdist = distance($this_gmap['lat'], $this_gmap['lng'], $this_gmap['lat'], $this_gmap['lng'], true);
-    foreach ($this_posts as $this_post) {
-      $terms = get_the_terms(get_the_ID(), 'landmark_cateogry');
-      $term_list = '[';
-      foreach ( $terms as $term ) {
-        $term_list .= "'" . $term->term_id . "'";
-        if ($term !== end($terms)) $term_list .= ',';
-      }
-      $term_list .= ']';
-      $returnObj['markerDataAjax'][0]['id']   = $mapid . '_' . $this_post->ID;
-      $returnObj['markerDataAjax'][0]['name'] = $this_post->post_title;
-      $returnObj['markerDataAjax'][0]['lat']  = floatval($this_gmap['lat']);
-      $returnObj['markerDataAjax'][0]['lng']  = floatval($this_gmap['lng']);
-      $returnObj['markerDataAjax'][0]['cat']  = $term_list;
-      $returnObj['markerDataAjax'][0]['dist'] = $thisdist;
-      $returnObj['markerDataAjax'][0]['infoWindowContent'] = $this_post->post_title;
-      // $returnObj['markerDataAjax'][0]['infoWindowContent'] = getInfowinContent( $this_post->ID, 'mapDistSearch', 'img_url', $this_post->post_title, 'address', 'link' );
+    $main_post = get_post( $post_id );
+    $post_map_center = get_post_meta( $post_id, 'acf_landmark_gmap', true );
+    $lat_init = $post_map_center['lat'];
+    $lng_init = $post_map_center['lng'];
+    $terms = get_the_terms($post_id, 'landmark_cateogry');
+    $term_list = '[';
+    foreach ( $terms as $term ) {
+      $term_list .= "'" . $term->term_id . "'";
+      if ($term !== end($terms)) $term_list .= ',';
     }
+    $term_list .= ']';
+    $returnObj['markerDataAjax'][0]['id']   = $mapid . '_' . $post_id;
+    $returnObj['markerDataAjax'][0]['name'] = $this_post->post_title;
+    $returnObj['markerDataAjax'][0]['lat']  = floatval($lat_init);
+    $returnObj['markerDataAjax'][0]['lng']  = floatval($lng_init);
+    $returnObj['markerDataAjax'][0]['cat']  = $term_list;
+    $returnObj['markerDataAjax'][0]['dist'] = $thisdist;
+    $returnObj['markerDataAjax'][0]['infoWindowContent'] = gmap_infowindow( $post_id, $mapid . "_" . $post_id );
 
+
+    // 現在の投稿
+    // $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'numberposts'=>-1 ) );
+    // $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
+    // $thisdist = distance($this_gmap['lat'], $this_gmap['lng'], $this_gmap['lat'], $this_gmap['lng'], true);
+    // foreach ($this_posts as $this_post) {
+    // }
+
+    $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
     // 対象となる投稿（距離による絞り込みなし）
     $selected_posts = array();
     if( $query_terms ) {

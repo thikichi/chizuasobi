@@ -660,7 +660,6 @@ require_once 'ajax/mapSingleFeature.php';
 require_once 'ajax/mapArchive.php';
 require_once 'ajax/mapHotel.php';
 
-
 function gmap_infowindow( $post_id, $map_id ) {
 
   // Thumbnail

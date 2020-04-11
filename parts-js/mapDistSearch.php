@@ -17,7 +17,6 @@ jQuery(function($) {
     var mapLatLng;
     var circleObj;
     var currentDist = 5000;
-    // var currentDist = 700000;
     var query_terms = [];
     var query_postid = $('#DispPost').data('mainpostid');
     var query_post_type = 'landmark';
@@ -36,7 +35,7 @@ jQuery(function($) {
     }
 
     // ajax main
-    function doAjaxPosts( dist, query_post_type, query_terms, query_postid, display_mode='replace' ) {
+    function mapDistSearchDone( dist, query_post_type, query_terms, query_postid, display_mode='replace' ) {
       if( display_mode=='replace' ) {
         $('#DispPost > ul').html('<img class="_loader" src="<?php echo get_stylesheet_directory_uri(); ?>/images/common/icon-loader.gif">');
       } else {
@@ -51,10 +50,11 @@ jQuery(function($) {
               'action' : 'mapDistSearchFunc',
               'dist'   : dist,
               'mapid'  : 'mapDistSearch',
+              'post_id': <?php echo $post->ID; ?>,
               'query_post_type' : query_post_type,
               'query_terms'     : query_terms,
               'query_postid' : query_postid,
-              'disp_num' : 2, // 記事2件ずつ表示
+              'disp_num' : 10, // 記事2件ずつ表示
               'display_mode' : display_mode, // 表示のさせ方 replace 入れ替え additional
               'disped_num' : disped_num,
           },
@@ -62,9 +62,7 @@ jQuery(function($) {
             jsonData = JSON.parse( response );
             var tag = '';
             markerData = jsonData['markerDataAjax'];
-
             deleteMakers(markerData, 1, marker);
-            // dispMarker(map, jsonData['markerDataAjax'], marker, currentDist, 0, infoWindow);
             markerMapArea = dispMarker2( map, markerData );
             mapDistInfoWins = markerMapArea;
 
@@ -91,7 +89,7 @@ jQuery(function($) {
       var termid = $(this).data('termid');
       query_terms = get_checked_values('.marker-check');
       deleteMakers(markerData, 1, marker);
-      doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
+      mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid );
     });
 
     // セレクトボックス選択
@@ -105,12 +103,12 @@ jQuery(function($) {
       dalatePaintCircleMap( circleObj );
       circleObj = paintCircleMap( map, mapLatLng, currentDist );
       deleteMakers(markerData, 1, marker);
-      doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
+      mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid );
     });
 
     // さらに表示する
     $('#DispPostMore').on('click', function(event) {
-      doAjaxPosts( currentDist, query_post_type, query_terms, query_postid, 'additional' );
+      mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid, 'additional' );
     });
 
     // 遅延読み込み部分
@@ -119,7 +117,7 @@ jQuery(function($) {
       map = initMapDist( 'mapDistSearch', mapLatLng, centerMap, 13.0 );
       circleObj = paintCircleMap( map, mapLatLng, currentDist );
       query_terms = get_checked_values('.marker-check');
-      doAjaxPosts( currentDist, query_post_type, query_terms, query_postid );
+      mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid );
     }
     $('#mapDistSearch').myLazyLoadingObj({
       callback : mylazyloadDone,
