@@ -24,12 +24,17 @@ function mapDistSearchFunc(){
       if ($term !== end($terms)) $term_list .= ',';
     }
     $term_list .= ']';
+    // marker image
+    $marker_id = get_post_meta( $post_id, 'acf_landmark_gmap_marker', true );
+    $marker = $osfw->get_thumbnail( $marker_id, 'img_marker_large', get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
+    // ajax object
     $returnObj['markerDataAjax'][0]['id']   = $mapid . '_' . $post_id;
     $returnObj['markerDataAjax'][0]['name'] = $this_post->post_title;
     $returnObj['markerDataAjax'][0]['lat']  = floatval($lat_init);
     $returnObj['markerDataAjax'][0]['lng']  = floatval($lng_init);
     $returnObj['markerDataAjax'][0]['cat']  = $term_list;
     $returnObj['markerDataAjax'][0]['dist'] = $thisdist;
+    $returnObj['markerDataAjax'][0]['cat_icon'] = $marker['src'];
     $returnObj['markerDataAjax'][0]['infoWindowContent'] = gmap_infowindow( $post_id, $mapid . "_" . $post_id );
 
 
@@ -92,6 +97,9 @@ function mapDistSearchFunc(){
           // set icon from taxonomy term ID.
           $cat_icon_id = $osfw->get_term_cfield('landmark_cateogry', $main_cat_id, 'acf_landmark_cateogry_icon');
           $cat_icon = $cat_icon_id!='' ? $osfw->get_thumbnail( $cat_icon_id, 'full' ) : '';
+          // marker image
+          $marker_id = get_post_meta( $term_post->ID, 'acf_landmark_gmap_marker', true );
+          $marker = $osfw->get_thumbnail( $marker_id, 'img_marker_large', get_stylesheet_directory_uri() . '/images/common/noimage-100.jpg' );
           // マーカーオブジェクトをつくる
           $returnObj['markerDataAjax'][$i]['id']   = $term_post->ID;
           $returnObj['markerDataAjax'][$i]['name'] = $term_post->post_title;
@@ -99,7 +107,7 @@ function mapDistSearchFunc(){
           $returnObj['markerDataAjax'][$i]['lng']  = floatval($loop_gmap['lng']);
           $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
           $returnObj['markerDataAjax'][$i]['dist'] = $thisdist;
-          $returnObj['markerDataAjax'][$i]['cat_icon'] = isset($cat_icon['src']) ? $cat_icon['src'] : '';
+          $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
           $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( $term_post->ID, $mapid . "_" . $term_post->ID );
           // 距離内の記事一覧をIDで取得
           $selected_posts[] = $term_post->ID;
