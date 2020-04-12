@@ -22,8 +22,6 @@ jQuery(function($) {
             'post_id' : <?php echo $post->ID; ?>
           },
           success: function( response ){
-            jsonData = JSON.parse( response );
-            console.log(jsonData);
             markerData = jsonData['markerDataAjax'];
             // var last_lat = markerData[markerData.length - 1]['lat'];
             // var last_lng = markerData[markerData.length - 1]['lng'];

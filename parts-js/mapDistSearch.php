@@ -62,7 +62,8 @@ jQuery(function($) {
             jsonData = JSON.parse( response );
             var tag = '';
             markerData = jsonData['markerDataAjax'];
-            deleteMakers(markerData, 1, marker);
+            console.log(markerData);
+            // deleteMakers(markerData, 1, marker);
             markerMapArea = dispMarker2( map, markerData );
             mapDistInfoWins = markerMapArea;
 

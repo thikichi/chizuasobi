@@ -125,7 +125,6 @@ if( $gmap_ajax_search ) {
         selectFieldVal = { fieldname: setfield , value: val , type: 'NUMERIC' , compare: '>=' };
         // selectFieldVal[setfield]['type'] = 'NUMERIC';
         // selectFieldVal[setfield]['compare'] = '>=';
-        console.log(selectFieldVal);
       });
       // フリーワード検索
       inputTextVal = $('input[name="freetext"]').val();
