@@ -20,7 +20,9 @@
   width: calc(100% - 120px - 135px);
   padding: 10px;
 }
-.box-1-text {}
+.box-1-text {
+  text-align: left;
+}
 .box-1-btn {
   float: left;
   width: 135px;

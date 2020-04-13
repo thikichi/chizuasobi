@@ -100,13 +100,6 @@ function mapDistSearchFunc(){
           $the_query->the_post();
           $cfield_gmap = get_post_meta( get_the_ID(), 'acf_landmark_gmap', true );
           $cfield_addr = get_post_meta( get_the_ID(), 'acf_landmark_address', true );
-
-
-
-
-
-
-
           $terms = get_the_terms(get_the_ID(), 'landmark_cateogry');
           if ( ! empty( $terms ) && !is_wp_error( $terms ) ) {
             $term_list = '[';
@@ -129,9 +122,7 @@ function mapDistSearchFunc(){
           $returnObj['markerDataAjax'][$i]['cat']  = $term_list;
           $returnObj['markerDataAjax'][$i]['cat_icon'] = $marker['src'];
           $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
-
-
-
+          // $returnObj['markerDataAjax'][$i]['infoWindowContent'] = gmap_infowindow( get_the_ID(), $mapid . "_" . get_the_ID() );
           // Theme URL
           $theme_url = get_stylesheet_directory_uri();
           // Permalink
