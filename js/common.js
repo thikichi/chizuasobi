@@ -247,7 +247,6 @@ function dispMarker2(map, markerData) {
     marker[markerData[i]['id']] = new google.maps.Marker({ // マーカーの追加
       position: markerLatLng, // マーカーを立てる位置を指定
       icon: markerData[i]['cat_icon'],
-      title: 'アイコンタイトル',
       map: map // マーカーを立てる地図を指定
     });
     infoWinData = getInfoWindow( markerData[i]['infoWindowContent'] );

@@ -61,12 +61,10 @@ jQuery(function($) {
           success: function( response ){
             jsonData = JSON.parse( response );
             var tag = '';
+            // マーカーを消す
+            markerMapArea.forEach(function (marker, idx) { marker.setMap(null); });
             markerData = jsonData['markerDataAjax'];
-            console.log(markerData);
-            // deleteMakers(markerData, 1, marker);
             markerMapArea = dispMarker2( map, markerData );
-            mapDistInfoWins = markerMapArea;
-
             $('#PostNum > ._allnum').html(jsonData['post_num_all']);
             $('#PostNum > ._getnum').html(jsonData['post_num_get']);
             if( display_mode=='replace' ) {
@@ -89,7 +87,7 @@ jQuery(function($) {
     $('.marker-check').click(function() {
       var termid = $(this).data('termid');
       query_terms = get_checked_values('.marker-check');
-      deleteMakers(markerData, 1, marker);
+      // deleteMakers(markerData, termid, marker);
       mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid );
     });
 
@@ -103,7 +101,8 @@ jQuery(function($) {
       changeZoom(zoom, map);
       dalatePaintCircleMap( circleObj );
       circleObj = paintCircleMap( map, mapLatLng, currentDist );
-      deleteMakers(markerData, 1, marker);
+      // deleteMakers(markerData, 1, marker);
+
       mapDistSearchDone( currentDist, query_post_type, query_terms, query_postid );
     });
 
