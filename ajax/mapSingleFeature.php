@@ -13,11 +13,11 @@ function mapSingleFeatureFunc(){
   $select_posts = get_post_meta( $select_id, 'acf_feature_posts', true );
 
 
-ob_start();
-var_dump( $page_in_link );
-$out = ob_get_contents();
-ob_end_clean();
-file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+// ob_start();
+// var_dump( $page_in_link );
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
 
 
   $args = array(

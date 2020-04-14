@@ -37,14 +37,6 @@ function mapDistSearchFunc(){
     $returnObj['markerDataAjax'][0]['cat_icon'] = $marker['src'];
     $returnObj['markerDataAjax'][0]['infoWindowContent'] = gmap_infowindow( $post_id, $mapid . "_" . $post_id );
 
-
-    // 現在の投稿
-    // $this_posts     = get_posts( array( 'post_type'=>$query_post_type, 'numberposts'=>-1 ) );
-    // $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
-    // $thisdist = distance($this_gmap['lat'], $this_gmap['lng'], $this_gmap['lat'], $this_gmap['lng'], true);
-    // foreach ($this_posts as $this_post) {
-    // }
-
     $this_gmap = get_post_meta( $query_postid, 'acf_landmark_gmap', true );
     // 対象となる投稿（距離による絞り込みなし）
     $selected_posts = array();
@@ -63,18 +55,32 @@ function mapDistSearchFunc(){
         ),
       ));
       $i=1;
+      $post_num_get = 0;
+      $post_num_all = 0;
+
+// ob_start();
+// var_dump( $term_posts );
+// $out = ob_get_contents();
+// ob_end_clean();
+// file_put_contents(dirname(__FILE__) . '/test.txt', $out, FILE_APPEND);
+
       foreach ($term_posts as $term_post) {
         $loop_gmap = get_post_meta( $term_post->ID, 'acf_landmark_gmap', true );
         $loop_address = get_post_meta( $term_post->ID, 'acf_landmark_address', true );
         $thisdist  =  distance($this_gmap['lat'], $this_gmap['lng'], $loop_gmap['lat'], $loop_gmap['lng'], true);
         // 距離内にある投稿かどうかを判別する
+
         if( $thisdist < $dist ) {
           // 距離内の記事一覧をIDで取得
           $selected_posts[] = $term_post->ID;
+          $post_num_get++;
         }
+        $post_num_all++;
         $i++;
       }
     }
+    $returnObj['post_num_all']  = $post_num_all;
+    $returnObj['post_num_get']  = $post_num_get;
     // 対象となる投稿（距離により絞り込む）
     if( !empty($selected_posts) ) {
       $args = array(
@@ -85,8 +91,6 @@ function mapDistSearchFunc(){
       );
       $the_query = new WP_Query( $args );
       $get_num = $the_query->post_count;
-      $returnObj['post_num_all']  = $all_num = intval($the_query->found_posts);
-      $returnObj['post_num_get']  = $get_num + $disped_num;
       $returnObj['no_more_posts'] = $returnObj['post_num_get']>=$all_num ? true : false;
       // if( $display_mode==='replace' ) {
         $returnObj['tags'] = '';
