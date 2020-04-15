@@ -488,6 +488,8 @@ html.spnavi-opened .hamburger-spin .hamburger-inner::after { bottom: 0; -webkit-
 .block5__lead { font-size: 18px; font-family: 'Noto Serif JP', serif; }
 @media only screen and (max-width: 575px) { .block5__lead { font-size: 14px; } }
 
+.block5__form { margin-top: 15px; }
+
 /* block7 */
 .block7 { background-color: #FFF; padding: 50px 0; }
 .block7-ttl { font-size: 24px; font-family: 'Noto Serif JP', serif; text-align: center; border-bottom: 1px solid #CCC; padding: 20px 0; }

@@ -253,34 +253,38 @@ if( $gallery_id_arr ):
         $marker_data_arr = array();
         ?>
         <div id="mapDistSearch" class="mt-xs-15" style="width: 100%;height: 500px"></div>
-        <?php
-        $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
-        foreach ($all_land_cats as $all_land_cat): ?>
-          <input class="marker-check" data-termid="<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" value="<?php echo esc_attr($all_land_cat->term_id); ?>" checked>
-          <?php echo esc_html($all_land_cat->name); ?>
-        <?php endforeach; ?>
-        <select id="MarkerSelectDist">
-          <option value="1000000" data-zoom="5.0">1000km以下</option>
-          <option value="900000" data-zoom="5.0">900km以下</option>
-          <option value="800000" data-zoom="6.0">800km以下</option>
-          <option value="700000" data-zoom="6.0">700km以下</option>
-          <option value="600000" data-zoom="6.0">600km以下</option>
-          <option value="500000" data-zoom="6.0">500km以下</option>
-          <option value="400000" data-zoom="7.0">400km以下</option>
-          <option value="300000" data-zoom="7.0">300km以下</option>
-          <option value="200000" data-zoom="8.0">200km以下</option>
-          <option value="100000" data-zoom="9.0">100km以下</option>
-          <option value="50000" data-zoom="10.0">50km以下</option>
-          <option value="20000" data-zoom="11.0">20km以下</option>
-          <option value="10000" data-zoom="12.0">10km以下</option>
-          <option value="5000" data-zoom="13.0" selected>5km以下</option>
-          <option value="2500" data-zoom="14.0">2.5km以下</option>
-          <option value="1000" data-zoom="15.0">1.0km以下</option>
-        </select>
-        <p id="PostNum" class="fadeIn-1" style="display:none">記事件数: <span class="_allnum"></span> 件中 <span class="_getnum"></span>件表示</p>
-        <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>" class="mt-xs-30 align-center">
-          <ul class="row mt-xs-15 fadeIn-1"></ul>
-          <p id="DispPostMore" style="display:none">さらに表示する</p>
+        <div class="block5__form" id="mapDistCheck">
+          <div class="block5__form-check">
+            <?php
+            $all_land_cats = get_terms( array( 'taxonomy'=>'landmark_cateogry', 'get'=>'all' ) );
+            foreach ($all_land_cats as $all_land_cat): ?>
+              <input id="mapDistFormCheck-<?php echo $all_land_cat->term_id; ?>" class="marker-check" data-termid="<?php echo esc_attr($all_land_cat->term_id); ?>" type="checkbox" value="<?php echo esc_attr($all_land_cat->term_id); ?>" checked>
+              <label for="mapDistFormCheck-<?php echo $all_land_cat->term_id; ?>"><?php echo esc_html($all_land_cat->name); ?></label>
+            <?php endforeach; ?>
+          </div>
+          <select id="MarkerSelectDist">
+            <option value="1000000" data-zoom="5.0">1000km以下</option>
+            <option value="900000" data-zoom="5.0">900km以下</option>
+            <option value="800000" data-zoom="6.0">800km以下</option>
+            <option value="700000" data-zoom="6.0">700km以下</option>
+            <option value="600000" data-zoom="6.0">600km以下</option>
+            <option value="500000" data-zoom="6.0">500km以下</option>
+            <option value="400000" data-zoom="7.0">400km以下</option>
+            <option value="300000" data-zoom="7.0">300km以下</option>
+            <option value="200000" data-zoom="8.0">200km以下</option>
+            <option value="100000" data-zoom="9.0">100km以下</option>
+            <option value="50000" data-zoom="10.0">50km以下</option>
+            <option value="20000" data-zoom="11.0">20km以下</option>
+            <option value="10000" data-zoom="12.0">10km以下</option>
+            <option value="5000" data-zoom="13.0" selected>5km以下</option>
+            <option value="2500" data-zoom="14.0">2.5km以下</option>
+            <option value="1000" data-zoom="15.0">1.0km以下</option>
+          </select>
+          <p id="PostNum" class="fadeIn-1" style="display:none">記事件数: <span class="_allnum"></span> 件中 <span class="_getnum"></span>件表示</p>
+          <div id="DispPost" data-mainpostid="<?php echo $post->ID; ?>" class="mt-xs-30 align-center">
+            <ul class="row mt-xs-15 fadeIn-1"></ul>
+            <p id="DispPostMore" style="display:none">さらに表示する</p>
+          </div>
         </div>
       </div>
     </div>
